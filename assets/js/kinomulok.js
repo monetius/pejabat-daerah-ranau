@@ -3,15 +3,20 @@
 async function loadInclude(placeholderId, url) {
   const el = document.getElementById(placeholderId);
   if (!el) return;
+  // window.SITE_BASE is set per-page in a small inline <script> before this
+  // file loads — "" for a domain root deploy, "/repo-name" for a GitHub
+  // Pages project site served from a subpath.
+  const base = window.SITE_BASE || '';
+  const fullUrl = base + url;
   try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`${url} responded ${res.status}`);
+    const res = await fetch(fullUrl);
+    if (!res.ok) throw new Error(`${fullUrl} responded ${res.status}`);
     el.outerHTML = await res.text(); // replace the placeholder itself, not just its contents
   } catch (err) {
     // If this page is opened straight from disk (file://) fetch() is blocked by
     // the browser's CORS rules and this will fail — the site needs to be served
     // over http(s) (any static host) for the shared navbar/footer to load.
-    console.error('Could not load', url, err);
+    console.error('Could not load', fullUrl, err);
   }
 }
 
