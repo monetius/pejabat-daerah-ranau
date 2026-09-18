@@ -1,29 +1,24 @@
-/* ==========================================================================
-   Pejabat Daerah Ranau — design system
-   Palette drawn from the Sabah state crest (navy Kinabalu silhouette,
-   federal red, state blue) rather than a generic template palette.
-   ========================================================================== */
-
+/* baca la kalau ko mau */
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
 :root {
-  /* Color — burgundy palette (dominant, not just accents) */
-  --ink: #2a0f16;              /* deep wine-black — drives nav, footer, hero overlay */
-  --ink-soft: #5a3239;         /* muted wine-brown for body copy on light backgrounds */
-  --federal-red: #8c2438;      /* primary burgundy — buttons, active states, brand line */
-  --federal-red-dark: #6b1a29; /* hover/active state */
-  --kinabalu-blue: #c9a227;    /* secondary accent — links, highlights (muted gold) */
-  --sky-tint: #f7e9ec;         /* pale wine-tinted section backgrounds */
-  --paper: #faf6f1;            /* warm cream page background */
+  /* warna */
+  --ink: #2a0f16;             
+  --ink-soft: #5a3239;        
+  --federal-red: #8c2438;      
+  --federal-red-dark: #6b1a29; 
+  --kinabalu-blue: #c9a227;    
+  --sky-tint: #f7e9ec;         
+  --paper: #faf6f1;            
   --paper-raised: #ffffff;
   --line: rgba(42, 15, 22, 0.14);
   --line-strong: rgba(42, 15, 22, 0.24);
 
-  /* Type */
+  /* types */
   --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
   --font-body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* Layout */
+  /* layout */
   --nav-height: 84px;
   --nav-height-condensed: 64px;
   --content-width: 1160px;
@@ -65,7 +60,7 @@ h1, h2, h3, h4 {
 
 .container {
   max-width: var(--content-width);
-  margin: 0 auto;
+  margin:  auto;
   padding: 0 1.75rem;
 }
 
