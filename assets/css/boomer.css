@@ -1,0 +1,47 @@
+.pj-history {
+    max-width: 72ch;
+}
+
+.pj-history p {
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 1.1rem;
+}
+
+.pj-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    padding: 1rem 0 3rem;
+}
+
+.pj-list-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 2px solid var(--federal-red);
+}
+
+.pj-list {
+    list-style: decimal;
+    padding-left: 1.25rem;
+}
+
+.pj-list li {
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin-bottom: 0.6rem;
+    font-size: 0.95rem;
+}
+
+.pj-list li:last-child {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+@media (max-width: 860px) {
+    .pj-lists {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+}
