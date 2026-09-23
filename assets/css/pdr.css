@@ -1,3 +1,5 @@
+/* baca la kalau rajin */
+
 .perutusan-wrap {
     display: flex;
     gap: 2.5rem;
@@ -7,31 +9,33 @@
 }
 
 .perutusan-photo {
-    flex: 0 0 240px;
+    flex: 0 0 380px;
     text-align: center;
 }
 
 .perutusan-photo-frame {
     width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: var(--radius);
-    overflow: hidden;
-    border: 1px solid var(--line-strong);
-    box-shadow: 0 6px 18px rgba(42, 15, 22, 0.08);
-}
-
-.perutusan-photo-frame {
-    width: 200px;
-    height: 200px;
-    border: 1px solid #333;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .perutusan-photo-frame img {
     width: 100%;
-    height: 100%;
+    height: 400px;
+    object-fit: contain;
+    animation: perutusanFadeUp 0.9s ease-out both;
+}
+
+@keyframes perutusanFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .perutusan-photo-caption {
@@ -61,7 +65,7 @@
 
 @media (max-width: 640px) {
     .perutusan-photo {
-        flex: 0 0 160px;
+        flex: 0 0 220px;
         margin: 0 auto;
     }
 }
