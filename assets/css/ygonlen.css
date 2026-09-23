@@ -1,0 +1,126 @@
+/* ==========================================================================
+   Permohonan Latihan Industri
+   ========================================================================== */
+
+.li-lead {
+    padding: 3rem 0 0.5rem;
+}
+
+.li-lead-grid {
+    max-width: 68ch;
+}
+
+.li-lead-copy p {
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+}
+
+.li-lead-note {
+    font-size: 0.9rem !important;
+    color: var(--ink-soft);
+    opacity: 0.85;
+}
+
+.req-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.req-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.75rem 2rem;
+}
+
+.req-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+    margin-bottom: 1.1rem;
+}
+
+.req-card h3 i {
+    color: var(--kinabalu-blue);
+    font-size: 1rem;
+}
+
+.req-list {
+    list-style: none;
+}
+
+.req-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-bottom: 0.85rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+}
+
+.req-list li:last-child {
+    margin-bottom: 0;
+}
+
+.req-list i {
+    color: var(--federal-red);
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+.step-card {
+    position: relative;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--federal-red);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.5rem 1.5rem;
+}
+
+.step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.step-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+}
+
+.step-card p {
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+}
+
+@media (max-width: 980px) {
+    .steps-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .req-grid {
+        grid-template-columns: 1fr;
+    }
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+}
