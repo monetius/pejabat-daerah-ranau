@@ -21,15 +21,17 @@
 }
 
 .perutusan-photo-frame {
-    width: 300px;
+    width: 200px;
     height: 200px;
-    overflow: hidden;
+    border: 1px solid #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.perutusan-photo-frame img{
+.perutusan-photo-frame img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
 }
 
 .perutusan-photo-caption {
