@@ -1,8 +1,4 @@
-/* ==========================================================================
-   Pejabat Daerah Ranau — design system
-   Palette drawn from the Sabah state crest (navy Kinabalu silhouette,
-   federal red, state blue) rather than a generic template palette.
-   ========================================================================== */
+/* BACA LA KALAU KO MAU */
 
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 
@@ -1146,6 +1142,79 @@ section {
   .footer-content {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+}
+
+/* ==========================================================================
+   Mobile optimisation — tighter spacing, smaller touch chrome, no
+   horizontal scroll on small screens.
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .navbar {
+    padding: 0 1.1rem;
+  }
+
+  section {
+    padding: 3rem 0;
+  }
+
+  .section-head {
+    margin-bottom: 1.75rem;
+  }
+
+  .page-header {
+    padding: calc(var(--nav-height) + 1rem) 0 3rem;
+  }
+
+  .hero {
+    height: 78vh;
+    min-height: 440px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .quick-list a {
+    gap: 1rem;
+    padding: 1.25rem 0.1rem;
+  }
+
+  .quick-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .quick-icon i {
+    font-size: 1.1rem;
+  }
+
+  .quick-title {
+    font-size: 1.05rem;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .logo-text {
+    font-size: 0.85rem;
   }
 }
 
