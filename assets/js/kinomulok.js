@@ -68,46 +68,6 @@ function initNavbar() {
   }
 }
 
-function initTextSize() {
-  const buttons = document.querySelectorAll('.access-tools button[data-size]');
-  if (!buttons.length) return;
-
-  const STORAGE_KEY = 'pdr-text-size';
-  const root = document.documentElement;
-
-  const applySize = (size) => {
-    if (size === 'base') {
-      root.removeAttribute('data-size');
-    } else {
-      root.setAttribute('data-size', size);
-    }
-    buttons.forEach((btn) => {
-      const isActive = btn.dataset.size === size;
-      btn.classList.toggle('is-active', isActive);
-      btn.setAttribute('aria-pressed', String(isActive));
-    });
-  };
-
-  let saved = 'base';
-  try {
-    saved = localStorage.getItem(STORAGE_KEY) || 'base';
-  } catch (err) {
-  }
-  applySize(saved);
-
-  buttons.forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const size = btn.dataset.size;
-      applySize(size);
-      try {
-        localStorage.setItem(STORAGE_KEY, size);
-      } catch (err) {
-        // ignore write failures
-      }
-    });
-  });
-}
-
 function initHeroParallax() {
   const heroMedia = document.querySelector('.hero-media');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -141,6 +101,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   ]);
 
   initNavbar();
-  initTextSize();
   initHeroParallax();
 });

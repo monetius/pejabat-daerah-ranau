@@ -36,16 +36,6 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Text-size control (footer "A / A+ / A++") — scales every rem-based
-   measurement on the page since font-size here is inherited as the root. */
-html[data-size="lg"] {
-  font-size: 106.25%;
-}
-
-html[data-size="xl"] {
-  font-size: 112.5%;
-}
-
 body {
   font-family: var(--font-body);
   color: var(--ink-soft);
@@ -404,7 +394,6 @@ h1, h2, h3, h4 {
   font-size: clamp(2.4rem, 5vw, 4rem);
   max-width: 16ch;
   margin: 0 auto 1rem;
-  animation: FadeUp 0.9s ease-out both;
 }
 
 .hero-content p {
@@ -412,7 +401,6 @@ h1, h2, h3, h4 {
   max-width: 46ch;
   color: #e7ecf3;
   margin: 0 auto 1.75rem;
-  animation: FadeUp 0.9s ease-out both;
 }
 
 .hero-actions {
@@ -546,7 +534,6 @@ section {
 .section-head h2 {
   font-size: clamp(1.6rem, 2.6vw, 2.1rem);
   margin-bottom: 0.6rem;
-  animation: FadeUp 0.9s ease-in-out both;
 }
 
 .section-head p {
@@ -1092,39 +1079,6 @@ section {
   gap: 0.2rem;
 }
 
-.access-tools {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.access-label {
-  font-size: 0.75rem;
-  color: #92a1b3;
-  margin-right: 0.15rem;
-}
-
-.access-tools button {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: transparent;
-  color: #cfd8e3;
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
-}
-
-.access-tools button:hover,
-.access-tools button.is-active {
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.55);
-}
-
 @media (max-width: 720px) {
   .footer-content {
     grid-template-columns: 1fr;
@@ -1221,16 +1175,4 @@ section {
   .btn:hover {
     transform: none;
   }
-}
-
-/* fade up animation setting*/
-@keyframes FadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(24px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
