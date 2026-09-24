@@ -3,19 +3,14 @@
 async function loadInclude(placeholderId, url) {
   const el = document.getElementById(placeholderId);
   if (!el) return;
-  // window.SITE_BASE is set per-page in a small inline <script> before this
-  // file loads — "" for a domain root deploy, "/repo-name" for a GitHub
-  // Pages project site served from a subpath.
   const base = window.SITE_BASE || '';
   const fullUrl = base + url;
   try {
     const res = await fetch(fullUrl);
     if (!res.ok) throw new Error(`${fullUrl} responded ${res.status}`);
-    el.outerHTML = await res.text(); // replace the placeholder itself, not just its contents
+    el.outerHTML = await res.text(); 
   } catch (err) {
-    // If this page is opened straight from disk (file://) fetch() is blocked by
-    // the browser's CORS rules and this will fail — the site needs to be served
-    // over http(s) (any static host) for the shared navbar/footer to load.
+
     console.error('Could not load', fullUrl, err);
   }
 }
@@ -97,7 +92,6 @@ function initTextSize() {
   try {
     saved = localStorage.getItem(STORAGE_KEY) || 'base';
   } catch (err) {
-    // localStorage unavailable (private browsing, etc.) — fall back to 'base'
   }
   applySize(saved);
 
@@ -141,9 +135,6 @@ function initHeroParallax() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // Nav and footer are shared fragments fetched from one file each — see
-  // /assets/includes/navbar.html and /assets/includes/footer.html.
-  // Everything that touches nav elements has to wait until this resolves.
   await Promise.all([
     loadInclude('navbar-placeholder', '/assets/includes/navbar.html'),
     loadInclude('footer-placeholder', '/assets/includes/footer.html'),

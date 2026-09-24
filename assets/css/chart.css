@@ -1,0 +1,20 @@
+/* Carta Organisasi */
+
+.carta-section {
+    padding: 3rem 0 4rem;
+}
+
+.carta-figure {
+    max-width: 1000px;
+    margin: 0 auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--paper-raised);
+}
+
+.carta-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+}

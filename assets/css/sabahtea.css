@@ -4,13 +4,13 @@
 
 :root {
   /* Color — burgundy palette (dominant, not just accents) */
-  --ink: #101b2d;              /* deep navy — drives nav, footer, hero overlay */
-  --ink-soft: #45566b;         /* muted navy-grey for body copy on light backgrounds */
-  --federal-red: #c99a3d;      /* primary accent (Sabah-flag gold) — buttons, active states, brand line */
-  --federal-red-dark: #a67d2f; /* hover/active state */
-  --kinabalu-blue: #2f6fb0;    /* secondary accent (Sabah-flag blue) — links, highlights */
-  --sky-tint: #eef2f7;         /* pale navy-tinted section backgrounds */
-  --paper: #f5f6f2;            /* off-white page background */
+  --ink: #101b2d;          
+  --ink-soft: #45566b;       
+  --federal-red: #c99a3d;     
+  --federal-red-dark: #a67d2f;
+  --kinabalu-blue: #2f6fb0;   
+  --sky-tint: #eef2f7;         
+  --paper: #f5f6f2;            
   --paper-raised: #ffffff;
   --line: rgba(16, 27, 45, 0.12);
   --line-strong: rgba(16, 27, 45, 0.22);
@@ -227,10 +227,6 @@ h1, h2, h3, h4 {
 .dropdown-menu {
   display: none;
   position: absolute;
-  /* top:100% with no margin gap — a gap here would break hover, since
-     moving the cursor diagonally from the toggle into the menu would
-     cross empty space that isn't part of .dropdown, closing the menu
-     mid-move. */
   top: 100%;
   left: 0;
   margin-top: 0.5rem;
@@ -245,8 +241,6 @@ h1, h2, h3, h4 {
 }
 
 .dropdown::before {
-  /* Invisible bridge over the gap between the toggle and the menu, so the
-     cursor never leaves .dropdown while moving from one to the other. */
   content: '';
   position: absolute;
   top: 100%;
@@ -410,6 +404,7 @@ h1, h2, h3, h4 {
   font-size: clamp(2.4rem, 5vw, 4rem);
   max-width: 16ch;
   margin: 0 auto 1rem;
+  animation: FadeUp 0.9s ease-out both;
 }
 
 .hero-content p {
@@ -417,6 +412,7 @@ h1, h2, h3, h4 {
   max-width: 46ch;
   color: #e7ecf3;
   margin: 0 auto 1.75rem;
+  animation: FadeUp 0.9s ease-out both;
 }
 
 .hero-actions {
@@ -550,6 +546,7 @@ section {
 .section-head h2 {
   font-size: clamp(1.6rem, 2.6vw, 2.1rem);
   margin-bottom: 0.6rem;
+  animation: FadeUp 0.9s ease-in-out both;
 }
 
 .section-head p {
@@ -635,12 +632,6 @@ section {
   fill: none;
   stroke-width: 1.6;
 }
-
-/* ==========================================================================
-   Showcase — photo card grid ("The Parks of Sabah" style), homepage only.
-   Uses CSS-generated placeholder media until real photos are supplied —
-   swap each .showcase-media block for an <img> when content is ready.
-   ========================================================================== */
 
 .showcase-grid {
   display: grid;
@@ -754,9 +745,6 @@ section {
   }
 }
 
-/* ==========================================================================
-   Bulletin — noticeboard (announcements) + latest-news list, two-up
-   ========================================================================== */
 
 .bulletin-grid {
   display: grid;
@@ -990,7 +978,6 @@ section {
   }
 }
 
-/* Placeholder / coming-soon content block used across most inner pages */
 .notice-block {
   border: 1px solid var(--line-strong);
   border-left: 4px solid var(--kinabalu-blue);
@@ -1234,4 +1221,16 @@ section {
   .btn:hover {
     transform: none;
   }
+}
+
+/* fade up animation setting*/
+@keyframes FadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

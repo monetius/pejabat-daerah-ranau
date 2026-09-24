@@ -1,0 +1,128 @@
+/* ==========================================================================
+   Fungsi Jabatan
+   ========================================================================== */
+
+.fn-eyebrow {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--federal-red-dark);
+    margin-bottom: 0.75rem;
+}
+
+.fn-core {
+    background: var(--sky-tint);
+    padding: 3.5rem 0 4rem;
+}
+
+.fn-core h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 2rem;
+}
+
+.fn-core-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.fn-core-item {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--federal-red);
+    border-radius: var(--radius);
+    padding: 1.75rem 1.6rem;
+}
+
+.fn-core-icon,
+.fn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--sky-tint);
+    color: var(--kinabalu-blue);
+}
+
+.fn-core-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.fn-core-item p {
+    color: var(--ink);
+    font-size: 1.05rem;
+    line-height: 1.55;
+}
+
+.fn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    padding: 3.5rem 0 4rem;
+}
+
+.fn-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.75rem 2rem;
+}
+
+.fn-card-wide {
+    grid-column: 1 / -1;
+}
+
+.fn-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.15rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.fn-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+}
+
+.fn-list {
+    list-style: none;
+}
+
+.fn-card-wide .fn-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2.5rem;
+}
+
+.fn-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    margin-bottom: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+}
+
+.fn-list i {
+    color: var(--federal-red);
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+@media (max-width: 860px) {
+    .fn-core-grid,
+    .fn-grid,
+    .fn-card-wide .fn-list {
+        grid-template-columns: 1fr;
+    }
+}

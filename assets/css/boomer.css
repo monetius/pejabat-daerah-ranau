@@ -6,6 +6,7 @@
     color: var(--ink-soft);
     line-height: 1.7;
     margin-bottom: 1.1rem;
+    animation: FadeUp 0.9s ease-in-out both;
 }
 
 .pj-lists {
@@ -13,6 +14,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem;
     padding: 1rem 0 3rem;
+    animation: FadeUp 0.9s ease-in-out both;
 }
 
 .pj-list-card h2 {
@@ -20,6 +22,7 @@
     margin-bottom: 1.1rem;
     padding-bottom: 0.6rem;
     border-bottom: 2px solid var(--federal-red);
+    animation: FadeUp 0.9s ease-in-out both;
 }
 
 .pj-list {
@@ -43,5 +46,16 @@
     .pj-lists {
         grid-template-columns: 1fr;
         gap: 2.5rem;
+    }
+}
+
+@keyframes FadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

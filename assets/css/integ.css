@@ -1,0 +1,131 @@
+/* ==========================================================================
+   Hebahan Integriti
+   ========================================================================== */
+
+.hb-intro { padding: 3rem 0 1rem; }
+.hb-lead { max-width: 68ch; }
+.hb-lead p { font-size: 1.08rem; color: var(--ink-soft); margin-bottom: 1.5rem; }
+
+.hb-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.hb-chips a {
+    padding: 0.45rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.hb-chips a:hover, .hb-chips a:focus-visible { background: var(--ink); color: #fff; }
+
+.hb-section { padding: 3.5rem 0 4rem; scroll-margin-top: var(--nav-height-condensed); }
+.hb-head { margin-bottom: 2rem; max-width: 70ch; }
+.hb-head h2 { font-size: clamp(1.4rem, 2.8vw, 1.9rem); margin-bottom: 0.6rem; }
+.hb-head p { color: var(--ink-soft); }
+
+.hb-badge {
+    display: inline-block;
+    margin-bottom: 0.9rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.hb-grid { display: grid; gap: 1.5rem; }
+.hb-grid-2 { grid-template-columns: 1fr 1fr; }
+.hb-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.hb-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.hb-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--federal-red);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    color: inherit;
+    text-decoration: none;
+}
+.hb-card p { color: var(--ink-soft); line-height: 1.6; }
+.hb-card strong { display: block; color: var(--ink); margin-bottom: 0.15rem; }
+.hb-link { transition: transform 0.15s ease, border-color 0.15s ease; }
+.hb-link:hover, .hb-link:focus-visible { transform: translateY(-2px); border-color: var(--line-strong); border-top-color: var(--federal-red); }
+
+.hb-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 0.9rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 600;
+}
+.hb-ban, .hb-card .hb-num i { background: none; }
+.hb-ban { background: var(--sky-tint); color: var(--kinabalu-blue); font-size: 1.1rem; }
+
+.hb-step {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--federal-red-dark);
+}
+
+.hb-list { list-style: none; counter-reset: hb; max-width: 78ch; }
+.hb-list li {
+    counter-increment: hb;
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--line-strong);
+    color: var(--ink);
+    line-height: 1.55;
+}
+.hb-list li:last-child { border-bottom: 1px solid var(--line-strong); }
+.hb-list li::before {
+    content: "0" counter(hb);
+    flex-shrink: 0;
+    min-width: 2.4rem;
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    line-height: 1;
+    color: var(--federal-red);
+}
+
+.hb-source { margin-top: 1.75rem; font-size: 0.9rem; color: var(--ink-soft); }
+.hb-source i { margin-right: 0.4rem; color: var(--kinabalu-blue); }
+
+.hb-contact {
+    margin-top: 2rem;
+    padding: 1.75rem 2rem;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+.hb-contact h3 { font-size: 1.1rem; margin-bottom: 1.1rem; }
+.hb-contact ul { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 2rem; }
+.hb-contact li { display: flex; gap: 0.8rem; align-items: flex-start; color: var(--ink-soft); }
+.hb-contact li i { color: var(--kinabalu-blue); margin-top: 0.25rem; width: 1rem; text-align: center; }
+.hb-contact strong { display: block; color: var(--ink); }
+.hb-motto { margin-top: 1.25rem; font-family: var(--font-display); font-size: 1.15rem; color: var(--ink); }
+
+@media (max-width: 980px) {
+    .hb-grid-4 { grid-template-columns: 1fr 1fr; }
+    .hb-grid-3 { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+    .hb-grid-2, .hb-grid-4, .hb-contact ul { grid-template-columns: 1fr; }
+}
