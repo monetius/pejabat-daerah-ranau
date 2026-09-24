@@ -94,6 +94,79 @@ function initHeroParallax() {
   updateParallax();
 }
 
+function initLanguageSwitch() {
+  const toggle = document.getElementById('langToggle');
+  const menu = document.getElementById('langMenu');
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = menu.classList.toggle('active');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && e.target !== toggle) {
+      menu.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  menu.querySelectorAll('[data-lang]').forEach((btn) => {
+    btn.addEventListener('click', () => setSiteLanguage(btn.getAttribute('data-lang')));
+  });
+}
+
+// Loads Google's page-translation widget in the background and drives it
+// through a plain language menu instead of its default UI.
+function loadGoogleTranslate() {
+  if (document.getElementById('google_translate_element')) return;
+
+  const holder = document.createElement('div');
+  holder.id = 'google_translate_element';
+  holder.style.display = 'none';
+  document.body.appendChild(holder);
+
+  window.googleTranslateElementInit = function () {
+    new google.translate.TranslateElement(
+      {
+        pageLanguage: 'ms',
+        includedLanguages: 'ms,en,zh-CN,ta,ko',
+        autoDisplay: false,
+      },
+      'google_translate_element'
+    );
+  };
+
+  const script = document.createElement('script');
+  script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+  document.body.appendChild(script);
+}
+
+function setSiteLanguage(lang) {
+  const host = window.location.hostname;
+  const clearCookie = (domain) => {
+    document.cookie = `googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;${domain}`;
+  };
+  const setCookie = (value, domain) => {
+    document.cookie = `googtrans=${value}; path=/;${domain}`;
+  };
+
+  clearCookie('');
+  clearCookie(` domain=${host};`);
+
+  if (lang === 'ms') {
+    // Back to the original Bahasa Melayu content — just drop the cookie.
+    window.location.reload();
+    return;
+  }
+
+  const value = `/ms/${lang}`;
+  setCookie(value, '');
+  setCookie(value, ` domain=${host};`);
+  window.location.reload();
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   await Promise.all([
     loadInclude('navbar-placeholder', '/assets/includes/navbar.html'),
@@ -102,4 +175,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   initNavbar();
   initHeroParallax();
+  initLanguageSwitch();
+  loadGoogleTranslate();
 });

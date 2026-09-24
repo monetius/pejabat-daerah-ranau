@@ -267,6 +267,105 @@ h1, h2, h3, h4 {
   color: var(--kinabalu-blue);
 }
 
+.lang-switch {
+  position: relative;
+}
+
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.lang-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.lang-tooltip {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+.lang-switch:hover .lang-tooltip {
+  opacity: 1;
+}
+
+.lang-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 170px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 30px rgba(16, 27, 45, 0.2);
+  padding: 0.5rem;
+  display: none;
+  z-index: 200;
+}
+
+.lang-menu.active {
+  display: block;
+}
+
+.lang-menu li {
+  list-style: none;
+}
+
+.lang-menu button {
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.lang-menu button:hover {
+  background: var(--sky-tint);
+  color: var(--kinabalu-blue);
+}
+
+/* Google Translate adds its own top banner + shifts body down by default —
+   suppress that chrome since we drive translation through .lang-menu instead. */
+.goog-te-banner-frame,
+.skiptranslate > iframe {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.goog-te-gadget {
+  height: 0;
+  overflow: hidden;
+}
+
 .hamburger {
   display: none;
   flex-direction: column;
