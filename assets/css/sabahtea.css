@@ -172,6 +172,7 @@ h1, h2, h3, h4 {
 
 .nav-links > li > a,
 .dropdown-toggle {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.35rem;
@@ -195,8 +196,24 @@ h1, h2, h3, h4 {
   color: #fff;
 }
 
-.nav-links > li > a.is-active {
-  box-shadow: inset 0 -2px 0 var(--federal-red);
+.nav-links > li > a::after,
+.dropdown-toggle::after {
+  content: '';
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.35rem;
+  height: 2px;
+  background: var(--federal-red);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.nav-links > li > a:hover::after,
+.dropdown-toggle:hover::after,
+.dropdown.active .dropdown-toggle::after {
+  transform: scaleX(1);
 }
 
 .arrow {
@@ -250,6 +267,7 @@ h1, h2, h3, h4 {
 }
 
 .dropdown-menu li a {
+  position: relative;
   display: block;
   padding: 0.75rem 1.1rem;
   color: var(--ink-soft);
@@ -262,9 +280,26 @@ h1, h2, h3, h4 {
   border-bottom: none;
 }
 
+.dropdown-menu li a::after {
+  content: '';
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 0.55rem;
+  height: 1px;
+  background: var(--kinabalu-blue);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
 .dropdown-menu li a:hover {
   background: var(--sky-tint);
   color: var(--kinabalu-blue);
+}
+
+.dropdown-menu li a:hover::after {
+  transform: scaleX(1);
 }
 
 .lang-switch {
@@ -573,13 +608,30 @@ body {
 }
 
 .breadcrumb a {
+  position: relative;
   color: #cfe0ee;
   text-decoration: none;
 }
 
+.breadcrumb a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
 .breadcrumb a:hover {
   color: #fff;
-  text-decoration: underline;
+}
+
+.breadcrumb a:hover::after {
+  transform: scaleX(1);
 }
 
 .page-header h1 {
@@ -694,13 +746,13 @@ section {
   color: var(--ink-soft);
 }
 
-.showcase-grid {
+.quick-access-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.0rem;
 }
 
-.showcase-card {
+.quick-access-card {
   position: relative;
   display: block;
   aspect-ratio: 3 / 4;
@@ -708,6 +760,11 @@ section {
   overflow: hidden;
   text-decoration: none;
   color: #fff;
+  transition: transform 0.35s ease;
+}
+
+.quick-access-card:hover {
+  transform: translateY(-6px);
 }
 
 .showcase-media {
@@ -719,7 +776,13 @@ section {
   transition: transform 0.35s ease;
 }
 
-.showcase-card:hover .showcase-media {
+img.showcase-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.quick-access-card:hover .showcase-media {
   transform: scale(1.05);
 }
 
@@ -747,13 +810,13 @@ section {
   z-index: 2;
 }
 
-.showcase-scrim {
+.quick-access-scrim {
   position: absolute;
   inset: 0;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 55%);
 }
 
-.showcase-card-body {
+.quick-access-body {
   position: absolute;
   left: 0;
   right: 0;
@@ -762,22 +825,13 @@ section {
   z-index: 1;
 }
 
-.showcase-eyebrow {
-  display: block;
-  font-size: 0.72rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.75);
-  margin-bottom: 0.35rem;
-}
-
-.showcase-card h3 {
+.quick-access-card h3 {
   color: #fff;
   font-size: 1.15rem;
   margin-bottom: 0.5rem;
 }
 
-.showcase-link {
+.quick-access-link {
   font-size: 0.85rem;
   font-weight: 600;
   color: #fff;
@@ -786,22 +840,22 @@ section {
   transition: border-color 0.15s ease;
 }
 
-.showcase-card:hover .showcase-link {
+.quick-access-card:hover .quick-access-link {
   border-color: #fff;
 }
 
 @media (max-width: 980px) {
-  .showcase-grid {
+  .quick-access-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 560px) {
-  .showcase-grid {
+  .quick-access-grid {
     grid-template-columns: 1fr;
   }
 
-  .showcase-card {
+  .quick-access-card {
     aspect-ratio: 16 / 10;
   }
 }
@@ -1099,11 +1153,26 @@ section {
 }
 
 .footer-section a {
+  position: relative;
+  display: block;
+  width: fit-content;
   color: #cfd8e3;
   text-decoration: none;
-  display: block;
   margin-bottom: 0.6rem;
   transition: color 0.15s ease;
+}
+
+.footer-section a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
 }
 
 .footer-social-link {
@@ -1131,6 +1200,10 @@ section {
 
 .footer-section a:hover {
   color: #fff;
+}
+
+.footer-section a:hover::after {
+  transform: scaleX(1);
 }
 
 .footer-bottom {
