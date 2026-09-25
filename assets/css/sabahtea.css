@@ -103,16 +103,25 @@ h1, h2, h3, h4 {
   gap: 1.5rem;
   height: var(--nav-height);
   padding: 0 2rem;
-  background: transparent;
-  border-bottom: 3px solid transparent;
-  transition: height 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  background: rgba(16, 27, 45, 0.78);
+  border-bottom: 1px solid rgba(201, 154, 61, 0.55);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  transition: height 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+    backdrop-filter 0.25s ease;
 }
 
 .navbar.is-condensed {
   height: var(--nav-height-condensed);
-  background: rgba(16, 27, 45, 0.97);
-  border-bottom-color: var(--federal-red);
-  backdrop-filter: saturate(160%) blur(8px);
+}
+
+/* Homepage: navbar starts invisible over the hero, then becomes the same
+   frosted design as every other page once scrolled (is-condensed). */
+body.is-home .navbar:not(.is-condensed) {
+  background: transparent;
+  border-bottom-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 .navbar .logo {
@@ -260,10 +269,50 @@ h1, h2, h3, h4 {
   display: block;
 }
 
+/* Desktop: animated flyout instead of an instant show/hide.
+   .dropdown-menu stays display:block always at this breakpoint and is
+   revealed with opacity/transform so the transition can actually play. */
 @media (min-width: 861px) {
-  .dropdown:hover .dropdown-menu {
+  .dropdown-menu {
     display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.28s;
   }
+
+  .dropdown:hover .dropdown-menu,
+  .dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Cascade each item in slightly staggered, instead of the whole panel
+     popping in at once. */
+  .dropdown-menu li {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    transition-delay: 0s;
+  }
+
+  .dropdown:hover .dropdown-menu li,
+  .dropdown-menu.active li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .dropdown-menu li:nth-child(1) { transition-delay: 0.03s; }
+  .dropdown-menu li:nth-child(2) { transition-delay: 0.06s; }
+  .dropdown-menu li:nth-child(3) { transition-delay: 0.09s; }
+  .dropdown-menu li:nth-child(4) { transition-delay: 0.12s; }
+  .dropdown-menu li:nth-child(5) { transition-delay: 0.15s; }
+  .dropdown-menu li:nth-child(6) { transition-delay: 0.18s; }
+  .dropdown-menu li:nth-child(7) { transition-delay: 0.21s; }
 }
 
 .dropdown-menu li a {
@@ -274,6 +323,7 @@ h1, h2, h3, h4 {
   text-decoration: none;
   font-size: 0.92rem;
   border-bottom: 1px solid var(--line);
+  transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
 }
 
 .dropdown-menu li:last-child a {
@@ -293,13 +343,31 @@ h1, h2, h3, h4 {
   transition: transform 0.2s ease;
 }
 
+.dropdown-menu li a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--federal-red);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 0.2s ease;
+}
+
 .dropdown-menu li a:hover {
   background: var(--sky-tint);
   color: var(--kinabalu-blue);
+  padding-left: 1.4rem;
 }
 
 .dropdown-menu li a:hover::after {
   transform: scaleX(1);
+}
+
+.dropdown-menu li a:hover::before {
+  transform: scaleY(1);
 }
 
 .lang-switch {
@@ -1133,7 +1201,7 @@ img.showcase-media {
 
 .footer-content {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-columns: 1.4fr repeat(auto-fit, minmax(150px, 1fr));
   gap: 2.5rem;
 }
 
