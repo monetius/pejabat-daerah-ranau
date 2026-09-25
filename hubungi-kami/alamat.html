@@ -4,30 +4,80 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Alamat, Telefon dan Faks - Pejabat Daerah Ranau</title>
-    <meta name="description" content="Laman web rasmi Pejabat Daerah Ranau, Sabah." />
+    <meta name="description" content="Hubungi Pejabat Daerah Ranau, Sabah: telefon, faks, alamat surat dan waktu urusan." />
     <link rel="stylesheet" href="/pejabat-daerah-ranau/assets/css/sabahtea.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="/pejabat-daerah-ranau/assets/css/apple-contact.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" href="/pejabat-daerah-ranau/assets/img/favicon.png" type="image/png" />
   </head>
-  <body>
+  <body class="apple-page">
     <div id="navbar-placeholder"></div>
     <main id="main">
-      <div class="page-header">
-        <svg class="page-header-watermark" viewBox="0 0 200 120" aria-hidden="true"><path d="M0,120 L20,80 L45,95 L70,55 L95,90 L120,40 L150,85 L175,60 L200,100 L200,120 Z" fill="#ffffff"/></svg>
-        <div class="container">
-          <ul class="breadcrumb"><li><a href="/pejabat-daerah-ranau/index.html">Laman Utama</a></li><li>Hubungi Kami</li><li>Alamat, Telefon dan Faks</li></ul>
-          <h1>Alamat, Telefon dan Faks</h1>
-        </div>
-        <svg class="ridge" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0,80 L0,46 L60,52 L140,20 L210,38 L300,8 L380,30 L470,14 L560,40 L650,22 L740,44 L830,18 L910,36 L1000,12 L1080,34 L1160,20 L1200,30 L1200,80 Z"/></svg>
-      </div>
-      <section>
-        <div class="container">
-          <div class="notice-block">
-            <h2>Kandungan sedang disediakan</h2>
-            <p>Alamat, talian telefon dan faks Pejabat Daerah Ranau. Halaman ini akan dikemas kini dengan maklumat penuh tidak lama lagi. Untuk pertanyaan segera, sila <a href="/pejabat-daerah-ranau/hubungi-kami/alamat.html">hubungi Pejabat Daerah Ranau</a>.</p>
+      <div class="ac-hero">
+        <div class="ac-wrap">
+          <h1>Kami sedia membantu.</h1>
+          <p>Hubungi Pejabat Daerah Ranau melalui telefon, faks atau surat, atau datang terus ke pejabat.</p>
+          <div class="ac-actions">
+            <a class="ac-btn" href="tel:+6088875500">Panggil 088-875500</a>
+            <a class="ac-link" href="#waktu">Lihat waktu urusan</a>
           </div>
         </div>
-      </section>
+      </div>
+
+      <div class="ac-wrap">
+        <div class="ac-grid">
+          <div class="ac-card ac-photo">
+            <img src="/pejabat-daerah-ranau/assets/img/pejabatdaerah.webp" alt="Bangunan Pejabat Daerah Ranau" />
+            <h2>Datang ke pejabat</h2>
+            <p>Pejabat Daerah Ranau, 89307 Ranau, Sabah</p>
+            <a class="ac-btn is-ghost" href="https://www.google.com/maps/search/?api=1&query=Pejabat+Daerah+Ranau" target="_blank" rel="noopener">Buka di Peta</a>
+          </div>
+
+          <div class="ac-card ac-dark">
+            <h2>Telefon</h2>
+            <p class="ac-label">Talian am</p>
+            <p class="ac-num">088-875500</p>
+            <div class="ac-row">
+              <a class="ac-btn" href="tel:+6088875500">Panggil</a>
+              <button class="ac-btn is-ghost" type="button" data-copy="088-875500">Salin nombor</button>
+            </div>
+          </div>
+
+          <div class="ac-card" id="waktu">
+            <h2>Waktu urusan</h2>
+            <div class="ac-status" id="status" role="status" hidden><span class="ac-dot"></span><span id="status-text"></span></div>
+            <dl class="ac-hours">
+              <div data-days="1 2 3 4"><dt>Isnin – Khamis</dt><dd>8:00 pagi – 5:00 petang</dd></div>
+              <div data-days="5"><dt>Jumaat</dt><dd>8:00 pagi – 11:30 pagi, 2:00 – 5:00 petang</dd></div>
+              <div data-days="0 6"><dt>Sabtu dan Ahad</dt><dd>Tutup</dd></div>
+            </dl>
+          </div>
+
+          <div class="ac-card is-short">
+            <h2>Faks</h2>
+            <p class="ac-num">088-875511</p>
+            <div class="ac-row"><button class="ac-btn is-soft" type="button" data-copy="088-875511">Salin nombor</button></div>
+          </div>
+
+          <div class="ac-card is-short">
+            <h2>Surat</h2>
+            <address>Peti Surat 2,<br />89307 Ranau,<br />Sabah, Malaysia</address>
+            <div class="ac-row"><button class="ac-btn is-soft" type="button" data-copy="Peti Surat 2, 89307 Ranau, Sabah, Malaysia">Salin alamat</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ac-more">
+        <div class="ac-wrap">
+          <h2>Perlukan sesuatu yang lain?</h2>
+          <div class="ac-tiles">
+            <a class="ac-tile" href="/pejabat-daerah-ranau/perkhidmatan-online/aduan-awam.html"><i class="fa-solid fa-comment-dots"></i><h3>Sistem Aduan Awam</h3><p>Hantar aduan atau maklum balas dalam talian.</p></a>
+            <a class="ac-tile" href="/pejabat-daerah-ranau/perkhidmatan-online/lesen-berniaga.html"><i class="fa-solid fa-store"></i><h3>Lesen Berniaga</h3><p>Mohon lesen berniaga dalam talian.</p></a>
+            <a class="ac-tile" href="https://www.facebook.com/PDRanau" target="_blank" rel="noopener"><i class="fa-brands fa-facebook-f"></i><h3>Facebook</h3><p>Ikuti hebahan terkini Pejabat Daerah Ranau.</p></a>
+          </div>
+        </div>
+      </div>
     </main>
     <div id="footer-placeholder"></div>
     <script>

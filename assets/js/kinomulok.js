@@ -1,4 +1,4 @@
-// Pejabat Daerah Ranau — shared site script
+// bikin kasi senang kerja
 
 async function loadInclude(placeholderId, url) {
   const el = document.getElementById(placeholderId);
@@ -10,7 +10,6 @@ async function loadInclude(placeholderId, url) {
     if (!res.ok) throw new Error(`${fullUrl} responded ${res.status}`);
     el.outerHTML = await res.text(); 
   } catch (err) {
-
     console.error('Could not load', fullUrl, err);
   }
 }
@@ -167,6 +166,89 @@ function setSiteLanguage(lang) {
   window.location.reload();
 }
 
+// Regular counter hours, as [openHour, closeHour] pairs (fractional hours
+// are allowed, e.g. 11.5 = 11:30). Monday–Thursday runs as one block.
+const WEEKDAY_HOURS = [[8, 17]];
+
+// Friday breaks for the midday prayer, so it gets its own schedule:
+// 8:00–11:30 in the morning, then 2:00–5:00 in the afternoon.
+const FRIDAY_HOURS = [[8, 11.5], [14, 17]];
+
+function getHoursForDay(day) {
+  if (day >= 1 && day <= 4) return WEEKDAY_HOURS;
+  if (day === 5) return FRIDAY_HOURS;
+  return []; // Saturday, Sunday
+}
+
+function formatHour(h) {
+  const hour = Math.floor(h);
+  const minutes = Math.round((h - hour) * 60);
+  const displayHour = hour > 12 ? hour - 12 : hour;
+  const mm = minutes === 0 ? '00' : String(minutes).padStart(2, '0');
+  const period = hour < 12 ? 'pagi' : hour === 12 && minutes === 0 ? 'tengah hari' : 'petang';
+  return `${displayHour}:${mm} ${period}`;
+}
+
+// Live open/closed status in Sabah time (Asia/Kuala_Lumpur), based on
+// regular hours only.
+function initOfficeHours() {
+  const box = document.getElementById('status');
+  const txt = document.getElementById('status-text');
+
+  const dayNames = ['Ahad', 'Isnin', 'Selasa', 'Rabu', 'Khamis', 'Jumaat', 'Sabtu'];
+  const weekdayAbbr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  const parts = {};
+  new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Kuala_Lumpur',
+    weekday: 'short',
+    hour: 'numeric',
+    minute: 'numeric',
+    hourCycle: 'h23',
+  })
+    .formatToParts(new Date())
+    .forEach((p) => { parts[p.type] = p.value; });
+
+  const today = weekdayAbbr.indexOf(parts.weekday);
+  const now = Number(parts.hour) + Number(parts.minute) / 60;
+  let open = null;
+  let next = null;
+
+  for (let i = 0; i < 8 && !open && !next; i++) {
+    const day = (today + i) % 7;
+    const hours = getHoursForDay(day);
+    for (const [start, end] of hours) {
+      if (i === 0 && now >= start && now < end) { open = end; break; }
+      if (i > 0 || now < start) { next = { daysAhead: i, day, start }; break; }
+    }
+  }
+
+  if (box && txt && today > -1) {
+    box.classList.toggle('is-open', !!open);
+    txt.innerHTML = open
+      ? `Buka sekarang <small>Tutup pada ${formatHour(open)}</small>`
+      : `Tutup sekarang <small>Buka semula ${
+          next.daysAhead === 0 ? 'hari ini' : next.daysAhead === 1 ? 'esok' : dayNames[next.day]
+        }, ${formatHour(next.start)}</small>`;
+    box.hidden = false;
+    txt.parentNode.style.flexWrap = 'wrap';
+  }
+
+  document.querySelectorAll('[data-days]').forEach((row) => {
+    if (row.dataset.days.split(' ').includes(String(today))) row.classList.add('is-today');
+  });
+
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const label = btn.textContent;
+      navigator.clipboard.writeText(btn.dataset.copy).then(() => {
+        btn.textContent = 'Disalin';
+        setTimeout(() => { btn.textContent = label; }, 1600);
+      });
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   await Promise.all([
     loadInclude('navbar-placeholder', '/assets/includes/navbar.html'),
@@ -177,4 +259,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   initHeroParallax();
   initLanguageSwitch();
   loadGoogleTranslate();
+  initOfficeHours();
 });
