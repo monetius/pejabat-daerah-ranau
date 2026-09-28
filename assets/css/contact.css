@@ -262,6 +262,10 @@
   animation: ac-pulse 2.4s ease-out infinite
 }
 
+.ac-status.is-rest .ac-dot {
+  background: #d98a1f
+}
+
 @keyframes ac-pulse {
   0% {
     box-shadow: 0 0 0 0 rgba(36, 138, 61, .5)

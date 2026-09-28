@@ -8,7 +8,7 @@ async function loadInclude(placeholderId, url) {
   try {
     const res = await fetch(fullUrl);
     if (!res.ok) throw new Error(`${fullUrl} responded ${res.status}`);
-    el.outerHTML = await res.text(); 
+    el.outerHTML = await res.text();
   } catch (err) {
     console.error('Could not load', fullUrl, err);
   }
@@ -166,13 +166,22 @@ function setSiteLanguage(lang) {
   window.location.reload();
 }
 
-// Regular counter hours, as [openHour, closeHour] pairs (fractional hours
-// are allowed, e.g. 11.5 = 11:30). Monday–Thursday runs as one block.
+// Working hours, as [openHour, closeHour] pairs (fractional hours are
+// allowed, e.g. 11.5 = 11:30). Rest time is NOT excluded here: the counter
+// is shown as "open" all day and only switches to "Rehat" during rest time.
 const WEEKDAY_HOURS = [[8, 17]];
+const FRIDAY_HOURS = [[8, 17]];
 
-// Friday breaks for the midday prayer, so it gets its own schedule:
-// 8:00–11:30 in the morning, then 2:00–5:00 in the afternoon.
-const FRIDAY_HOURS = [[8, 11.5], [14, 17]];
+// Rest time, as [startHour, endHour].
+// Monday–Thursday 1:00–2:00 pm; Friday 11:30 am–2:00 pm.
+const WEEKDAY_REST = [13, 14];
+const FRIDAY_REST = [11.5, 14];
+
+function getRestForDay(day) {
+  if (day >= 1 && day <= 4) return WEEKDAY_REST;
+  if (day === 5) return FRIDAY_REST;
+  return null;
+}
 
 function getHoursForDay(day) {
   if (day >= 1 && day <= 4) return WEEKDAY_HOURS;
@@ -224,11 +233,15 @@ function initOfficeHours() {
   }
 
   if (box && txt && today > -1) {
-    box.classList.toggle('is-open', !!open);
-    txt.innerHTML = open
-      ? `Buka sekarang <small>Tutup pada ${formatHour(open)}</small>`
-      : `Tutup sekarang <small>Buka semula ${
-          next.daysAhead === 0 ? 'hari ini' : next.daysAhead === 1 ? 'esok' : dayNames[next.day]
+    const rest = getRestForDay(today);
+    const resting = !!open && !!rest && now >= rest[0] && now < rest[1];
+    box.classList.toggle('is-open', !!open && !resting);
+    box.classList.toggle('is-rest', resting);
+    txt.innerHTML = resting
+      ? `Waktu rehat <small>Buka semula ${formatHour(rest[1])}</small>`
+      : open
+        ? 'Buka sekarang'
+        : `Tutup sekarang <small>Buka semula ${next.daysAhead === 0 ? 'hari ini' : next.daysAhead === 1 ? 'esok' : dayNames[next.day]
         }, ${formatHour(next.start)}</small>`;
     box.hidden = false;
     txt.parentNode.style.flexWrap = 'wrap';
