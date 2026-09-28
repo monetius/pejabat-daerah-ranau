@@ -1,0 +1,128 @@
+/* Wakil Rakyat */
+
+.wr-intro {
+    padding: 2.5rem 0 0.5rem;
+}
+
+.wr-lead {
+    max-width: 68ch;
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    margin-bottom: 1.25rem;
+}
+
+.wr-sub {
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.wr-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.wr-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.8rem 1.25rem 0.8rem 0.9rem;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.wr-num {
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.wr-lbl {
+    max-width: 14ch;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.wr-list {
+    padding: 2rem 0 3.5rem;
+}
+
+.wr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.wr-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--federal-red);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.wr-card.wr-parlimen {
+    border-top-color: var(--kinabalu-blue);
+}
+
+.wr-photo {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: top center;
+    background: var(--line);
+}
+
+.wr-body {
+    padding: 1.1rem 1.3rem 1.4rem;
+}
+
+.wr-role {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--kinabalu-blue);
+}
+
+.wr-body h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.2rem;
+}
+
+.wr-kaw {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    padding: 0.15rem 0.7rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.wr-body ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.wr-body li {
+    padding: 0.35rem 0;
+    border-top: 1px solid var(--line);
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+}

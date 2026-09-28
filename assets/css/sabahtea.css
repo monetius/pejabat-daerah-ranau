@@ -596,6 +596,7 @@ body {
   font-size: clamp(2.4rem, 5vw, 4rem);
   max-width: 16ch;
   margin: 0 auto 1rem;
+  letter-spacing: 7px;
 }
 
 .hero-content p {
