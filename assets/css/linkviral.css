@@ -29,7 +29,7 @@
     transform: translateY(-1px);
 }
 
-.pl-link > i:first-child {
+.pl-link>i:first-child {
     flex-shrink: 0;
     width: 42px;
     height: 42px;
