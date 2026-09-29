@@ -93,6 +93,26 @@ function initHeroParallax() {
   updateParallax();
 }
 
+function initBackToTop() {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'back-to-top';
+  btn.setAttribute('aria-label', 'Kembali ke atas');
+  btn.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" ' +
+    'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  document.body.appendChild(btn);
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
+
+  const onScroll = () => btn.classList.toggle('is-visible', window.scrollY > 400);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
 function initLanguageSwitch() {
   const toggle = document.getElementById('langToggle');
   const menu = document.getElementById('langMenu');
@@ -270,6 +290,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   initNavbar();
   initHeroParallax();
+  initBackToTop();
   initLanguageSwitch();
   loadGoogleTranslate();
   initOfficeHours();
