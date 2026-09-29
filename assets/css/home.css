@@ -1,4 +1,10 @@
-/* Homepage only */
+/* Homepage only — hero, quick access, notices, news, about.
+   Loaded by index.html after sabahtea.css (uses its :root tokens and .btn). */
+
+/* ==========================================================================
+   Hero — parallax banner (homepage only)
+   ========================================================================== */
+
 .hero {
   position: relative;
   height: 88vh;

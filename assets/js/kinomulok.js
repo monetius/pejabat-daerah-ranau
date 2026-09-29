@@ -68,11 +68,11 @@ function initNavbar() {
 }
 
 function initHeroParallax() {
-  const heroMedia = document.querySelector('.hero-media');
+  const heroMedia = document.querySelector('.hero-media, .page-header-media');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (!heroMedia || prefersReducedMotion) return;
 
-  const hero = document.querySelector('.hero');
+  const hero = document.querySelector('.hero, .page-header');
   let ticking = false;
 
   const updateParallax = () => {

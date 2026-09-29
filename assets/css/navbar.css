@@ -39,6 +39,8 @@
   background: rgba(16, 27, 45, 0.78);
   border: 1.5px solid rgba(201, 154, 61, 0.55);
   border-radius: 999px;
+  --nav-hover: rgba(255, 255, 255, 0.16);
+  --nav-active: rgba(255, 255, 255, 0.24);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
   transition: height 0.25s ease, background 0.25s ease, border-color 0.25s ease,
@@ -49,9 +51,10 @@
   height: var(--nav-height-condensed);
 }
 
-/* Homepage: navbar starts invisible over the hero, then becomes the same
-   frosted design as every other page once scrolled (is-condensed). */
-body.is-home .navbar:not(.is-condensed) {
+/* Homepage + banner pages: navbar starts invisible over the hero/banner, then
+   becomes the frosted capsule once scrolled (is-condensed). */
+body.is-home .navbar:not(.is-condensed),
+body.has-banner .navbar:not(.is-condensed) {
   background: transparent;
   border-color: transparent;
   -webkit-backdrop-filter: none;
@@ -127,36 +130,22 @@ body.is-home .navbar:not(.is-condensed) {
   border: none;
   font-family: inherit;
   cursor: pointer;
-  padding: 0.6rem 0.7rem;
-  border-radius: var(--radius);
-  transition: background 0.15s ease, color 0.15s ease;
+  padding: 0.6rem 0.8rem;
+  white-space: nowrap;
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .nav-links>li>a:hover,
 .dropdown-toggle:hover,
-.nav-links>li>a.is-active {
-  background: rgba(255, 255, 255, 0.08);
+.dropdown.active .dropdown-toggle {
+  background: var(--nav-hover);
   color: #fff;
 }
 
-.nav-links>li>a::after,
-.dropdown-toggle::after {
-  content: '';
-  position: absolute;
-  left: 0.7rem;
-  right: 0.7rem;
-  bottom: 0.35rem;
-  height: 2px;
-  background: var(--federal-red);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.25s ease;
-}
-
-.nav-links>li>a:hover::after,
-.dropdown-toggle:hover::after,
-.dropdown.active .dropdown-toggle::after {
-  transform: scaleX(1);
+.nav-links>li>a.is-active {
+  background: var(--nav-active);
+  color: #fff;
 }
 
 .arrow {
@@ -185,6 +174,8 @@ body.is-home .navbar:not(.is-condensed) {
   min-width: 260px;
   border-radius: var(--radius);
   overflow: hidden;
+  padding: 0.4rem;
+  border-radius: 18px;
   box-shadow: 0 16px 32px rgba(16, 27, 45, 0.22);
   border: 1px solid var(--line);
   z-index: 10;
@@ -207,6 +198,11 @@ body.is-home .navbar:not(.is-condensed) {
    .dropdown-menu stays display:block always at this breakpoint and is
    revealed with opacity/transform so the transition can actually play. */
 @media (min-width: 861px) {
+  .dropdown:hover .dropdown-toggle {
+    background: var(--nav-hover);
+    color: #fff;
+  }
+
   .dropdown-menu {
     display: block;
     opacity: 0;
@@ -270,58 +266,19 @@ body.is-home .navbar:not(.is-condensed) {
 }
 
 .dropdown-menu li a {
-  position: relative;
   display: block;
-  padding: 0.75rem 1.1rem;
+  padding: 0.7rem 1rem;
   color: var(--ink-soft);
   text-decoration: none;
   font-size: 0.92rem;
-  border-bottom: 1px solid var(--line);
-  transition: background 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
-}
-
-.dropdown-menu li:last-child a {
-  border-bottom: none;
-}
-
-.dropdown-menu li a::after {
-  content: '';
-  position: absolute;
-  left: 1.1rem;
-  right: 1.1rem;
-  bottom: 0.55rem;
-  height: 1px;
-  background: var(--kinabalu-blue);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.2s ease;
-}
-
-.dropdown-menu li a::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: var(--federal-red);
-  transform: scaleY(0);
-  transform-origin: center;
-  transition: transform 0.2s ease;
+  border-radius: 12px;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .dropdown-menu li a:hover {
-  background: var(--sky-tint);
-  color: var(--kinabalu-blue);
-  padding-left: 1.4rem;
-}
-
-.dropdown-menu li a:hover::after {
-  transform: scaleX(1);
-}
-
-.dropdown-menu li a:hover::before {
-  transform: scaleY(1);
+  background: #e4ebf4;
+  background: color-mix(in srgb, var(--kinabalu-blue) 13%, var(--paper-raised));
+  color: var(--ink);
 }
 
 .lang-switch {
@@ -479,7 +436,6 @@ body {
 
   .dropdown-menu li a {
     color: #e7ebf1;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .dropdown-menu li a:hover {
