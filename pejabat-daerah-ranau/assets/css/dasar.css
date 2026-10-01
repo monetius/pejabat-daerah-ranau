@@ -1,0 +1,55 @@
+.ds-section {
+  padding: 3rem 0 4rem;
+}
+
+.ds-intro {
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  max-width: 62ch;
+  margin-bottom: 2.25rem;
+}
+
+.ds-block {
+  padding: 1.75rem 0;
+  border-top: 1px solid var(--line);
+}
+
+.ds-block:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.ds-block h2 {
+  font-size: 1.15rem;
+  color: var(--ink);
+  margin: 0 0 0.6rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+.ds-block h2::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--federal-red);
+  flex-shrink: 0;
+  transform: translateY(-0.2rem);
+}
+
+.ds-block p {
+  color: var(--ink-soft);
+  line-height: 1.75;
+  margin: 0;
+}
+
+.ds-callout {
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--sky-tint);
+  border-left: 3px solid var(--kinabalu-blue);
+  border-radius: var(--radius);
+  color: var(--ink);
+  line-height: 1.7;
+}
