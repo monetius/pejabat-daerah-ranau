@@ -31,22 +31,61 @@
     <div id="navbar-placeholder"></div>
     <main id="main">
       <div class="hero">
-        <div class="hero-media">
-          <img
-            src="/pejabat-daerah-ranau/assets/img/pejabatdaerah.webp"
-            alt="Bangunan Pejabat Daerah Ranau"
-          />
+        <div class="hero-layers" aria-hidden="true">
+          <div class="hero-layer hero-layer-back" data-speed="0.5">
+            <img
+              src="/pejabat-daerah-ranau/assets/img/hero/gunung-belakang.webp"
+              alt=""
+            />
+          </div>
+          <div class="hero-layer hero-layer-mid" data-speed="0.36">
+            <img
+              src="/pejabat-daerah-ranau/assets/img/hero/gunung-tengah.webp"
+              alt=""
+            />
+          </div>
+          <div class="hero-layer hero-layer-building" data-speed="0.22">
+            <img
+              src="/pejabat-daerah-ranau/assets/img/hero/bangunan.webp"
+              alt=""
+            />
+          </div>
+          <div class="hero-layer hero-layer-front" data-speed="0.1">
+            <img
+              src="/pejabat-daerah-ranau/assets/img/hero/gunung-depan.webp"
+              alt=""
+            />
+          </div>
         </div>
         <div class="hero-scrim"></div>
         <div class="hero-content">
-          <p>Selamat Datang ke</p>
-          <h1>Pejabat Daerah Ranau</h1>
-          <p>
-            Kami menyampaikan perkhidmatan pentadbiran daerah yang telus dan
-            mesra rakyat kepada penduduk Ranau, di kaki Gunung Kinabalu.
-          </p>
+          <div class="hero-text">
+            <p class="hero-eyebrow">Selamat Datang ke</p>
+            <h1>Pejabat Daerah Ranau</h1>
+            <p>
+              Kami menyampaikan perkhidmatan pentadbiran daerah yang telus dan
+              mesra rakyat kepada penduduk Ranau, di kaki Gunung Kinabalu.
+            </p>
+          </div>
         </div>
+        <img
+          class="hero-teh"
+          src="/pejabat-daerah-ranau/assets/img/hero/teh.webp"
+          alt=""
+          aria-hidden="true"
+        />
+
+        <a
+          href="#kandungan-utama"
+          class="hero-scroll-cue"
+          aria-label="Tatal ke bawah"
+        >
+          <span>Tatal untuk terokai</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </a>
       </div>
+
+      <div id="kandungan-utama"></div>
 
       <section>
         <div class="container">
@@ -297,7 +336,7 @@
                 dalam talian yang lebih lengkap.
               </p>
               <a
-                href="/pejabat-daerah-ranau/info-korporat/visi-misi.html"
+                href="/pejabat-daerah-ranau/info-korporat/mengenai-kami.html#visi"
                 class="btn btn-primary"
                 >Visi &amp; Misi Jabatan</a
               >

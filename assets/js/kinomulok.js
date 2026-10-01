@@ -69,8 +69,10 @@ function initNavbar() {
 
 function initHeroParallax() {
   const heroMedia = document.querySelector('.hero-media, .page-header-media');
+  const heroContent = document.querySelector('.hero-content');
+  const heroLayers = document.querySelectorAll('.hero-layer');
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!heroMedia || prefersReducedMotion) return;
+  if ((!heroMedia && !heroContent && !heroLayers.length) || prefersReducedMotion) return;
 
   const hero = document.querySelector('.hero, .page-header');
   let ticking = false;
@@ -78,7 +80,22 @@ function initHeroParallax() {
   const updateParallax = () => {
     const rect = hero.getBoundingClientRect();
     if (rect.bottom > 0 && rect.top < window.innerHeight) {
-      heroMedia.style.transform = `translate3d(0, ${rect.top * 0.35}px, 0)`;
+      if (heroMedia) {
+        heroMedia.style.transform = `translate3d(0, ${rect.top * 0.35}px, 0)`;
+      }
+      // Homepage: tiap lapisan bergerak pada kelajuan berbeza (data-speed)
+      // untuk kesan kedalaman; jalur pokok teh kekal tetap di tepi bawah.
+      heroLayers.forEach((layer) => {
+        const speed = parseFloat(layer.dataset.speed) || 0;
+        layer.style.transform = `translate3d(0, ${-rect.top * speed}px, 0)`;
+      });
+      if (heroContent) {
+        // Fades and blurs the hero text as it scrolls up and out of view,
+        // fully gone by the time the hero itself scrolls off screen.
+        const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
+        heroContent.style.opacity = String(1 - progress);
+        heroContent.style.filter = `blur(${progress * 10}px)`;
+      }
     }
     ticking = false;
   };
@@ -186,6 +203,9 @@ function setSiteLanguage(lang) {
   window.location.reload();
 }
 
+// -----------------------------------------------------------------------
+// | FOR AUTOMATED TIMING LOGIC, DO NOT TOUCH!!!!! |
+// ---------------------------------------------------------------------
 // Working hours, as [openHour, closeHour] pairs (fractional hours are
 // allowed, e.g. 11.5 = 11:30). Rest time is NOT excluded here: the counter
 // is shown as "open" all day and only switches to "Rehat" during rest time.
@@ -218,7 +238,9 @@ function formatHour(h) {
   return `${displayHour}:${mm} ${period}`;
 }
 
-// Live open/closed status in Sabah time (Asia/Kuala_Lumpur), based on
+// -----------------------------------------------------------------------
+// | FOR AUTOMATED TIMING LOGIC, DO NOT TOUCH!!!!! |
+// ---------------------------------------------------------------------
 // regular hours only.
 function initOfficeHours() {
   const box = document.getElementById('status');
