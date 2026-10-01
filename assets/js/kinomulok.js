@@ -1,14 +1,20 @@
 // bikin kasi senang kerja
 
+// Site root, worked out from where this script itself is served
+// (assets/js/kinomulok.js -> two levels up). Works at a domain root, under a
+// subpath, or on localhost, so no hardcoded folder name is needed anywhere.
+const SITE_ROOT = new URL('../../', document.currentScript.src).pathname;
+
 async function loadInclude(placeholderId, url) {
   const el = document.getElementById(placeholderId);
   if (!el) return;
-  const base = window.SITE_BASE || '';
-  const fullUrl = base + url;
+  const fullUrl = SITE_ROOT + url;
   try {
     const res = await fetch(fullUrl);
     if (!res.ok) throw new Error(`${fullUrl} responded ${res.status}`);
-    el.outerHTML = await res.text();
+    const html = await res.text();
+    // Includes write links as {{base}}page.html; swap in the real site root.
+    el.outerHTML = html.replaceAll('{{base}}', SITE_ROOT);
   } catch (err) {
     console.error('Could not load', fullUrl, err);
   }
@@ -306,8 +312,8 @@ function initOfficeHours() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   await Promise.all([
-    loadInclude('navbar-placeholder', '/assets/includes/navbar.html'),
-    loadInclude('footer-placeholder', '/assets/includes/footer.html'),
+    loadInclude('navbar-placeholder', 'assets/includes/navbar.html'),
+    loadInclude('footer-placeholder', 'assets/includes/footer.html'),
   ]);
 
   initNavbar();
