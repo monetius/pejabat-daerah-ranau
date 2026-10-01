@@ -42,7 +42,7 @@
 }
 
 .ka-jump a:hover i {
-    color: var(--federal-red);
+    color: var(--gold);
 }
 
 /* Anchored sections shouldn't hide under the fixed navbar */
@@ -72,7 +72,7 @@ main section[id] {
 .ka-card {
     background: var(--paper-raised);
     border: 1px solid var(--line);
-    border-top: 3px solid var(--federal-red);
+    border-top: 3px solid var(--gold);
     border-radius: var(--radius);
     padding: 1.5rem 1.6rem 1.6rem;
 }
@@ -121,7 +121,7 @@ main section[id] {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--federal-red);
+    background: var(--gold);
 }
 
 /* Jalan raya */

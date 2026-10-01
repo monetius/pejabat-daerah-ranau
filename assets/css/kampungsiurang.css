@@ -84,7 +84,7 @@
 
 .sk-jump a:hover i,
 .sk-jump a:focus-visible i {
-    color: var(--federal-red);
+    color: var(--gold);
 }
 
 .sk-count {
@@ -150,7 +150,7 @@
 .sk-card {
     background: var(--paper-raised);
     border: 1px solid var(--line);
-    border-top: 3px solid var(--federal-red);
+    border-top: 3px solid var(--gold);
     border-radius: var(--radius);
     padding: 1.1rem 1.25rem 1.25rem;
 }

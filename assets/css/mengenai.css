@@ -9,7 +9,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--federal-red-dark);
+    color: var(--gold-dark);
 }
 
 .md-section {
@@ -97,12 +97,12 @@
     padding: 1.6rem 1.5rem;
     background: var(--paper-raised);
     border: 1px solid var(--line);
-    border-top: 3px solid var(--federal-red);
+    border-top: 3px solid var(--gold);
     border-radius: var(--radius);
 }
 
 .md-crown-icon {
-    color: var(--federal-red-dark);
+    color: var(--gold-dark);
     font-size: 1.05rem;
 }
 

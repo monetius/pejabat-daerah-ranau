@@ -13,7 +13,7 @@
 
 .footer-content {
   display: grid;
-  grid-template-columns: 1.6fr repeat(3, auto);
+  grid-template-columns: 1.4fr repeat(4, auto);
   gap: 2rem;
   justify-content: space-between;
 }
@@ -28,7 +28,7 @@
 }
 
 .footer-brand h4 i {
-  color: var(--federal-red);
+  color: var(--gold);
   font-size: 0.95rem;
 }
 
@@ -87,6 +87,25 @@
   color: #fff;
 }
 
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.footer-legal a {
+  color: #bec6d0;
+  text-decoration: none;
+  font-size: 0.88rem;
+  transition: color 0.15s ease;
+}
+
+.footer-legal a:hover {
+  color: #fff;
+}
+
 .footer-bottom {
   max-width: var(--content-width);
   margin: 3rem auto 0;
@@ -95,6 +114,17 @@
   text-align: center;
   font-size: 0.82rem;
   color: #6d7a8c;
+}
+
+@media (max-width: 1000px) {
+  .footer-content {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.25rem;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
+  }
 }
 
 @media (max-width: 720px) {

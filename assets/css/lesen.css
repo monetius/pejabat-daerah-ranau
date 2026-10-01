@@ -26,7 +26,7 @@
     flex-direction: column;
     background: var(--paper-raised);
     border: 1px solid var(--line);
-    border-top: 3px solid var(--federal-red);
+    border-top: 3px solid var(--gold);
     border-radius: var(--radius);
     padding: 1.75rem 1.5rem 1.5rem;
     color: inherit;
@@ -38,7 +38,7 @@
 .svc-card:focus-visible {
     transform: translateY(-2px);
     border-color: var(--line-strong);
-    border-top-color: var(--federal-red);
+    border-top-color: var(--gold);
 }
 
 .svc-card-primary {

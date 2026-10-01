@@ -8,7 +8,7 @@
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--federal-red-dark);
+    color: var(--gold-dark);
     margin-bottom: 0.75rem;
 }
 
@@ -32,7 +32,7 @@
     color: var(--ink);
     max-width: 24ch;
     padding-left: 1.5rem;
-    border-left: 4px solid var(--federal-red);
+    border-left: 4px solid var(--gold);
 }
 
 /* --- Misi ------------------------------------------------------------- */
@@ -76,7 +76,7 @@
     font-family: var(--font-display);
     font-size: 1.9rem;
     line-height: 1;
-    color: var(--federal-red);
+    color: var(--gold);
 }
 
 /* --- Objektif --------------------------------------------------------- */
@@ -155,12 +155,12 @@
     height: 64px;
     border-radius: 50%;
     background: var(--paper);
-    border: 2px solid var(--federal-red);
+    border: 2px solid var(--gold);
     margin-bottom: 1.1rem;
 }
 
 .vm-path-icon i {
-    color: var(--federal-red-dark);
+    color: var(--gold-dark);
     font-size: 1.4rem;
 }
 

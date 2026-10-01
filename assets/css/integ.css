@@ -92,7 +92,7 @@
 .hb-card {
     background: var(--paper-raised);
     border: 1px solid var(--line);
-    border-top: 3px solid var(--federal-red);
+    border-top: 3px solid var(--gold);
     border-radius: var(--radius);
     padding: 1.5rem;
     color: inherit;
@@ -118,7 +118,7 @@
 .hb-link:focus-visible {
     transform: translateY(-2px);
     border-color: var(--line-strong);
-    border-top-color: var(--federal-red);
+    border-top-color: var(--gold);
 }
 
 .hb-num {
@@ -153,7 +153,7 @@
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--federal-red-dark);
+    color: var(--gold-dark);
 }
 
 .hb-list {
@@ -184,7 +184,7 @@
     font-family: var(--font-display);
     font-size: 1.6rem;
     line-height: 1;
-    color: var(--federal-red);
+    color: var(--gold);
 }
 
 .hb-source {

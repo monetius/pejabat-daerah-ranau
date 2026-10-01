@@ -21,7 +21,7 @@
     font-size: 1.2rem;
     margin-bottom: 1.1rem;
     padding-bottom: 0.6rem;
-    border-bottom: 2px solid var(--federal-red);
+    border-bottom: 2px solid var(--gold);
     animation: FadeUp 0.9s ease-in-out both;
 }
 

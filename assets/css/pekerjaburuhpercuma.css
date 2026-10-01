@@ -66,7 +66,7 @@
 }
 
 .req-list i {
-    color: var(--federal-red);
+    color: var(--gold);
     margin-top: 0.2rem;
     flex-shrink: 0;
 }
@@ -81,7 +81,7 @@
     position: relative;
     background: var(--paper-raised);
     border: 1px solid var(--line);
-    border-top: 3px solid var(--federal-red);
+    border-top: 3px solid var(--gold);
     border-radius: var(--radius);
     padding: 1.75rem 1.5rem 1.5rem;
 }

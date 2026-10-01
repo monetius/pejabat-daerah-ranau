@@ -5,8 +5,8 @@
 :root {
   --ink: #101b2d;
   --ink-soft: #45566b;
-  --federal-red: #c99a3d;
-  --federal-red-dark: #a67d2f;
+  --gold: #c99a3d;
+  --gold-dark: #a67d2f;
   --kinabalu-blue: #2f6fb0;
   --sky-tint: #eef2f7;
   --paper: #f5f6f2;
@@ -98,12 +98,12 @@ h4 {
 }
 
 .btn-primary {
-  background: var(--federal-red);
+  background: var(--gold);
   color: #fff;
 }
 
 .btn-primary:hover {
-  background: var(--federal-red-dark);
+  background: var(--gold-dark);
 }
 
 .btn-ghost {
@@ -222,7 +222,8 @@ section {
 
 .section-head {
   max-width: 62ch;
-  margin-bottom: 2.5rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
 }
 
 .section-head h2 {
@@ -355,7 +356,7 @@ section {
   }
 
   .section-head {
-    margin-bottom: 1.75rem;
+    margin: 0 auto 1.75rem;
   }
 
   .page-header {

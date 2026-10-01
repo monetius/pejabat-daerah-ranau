@@ -18,7 +18,7 @@
 }
 
 .ek-miskin {
-    --ek: var(--federal-red);
+    --ek: var(--gold);
 }
 
 .ek-keluar {
@@ -47,7 +47,7 @@
 .ek-all {
     background: var(--ink);
     border-color: var(--ink);
-    border-top-color: var(--federal-red);
+    border-top-color: var(--gold);
     color: #fff;
 }
 
@@ -66,7 +66,7 @@
 
 .ek-all .ek-stat-icon {
     background: rgba(255, 255, 255, 0.1);
-    color: var(--federal-red);
+    color: var(--gold);
 }
 
 .ek-stat-label {
@@ -235,7 +235,7 @@
 }
 
 .ek-pgk tr.is-sabah th {
-    box-shadow: inset 3px 0 0 var(--federal-red);
+    box-shadow: inset 3px 0 0 var(--gold);
 }
 
 /* Sticky state column so it stays visible when scrolling sideways */
