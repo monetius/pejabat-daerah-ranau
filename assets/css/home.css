@@ -199,12 +199,12 @@
 }
 
 .quick-list a:hover .quick-title {
-  color: var(--gold);
+  color: var(--federal-red);
 }
 
 .quick-list a:hover .quick-icon {
-  background: var(--gold);
-  border-color: var(--gold);
+  background: var(--federal-red);
+  border-color: var(--federal-red);
 }
 
 .quick-list a:hover .quick-icon i {
@@ -304,11 +304,11 @@ img.showcase-media {
 }
 
 .showcase-media.ph-1 {
-  background: linear-gradient(155deg, var(--ink) 0%, var(--gold-dark) 100%);
+  background: linear-gradient(155deg, var(--ink) 0%, var(--federal-red-dark) 100%);
 }
 
 .showcase-media.ph-2 {
-  background: linear-gradient(155deg, var(--gold-dark) 0%, var(--gold) 100%);
+  background: linear-gradient(155deg, var(--federal-red-dark) 0%, var(--federal-red) 100%);
 }
 
 .showcase-media.ph-3 {
@@ -370,6 +370,7 @@ img.showcase-media {
 }
 
 @media (max-width: 980px) {
+
   .quick-access-grid,
   .quick-access-grid--four {
     grid-template-columns: repeat(2, 1fr);
@@ -377,6 +378,7 @@ img.showcase-media {
 }
 
 @media (max-width: 560px) {
+
   .quick-access-grid,
   .quick-access-grid--four {
     grid-template-columns: 1fr;
@@ -414,7 +416,7 @@ img.showcase-media {
 .notice-card {
   background: var(--paper-raised);
   border: 1px solid var(--line);
-  border-top: 3px solid var(--gold);
+  border-top: 3px solid var(--federal-red);
   border-radius: var(--radius);
   overflow: hidden;
   display: flex;
@@ -443,7 +445,7 @@ img.showcase-media {
 .notice-tag {
   display: inline-block;
   align-self: flex-start;
-  background: var(--gold);
+  background: var(--federal-red);
   color: #fff;
   font-size: 0.7rem;
   font-weight: 700;
@@ -475,7 +477,7 @@ img.showcase-media {
   margin-top: auto;
   font-weight: 600;
   font-size: 0.88rem;
-  color: var(--gold);
+  color: var(--federal-red);
 }
 
 .notice-card:hover .notice-link {
@@ -543,7 +545,7 @@ img.showcase-media {
 }
 
 .news-list a:hover .news-body h4 {
-  color: var(--gold);
+  color: var(--federal-red);
 }
 
 .news-body p {
