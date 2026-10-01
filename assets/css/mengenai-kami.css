@@ -1,0 +1,48 @@
+/* ==========================================================================
+   Mengenai Kami: gabungan Perutusan, Profil Jabatan, Visi & Misi,
+   Fungsi Jabatan dan Mengenai Daerah Ranau
+   ========================================================================== */
+
+main section[id] {
+    scroll-margin-top: 90px;
+}
+
+.about-intro {
+    padding: 3rem 0 1rem;
+}
+
+.about-lead {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin-bottom: 1.5rem;
+}
+
+.about-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.about-jump a {
+    padding: 0.5rem 1rem;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.about-jump a:hover,
+.about-jump a:focus-visible {
+    border-color: var(--kinabalu-blue);
+    color: var(--kinabalu-blue);
+}
+
+.about-divider {
+    padding: 4rem 0 0.5rem;
+    border-top: 1px solid var(--line);
+}

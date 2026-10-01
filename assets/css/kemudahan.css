@@ -1,0 +1,349 @@
+/* Senarai Kemudahan Awam */
+
+.ka-jump-wrap {
+    padding: 2.5rem 0 0.5rem;
+}
+
+.ka-intro {
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin-bottom: 1.25rem;
+}
+
+.ka-jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.ka-jump a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.ka-jump a i {
+    color: var(--kinabalu-blue);
+    font-size: 0.85rem;
+}
+
+.ka-jump a:hover {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: #fff;
+}
+
+.ka-jump a:hover i {
+    color: var(--federal-red);
+}
+
+/* Anchored sections shouldn't hide under the fixed navbar */
+main section[id] {
+    scroll-margin-top: calc(var(--nav-height-condensed) + 0.5rem);
+}
+
+/* Cards + grids */
+.ka-grid {
+    display: grid;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.ka-grid-1 {
+    grid-template-columns: 1fr;
+}
+
+.ka-grid-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.ka-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.ka-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--federal-red);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.6rem 1.6rem;
+}
+
+.ka-card h3 {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+}
+
+.ka-card h3 i {
+    color: var(--kinabalu-blue);
+    font-size: 0.95rem;
+}
+
+/* Lists */
+.ka-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ka-grid-1 .ka-list,
+.ka-details-body .ka-list {
+    columns: 3 220px;
+    column-gap: 2rem;
+}
+
+.ka-list li {
+    position: relative;
+    padding-left: 1.1rem;
+    margin-bottom: 0.55rem;
+    color: var(--ink-soft);
+    font-size: 0.93rem;
+    line-height: 1.45;
+    break-inside: avoid;
+}
+
+.ka-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--federal-red);
+}
+
+/* Jalan raya */
+.ka-routes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.ka-route {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.15rem 1.35rem;
+    font-weight: 600;
+}
+
+.ka-route i {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--sky-tint);
+    color: var(--kinabalu-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Collapsible groups */
+.ka-details {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-bottom: 0.9rem;
+    overflow: hidden;
+}
+
+.ka-details summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 600;
+}
+
+.ka-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.ka-details summary::after {
+    content: "\f078";
+    /* fa chevron-down */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+    transition: transform 0.2s ease;
+    margin-left: 0.25rem;
+}
+
+.ka-details[open] summary::after {
+    transform: rotate(180deg);
+}
+
+.ka-sum-title {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.ka-sum-title i {
+    color: var(--kinabalu-blue);
+}
+
+.ka-count {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: var(--sky-tint);
+    border-radius: 999px;
+    padding: 0.2rem 0.7rem;
+}
+
+.ka-details[open] summary {
+    border-bottom: 1px solid var(--line);
+}
+
+.ka-details-body {
+    padding: 1.25rem 1.4rem 1.4rem;
+}
+
+/* School tables */
+.ka-table-wrap {
+    overflow-x: auto;
+}
+
+.ka-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.93rem;
+}
+
+.ka-table th,
+.ka-table td {
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.ka-table th {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+}
+
+.ka-table td:first-child {
+    color: var(--ink);
+}
+
+.ka-table td:last-child {
+    color: var(--ink-soft);
+}
+
+.ka-table tbody tr:hover {
+    background: var(--sky-tint);
+}
+
+/* Banks */
+.ka-banks {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.ka-bank {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+    text-align: center;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1.5rem 1rem;
+    font-weight: 600;
+}
+
+.ka-bank i {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--sky-tint);
+    color: var(--kinabalu-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.ka-source-wrap {
+    padding: 1rem 0 3rem;
+}
+
+.ka-source {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+    .ka-grid-3 {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ka-banks {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 720px) {
+
+    .ka-grid-2,
+    .ka-grid-3,
+    .ka-routes {
+        grid-template-columns: 1fr;
+    }
+
+    .ka-banks {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ka-grid-1 .ka-list,
+    .ka-details-body .ka-list {
+        columns: 1;
+    }
+
+    .ka-jump {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 0.4rem;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .ka-jump a {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .ka-details summary {
+        padding: 1rem 1.1rem;
+    }
+
+    .ka-details-body {
+        padding: 1rem 1.1rem 1.2rem;
+    }
+}
