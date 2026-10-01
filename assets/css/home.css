@@ -266,7 +266,8 @@
 .quick-access-card {
   position: relative;
   display: block;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 3 / 2;
+  /* sama dengan nisbah imej (612x408) supaya tidak terpotong */
   border-radius: var(--radius);
   overflow: hidden;
   text-decoration: none;
