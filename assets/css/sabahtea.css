@@ -5,8 +5,8 @@
 :root {
   --ink: #101b2d;
   --ink-soft: #45566b;
-  --gold: #c99a3d;
-  --gold-dark: #a67d2f;
+  --federal-red: #c99a3d;
+  --federal-red-dark: #a67d2f;
   --kinabalu-blue: #2f6fb0;
   --sky-tint: #eef2f7;
   --paper: #f5f6f2;
@@ -98,12 +98,12 @@ h4 {
 }
 
 .btn-primary {
-  background: var(--gold);
+  background: var(--federal-red);
   color: #fff;
 }
 
 .btn-primary:hover {
-  background: var(--gold-dark);
+  background: var(--federal-red-dark);
 }
 
 .btn-ghost {
