@@ -34,6 +34,26 @@
   display: block;
 }
 
+/* Susunan lapisan, belakang ke depan:
+   langit > gunung belakang > gunung tengah > teks > bangunan > gunung depan > pokok teh */
+.hero-layer-back { z-index: 0; }
+.hero-layer-mid { z-index: 1; }
+.hero-layer-building { z-index: 3; }
+.hero-layer-front { z-index: 4; }
+
+/* Bangunan dikecilkan dan dirapatkan ke kiri (tepi kiri imej dipotong rata)
+   supaya puncak gunung kelihatan di belakang dan sebahagian tapaknya
+   tersorok di belakang gunung hadapan. */
+.hero-layer-building img {
+  position: absolute;
+  left: 0;
+  bottom: 36%;
+  width: 46vw;
+  min-width: 560px;
+  height: auto;
+  object-fit: contain;
+}
+
 /* Jalur pokok teh di tepi bawah hero, sama warna dengan latar halaman
    supaya hero bersambung terus ke kandungan di bawahnya. */
 .hero-teh {
@@ -43,7 +63,7 @@
   width: max(100%, 900px);
   height: auto;
   transform: translateX(-50%);
-  z-index: 1;
+  z-index: 5;
   pointer-events: none;
   display: block;
 }
@@ -51,9 +71,9 @@
 .hero-scrim {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background:
-    radial-gradient(ellipse 60% 45% at 50% 46%, rgba(10, 24, 44, 0.62) 0%, rgba(10, 24, 44, 0) 100%),
-    linear-gradient(0deg, rgba(10, 24, 44, 0.35) 0%, rgba(10, 24, 44, 0) 40%);
+    radial-gradient(ellipse 38% 40% at 74% 38%, rgba(10, 24, 44, 0.55) 0%, rgba(10, 24, 44, 0) 100%);
 }
 
 .hero-content {
@@ -111,6 +131,7 @@
   bottom: calc(var(--teh-h) + 0.75rem);
   transform: translateX(-50%);
   text-shadow: 0 1px 8px rgba(10, 24, 44, 0.6);
+  z-index: 6;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -551,6 +572,39 @@ img.showcase-media {
   }
 }
 
+
+/* Skrin lebar: bangunan di kiri, teks di kanan, di atas banjaran gunung */
+@media (min-width: 861px) {
+  .hero-content {
+    margin: -35px 5vw 0 auto;
+    max-width: 44vw;
+    padding: 0;
+  }
+
+  .hero-text {
+    transform: translateY(-6rem);
+  }
+}
+
+/* Telefon & tablet: teks di atas, bangunan memenuhi lebar di bawahnya */
+@media (max-width: 860px) {
+  .hero-content {
+    justify-content: flex-start;
+    padding-top: 7.5rem;
+  }
+
+  .hero-text {
+    transform: none;
+  }
+
+  .hero-layer-building img {
+    left: 50%;
+    transform: translateX(-50%);
+    width: 118vw;
+    min-width: 0;
+    bottom: 30%;
+  }
+}
 
 @media (max-width: 640px) {
   .hero {
