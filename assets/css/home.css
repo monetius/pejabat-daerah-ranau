@@ -720,3 +720,129 @@ img.showcase-media {
     transform: none !important;
   }
 }
+
+/* ==========================================================================
+   Quick access — mobile list style (stacked rows, round action button).
+   Desktop layout is untouched.
+   ========================================================================== */
+
+.quick-access-tag {
+  display: none;
+}
+
+@media (max-width: 560px) {
+
+  .quick-access-grid,
+  .quick-access-grid--four {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .quick-access-card {
+    flex-shrink: 0;
+    height: 6.75rem;
+    aspect-ratio: auto;
+    border-radius: 22px;
+    background: var(--ink);
+    transition: transform 0.2s ease;
+  }
+
+  .quick-access-card:hover {
+    transform: none;
+  }
+
+  .quick-access-card:active {
+    transform: scale(0.985);
+  }
+
+  .quick-access-card:hover .showcase-media {
+    transform: none;
+  }
+
+  /* darker on the left where the title sits, photo shows through on the right */
+  .quick-access-scrim {
+    background:
+      linear-gradient(90deg, rgba(8, 14, 24, 0.8) 0%, rgba(8, 14, 24, 0.4) 55%, rgba(8, 14, 24, 0.1) 100%),
+      linear-gradient(0deg, rgba(8, 14, 24, 0.45) 0%, rgba(8, 14, 24, 0) 60%);
+  }
+
+  /* icon-only cards: soft watermark icon instead of a centred glyph */
+  .showcase-media:not(img) {
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 1rem 5.75rem 0 0;
+  }
+
+  .showcase-media i {
+    font-size: 2.2rem;
+    color: rgba(255, 255, 255, 0.22);
+  }
+
+  .quick-access-body {
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 0.45rem;
+    padding: 1rem 5.75rem 1rem 1.15rem;
+  }
+
+  .quick-access-card h3 {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .quick-access-tag {
+    display: inline-block;
+    padding: 0.32rem 0.55rem;
+    border-radius: 6px;
+    background: var(--federal-red);
+    color: var(--ink);
+    font-size: 0.7rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .quick-access-link {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    display: grid;
+    place-items: center;
+    width: 3.9rem;
+    height: 3.9rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--federal-red);
+    color: var(--ink);
+    font-size: 0.74rem;
+    font-weight: 700;
+    transition: background 0.2s ease;
+  }
+
+  .quick-access-card:hover .quick-access-link {
+    border-color: transparent;
+  }
+
+  .quick-access-card:active .quick-access-link {
+    background: var(--federal-red-dark);
+  }
+
+  .quick-access-link .arrow {
+    display: none;
+  }
+}
+
+/* Cards fade + blur as they scroll up under the navbar (driven by
+   initCardBlur in kinomulok.js, same effect as the hero text). */
+.quick-access-card {
+  will-change: opacity, filter;
+}

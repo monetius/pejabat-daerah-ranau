@@ -310,6 +310,48 @@ function initOfficeHours() {
   });
 }
 
+function initCardBlur() {
+  // Same effect as the hero text: a card fades and blurs as it leaves the
+  // screen, at the top (under the navbar) and at the bottom, so it works in
+  // both scroll directions.
+  const cards = Array.from(document.querySelectorAll('.quick-access-card'));
+  if (!cards.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const last = new WeakMap();
+  let ticking = false;
+
+  const update = () => {
+    // navbar is injected from an include, so look it up on each update
+    const navbar = document.querySelector('.navbar');
+    const line = navbar ? navbar.getBoundingClientRect().bottom : 72;
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
+      // top edge: scrolling down, card passes under the navbar
+      const out = Math.min(Math.max((line - rect.top) / rect.height, 0), 1);
+      // bottom edge: scrolling up, card leaves below the screen (and eases in on the way back)
+      const below = Math.min(Math.max((rect.bottom - window.innerHeight) / rect.height, 0), 1);
+      const progress = Math.max(out, below);
+      const rounded = Math.round(progress * 100) / 100;
+      if (last.get(card) === rounded) return;
+      last.set(card, rounded);
+      card.style.opacity = rounded === 0 ? '' : String(1 - rounded);
+      card.style.filter = rounded === 0 ? '' : `blur(${rounded * 10}px)`;
+    });
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+  window.addEventListener('resize', update);
+
+  update();
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   await Promise.all([
     loadInclude('navbar-placeholder', 'assets/includes/navbar.html'),
@@ -322,4 +364,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   initLanguageSwitch();
   loadGoogleTranslate();
   initOfficeHours();
+  initCardBlur();
 });
