@@ -310,6 +310,213 @@ function initOfficeHours() {
   });
 }
 
+function initQuickCarousel() {
+  // Coverflow carousel for each .quick-access-grid. Position is one continuous
+  // number (pos), so the cards can follow the cursor while dragging and then
+  // glide to the nearest card with easing.
+  document.querySelectorAll('.quick-access-grid').forEach((grid) => {
+    const cards = Array.from(grid.querySelectorAll(':scope > .quick-access-card'));
+    if (cards.length < 2) return;
+    const n = cards.length;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let pos = 0;
+    let W = 460;
+    let raf = 0;
+
+    grid.classList.add('qa-carousel');
+    const stage = document.createElement('div');
+    stage.className = 'qa-stage';
+
+    const slides = cards.map((card) => {
+      const slide = document.createElement('div');
+      slide.className = 'qa-slide';
+      const title = card.querySelector('h3');
+      const caption = document.createElement('div');
+      caption.className = 'qa-caption';
+      caption.textContent = title ? title.textContent : '';
+      card.draggable = false;
+      card.querySelectorAll('img').forEach((im) => { im.draggable = false; });
+      slide.append(card, caption);
+      stage.appendChild(slide);
+      return slide;
+    });
+    grid.appendChild(stage);
+
+    const render = () => {
+      slides.forEach((s, i) => {
+        let d = i - pos;
+        d -= n * Math.round(d / n);
+        const a = Math.abs(d);
+        const sign = d < 0 ? -1 : 1;
+        const scale = a <= 1 ? 1 - 0.26 * a : Math.max(0.5, 0.74 - (a - 1) * 0.24);
+        const off = a <= 1 ? a * 0.75 : 0.75 + (a - 1) * 0.25;
+        const op = a <= 1 ? 1 - 0.3 * a : Math.max(0, 0.7 - (a - 1) * 1.4);
+        s.style.setProperty('--x', sign * off * W + 'px');
+        s.style.setProperty('--s', scale);
+        s.style.opacity = op;
+        s.style.zIndex = Math.max(0, Math.round(10 - a * 4));
+        s.style.visibility = op <= 0 ? 'hidden' : 'visible';
+        s.style.pointerEvents = op < 0.05 ? 'none' : '';
+        s.dataset.pos = Math.round(d);
+      });
+    };
+
+    const measure = () => { W = slides[0].offsetWidth || W; render(); };
+
+    const animateTo = (target) => {
+      cancelAnimationFrame(raf);
+      if (reduced) { pos = target; render(); return; }
+      const from = pos;
+      const dist = target - from;
+      const dur = Math.min(700, 380 + Math.abs(dist) * 160);
+      const t0 = performance.now();
+      const tick = (now) => {
+        const t = Math.min(1, (now - t0) / dur);
+        const e = 1 - Math.pow(1 - t, 3); // easeOutCubic
+        pos = from + dist * e;
+        render();
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    };
+
+    const go = (step) => animateTo(Math.round(pos) + step);
+
+    const makeArrow = (dir) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'qa-arrow qa-arrow--' + (dir < 0 ? 'prev' : 'next');
+      b.setAttribute('aria-label', dir < 0 ? 'Sebelumnya' : 'Seterusnya');
+      b.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' +
+        (dir < 0 ? 'M19 12H5M12 5l-7 7 7 7' : 'M5 12h14M12 5l7 7-7 7') + '"/></svg>';
+      b.addEventListener('click', () => go(dir));
+      grid.appendChild(b);
+    };
+    makeArrow(-1);
+    makeArrow(1);
+
+    // drag / swipe: cards follow the cursor, release glides to the nearest card
+    let down = false, dragging = false, startX = 0, startPos = 0, lastX = 0, lastT = 0, vel = 0, suppress = false;
+    stage.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse' && e.button !== 0) return;
+      cancelAnimationFrame(raf);
+      down = true; dragging = false;
+      startX = lastX = e.clientX; lastT = performance.now();
+      startPos = pos; vel = 0;
+    });
+    stage.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!dragging && Math.abs(dx) > 6) {
+        dragging = true;
+        grid.classList.add('is-dragging');
+        try { stage.setPointerCapture(e.pointerId); } catch (_) { }
+      }
+      if (!dragging) return;
+      const now = performance.now();
+      const dt = Math.max(1, now - lastT);
+      vel = 0.8 * vel + 0.2 * ((e.clientX - lastX) / dt); // px per ms, smoothed
+      lastX = e.clientX; lastT = now;
+      pos = startPos - dx / (W * 0.75);
+      render();
+    });
+    const release = () => {
+      if (!down) return;
+      down = false;
+      if (!dragging) return;
+      dragging = false;
+      suppress = true;
+      setTimeout(() => { suppress = false; }, 0);
+      grid.classList.remove('is-dragging');
+      const projected = pos - (vel * 220) / (W * 0.75); // a flick carries a bit further
+      const base = Math.round(startPos);
+      animateTo(Math.max(base - 1, Math.min(base + 1, Math.round(projected))));
+    };
+    stage.addEventListener('pointerup', release);
+    stage.addEventListener('pointercancel', release);
+
+    // a drag must not open a link; clicking a side card centres it instead
+    stage.addEventListener('click', (e) => {
+      if (suppress) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+    cards.forEach((card, i) => {
+      card.addEventListener('click', (e) => {
+        const off = Math.round(slides[i].dataset.pos);
+        if (off !== 0) {
+          e.preventDefault();
+          animateTo(Math.round(pos) + off);
+        }
+      });
+    });
+
+    grid.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') go(-1);
+      if (e.key === 'ArrowRight') go(1);
+    });
+
+    window.addEventListener('resize', measure);
+    measure();
+  });
+}
+
+function initSmoothScroll() {
+  // Eased mouse-wheel scrolling: the page glides toward the wheel target
+  // instead of jumping in steps. Touch screens, trackpad-free keyboard use,
+  // scrollbar dragging and anchor links keep working natively.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
+  const root = document.documentElement;
+  let target = window.scrollY;
+  let current = window.scrollY;
+  let raf = 0;
+  let last = 0;
+  const TAU = 110; // ms, bigger = floatier
+
+  const maxScroll = () => Math.max(0, root.scrollHeight - window.innerHeight);
+
+  const canScrollInside = (el, dy) => {
+    for (; el && el !== document.body && el !== root; el = el.parentElement) {
+      const oy = getComputedStyle(el).overflowY;
+      if ((oy === 'auto' || oy === 'scroll') && el.scrollHeight > el.clientHeight) {
+        if (dy < 0 ? el.scrollTop > 0 : el.scrollTop + el.clientHeight < el.scrollHeight - 1) return true;
+      }
+    }
+    return false;
+  };
+
+  const tick = (now) => {
+    const dt = Math.min(64, now - last);
+    last = now;
+    current += (target - current) * (1 - Math.exp(-dt / TAU));
+    if (Math.abs(target - current) < 0.5) current = target;
+    window.scrollTo({ top: current, behavior: 'instant' });
+    raf = current === target ? 0 : requestAnimationFrame(tick);
+  };
+
+  window.addEventListener('wheel', (e) => {
+    if (e.defaultPrevented || e.ctrlKey || e.metaKey) return; // pinch-zoom etc.
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    if (getComputedStyle(document.body).overflow === 'hidden') return; // menu/modal open
+    if (canScrollInside(e.target, e.deltaY)) return;
+    const unit = e.deltaMode === 1 ? 32 : e.deltaMode === 2 ? window.innerHeight : 1;
+    e.preventDefault();
+    if (!raf) { current = window.scrollY; target = current; }
+    target = Math.max(0, Math.min(maxScroll(), target + e.deltaY * unit));
+    if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
+  }, { passive: false });
+
+  // keep in sync when the page is scrolled by other means (keys, scrollbar, anchors)
+  window.addEventListener('scroll', () => {
+    if (!raf || Math.abs(window.scrollY - current) > 3) {
+      if (Math.abs(window.scrollY - current) > 3) {
+        cancelAnimationFrame(raf); raf = 0;
+      }
+      if (!raf) { current = target = window.scrollY; }
+    }
+  }, { passive: true });
+}
+
 function initCardBlur() {
   // Same effect as the hero text: a card fades and blurs as it leaves the
   // screen, at the top (under the navbar) and at the bottom, so it works in
@@ -364,5 +571,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initLanguageSwitch();
   loadGoogleTranslate();
   initOfficeHours();
+  initQuickCarousel();
+  initSmoothScroll();
   initCardBlur();
 });

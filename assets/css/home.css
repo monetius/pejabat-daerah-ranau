@@ -846,3 +846,115 @@ img.showcase-media {
 .quick-access-card {
   will-change: opacity, filter;
 }
+
+/* ==========================================================================
+   Quick access — coverflow carousel (built by initQuickCarousel in kinomulok.js)
+   Big centre card, smaller neighbours behind it, caption under each card.
+   Phones (<= 560px) keep the stacked list style above.
+   ========================================================================== */
+
+@media (max-width: 560px) {
+
+  .qa-stage,
+  .qa-slide {
+    display: contents;
+  }
+
+  .qa-caption,
+  .qa-arrow {
+    display: none;
+  }
+}
+
+@media (min-width: 561px) {
+  .qa-carousel {
+    --w: min(460px, 56vw);
+    --card-h: calc(var(--w) * 0.6667);
+    display: block;
+    position: relative;
+    height: calc(var(--card-h) + 6rem);
+    overflow: hidden;
+  }
+
+  .qa-stage {
+    position: absolute;
+    inset: 0;
+  }
+
+  .qa-slide {
+    --x: 0px;
+    --s: 1;
+    position: absolute;
+    left: 50%;
+    top: 1.25rem;
+    width: var(--w);
+    transform-origin: 50% calc(var(--card-h) / 2);
+    transform: translateX(calc(-50% + var(--x))) scale(var(--s));
+    will-change: transform, opacity;
+  }
+
+  /* position, scale, opacity and z-index are set per frame by initQuickCarousel */
+  .qa-stage {
+    cursor: grab;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .qa-carousel.is-dragging .qa-stage {
+    cursor: grabbing;
+  }
+
+  .qa-carousel .quick-access-card {
+    border-radius: 28px;
+    box-shadow: 0 14px 34px rgba(16, 27, 45, 0.18);
+  }
+
+  .qa-carousel .quick-access-card:hover {
+    transform: none;
+  }
+
+  .qa-carousel .quick-access-scrim,
+  .qa-carousel .quick-access-body {
+    display: none;
+  }
+
+  .qa-caption {
+    margin-top: 0.9rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--ink);
+  }
+
+  .qa-arrow {
+    position: absolute;
+    top: calc(1.25rem + var(--card-h) / 2);
+    transform: translateY(-50%);
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--ink);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .qa-arrow:hover {
+    background: var(--kinabalu-blue);
+    transform: translateY(-50%) scale(1.08);
+  }
+
+  .qa-arrow--prev {
+    left: 0;
+  }
+
+  .qa-arrow--next {
+    right: 0;
+  }
+}
