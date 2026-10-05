@@ -28,9 +28,22 @@ function initNavbar() {
   const isMobile = () => window.matchMedia('(max-width: 860px)').matches;
 
   if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-      const isOpen = navLinks.classList.toggle('active');
-      hamburger.setAttribute('aria-expanded', String(isOpen));
+    const setMenu = (open) => {
+      navLinks.classList.toggle('active', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+      if (navbar) navbar.classList.toggle('menu-open', open);
+      document.body.classList.toggle('menu-open', open);
+    };
+    hamburger.addEventListener('click', () => setMenu(!navLinks.classList.contains('active')));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setMenu(false);
+    });
+    window.addEventListener('resize', () => {
+      if (!isMobile()) setMenu(false);
+    });
+    navLinks.addEventListener('click', (e) => {
+      if (e.target.closest('a')) setMenu(false);
     });
   }
 
@@ -365,7 +378,7 @@ function initQuickCarousel() {
 
     const animateTo = (target) => {
       cancelAnimationFrame(raf);
-      if (reduced) { pos = target; render(); return; }
+      if (reduced || document.documentElement.classList.contains('a11y-no-motion')) { pos = target; render(); return; }
       const from = pos;
       const dist = target - from;
       const dur = Math.min(700, 380 + Math.abs(dist) * 160);
@@ -496,6 +509,7 @@ function initSmoothScroll() {
 
   window.addEventListener('wheel', (e) => {
     if (e.defaultPrevented || e.ctrlKey || e.metaKey) return; // pinch-zoom etc.
+    if (root.classList.contains('a11y-no-motion')) return;
     if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
     if (getComputedStyle(document.body).overflow === 'hidden') return; // menu/modal open
     if (canScrollInside(e.target, e.deltaY)) return;
@@ -515,6 +529,80 @@ function initSmoothScroll() {
       if (!raf) { current = target = window.scrollY; }
     }
   }, { passive: true });
+}
+
+function initAccessibility() {
+  // Floating accessibility button (bottom-left). The language translator lives
+  // inside its panel, together with text-size and display options.
+  const root = document.documentElement;
+  const KEY = 'a11y-prefs';
+  const SIZES = [90, 100, 115, 130, 150];
+  const defaults = { size: 1, contrast: false, links: false, font: false, motion: false };
+  let prefs = Object.assign({}, defaults);
+  try { Object.assign(prefs, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (_) { }
+
+  const apply = () => {
+    root.style.fontSize = prefs.size === 1 ? '' : SIZES[prefs.size] + '%';
+    root.classList.toggle('a11y-contrast', prefs.contrast);
+    root.classList.toggle('a11y-links', prefs.links);
+    root.classList.toggle('a11y-font', prefs.font);
+    root.classList.toggle('a11y-no-motion', prefs.motion);
+    try { localStorage.setItem(KEY, JSON.stringify(prefs)); } catch (_) { }
+  };
+
+  const langs = [['ms', 'Bahasa Melayu'], ['en', 'English'], ['zh-CN', '中文'], ['ta', 'தமிழ்'], ['ko', '한국어']];
+  const m = document.cookie.match(/googtrans=\/[^/]+\/([^;]+)/);
+  const curLang = m ? decodeURIComponent(m[1]) : 'ms';
+  const toggles = [['contrast', 'Kontras tinggi', 'fa-circle-half-stroke'], ['links', 'Garis bawah pautan', 'fa-underline'], ['font', 'Fon mudah baca', 'fa-font'], ['motion', 'Hentikan animasi', 'fa-pause']];
+
+  const wrap = document.createElement('div');
+  wrap.className = 'a11y notranslate';
+  wrap.setAttribute('translate', 'no');
+  wrap.innerHTML =
+    '<button type="button" class="a11y-btn" aria-label="Aksesibiliti / Accessibility" aria-expanded="false" aria-controls="a11yPanel"><i class="fa-solid fa-universal-access" aria-hidden="true"></i></button>' +
+    '<div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="Aksesibiliti / Accessibility" hidden>' +
+    '<div class="a11y-head"><strong>Aksesibiliti</strong><button type="button" class="a11y-reset">Tetap semula</button></div>' +
+    '<h3><i class="fa-solid fa-language" aria-hidden="true"></i> Bahasa / Language</h3>' +
+    '<div class="a11y-langs">' + langs.map(([c, n]) => '<button type="button" data-lang="' + c + '" aria-pressed="' + (c === curLang) + '">' + n + '</button>').join('') + '</div>' +
+    '<h3><i class="fa-solid fa-text-height" aria-hidden="true"></i> Saiz teks / Text size</h3>' +
+    '<div class="a11y-size"><button type="button" data-size="-1" aria-label="Kecilkan teks">A−</button><span class="a11y-size-val"></span><button type="button" data-size="1" aria-label="Besarkan teks">A+</button></div>' +
+    '<h3><i class="fa-solid fa-eye" aria-hidden="true"></i> Paparan / Display</h3>' +
+    '<div class="a11y-opts">' + toggles.map(([k, n, ic]) => '<button type="button" data-opt="' + k + '"><i class="fa-solid ' + ic + '" aria-hidden="true"></i><span>' + n + '</span></button>').join('') + '</div>' +
+    '</div>';
+  document.body.appendChild(wrap);
+
+  const btn = wrap.querySelector('.a11y-btn');
+  const panel = wrap.querySelector('.a11y-panel');
+  const sizeVal = wrap.querySelector('.a11y-size-val');
+
+  const sync = () => {
+    sizeVal.textContent = SIZES[prefs.size] + '%';
+    wrap.querySelectorAll('[data-opt]').forEach((b) => b.setAttribute('aria-pressed', String(prefs[b.dataset.opt])));
+    wrap.querySelector('[data-size="-1"]').disabled = prefs.size <= 0;
+    wrap.querySelector('[data-size="1"]').disabled = prefs.size >= SIZES.length - 1;
+    apply();
+  };
+
+  const setOpen = (open) => {
+    panel.hidden = !open;
+    btn.setAttribute('aria-expanded', String(open));
+  };
+  btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(panel.hidden); });
+  document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) setOpen(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); } });
+
+  wrap.querySelectorAll('[data-lang]').forEach((b) => b.addEventListener('click', () => setSiteLanguage(b.dataset.lang)));
+  wrap.querySelectorAll('[data-size]').forEach((b) => b.addEventListener('click', () => {
+    prefs.size = Math.max(0, Math.min(SIZES.length - 1, prefs.size + Number(b.dataset.size)));
+    sync();
+  }));
+  wrap.querySelectorAll('[data-opt]').forEach((b) => b.addEventListener('click', () => {
+    prefs[b.dataset.opt] = !prefs[b.dataset.opt];
+    sync();
+  }));
+  wrap.querySelector('.a11y-reset').addEventListener('click', () => { prefs = Object.assign({}, defaults); sync(); });
+
+  sync();
 }
 
 function initCardBlur() {
@@ -569,6 +657,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initHeroParallax();
   initBackToTop();
   initLanguageSwitch();
+  initAccessibility();
   loadGoogleTranslate();
   initOfficeHours();
   initQuickCarousel();

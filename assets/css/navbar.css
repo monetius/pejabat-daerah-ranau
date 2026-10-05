@@ -397,43 +397,104 @@ body {
 }
 
 @media (max-width: 860px) {
+
+  /* Full-screen menu. position:fixed needs the navbar to have no transform /
+     backdrop-filter while open, otherwise it would size to the navbar. */
+  .navbar.menu-open {
+    left: var(--nav-gap);
+    transform: none;
+    background: transparent;
+    border-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  .navbar .logo,
+  .hamburger {
+    position: relative;
+    z-index: 2;
+  }
+
   .nav-links {
-    position: absolute;
-    top: calc(100% + 0.6rem);
-    left: 0;
-    right: 0;
-    background: var(--ink);
-    border-radius: 20px;
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
     flex-direction: column;
     align-items: stretch;
-    padding: 0.75rem;
-    display: none;
-    gap: 0.25rem;
-    max-height: calc(100vh - var(--nav-height) - var(--nav-gap) * 2);
+    gap: 0.35rem;
+    padding: calc(var(--nav-gap) + var(--nav-height) + 1.25rem) 1.25rem 3rem;
+    background: linear-gradient(180deg, #0b1424 0%, var(--ink) 55%, #172c4a 100%);
+    border: 0;
+    border-radius: 0;
     overflow-y: auto;
-    border: 1.5px solid rgba(201, 154, 61, 0.55);
+    overscroll-behavior: contain;
   }
 
   .nav-links.active {
     display: flex;
+    animation: navOverlayIn 0.25s ease;
+  }
+
+  @keyframes navOverlayIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
   }
 
   .nav-links>li>a,
   .dropdown-toggle {
+    position: relative;
     width: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    text-align: center;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    background: none;
+  }
+
+  .dropdown-toggle .arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    margin: 0;
+    transform: translateY(-50%);
+    transition: transform 0.25s ease;
+  }
+
+  .dropdown.active .dropdown-toggle .arrow {
+    transform: translateY(-50%) rotate(180deg);
   }
 
   .dropdown-menu {
     position: static;
-    box-shadow: none;
-    border: none;
-    background: rgba(255, 255, 255, 0.04);
-    margin: 0.15rem 0 0.4rem;
     width: 100%;
+    margin: 0.2rem 0 0.6rem;
+    padding: 0.4rem;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
   }
 
   .dropdown-menu li a {
+    justify-content: center;
+    text-align: center;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
     color: #e7ebf1;
   }
 
@@ -444,6 +505,22 @@ body {
 
   .hamburger {
     display: flex;
+  }
+
+  .hamburger span {
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .hamburger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
   }
 }
 
