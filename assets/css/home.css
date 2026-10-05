@@ -37,7 +37,7 @@
 }
 
 /* Susunan lapisan, belakang ke depan:
-   langit > gunung belakang > gunung tengah > teks > bangunan > gunung depan > pokok teh */
+   langit > gunung belakang > gunung tengah > bangunan > gunung depan > pokok teh > teks */
 .hero-layer-back {
   z-index: 0;
 }
@@ -91,7 +91,7 @@
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 6;
   height: 100%;
   display: flex;
   flex-direction: column;
