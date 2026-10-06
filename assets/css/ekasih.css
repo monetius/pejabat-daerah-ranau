@@ -25,10 +25,6 @@
     --ek: var(--kinabalu-blue);
 }
 
-.ek-all {
-    --ek: var(--ink);
-}
-
 /* Stat cards */
 .ek-stats {
     display: grid;
@@ -45,6 +41,7 @@
 }
 
 .ek-all {
+    --ek: var(--ink);
     background: var(--ink);
     border-color: var(--ink);
     border-top-color: var(--gold);

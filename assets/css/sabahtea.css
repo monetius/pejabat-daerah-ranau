@@ -107,15 +107,7 @@ h4 {
   background: var(--federal-red-dark);
 }
 
-.btn-ghost {
-  border-color: rgba(255, 255, 255, 0.55);
-  color: #fff;
-}
 
-.btn-ghost:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.08);
-}
 
 /* ==========================================================================
    Page header — non-home pages (breadcrumb + title, no photo)
@@ -234,33 +226,6 @@ section {
 
 .section-head p {
   font-size: 1.05rem;
-}
-
-/* Info strip: operating hours / contact facts */
-.facts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-  border-top: 1px solid var(--line-strong);
-  padding-top: 2.5rem;
-}
-
-.facts dt {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  color: var(--ink);
-  margin-bottom: 0.4rem;
-}
-
-.facts dd {
-  color: var(--ink-soft);
-}
-
-@media (max-width: 720px) {
-  .facts {
-    grid-template-columns: 1fr;
-    gap: 1.75rem;
-  }
 }
 
 .notice-block {

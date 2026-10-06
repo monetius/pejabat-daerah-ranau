@@ -149,31 +149,8 @@ function initBackToTop() {
   window.addEventListener('scroll', onScroll, { passive: true });
 }
 
-function initLanguageSwitch() {
-  const toggle = document.getElementById('langToggle');
-  const menu = document.getElementById('langMenu');
-  if (!toggle || !menu) return;
-
-  toggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = menu.classList.toggle('active');
-    toggle.setAttribute('aria-expanded', String(isOpen));
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!menu.contains(e.target) && e.target !== toggle) {
-      menu.classList.remove('active');
-      toggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  menu.querySelectorAll('[data-lang]').forEach((btn) => {
-    btn.addEventListener('click', () => setSiteLanguage(btn.getAttribute('data-lang')));
-  });
-}
-
 // Loads Google's page-translation widget in the background and drives it
-// through a plain language menu instead of its default UI.
+// through the language buttons in the accessibility panel instead of its default UI.
 function loadGoogleTranslate() {
   if (document.getElementById('google_translate_element')) return;
 
@@ -355,7 +332,23 @@ function initQuickCarousel() {
     });
     grid.appendChild(stage);
 
+    // Phones (<= 560px) show a plain stacked list (see home.css), so the
+    // coverflow must not hide, fade or intercept taps on any card there.
+    const phoneMQ = window.matchMedia('(max-width: 560px)');
+
     const render = () => {
+      if (phoneMQ.matches) {
+        slides.forEach((s) => {
+          s.style.removeProperty('--x');
+          s.style.removeProperty('--s');
+          s.style.opacity = '';
+          s.style.zIndex = '';
+          s.style.visibility = '';
+          s.style.pointerEvents = '';
+          s.dataset.pos = 0;
+        });
+        return;
+      }
       slides.forEach((s, i) => {
         let d = i - pos;
         d -= n * Math.round(d / n);
@@ -411,6 +404,7 @@ function initQuickCarousel() {
     // drag / swipe: cards follow the cursor, release glides to the nearest card
     let down = false, dragging = false, startX = 0, startPos = 0, lastX = 0, lastT = 0, vel = 0, suppress = false;
     stage.addEventListener('pointerdown', (e) => {
+      if (phoneMQ.matches) return;
       if (e.pointerType === 'mouse' && e.button !== 0) return;
       cancelAnimationFrame(raf);
       down = true; dragging = false;
@@ -454,6 +448,7 @@ function initQuickCarousel() {
     }, true);
     cards.forEach((card, i) => {
       card.addEventListener('click', (e) => {
+        if (phoneMQ.matches) return; // list layout: every card is a normal link
         const off = Math.round(slides[i].dataset.pos);
         if (off !== 0) {
           e.preventDefault();
@@ -656,7 +651,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   initNavbar();
   initHeroParallax();
   initBackToTop();
-  initLanguageSwitch();
   initAccessibility();
   loadGoogleTranslate();
   initOfficeHours();

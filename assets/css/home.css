@@ -1,4 +1,4 @@
-/* Homepage only — hero, quick access, notices, news, about.
+/* Homepage only — hero, quick access, notices, news.
    Loaded by index.html after sabahtea.css (uses its :root tokens and .btn). */
 
 /* ==========================================================================
@@ -122,7 +122,7 @@
 
 .hero-content h1 {
   color: #fff;
-  font-size: clamp(3.8rem, 3.5vw, 2.875rem);
+  font-size: 3.8rem;
   line-height: 1.1;
   max-width: 20ch;
   margin: 0 auto 2rem;
@@ -179,83 +179,6 @@
 }
 
 
-/* Quick access — hairline list rather than a grid of identical shadowed cards */
-.quick-list {
-  list-style: none;
-  border-top: 1px solid var(--line-strong);
-}
-
-.quick-list li {
-  border-bottom: 1px solid var(--line-strong);
-}
-
-.quick-list a {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.6rem 0.25rem;
-  text-decoration: none;
-  color: var(--ink);
-}
-
-.quick-list a:hover .quick-title {
-  color: var(--federal-red);
-}
-
-.quick-list a:hover .quick-icon {
-  background: var(--federal-red);
-  border-color: var(--federal-red);
-}
-
-.quick-list a:hover .quick-icon i {
-  color: #fff;
-}
-
-.quick-icon {
-  flex-shrink: 0;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: 1.5px solid var(--line-strong);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.quick-icon i {
-  font-size: 1.3rem;
-  color: var(--ink);
-  transition: color 0.15s ease;
-}
-
-.quick-body {
-  flex: 1;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.25rem 1rem;
-}
-
-.quick-title {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-right: 1rem;
-  transition: color 0.15s ease;
-}
-
-.quick-desc {
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-}
-
-.quick-go {
-  flex-shrink: 0;
-  font-size: 1.5rem;
-  line-height: 1;
-  color: var(--ink-soft);
-}
 
 .quick-access-grid {
   display: grid;
@@ -273,6 +196,8 @@
   text-decoration: none;
   color: #fff;
   transition: transform 0.35s ease;
+  /* fades + blurs under the navbar (initCardBlur in kinomulok.js) */
+  will-change: opacity, filter;
 }
 
 .quick-access-card:hover {
@@ -315,20 +240,6 @@ img.showcase-media {
   background: linear-gradient(155deg, #4a2a12 0%, var(--kinabalu-blue) 100%);
 }
 
-.showcase-placeholder-label {
-  position: absolute;
-  top: 0.9rem;
-  right: 0.9rem;
-  background: rgba(0, 0, 0, 0.35);
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  z-index: 2;
-}
 
 .quick-access-scrim {
   position: absolute;
@@ -560,42 +471,6 @@ img.showcase-media {
   }
 }
 
-/* About / editorial two-column */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
-}
-
-.about-grid img {
-  border-radius: var(--radius);
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 4 / 3;
-}
-
-.about-copy h2 {
-  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
-  margin-bottom: 1rem;
-}
-
-.about-copy p+p {
-  margin-top: 1rem;
-}
-
-.about-copy .btn {
-  margin-top: 1.75rem;
-}
-
-@media (max-width: 860px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
 /* Skrin lebar: bangunan di kiri, teks di kanan, di atas banjaran gunung */
 @media (min-width: 861px) {
   .hero-content {
@@ -611,6 +486,12 @@ img.showcase-media {
 
 /* Telefon & tablet: teks di atas, bangunan memenuhi lebar di bawahnya */
 @media (max-width: 860px) {
+
+  /* teks di tengah atas, jadi skrim juga di situ (bukan di langit kosong sebelah kanan) */
+  .hero-scrim {
+    background:
+      radial-gradient(ellipse 85% 26% at 50% 24%, rgba(10, 24, 44, 0.4) 0%, rgba(10, 24, 44, 0) 100%);
+  }
 
   /* Tinggi hero cukup supaya teks tidak ditutup bangunan pada skrin pendek */
   .hero {
@@ -687,24 +568,6 @@ img.showcase-media {
     text-transform: none;
     max-width: 34ch;
     margin: 0 auto;
-  }
-
-  .quick-list a {
-    gap: 1rem;
-    padding: 1.25rem 0.1rem;
-  }
-
-  .quick-icon {
-    width: 44px;
-    height: 44px;
-  }
-
-  .quick-icon i {
-    font-size: 1.1rem;
-  }
-
-  .quick-title {
-    font-size: 1.05rem;
   }
 }
 
@@ -841,12 +704,6 @@ img.showcase-media {
   }
 }
 
-/* Cards fade + blur as they scroll up under the navbar (driven by
-   initCardBlur in kinomulok.js, same effect as the hero text). */
-.quick-access-card {
-  will-change: opacity, filter;
-}
-
 /* ==========================================================================
    Quick access — coverflow carousel (built by initQuickCarousel in kinomulok.js)
    Big centre card, smaller neighbours behind it, caption under each card.
@@ -863,6 +720,17 @@ img.showcase-media {
   .qa-caption,
   .qa-arrow {
     display: none;
+  }
+
+  /* safety net: the carousel script must never hide cards in the list layout */
+  .qa-slide {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .qa-stage {
+    touch-action: auto;
   }
 }
 

@@ -179,7 +179,10 @@
 .gl-lb figcaption {
     margin-top: .6rem;
     font-size: .9rem;
-    opacity: .8
+    opacity: .8;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem
 }
 
 .gl-lb button {
@@ -258,12 +261,6 @@
     opacity: .65;
     font-size: .8rem;
     margin-left: .2rem
-}
-
-.gl-lb figcaption {
-    display: flex;
-    flex-direction: column;
-    gap: .15rem
 }
 
 .gl-lb figcaption strong {

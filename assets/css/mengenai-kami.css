@@ -722,7 +722,7 @@ main section[id] {
    "Carousel experimentation" (Sacha Jerrems, Dribbble).
    Palet dari shot itu, terkawal dalam .ab-slider sahaja. */
 .ab-slider {
-    --ab-deep: #0e2024;
+    --ab-deep: var(--ink);
     --ab-teal: #096164;
     --ab-sea: #659ea7;
     --ab-sage: #bfcbc0;
@@ -731,10 +731,7 @@ main section[id] {
     position: relative;
     overflow: hidden;
     padding: 3.5rem 0 3rem;
-    background:
-        radial-gradient(60% 80% at 12% 0%, rgba(9, 97, 100, .55), transparent 70%),
-        radial-gradient(50% 70% at 100% 100%, rgba(101, 158, 167, .2), transparent 70%),
-        var(--ab-deep);
+    background: var(--ab-deep);
 }
 
 .ab-stage {
