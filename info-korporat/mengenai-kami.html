@@ -17,52 +17,48 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="../assets/css/pdr.css" />
-    <link rel="stylesheet" href="../assets/css/boomer.css" />
-    <link rel="stylesheet" href="../assets/css/diadialatu.css" />
-    <link rel="stylesheet" href="../assets/css/fungsi.css" />
-    <link rel="stylesheet" href="../assets/css/mengenai.css" />
     <link rel="stylesheet" href="../assets/css/mengenai-kami.css" />
     <link rel="icon" href="../assets/img/favicon.png" type="image/png" />
   </head>
   <body class="has-banner">
     <div id="navbar-placeholder"></div>
     <main id="main">
-      <div class="page-header">
-        <div class="page-header-media">
-          <img src="../assets/img/banner.jpg" alt="" />
+      <header class="ab-hero">
+        <div class="ab-hero-bg" aria-hidden="true"></div>
+        <div class="container ab-hero-inner">
+          <img class="ab-hero-building" src="../assets/img/hero/bangunan.webp" alt="Bangunan Pejabat Daerah Ranau" />
+          <div class="ab-hero-text">
+            <ul class="breadcrumb">
+              <li><a href="../index.html">Laman Utama</a></li>
+              <li>Info Korporat</li>
+              <li>Mengenai Kami</li>
+            </ul>
+            <h1>Mengenai Kami</h1>
+            <p>
+              Pejabat Daerah Ranau ialah ketua penyelaras pelaksana pembangunan
+              daerah dan agen terpenting Kerajaan dalam melaksanakan dasar-dasar
+              Kerajaan di peringkat Daerah Ranau, Sabah.
+            </p>
+            <nav class="about-jump" aria-label="Pada halaman ini">
+              <a href="#profil" data-slide="0">Perutusan</a>
+              <a href="#profil" data-slide="1">Sejarah Jabatan</a>
+              <a href="#profil" data-slide="2">Senarai Pegawai</a>
+              <a href="#visi">Visi &amp; Misi</a>
+              <a href="#fungsi">Fungsi</a>
+              <a href="#daerah">Daerah Ranau</a>
+            </nav>
+          </div>
         </div>
-        <div class="page-header-scrim"></div>
-        <div class="container">
-          <ul class="breadcrumb">
-            <li><a href="../index.html">Laman Utama</a></li>
-            <li>Info Korporat</li>
-            <li>Mengenai Kami</li>
-          </ul>
-          <h1>Mengenai Kami</h1>
-        </div>
-      </div>
-      <section class="about-intro">
-        <div class="container">
-          <p class="about-lead">
-            Pejabat Daerah Ranau ialah ketua penyelaras pelaksana pembangunan
-            daerah dan agen terpenting Kerajaan dalam melaksanakan dasar-dasar
-            Kerajaan di peringkat Daerah Ranau, Sabah.
-          </p>
-          <nav class="about-jump" aria-label="Pada halaman ini">
-            <a href="#perutusan">Perutusan</a>
-            <a href="#sejarah">Sejarah Jabatan</a>
-            <a href="#pegawai">Senarai Pegawai</a>
-            <a href="#visi">Visi &amp; Misi</a>
-            <a href="#fungsi">Fungsi</a>
-            <a href="#daerah">Daerah Ranau</a>
-          </nav>
-        </div>
-      </section>
+      </header>
 
-      <section id="perutusan">
-        <div class="container">
-          <div class="perutusan-wrap">
+      <section id="profil" class="ab-slider" aria-roledescription="carousel" aria-label="Perutusan, sejarah dan senarai pegawai">
+        <div class="container ab-stage">
+          <button class="ab-btn ab-prev" type="button" aria-label="Sebelumnya"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+          <button class="ab-btn ab-next" type="button" aria-label="Seterusnya"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
+          <div class="ab-viewport">
+            <div class="ab-track">
+              <article class="ab-slide" id="perutusan" aria-roledescription="slide" aria-label="Perutusan Pegawai Daerah">
+                <div class="perutusan-wrap">
             <div class="perutusan-photo">
               <div class="perutusan-photo-frame">
                 <img
@@ -108,16 +104,10 @@
                 Ranau
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="sejarah" class="section-tint">
-        <div class="container">
-          <div class="section-head">
-            <h2>Sejarah Jabatan</h2>
-          </div>
-          <div class="pj-history">
+              </article>
+              <article class="ab-slide" id="sejarah" aria-roledescription="slide" aria-label="Sejarah Jabatan">
+                <h2>Sejarah Jabatan</h2>
+                <div class="pj-history">
             <p>
               Pada tahun antara 1943 hingga 1947, Daerah Ranau merupakan sebuah
               Daerah Kecil di bawah pentadbiran Tambunan. Seterusnya diambil
@@ -145,13 +135,10 @@
               Siriman M.F. Basir pada tahun 2006 sehingga kini.
             </p>
           </div>
-        </div>
-      </section>
-
-      <section id="pegawai">
-        <div class="container">
-          <div class="pj-lists">
-            <div class="pj-list-card">
+              </article>
+              <article class="ab-slide" id="pegawai" aria-roledescription="slide" aria-label="Senarai nama pegawai dan ketua daerah">
+                <div class="pj-lists">
+                  <div class="pj-list-card">
               <h2>Senarai Nama Pegawai Daerah</h2>
               <ol class="pj-list">
                 <li>Datuk John B. Dusing (1961 – 1964)</li>
@@ -205,26 +192,27 @@
               </ol>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section class="vm-visi" id="visi">
-        <div class="container">
-          <span class="vm-eyebrow">Visi</span>
-          <p class="vm-visi-text">
-            Kami sentiasa berusaha menjadikan pejabat Daerah Ranau sebagai
-            pejabat contoh dan disegani.
-          </p>
-        </div>
-      </section>
-
-      <section id="misi">
-        <div class="container vm-split">
-          <div class="vm-split-head">
-            <span class="vm-eyebrow">Misi</span>
-            <h2>Misi Kami</h2>
+                </div>
+              </article>
+            </div>
           </div>
-          <ol class="vm-misi-list">
+          <div class="ab-dots" role="tablist" aria-label="Pilih bahagian">
+            <button type="button" role="tab" aria-label="Perutusan"></button>
+            <button type="button" role="tab" aria-label="Sejarah Jabatan"></button>
+            <button type="button" role="tab" aria-label="Senarai Pegawai"></button>
+          </div>
+        </div>
+      </section>
+
+      <section class="vm" aria-label="Visi dan Misi">
+        <div class="container">
+          <div class="vm-row vm-row-visi" id="visi">
+            <h2 class="vm-word vm-from-left">Visi</h2>
+            <p class="vm-text vm-fade">Kami sentiasa berusaha menjadikan pejabat Daerah Ranau sebagai
+            pejabat contoh dan disegani.</p>
+          </div>
+          <div class="vm-row vm-row-misi" id="misi">
+            <ol class="vm-text vm-fade vm-list">
             <li>
               Untuk memberikan perkhidmatan yang cepat, cekap dan prihatin pada
               setiap masa.
@@ -242,6 +230,8 @@
               mahupun sektor swasta.
             </li>
           </ol>
+            <h2 class="vm-word vm-from-right">Misi</h2>
+          </div>
         </div>
       </section>
 
@@ -646,5 +636,6 @@
     </main>
     <div id="footer-placeholder"></div>
     <script src="../assets/js/kinomulok.js"></script>
+    <script src="../assets/js/mengenai-slider.js"></script>
   </body>
 </html>
