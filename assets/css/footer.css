@@ -127,17 +127,6 @@
   }
 }
 
-@media (max-width: 720px) {
-  .footer-content {
-    grid-template-columns: 1fr 1fr;
-    gap: 2.25rem;
-  }
-
-  .footer-brand {
-    grid-column: 1 / -1;
-  }
-}
-
 @media (max-width: 480px) {
   .footer-content {
     grid-template-columns: 1fr;
