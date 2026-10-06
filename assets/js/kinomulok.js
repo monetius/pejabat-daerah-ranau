@@ -149,8 +149,31 @@ function initBackToTop() {
   window.addEventListener('scroll', onScroll, { passive: true });
 }
 
+function initLanguageSwitch() {
+  const toggle = document.getElementById('langToggle');
+  const menu = document.getElementById('langMenu');
+  if (!toggle || !menu) return;
+
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = menu.classList.toggle('active');
+    toggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!menu.contains(e.target) && e.target !== toggle) {
+      menu.classList.remove('active');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  menu.querySelectorAll('[data-lang]').forEach((btn) => {
+    btn.addEventListener('click', () => setSiteLanguage(btn.getAttribute('data-lang')));
+  });
+}
+
 // Loads Google's page-translation widget in the background and drives it
-// through the language buttons in the accessibility panel instead of its default UI.
+// through a plain language menu instead of its default UI.
 function loadGoogleTranslate() {
   if (document.getElementById('google_translate_element')) return;
 
@@ -651,6 +674,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initNavbar();
   initHeroParallax();
   initBackToTop();
+  initLanguageSwitch();
   initAccessibility();
   loadGoogleTranslate();
   initOfficeHours();
