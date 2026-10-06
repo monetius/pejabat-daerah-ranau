@@ -171,7 +171,6 @@ body.has-banner .navbar:not(.is-condensed) {
   background: var(--paper-raised);
   list-style: none;
   min-width: 260px;
-  border-radius: var(--radius);
   overflow: hidden;
   padding: 0.4rem;
   border-radius: 18px;

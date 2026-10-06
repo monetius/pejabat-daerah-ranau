@@ -726,9 +726,8 @@ main section[id] {
     --ab-deep: var(--navy);
     --ab-teal: #096164;
     --ab-sea: #659ea7;
-    --ab-sage: #bfcbc0;
     --ab-sky: #a3cbd8;
-    --ab-slate: #3e4b4c;
+    --ab-ink: #dbe7ea;
     position: relative;
     overflow: hidden;
     padding: 3.5rem 0 3rem;
@@ -755,10 +754,7 @@ main section[id] {
     position: relative;
     margin-bottom: 1.5rem;
     padding: 2rem 2.25rem 2.25rem;
-    background: var(--ab-sage);
-    border-radius: 28px;
-    color: var(--ab-slate);
-    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .55);
+    color: var(--ab-ink);
 }
 
 .ab-card-head {
@@ -767,14 +763,14 @@ main section[id] {
     gap: .9rem;
     margin-bottom: 1.4rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(14, 32, 36, .18);
+    border-bottom: 1px solid rgba(163, 203, 216, .28);
 }
 
 .ab-num {
     font-family: var(--font-display);
     font-size: clamp(2.6rem, 6vw, 4rem);
     line-height: .9;
-    color: var(--ab-teal);
+    color: var(--ab-sky);
 }
 
 .ab-kicker {
@@ -782,11 +778,11 @@ main section[id] {
     font-weight: 700;
     letter-spacing: .14em;
     text-transform: uppercase;
-    color: var(--ab-slate);
+    color: var(--ab-ink);
 }
 
 .ab-slide h2 {
-    color: var(--ab-deep);
+    color: #fff;
 }
 
 .ab-slide>h2 {
@@ -808,16 +804,16 @@ main section[id] {
 .ab-slide .perutusan-text p,
 .ab-slide .pj-history p,
 .ab-slide .pj-list li {
-    color: var(--ab-slate);
+    color: var(--ab-ink);
 }
 
 .ab-slide .pj-list li:last-child,
 .ab-slide .perutusan-text strong {
-    color: var(--ab-deep);
+    color: #fff;
 }
 
 .ab-slide .pj-history {
-    border-left: 3px solid var(--ab-teal);
+    border-left: 3px solid var(--ab-sky);
     padding-left: 1.5rem;
 }
 
@@ -826,7 +822,7 @@ main section[id] {
 }
 
 .ab-slide .pj-list-card h2 {
-    border-bottom: 2px solid var(--ab-teal);
+    border-bottom: 2px solid var(--ab-sky);
 }
 
 .ab-slide .pj-list {
@@ -925,6 +921,7 @@ main section[id] {
 /* aktif bila JS hidup */
 .js .ab-controls {
     display: flex;
+    justify-content: center;
 }
 
 .js .ab-viewport {
@@ -1021,10 +1018,6 @@ main section[id] {
     display: none;
 }
 
-.js .ab-controls {
-    justify-content: center;
-}
-
 @media(max-width:1100px) {
     .js .ab-side {
         display: none;
@@ -1037,48 +1030,6 @@ main section[id] {
     .js .ab-controls {
         justify-content: space-between;
     }
-}
-
-/* tanpa kotak: kandungan terus di atas latar navy, jadi warna teks dicerahkan */
-.ab-slider {
-    --ab-ink: #dbe7ea;
-}
-
-.ab-slide {
-    background: none;
-    box-shadow: none;
-    border-radius: 0;
-    color: var(--ab-ink);
-}
-
-.ab-card-head {
-    border-bottom-color: rgba(163, 203, 216, .28);
-}
-
-.ab-num {
-    color: var(--ab-sky);
-}
-
-.ab-kicker {
-    color: var(--ab-ink);
-}
-
-.ab-slide h2,
-.ab-slide .pj-list li:last-child,
-.ab-slide .perutusan-text strong {
-    color: #fff;
-}
-
-.ab-slide .perutusan-photo-caption,
-.ab-slide .perutusan-text p,
-.ab-slide .pj-history p,
-.ab-slide .pj-list li {
-    color: var(--ab-ink);
-}
-
-.ab-slide .pj-history,
-.ab-slide .pj-list-card h2 {
-    border-color: var(--ab-sky);
 }
 
 /* hero */
