@@ -1,24 +1,43 @@
+// Carousel "Perutusan / Sejarah / Senarai Pegawai"
+// Kad ditengahkan, kad jiran kelihatan separuh; boleh diseret (jari atau tetikus).
 (function () {
     var root = document.getElementById('profil');
     if (!root) return;
     document.documentElement.classList.add('js');
+
     var vp = root.querySelector('.ab-viewport'),
         track = root.querySelector('.ab-track'),
         slides = [].slice.call(root.querySelectorAll('.ab-slide')),
         prev = root.querySelector('.ab-prev'),
         next = root.querySelector('.ab-next'),
         dots = [].slice.call(root.querySelectorAll('.ab-dots button')),
-        i = 0;
+        count = root.querySelector('.ab-count b'),
+        last = slides.length - 1,
+        i = 0,
+        cur = 0;
+
+    function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+    function place() {
+        var s = slides[i];
+        // letak kad aktif di tengah paparan
+        cur = (vp.clientWidth - s.offsetWidth) / 2 - s.offsetLeft;
+        track.style.transform = 'translate3d(' + cur + 'px,0,0)';
+        var cs = getComputedStyle(vp);
+        vp.style.height = (s.offsetHeight + parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)) + 'px';
+    }
 
     function go(n) {
-        i = Math.max(0, Math.min(slides.length - 1, n));
-        track.style.transform = 'translateX(-' + i * 100 + '%)';
-        vp.style.height = slides[i].offsetHeight + 'px';
-        prev.hidden = i === 0;
-        next.hidden = i === slides.length - 1;
+        i = Math.max(0, Math.min(last, n));
+        place();
+        prev.disabled = i === 0;
+        next.disabled = i === last;
+        if (count) count.textContent = pad(i + 1);
         slides.forEach(function (s, k) {
+            s.classList.toggle('is-active', k === i);
+            s.classList.toggle('is-before', k < i);
+            s.classList.toggle('is-after', k > i);
             s.setAttribute('aria-hidden', k !== i);
-            if ('inert' in s) s.inert = k !== i;
         });
         dots.forEach(function (d, k) { d.setAttribute('aria-selected', k === i); });
     }
@@ -31,23 +50,67 @@
         if (e.key === 'ArrowRight') go(i + 1);
     });
 
-    // swipe pada telefon
-    var x0 = null;
-    vp.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-    vp.addEventListener('touchend', function (e) {
-        if (x0 === null) return;
-        var dx = e.changedTouches[0].clientX - x0;
-        if (Math.abs(dx) > 50) go(i + (dx < 0 ? 1 : -1));
-        x0 = null;
+    // seret: ikut jari/tetikus, lepas = snap ke kad terdekat
+    var down = false, moved = false, sx = 0, sy = 0, dx = 0, pid = null, blockClick = false;
+
+    [].forEach.call(track.querySelectorAll('img'), function (im) { im.draggable = false; });
+
+    vp.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        down = true; moved = false; dx = 0; sx = e.clientX; sy = e.clientY; pid = e.pointerId;
     });
+    vp.addEventListener('pointermove', function (e) {
+        if (!down || e.pointerId !== pid) return;
+        dx = e.clientX - sx;
+        if (!moved) {
+            // tunggu sehingga jelas ini gerakan mengufuk (bukan skrol menegak)
+            if (Math.abs(dx) < 8 || Math.abs(dx) < Math.abs(e.clientY - sy)) return;
+            moved = true;
+            track.classList.add('is-dragging');
+            try { vp.setPointerCapture(pid); } catch (err) { }
+        }
+        var d = ((i === 0 && dx > 0) || (i === last && dx < 0)) ? dx * 0.3 : dx;
+        track.style.transform = 'translate3d(' + (cur + d) + 'px,0,0)';
+    });
+    function release(e) {
+        if (!down || (e && e.pointerId !== pid)) return;
+        down = false;
+        track.classList.remove('is-dragging');
+        if (!moved) return;
+        blockClick = true;
+        setTimeout(function () { blockClick = false; }, 0);
+        var limit = Math.min(80, vp.clientWidth * 0.15);
+        go(Math.abs(dx) > limit ? i + (dx < 0 ? 1 : -1) : i);
+    }
+    vp.addEventListener('pointerup', release);
+    vp.addEventListener('pointercancel', release);
+
+    // klik kad jiran = pergi ke kad itu
+    track.addEventListener('click', function (e) {
+        if (blockClick) { e.preventDefault(); e.stopPropagation(); return; }
+        var s = e.target.closest('.ab-slide');
+        if (s && !s.classList.contains('is-active')) go(slides.indexOf(s));
+    }, true);
 
     // pautan "Perutusan / Sejarah / Senarai Pegawai" di hero
     [].forEach.call(document.querySelectorAll('[data-slide]'), function (a) {
         a.addEventListener('click', function () { go(+a.getAttribute('data-slide')); });
     });
 
-    window.addEventListener('resize', function () { vp.style.height = slides[i].offsetHeight + 'px'; });
-    window.addEventListener('load', function () { go(i); });
+    // kekalkan kedudukan bila saiz skrin / kandungan berubah
+    function relayout() {
+        track.classList.add('no-anim');
+        place();
+        void track.offsetWidth;
+        track.classList.remove('no-anim');
+    }
+    window.addEventListener('resize', relayout);
+    window.addEventListener('load', relayout);
+    if ('ResizeObserver' in window) {
+        var ro = new ResizeObserver(function () { place(); });
+        slides.forEach(function (s) { ro.observe(s); });
+    }
+    relayout();
     go(0);
 })();
 

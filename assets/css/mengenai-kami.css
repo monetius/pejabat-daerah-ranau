@@ -1,5 +1,11 @@
 /* Mengenai Kami: semua gaya halaman ini dalam satu fail */
 
+/* --gold / --gold-dark dipakai di bawah tetapi tidak pernah ditakrif: sambung ke token emas sedia ada */
+:root {
+    --gold: var(--federal-red);
+    --gold-dark: var(--federal-red-dark);
+}
+
 /* pdr */
 .perutusan-wrap {
     display: flex;
@@ -665,6 +671,7 @@ main section[id] {
 
 .ab-hero-text h1 {
     margin: .4rem 0 1rem;
+    color: #fff;
 }
 
 .ab-hero-text p {
@@ -710,12 +717,78 @@ main section[id] {
     }
 }
 
+/* ---------- Carousel ----------
+   Gaya kad-tengah + kad jiran kelihatan separuh, diilhamkan oleh
+   "Carousel experimentation" (Sacha Jerrems, Dribbble).
+   Palet dari shot itu, terkawal dalam .ab-slider sahaja. */
 .ab-slider {
-    padding: 3rem 0 3.5rem;
+    --ab-deep: #0e2024;
+    --ab-teal: #096164;
+    --ab-sea: #659ea7;
+    --ab-sage: #bfcbc0;
+    --ab-sky: #a3cbd8;
+    --ab-slate: #3e4b4c;
+    position: relative;
+    overflow: hidden;
+    padding: 3.5rem 0 3rem;
+    background:
+        radial-gradient(60% 80% at 12% 0%, rgba(9, 97, 100, .55), transparent 70%),
+        radial-gradient(50% 70% at 100% 100%, rgba(101, 158, 167, .2), transparent 70%),
+        var(--ab-deep);
 }
 
 .ab-stage {
     position: relative;
+}
+
+.ab-viewport:focus-visible {
+    outline: 2px solid var(--ab-sky);
+    outline-offset: 4px;
+}
+
+/* kad (tanpa JS: disusun menegak) */
+.ab-viewport {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 1.75rem;
+}
+
+.ab-slide {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 2rem 2.25rem 2.25rem;
+    background: var(--ab-sage);
+    border-radius: 28px;
+    color: var(--ab-slate);
+    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .55);
+}
+
+.ab-card-head {
+    display: flex;
+    align-items: baseline;
+    gap: .9rem;
+    margin-bottom: 1.4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(14, 32, 36, .18);
+}
+
+.ab-num {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 6vw, 4rem);
+    line-height: .9;
+    color: var(--ab-teal);
+}
+
+.ab-kicker {
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ab-slate);
+}
+
+.ab-slide h2 {
+    color: var(--ab-deep);
 }
 
 .ab-slide>h2 {
@@ -723,11 +796,39 @@ main section[id] {
 }
 
 .ab-slide .perutusan-wrap {
-    padding-top: 0;
+    padding: 0;
+}
+
+.ab-slide .perutusan-photo-frame {
+    padding-top: 1.25rem;
+    background: linear-gradient(180deg, var(--ab-sea), var(--ab-teal));
+    border-radius: 22px;
+    overflow: hidden;
+}
+
+.ab-slide .perutusan-photo-caption,
+.ab-slide .perutusan-text p,
+.ab-slide .pj-history p,
+.ab-slide .pj-list li {
+    color: var(--ab-slate);
+}
+
+.ab-slide .pj-list li:last-child,
+.ab-slide .perutusan-text strong {
+    color: var(--ab-deep);
+}
+
+.ab-slide .pj-history {
+    border-left: 3px solid var(--ab-teal);
+    padding-left: 1.5rem;
 }
 
 .ab-slide .pj-lists {
     padding: 0;
+}
+
+.ab-slide .pj-list-card h2 {
+    border-bottom: 2px solid var(--ab-teal);
 }
 
 .ab-slide .pj-list {
@@ -736,101 +837,155 @@ main section[id] {
     padding-right: .75rem;
 }
 
-.ab-slide .pj-history {
-    border-left: 3px solid var(--federal-red);
-    padding-left: 1.5rem;
+/* kawalan */
+.ab-controls {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: .25rem;
+}
+
+.ab-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    color: var(--ab-sky);
+}
+
+.ab-count {
+    font-size: .9rem;
+    letter-spacing: .08em;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.ab-count b {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.7rem;
+    color: #fff;
 }
 
 .ab-btn {
-    display: none;
-    position: absolute;
-    top: 50%;
-    z-index: 3;
-    width: 48px;
-    height: 48px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
     border-radius: 50%;
-    border: 2px solid var(--ink);
-    background: var(--paper-raised);
-    color: var(--ink);
-    font-size: 1.1rem;
+    border: 1.5px solid rgba(163, 203, 216, .55);
+    background: transparent;
+    color: var(--ab-sky);
+    font-size: 1rem;
     cursor: pointer;
-    transition: background .2s, color .2s;
+    transition: background .25s, color .25s, border-color .25s, opacity .25s;
 }
 
 .ab-btn:hover,
 .ab-btn:focus-visible {
-    background: var(--kinabalu-blue);
-    border-color: var(--kinabalu-blue);
-    color: #fff;
+    background: var(--ab-sky);
+    border-color: var(--ab-sky);
+    color: var(--ab-deep);
 }
 
-.ab-prev {
-    left: -8px;
-}
-
-.ab-next {
-    right: -8px;
+.ab-btn:disabled {
+    opacity: .3;
+    pointer-events: none;
 }
 
 .ab-dots {
-    display: none;
-    justify-content: center;
-    gap: .6rem;
-    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
 }
 
 .ab-dots button {
-    width: 12px;
-    height: 12px;
+    position: relative;
+    width: 10px;
+    height: 10px;
     padding: 0;
-    border-radius: 50%;
-    border: 2px solid var(--kinabalu-blue);
-    background: none;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(163, 203, 216, .35);
     cursor: pointer;
+    transition: width .4s cubic-bezier(.2, .7, .2, 1), background .3s;
+}
+
+.ab-dots button::before {
+    /* kawasan sentuh lebih besar */
+    content: "";
+    position: absolute;
+    inset: -16px -5px;
 }
 
 .ab-dots button[aria-selected="true"] {
-    background: var(--kinabalu-blue);
+    width: 38px;
+    background: var(--ab-sky);
 }
 
-.js .ab-btn {
-    display: grid;
-    place-items: center;
-}
-
-.js .ab-dots {
+/* aktif bila JS hidup */
+.js .ab-controls {
     display: flex;
 }
 
 .js .ab-viewport {
+    max-width: none;
+    margin: 0;
     overflow: hidden;
-    transition: height .45s ease;
+    padding: .5rem 0 1.75rem;
+    cursor: grab;
+    touch-action: pan-y;
+    transition: height .5s cubic-bezier(.2, .7, .2, 1);
 }
 
 .js .ab-track {
+    position: relative;
     display: flex;
     align-items: flex-start;
-    transition: transform .55s cubic-bezier(.2, .7, .2, 1);
+    gap: 1.25rem;
+    will-change: transform;
+    transition: transform .65s cubic-bezier(.2, .7, .2, 1);
+}
+
+.js .ab-track.is-dragging {
+    transition: none;
+    cursor: grabbing;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.js .ab-track.no-anim,
+.js .ab-track.no-anim .ab-slide {
+    transition: none;
 }
 
 .js .ab-slide {
-    flex: 0 0 100%;
-    box-sizing: border-box;
-    padding: 0 4rem;
-}
-
-.js .ab-btn[hidden] {
-    display: none;
-}
-
-.ab-slide {
-    margin-bottom: 3rem;
-}
-
-.js .ab-slide {
+    flex: 0 0 min(88%, 940px);
     margin-bottom: 0;
+    opacity: .4;
+    transform: scale(.93);
+    transform-origin: 50% 0;
+    cursor: pointer;
+    transition: transform .6s cubic-bezier(.2, .7, .2, 1), opacity .5s ease;
 }
 
+/* kad jiran mengecil ke arah kad aktif supaya bahagian yang kelihatan tidak hilang */
+.js .ab-slide.is-before {
+    transform-origin: 100% 0;
+}
+
+.js .ab-slide.is-after {
+    transform-origin: 0 0;
+}
+
+.js .ab-slide.is-active {
+    opacity: 1;
+    transform: none;
+    cursor: auto;
+}
+
+/* hero */
 @media(max-width:860px) {
     .ab-hero-inner {
         grid-template-columns: 1fr;
@@ -845,23 +1000,73 @@ main section[id] {
         padding-bottom: 1rem;
     }
 
+    .ab-slider {
+        padding: 2.5rem 0 2.25rem;
+    }
+
+    .ab-slide {
+        padding: 1.4rem 1.25rem 1.6rem;
+        border-radius: 22px;
+    }
+
+    .js .ab-track {
+        gap: .9rem;
+    }
+
     .js .ab-slide {
-        padding: 0 .25rem;
+        flex-basis: 82%;
+    }
+
+    .ab-card-head {
+        margin-bottom: 1.1rem;
+        padding-bottom: .8rem;
+    }
+
+    .ab-slide .perutusan-wrap {
+        gap: 1.5rem;
+    }
+
+    .ab-slide .perutusan-photo {
+        flex: 0 0 100%;
+        max-width: 260px;
+        margin: 0 auto;
+    }
+
+    .ab-slide .perutusan-photo-frame img {
+        height: 280px;
+    }
+
+    .ab-slide .perutusan-photo-caption {
+        font-size: 1.05rem;
+    }
+
+    .ab-slide .perutusan-text {
+        flex-basis: 100%;
+        min-width: 0;
+    }
+
+    .ab-slide .pj-history {
+        padding-left: 1rem;
+    }
+
+    .ab-slide .pj-lists {
+        gap: 2rem;
+    }
+
+    /* tiada skrol bersarang pada telefon */
+    .ab-slide .pj-list {
+        max-height: none;
+        overflow: visible;
+        padding-right: 0;
     }
 
     .ab-btn {
-        top: auto;
-        bottom: -4px;
-        width: 42px;
-        height: 42px;
+        width: 46px;
+        height: 46px;
     }
 
-    .ab-prev {
-        left: 0;
-    }
-
-    .ab-next {
-        right: 0;
+    .ab-meta {
+        gap: .9rem;
     }
 }
 
@@ -873,13 +1078,17 @@ main section[id] {
     }
 
     .js .ab-track,
-    .js .ab-viewport {
+    .js .ab-viewport,
+    .js .ab-slide,
+    .ab-dots button {
         transition: none;
     }
 }
 
 .vm {
     padding: 4rem 0;
+    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 .vm-row {
@@ -971,6 +1180,17 @@ main section[id] {
 }
 
 @media(max-width:760px) {
+    .js .vm-from-left:not(.vm-in) {
+        transform: translateX(-48px);
+    }
+
+    .js .vm-from-right:not(.vm-in) {
+        transform: translateX(48px);
+    }
+
+    .vm-word {
+        font-size: clamp(3.5rem, 19vw, 5.5rem);
+    }
 
     .vm-row-visi,
     .vm-row-misi {

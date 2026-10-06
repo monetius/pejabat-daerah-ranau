@@ -52,12 +52,10 @@
       </header>
 
       <section id="profil" class="ab-slider" aria-roledescription="carousel" aria-label="Perutusan, sejarah dan senarai pegawai">
-        <div class="container ab-stage">
-          <button class="ab-btn ab-prev" type="button" aria-label="Sebelumnya"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
-          <button class="ab-btn ab-next" type="button" aria-label="Seterusnya"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
-          <div class="ab-viewport">
+        <div class="ab-viewport" tabindex="0" aria-label="Seret atau gunakan anak panah untuk menukar bahagian">
             <div class="ab-track">
               <article class="ab-slide" id="perutusan" aria-roledescription="slide" aria-label="Perutusan Pegawai Daerah">
+                <div class="ab-card-head"><span class="ab-num" aria-hidden="true">01</span><span class="ab-kicker">Perutusan</span></div>
                 <div class="perutusan-wrap">
             <div class="perutusan-photo">
               <div class="perutusan-photo-frame">
@@ -104,8 +102,10 @@
                 Ranau
               </p>
             </div>
+                </div>
               </article>
               <article class="ab-slide" id="sejarah" aria-roledescription="slide" aria-label="Sejarah Jabatan">
+                <div class="ab-card-head"><span class="ab-num" aria-hidden="true">02</span><span class="ab-kicker">Sejarah Jabatan</span></div>
                 <h2>Sejarah Jabatan</h2>
                 <div class="pj-history">
             <p>
@@ -137,6 +137,7 @@
           </div>
               </article>
               <article class="ab-slide" id="pegawai" aria-roledescription="slide" aria-label="Senarai nama pegawai dan ketua daerah">
+                <div class="ab-card-head"><span class="ab-num" aria-hidden="true">03</span><span class="ab-kicker">Senarai Pegawai</span></div>
                 <div class="pj-lists">
                   <div class="pj-list-card">
               <h2>Senarai Nama Pegawai Daerah</h2>
@@ -192,14 +193,21 @@
               </ol>
             </div>
           </div>
-                </div>
               </article>
             </div>
           </div>
-          <div class="ab-dots" role="tablist" aria-label="Pilih bahagian">
-            <button type="button" role="tab" aria-label="Perutusan"></button>
-            <button type="button" role="tab" aria-label="Sejarah Jabatan"></button>
-            <button type="button" role="tab" aria-label="Senarai Pegawai"></button>
+        <div class="container ab-stage">
+          <div class="ab-controls">
+            <button class="ab-btn ab-prev" type="button" aria-label="Sebelumnya"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i></button>
+            <div class="ab-meta">
+              <span class="ab-count" aria-live="polite"><b>01</b> / 03</span>
+              <div class="ab-dots" role="tablist" aria-label="Pilih bahagian">
+                <button type="button" role="tab" aria-label="Perutusan"></button>
+                <button type="button" role="tab" aria-label="Sejarah Jabatan"></button>
+                <button type="button" role="tab" aria-label="Senarai Pegawai"></button>
+              </div>
+            </div>
+            <button class="ab-btn ab-next" type="button" aria-label="Seterusnya"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></button>
           </div>
         </div>
       </section>
