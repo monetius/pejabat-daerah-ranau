@@ -976,6 +976,104 @@ main section[id] {
     cursor: auto;
 }
 
+/* anak panah di sisi kad (desktop): kad pertama hanya ada "seterusnya",
+   kad terakhir hanya ada "sebelumnya". Skrin kecil guna anak panah di bawah. */
+.ab-frame {
+    position: relative;
+}
+
+.ab-side {
+    display: none;
+}
+
+.js .ab-side {
+    display: grid;
+    position: absolute;
+    top: calc(50% - .625rem);
+    margin-top: -26px;
+    z-index: 3;
+    background: rgba(16, 27, 45, .78);
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
+.js .ab-side.ab-prev {
+    left: clamp(.75rem, 2.5vw, 2.5rem);
+}
+
+.js .ab-side.ab-next {
+    right: clamp(.75rem, 2.5vw, 2.5rem);
+}
+
+.ab-side:disabled {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.ab-inline {
+    display: none;
+}
+
+.js .ab-controls {
+    justify-content: center;
+}
+
+@media(max-width:1100px) {
+    .js .ab-side {
+        display: none;
+    }
+
+    .ab-inline {
+        display: grid;
+    }
+
+    .js .ab-controls {
+        justify-content: space-between;
+    }
+}
+
+/* tanpa kotak: kandungan terus di atas latar navy, jadi warna teks dicerahkan */
+.ab-slider {
+    --ab-ink: #dbe7ea;
+}
+
+.ab-slide {
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+    color: var(--ab-ink);
+}
+
+.ab-card-head {
+    border-bottom-color: rgba(163, 203, 216, .28);
+}
+
+.ab-num {
+    color: var(--ab-sky);
+}
+
+.ab-kicker {
+    color: var(--ab-ink);
+}
+
+.ab-slide h2,
+.ab-slide .pj-list li:last-child,
+.ab-slide .perutusan-text strong {
+    color: #fff;
+}
+
+.ab-slide .perutusan-photo-caption,
+.ab-slide .perutusan-text p,
+.ab-slide .pj-history p,
+.ab-slide .pj-list li {
+    color: var(--ab-ink);
+}
+
+.ab-slide .pj-history,
+.ab-slide .pj-list-card h2 {
+    border-color: var(--ab-sky);
+}
+
 /* hero */
 @media(max-width:860px) {
     .ab-hero-inner {
@@ -1155,14 +1253,12 @@ main section[id] {
     transform: translateY(24px);
 }
 
+/* gerakan dikawal oleh skrol (lihat mengenai-slider.js), jadi tiada transition */
 .js .vm-from-left,
 .js .vm-from-right,
 .js .vm-fade {
-    transition: opacity .9s ease, transform 1s cubic-bezier(.2, .7, .2, 1);
-}
-
-.js .vm-fade {
-    transition-delay: .25s;
+    transition: none;
+    will-change: transform, opacity;
 }
 
 .js .vm-in {
