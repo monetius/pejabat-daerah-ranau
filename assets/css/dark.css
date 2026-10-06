@@ -127,6 +127,15 @@ html[data-theme='dark'] img:not(.logo-img):not(.hero-teh) {
   filter: brightness(0.9) contrast(1.03);
 }
 
+/* Tea-plant strip: swap to the dark-coloured copy so it blends with the dark page */
+html[data-theme='dark'] .hero-teh--light {
+  display: none;
+}
+
+html[data-theme='dark'] .hero-teh--dark {
+  display: block;
+}
+
 /* Footer needs a visible edge against the dark page */
 html[data-theme='dark'] footer,
 html[data-theme='dark'] .footer {

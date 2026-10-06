@@ -1,7 +1,17 @@
 <!doctype html>
 <html lang="ms">
   <head>
-    <script>(function(){try{var t=localStorage.getItem('theme');if(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)t='dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (!t && window.matchMedia("(prefers-color-scheme: dark)").matches)
+            t = "dark";
+          if (t === "dark")
+            document.documentElement.setAttribute("data-theme", "dark");
+        } catch (e) {}
+      })();
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pejabat Daerah Ranau</title>
@@ -52,8 +62,14 @@
           </div>
         </div>
         <img
-          class="hero-teh"
+          class="hero-teh hero-teh--light"
           src="assets/img/hero/tehijo.webp"
+          alt=""
+          aria-hidden="true"
+        />
+        <img
+          class="hero-teh hero-teh--dark"
+          src="assets/img/hero/tehijo-gelap.webp"
           alt=""
           aria-hidden="true"
         />
@@ -81,16 +97,20 @@
               class="quick-access-card"
               href="info-korporat/mengenai-kami.html"
             >
-              <img
-                class="showcase-media"
-                src="assets/img/pejabatdaerah.webp"
-                alt="Mengenai Kami"
-              />
-              <div class="quick-access-scrim"></div>
+              <div class="quick-access-media">
+                <img
+                  class="showcase-media"
+                  src="assets/img/pejabatdaerah.webp"
+                  alt="Mengenai Kami"
+                />
+              </div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Info Korporat</span>
                 <h3>Mengenai Kami</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
@@ -98,16 +118,20 @@
               class="quick-access-card"
               href="info-korporat/carta-organisasi.html"
             >
-              <img
-                class="showcase-media"
-                src="assets/img/carta-organisasi.png"
-                alt="Carta Organisasi"
-              />
-              <div class="quick-access-scrim"></div>
+              <div class="quick-access-media">
+                <img
+                  class="showcase-media"
+                  src="assets/img/carta-organisasi.png"
+                  alt="Carta Organisasi"
+                />
+              </div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Info Korporat</span>
                 <h3>Carta Organisasi</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
@@ -115,14 +139,18 @@
               class="quick-access-card"
               href="info-korporat/hebahan-integriti.html"
             >
-              <div class="showcase-media ph-2" aria-hidden="true">
-                <i class="fa-solid fa-scale-balanced"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-2" aria-hidden="true">
+                  <i class="fa-solid fa-scale-balanced"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Info Korporat</span>
                 <h3>Hebahan Integriti</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
@@ -136,19 +164,23 @@
             <h2>Profil Daerah</h2>
             <p>Maklumat mengenai Daerah Ranau</p>
           </div>
-          <div class="quick-access-grid">
+          <div class="quick-access-grid quick-access-grid--three">
             <a
               class="quick-access-card"
               href="profil-daerah/kemudahan-awam.html"
             >
-              <div class="showcase-media ph-1" aria-hidden="true">
-                <i class="fa-solid fa-building-columns"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-1" aria-hidden="true">
+                  <i class="fa-solid fa-building-columns"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Profil Daerah</span>
                 <h3>Senarai Kemudahan Awam</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
@@ -156,52 +188,68 @@
               class="quick-access-card"
               href="profil-daerah/senarai-kampung.html"
             >
-              <div class="showcase-media ph-3" aria-hidden="true">
-                <i class="fa-solid fa-map-location-dot"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-3" aria-hidden="true">
+                  <i class="fa-solid fa-map-location-dot"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Profil Daerah</span>
                 <h3>Senarai Kampung</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
             <a class="quick-access-card" href="profil-daerah/wakil-rakyat.html">
-              <div class="showcase-media ph-2" aria-hidden="true">
-                <i class="fa-solid fa-user-tie"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-2" aria-hidden="true">
+                  <i class="fa-solid fa-user-tie"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Profil Daerah</span>
                 <h3>Wakil Rakyat</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
             <a class="quick-access-card" href="profil-daerah/ekasih.html">
-              <div class="showcase-media ph-1" aria-hidden="true">
-                <i class="fa-solid fa-hand-holding-heart"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-1" aria-hidden="true">
+                  <i class="fa-solid fa-hand-holding-heart"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Profil Daerah</span>
                 <h3>eKasih</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
             <a class="quick-access-card" href="profil-daerah/pelancongan.html">
-              <img
-                class="showcase-media"
-                src="assets/img/images.jpg"
-                alt="Pelancongan"
-              />
-              <div class="quick-access-scrim"></div>
+              <div class="quick-access-media">
+                <img
+                  class="showcase-media"
+                  src="assets/img/images.jpg"
+                  alt="Pelancongan"
+                />
+              </div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Profil Daerah</span>
                 <h3>Pelancongan</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
@@ -209,14 +257,18 @@
               class="quick-access-card"
               href="profil-daerah/data-penduduk.html"
             >
-              <div class="showcase-media ph-3" aria-hidden="true">
-                <i class="fa-solid fa-chart-pie"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-3" aria-hidden="true">
+                  <i class="fa-solid fa-chart-pie"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Profil Daerah</span>
                 <h3>Data Penduduk Daerah Ranau</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
@@ -225,68 +277,6 @@
       </section>
 
       <section>
-        <div class="container">
-          <div class="section-head">
-            <h2>Perkhidmatan Online</h2>
-            <p>Perkhidmatan dan permohonan dalam talian</p>
-          </div>
-          <div class="quick-access-grid">
-            <a class="quick-access-card" href="https://i-adu.sabah.gov.my/">
-              <img
-                class="showcase-media"
-                src="assets/img/komplen.jpg"
-                alt="Sistem Aduan Awam"
-              />
-              <div class="quick-access-scrim"></div>
-              <div class="quick-access-body">
-                <span class="quick-access-tag">Dalam talian</span>
-                <h3>Sistem Aduan Awam</h3>
-                <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
-                >
-              </div>
-            </a>
-            <a
-              class="quick-access-card"
-              href="perkhidmatan-online/latihan-industri.html"
-            >
-              <img
-                class="showcase-media"
-                src="assets/img/intern.jpg"
-                alt="Permohonan Latihan Industri"
-              />
-              <div class="quick-access-scrim"></div>
-              <div class="quick-access-body">
-                <span class="quick-access-tag">Dalam talian</span>
-                <h3>Permohonan Latihan Industri</h3>
-                <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
-                >
-              </div>
-            </a>
-            <a
-              class="quick-access-card"
-              href="perkhidmatan-online/lesen-berniaga.html"
-            >
-              <img
-                class="showcase-media"
-                src="assets/img/business-license.jpg"
-                alt="Permohonan Lesen Berniaga"
-              />
-              <div class="quick-access-scrim"></div>
-              <div class="quick-access-body">
-                <span class="quick-access-tag">Dalam talian</span>
-                <h3>Permohonan Lesen Berniaga</h3>
-                <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
-                >
-              </div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-tint">
         <div class="container">
           <div class="section-head">
             <h2>Hebahan &amp; Berita</h2>
@@ -380,7 +370,7 @@
         </div>
       </section>
 
-      <section>
+      <section class="section-tint">
         <div class="container">
           <div class="section-head">
             <h2>Galeri &amp; Pautan</h2>
@@ -388,50 +378,66 @@
           </div>
           <div class="quick-access-grid quick-access-grid--four">
             <a class="quick-access-card" href="galeri-pautan/gambar.html">
-              <div class="showcase-media ph-3" aria-hidden="true">
-                <i class="fa-solid fa-images"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-3" aria-hidden="true">
+                  <i class="fa-solid fa-images"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Galeri &amp; Pautan</span>
                 <h3>Gambar</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
             <a class="quick-access-card" href="galeri-pautan/video.html">
-              <div class="showcase-media ph-1" aria-hidden="true">
-                <i class="fa-solid fa-video"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-1" aria-hidden="true">
+                  <i class="fa-solid fa-video"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Galeri &amp; Pautan</span>
                 <h3>Video</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
             <a class="quick-access-card" href="galeri-pautan/intranet.html">
-              <div class="showcase-media ph-2" aria-hidden="true">
-                <i class="fa-solid fa-network-wired"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-2" aria-hidden="true">
+                  <i class="fa-solid fa-network-wired"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Galeri &amp; Pautan</span>
                 <h3>Intranet</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>
             <a class="quick-access-card" href="galeri-pautan/agensi.html">
-              <div class="showcase-media ph-3" aria-hidden="true">
-                <i class="fa-solid fa-link"></i>
+              <div class="quick-access-media">
+                <div class="showcase-media ph-3" aria-hidden="true">
+                  <i class="fa-solid fa-link"></i>
+                </div>
               </div>
-              <div class="quick-access-scrim"></div>
               <div class="quick-access-body">
+                <span class="quick-access-tag">Galeri &amp; Pautan</span>
                 <h3>Pautan Agensi</h3>
                 <span class="quick-access-link"
-                  >Lawat<span class="arrow" aria-hidden="true"> →</span></span
+                  >Lihat Butiran<span class="arrow" aria-hidden="true"
+                    >→</span
+                  ></span
                 >
               </div>
             </a>

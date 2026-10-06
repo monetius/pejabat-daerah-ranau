@@ -86,6 +86,13 @@ function initNavbar() {
   }
 }
 
+// Shared fade + blur used by the hero text and the quick access cards.
+// progress: 0 = fully visible, 1 = fully faded and blurred.
+function applyFadeBlur(el, progress) {
+  el.style.opacity = progress === 0 ? '' : String(1 - progress);
+  el.style.filter = progress === 0 ? '' : `blur(${progress * 10}px)`;
+}
+
 function initHeroParallax() {
   const heroMedia = document.querySelector('.hero-media, .page-header-media');
   const heroContent = document.querySelector('.hero-content');
@@ -112,8 +119,7 @@ function initHeroParallax() {
         // Fades and blurs the hero text as it scrolls up and out of view,
         // fully gone by the time the hero itself scrolls off screen.
         const progress = Math.min(Math.max(-rect.top / rect.height, 0), 1);
-        heroContent.style.opacity = String(1 - progress);
-        heroContent.style.filter = `blur(${progress * 10}px)`;
+        applyFadeBlur(heroContent, progress);
       }
     }
     ticking = false;
@@ -323,173 +329,6 @@ function initOfficeHours() {
   });
 }
 
-function initQuickCarousel() {
-  // Coverflow carousel for each .quick-access-grid. Position is one continuous
-  // number (pos), so the cards can follow the cursor while dragging and then
-  // glide to the nearest card with easing.
-  document.querySelectorAll('.quick-access-grid').forEach((grid) => {
-    const cards = Array.from(grid.querySelectorAll(':scope > .quick-access-card'));
-    if (cards.length < 2) return;
-    const n = cards.length;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let pos = 0;
-    let W = 460;
-    let raf = 0;
-
-    grid.classList.add('qa-carousel');
-    const stage = document.createElement('div');
-    stage.className = 'qa-stage';
-
-    const slides = cards.map((card) => {
-      const slide = document.createElement('div');
-      slide.className = 'qa-slide';
-      const title = card.querySelector('h3');
-      const caption = document.createElement('div');
-      caption.className = 'qa-caption';
-      caption.textContent = title ? title.textContent : '';
-      card.draggable = false;
-      card.querySelectorAll('img').forEach((im) => { im.draggable = false; });
-      slide.append(card, caption);
-      stage.appendChild(slide);
-      return slide;
-    });
-    grid.appendChild(stage);
-
-    // Phones (<= 560px) show a plain stacked list (see home.css), so the
-    // coverflow must not hide, fade or intercept taps on any card there.
-    const phoneMQ = window.matchMedia('(max-width: 560px)');
-
-    const render = () => {
-      if (phoneMQ.matches) {
-        slides.forEach((s) => {
-          s.style.removeProperty('--x');
-          s.style.removeProperty('--s');
-          s.style.opacity = '';
-          s.style.zIndex = '';
-          s.style.visibility = '';
-          s.style.pointerEvents = '';
-          s.dataset.pos = 0;
-        });
-        return;
-      }
-      slides.forEach((s, i) => {
-        let d = i - pos;
-        d -= n * Math.round(d / n);
-        const a = Math.abs(d);
-        const sign = d < 0 ? -1 : 1;
-        const scale = a <= 1 ? 1 - 0.26 * a : Math.max(0.5, 0.74 - (a - 1) * 0.24);
-        const off = a <= 1 ? a * 0.75 : 0.75 + (a - 1) * 0.25;
-        const op = a <= 1 ? 1 - 0.3 * a : Math.max(0, 0.7 - (a - 1) * 1.4);
-        s.style.setProperty('--x', sign * off * W + 'px');
-        s.style.setProperty('--s', scale);
-        s.style.opacity = op;
-        s.style.zIndex = Math.max(0, Math.round(10 - a * 4));
-        s.style.visibility = op <= 0 ? 'hidden' : 'visible';
-        s.style.pointerEvents = op < 0.05 ? 'none' : '';
-        s.dataset.pos = Math.round(d);
-      });
-    };
-
-    const measure = () => { W = slides[0].offsetWidth || W; render(); };
-
-    const animateTo = (target) => {
-      cancelAnimationFrame(raf);
-      if (reduced || document.documentElement.classList.contains('a11y-no-motion')) { pos = target; render(); return; }
-      const from = pos;
-      const dist = target - from;
-      const dur = Math.min(700, 380 + Math.abs(dist) * 160);
-      const t0 = performance.now();
-      const tick = (now) => {
-        const t = Math.min(1, (now - t0) / dur);
-        const e = 1 - Math.pow(1 - t, 3); // easeOutCubic
-        pos = from + dist * e;
-        render();
-        if (t < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-    };
-
-    const go = (step) => animateTo(Math.round(pos) + step);
-
-    const makeArrow = (dir) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'qa-arrow qa-arrow--' + (dir < 0 ? 'prev' : 'next');
-      b.setAttribute('aria-label', dir < 0 ? 'Sebelumnya' : 'Seterusnya');
-      b.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' +
-        (dir < 0 ? 'M19 12H5M12 5l-7 7 7 7' : 'M5 12h14M12 5l7 7-7 7') + '"/></svg>';
-      b.addEventListener('click', () => go(dir));
-      grid.appendChild(b);
-    };
-    makeArrow(-1);
-    makeArrow(1);
-
-    // drag / swipe: cards follow the cursor, release glides to the nearest card
-    let down = false, dragging = false, startX = 0, startPos = 0, lastX = 0, lastT = 0, vel = 0, suppress = false;
-    stage.addEventListener('pointerdown', (e) => {
-      if (phoneMQ.matches) return;
-      if (e.pointerType === 'mouse' && e.button !== 0) return;
-      cancelAnimationFrame(raf);
-      down = true; dragging = false;
-      startX = lastX = e.clientX; lastT = performance.now();
-      startPos = pos; vel = 0;
-    });
-    stage.addEventListener('pointermove', (e) => {
-      if (!down) return;
-      const dx = e.clientX - startX;
-      if (!dragging && Math.abs(dx) > 6) {
-        dragging = true;
-        grid.classList.add('is-dragging');
-        try { stage.setPointerCapture(e.pointerId); } catch (_) { }
-      }
-      if (!dragging) return;
-      const now = performance.now();
-      const dt = Math.max(1, now - lastT);
-      vel = 0.8 * vel + 0.2 * ((e.clientX - lastX) / dt); // px per ms, smoothed
-      lastX = e.clientX; lastT = now;
-      pos = startPos - dx / (W * 0.75);
-      render();
-    });
-    const release = () => {
-      if (!down) return;
-      down = false;
-      if (!dragging) return;
-      dragging = false;
-      suppress = true;
-      setTimeout(() => { suppress = false; }, 0);
-      grid.classList.remove('is-dragging');
-      const projected = pos - (vel * 220) / (W * 0.75); // a flick carries a bit further
-      const base = Math.round(startPos);
-      animateTo(Math.max(base - 1, Math.min(base + 1, Math.round(projected))));
-    };
-    stage.addEventListener('pointerup', release);
-    stage.addEventListener('pointercancel', release);
-
-    // a drag must not open a link; clicking a side card centres it instead
-    stage.addEventListener('click', (e) => {
-      if (suppress) { e.preventDefault(); e.stopPropagation(); }
-    }, true);
-    cards.forEach((card, i) => {
-      card.addEventListener('click', (e) => {
-        if (phoneMQ.matches) return; // list layout: every card is a normal link
-        const off = Math.round(slides[i].dataset.pos);
-        if (off !== 0) {
-          e.preventDefault();
-          animateTo(Math.round(pos) + off);
-        }
-      });
-    });
-
-    grid.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') go(-1);
-      if (e.key === 'ArrowRight') go(1);
-    });
-
-    window.addEventListener('resize', measure);
-    measure();
-  });
-}
-
 function initSmoothScroll() {
   // Eased mouse-wheel scrolling: the page glides toward the wheel target
   // instead of jumping in steps. Touch screens, trackpad-free keyboard use,
@@ -624,9 +463,8 @@ function initAccessibility() {
 }
 
 function initCardBlur() {
-  // Same effect as the hero text: a card fades and blurs as it leaves the
-  // screen, at the top (under the navbar) and at the bottom, so it works in
-  // both scroll directions.
+  // A card fades and blurs as it enters/leaves at the bottom of the screen.
+  // No effect at the top, so cards stay sharp when they scroll under the navbar.
   const cards = Array.from(document.querySelectorAll('.quick-access-card'));
   if (!cards.length) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -635,21 +473,14 @@ function initCardBlur() {
   let ticking = false;
 
   const update = () => {
-    // navbar is injected from an include, so look it up on each update
-    const navbar = document.querySelector('.navbar');
-    const line = navbar ? navbar.getBoundingClientRect().bottom : 72;
     cards.forEach((card) => {
       const rect = card.getBoundingClientRect();
-      // top edge: scrolling down, card passes under the navbar
-      const out = Math.min(Math.max((line - rect.top) / rect.height, 0), 1);
-      // bottom edge: scrolling up, card leaves below the screen (and eases in on the way back)
-      const below = Math.min(Math.max((rect.bottom - window.innerHeight) / rect.height, 0), 1);
-      const progress = Math.max(out, below);
+      // bottom edge only: card eases in as it rises into view
+      const progress = Math.min(Math.max((rect.bottom - window.innerHeight) / rect.height, 0), 1);
       const rounded = Math.round(progress * 100) / 100;
       if (last.get(card) === rounded) return;
       last.set(card, rounded);
-      card.style.opacity = rounded === 0 ? '' : String(1 - rounded);
-      card.style.filter = rounded === 0 ? '' : `blur(${rounded * 10}px)`;
+      applyFadeBlur(card, rounded);
     });
     ticking = false;
   };
@@ -714,7 +545,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   initAccessibility();
   loadGoogleTranslate();
   initOfficeHours();
-  initQuickCarousel();
   initSmoothScroll();
   initCardBlur();
 });

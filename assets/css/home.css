@@ -1,4 +1,4 @@
-/* Homepage only — hero, quick access, notices, news, about.
+/* Homepage only — hero, quick access, notices, news.
    Loaded by index.html after sabahtea.css (uses its :root tokens and .btn). */
 
 /* ==========================================================================
@@ -79,6 +79,10 @@
   z-index: 5;
   pointer-events: none;
   display: block;
+}
+
+.hero-teh--dark {
+  display: none;
 }
 
 .hero-scrim {
@@ -178,105 +182,53 @@
   }
 }
 
-
-/* Quick access — hairline list rather than a grid of identical shadowed cards */
-.quick-list {
-  list-style: none;
-  border-top: 1px solid var(--line-strong);
-}
-
-.quick-list li {
-  border-bottom: 1px solid var(--line-strong);
-}
-
-.quick-list a {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.6rem 0.25rem;
-  text-decoration: none;
-  color: var(--ink);
-}
-
-.quick-list a:hover .quick-title {
-  color: var(--federal-red);
-}
-
-.quick-list a:hover .quick-icon {
-  background: var(--federal-red);
-  border-color: var(--federal-red);
-}
-
-.quick-list a:hover .quick-icon i {
-  color: #fff;
-}
-
-.quick-icon {
-  flex-shrink: 0;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  border: 1.5px solid var(--line-strong);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.15s ease, border-color 0.15s ease;
-}
-
-.quick-icon i {
-  font-size: 1.3rem;
-  color: var(--ink);
-  transition: color 0.15s ease;
-}
-
-.quick-body {
-  flex: 1;
+/* Quick access cards — tall photo cards (Sabah Parks style): the photo fills
+   the card, a dark fade at the bottom carries the label, title and a round
+   arrow button. Rows are centred so a short last row stays in the middle. */
+.quick-access-grid {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.25rem 1rem;
+  justify-content: center;
+  /* centres every row, including a short last row */
+  gap: 1rem;
 }
 
-.quick-title {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-right: 1rem;
-  transition: color 0.15s ease;
+.quick-access-grid>.quick-access-card {
+  flex: 0 0 218px;
+  width: 218px;
 }
 
-.quick-desc {
-  color: var(--ink-soft);
-  font-size: 0.95rem;
-}
-
-.quick-go {
-  flex-shrink: 0;
-  font-size: 1.5rem;
-  line-height: 1;
-  color: var(--ink-soft);
-}
-
-.quick-access-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.0rem;
+/* three per row (e.g. six cards -> 3 + 3) */
+/* also applies automatically to any grid that has exactly six cards */
+.quick-access-grid:has(> .quick-access-card:nth-child(6):last-child),
+.quick-access-grid--three {
+  max-width: calc(3 * 218px + 2rem);
+  margin-inline: auto;
 }
 
 .quick-access-card {
   position: relative;
   display: block;
-  aspect-ratio: 3 / 2;
-  /* sama dengan nisbah imej (612x408) supaya tidak terpotong */
-  border-radius: var(--radius);
+  aspect-ratio: 4 / 5;
+  border-radius: 22px;
   overflow: hidden;
+  background: var(--navy);
   text-decoration: none;
   color: #fff;
-  transition: transform 0.35s ease;
+  box-shadow: 0 10px 30px rgba(16, 27, 45, 0.18);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  will-change: opacity, filter;
 }
 
 .quick-access-card:hover {
   transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(16, 27, 45, 0.3);
+}
+
+.quick-access-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
 }
 
 .showcase-media {
@@ -304,36 +256,23 @@ img.showcase-media {
 }
 
 .showcase-media.ph-1 {
-  background: linear-gradient(155deg, var(--navy) 0%, var(--federal-red-dark) 100%);
+  background: linear-gradient(155deg, var(--navy) 0%, var(--kinabalu-blue) 100%);
 }
 
 .showcase-media.ph-2 {
-  background: linear-gradient(155deg, var(--federal-red-dark) 0%, var(--federal-red) 100%);
+  background: linear-gradient(155deg, var(--kinabalu-blue) 0%, var(--navy) 100%);
 }
 
 .showcase-media.ph-3 {
-  background: linear-gradient(155deg, #4a2a12 0%, var(--kinabalu-blue) 100%);
+  background: linear-gradient(155deg, var(--navy) 0%, var(--gold-dark) 100%);
 }
 
-.showcase-placeholder-label {
-  position: absolute;
-  top: 0.9rem;
-  right: 0.9rem;
-  background: rgba(0, 0, 0, 0.35);
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.6rem;
-  border-radius: 999px;
-  z-index: 2;
-}
-
-.quick-access-scrim {
+.quick-access-media::after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0) 55%);
+  background: linear-gradient(0deg, rgba(6, 12, 22, 0.92) 0%, rgba(6, 12, 22, 0.6) 38%, rgba(6, 12, 22, 0) 70%);
+  pointer-events: none;
 }
 
 .quick-access-body {
@@ -341,54 +280,105 @@ img.showcase-media {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 1.25rem;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: 1.25rem 1.25rem 1.4rem;
+  padding-right: 4rem;
 }
 
 .quick-access-card h3 {
+  order: 1;
+  margin: 0;
   color: #fff;
-  font-size: 1.15rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.12;
 }
 
+.quick-access-tag {
+  order: 2;
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #bfe3a0;
+}
+
+/* round arrow button, bottom right (text kept for screen readers only) */
 .quick-access-link {
-  font-size: 0.85rem;
-  font-weight: 600;
+  position: absolute;
+  right: 1.1rem;
+  bottom: 1.2rem;
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: 2.3rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
   color: #fff;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-  padding-bottom: 0.1rem;
-  transition: border-color 0.15s ease;
+  font-size: 0;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.quick-access-link .arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+  opacity: 1;
 }
 
 .quick-access-card:hover .quick-access-link {
+  background: #fff;
+  color: var(--navy);
   border-color: #fff;
 }
 
-.quick-access-grid--four {
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-}
-
-@media (max-width: 980px) {
+@media (max-width: 700px) {
 
   .quick-access-grid,
-  .quick-access-grid--four {
-    grid-template-columns: repeat(2, 1fr);
+  .quick-access-grid:has(> .quick-access-card:nth-child(6):last-child),
+  .quick-access-grid--three {
+    max-width: none;
+    gap: 0.8rem;
   }
-}
 
-@media (max-width: 560px) {
-
-  .quick-access-grid,
-  .quick-access-grid--four {
-    grid-template-columns: 1fr;
+  .quick-access-grid>.quick-access-card {
+    flex: 0 0 calc(50% - 0.4rem);
+    width: calc(50% - 0.4rem);
   }
 
   .quick-access-card {
-    aspect-ratio: 16 / 10;
+    border-radius: 18px;
+  }
+
+  .quick-access-card:hover {
+    transform: none;
+  }
+
+  .quick-access-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .quick-access-tag {
+    font-size: 0.6rem;
+  }
+
+  .quick-access-body {
+    padding: 1rem 0.9rem 1.1rem;
+    padding-right: 0.9rem;
+    padding-bottom: 3.2rem;
+  }
+
+  .quick-access-link {
+    right: 0.8rem;
+    bottom: 0.8rem;
+    width: 2rem;
+    height: 2rem;
   }
 }
-
 
 .bulletin-grid {
   display: grid;
@@ -560,42 +550,6 @@ img.showcase-media {
   }
 }
 
-/* About / editorial two-column */
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5rem;
-  align-items: center;
-}
-
-.about-grid img {
-  border-radius: var(--radius);
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  aspect-ratio: 4 / 3;
-}
-
-.about-copy h2 {
-  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
-  margin-bottom: 1rem;
-}
-
-.about-copy p+p {
-  margin-top: 1rem;
-}
-
-.about-copy .btn {
-  margin-top: 1.75rem;
-}
-
-@media (max-width: 860px) {
-  .about-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
 /* Skrin lebar: bangunan di kiri, teks di kanan, di atas banjaran gunung */
 @media (min-width: 861px) {
   .hero-content {
@@ -695,23 +649,13 @@ img.showcase-media {
     margin: 0 auto;
   }
 
-  .quick-list a {
-    gap: 1rem;
-    padding: 1.25rem 0.1rem;
-  }
 
-  .quick-icon {
-    width: 44px;
-    height: 44px;
-  }
 
-  .quick-icon i {
-    font-size: 1.1rem;
-  }
 
-  .quick-title {
-    font-size: 1.05rem;
-  }
+
+
+
+
 }
 
 @media (max-width: 360px) {
@@ -724,254 +668,5 @@ img.showcase-media {
 @media (prefers-reduced-motion: reduce) {
   .hero-layer {
     transform: none !important;
-  }
-}
-
-/* ==========================================================================
-   Quick access — mobile list style (stacked rows, round action button).
-   Desktop layout is untouched.
-   ========================================================================== */
-
-.quick-access-tag {
-  display: none;
-}
-
-@media (max-width: 560px) {
-
-  .quick-access-grid,
-  .quick-access-grid--four {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-  }
-
-  .quick-access-card {
-    flex-shrink: 0;
-    height: 6.75rem;
-    aspect-ratio: auto;
-    border-radius: 22px;
-    background: var(--navy);
-    transition: transform 0.2s ease;
-  }
-
-  .quick-access-card:hover {
-    transform: none;
-  }
-
-  .quick-access-card:active {
-    transform: scale(0.985);
-  }
-
-  .quick-access-card:hover .showcase-media {
-    transform: none;
-  }
-
-  /* darker on the left where the title sits, photo shows through on the right */
-  .quick-access-scrim {
-    background:
-      linear-gradient(90deg, rgba(8, 14, 24, 0.8) 0%, rgba(8, 14, 24, 0.4) 55%, rgba(8, 14, 24, 0.1) 100%),
-      linear-gradient(0deg, rgba(8, 14, 24, 0.45) 0%, rgba(8, 14, 24, 0) 60%);
-  }
-
-  /* icon-only cards: soft watermark icon instead of a centred glyph */
-  .showcase-media:not(img) {
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding: 1rem 5.75rem 0 0;
-  }
-
-  .showcase-media i {
-    font-size: 2.2rem;
-    color: rgba(255, 255, 255, 0.22);
-  }
-
-  .quick-access-body {
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 0.45rem;
-    padding: 1rem 5.75rem 1rem 1.15rem;
-  }
-
-  .quick-access-card h3 {
-    margin: 0;
-    font-family: var(--font-body);
-    font-size: 1.2rem;
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-  }
-
-  .quick-access-tag {
-    display: inline-block;
-    padding: 0.32rem 0.55rem;
-    border-radius: 6px;
-    background: var(--federal-red);
-    color: var(--ink);
-    font-size: 0.7rem;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .quick-access-link {
-    position: absolute;
-    top: 50%;
-    right: 1rem;
-    transform: translateY(-50%);
-    display: grid;
-    place-items: center;
-    width: 3.9rem;
-    height: 3.9rem;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: var(--federal-red);
-    color: var(--ink);
-    font-size: 0.74rem;
-    font-weight: 700;
-    transition: background 0.2s ease;
-  }
-
-  .quick-access-card:hover .quick-access-link {
-    border-color: transparent;
-  }
-
-  .quick-access-card:active .quick-access-link {
-    background: var(--federal-red-dark);
-  }
-
-  .quick-access-link .arrow {
-    display: none;
-  }
-}
-
-/* Cards fade + blur as they scroll up under the navbar (driven by
-   initCardBlur in kinomulok.js, same effect as the hero text). */
-.quick-access-card {
-  will-change: opacity, filter;
-}
-
-/* ==========================================================================
-   Quick access — coverflow carousel (built by initQuickCarousel in kinomulok.js)
-   Big centre card, smaller neighbours behind it, caption under each card.
-   Phones (<= 560px) keep the stacked list style above.
-   ========================================================================== */
-
-@media (max-width: 560px) {
-
-  .qa-stage,
-  .qa-slide {
-    display: contents;
-  }
-
-  .qa-caption,
-  .qa-arrow {
-    display: none;
-  }
-
-  /* safety net: the carousel script must never hide cards in the list layout */
-  .qa-slide {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-  }
-
-  .qa-stage {
-    touch-action: auto;
-  }
-}
-
-@media (min-width: 561px) {
-  .qa-carousel {
-    --w: min(460px, 56vw);
-    --card-h: calc(var(--w) * 0.6667);
-    display: block;
-    position: relative;
-    height: calc(var(--card-h) + 6rem);
-    overflow: hidden;
-  }
-
-  .qa-stage {
-    position: absolute;
-    inset: 0;
-  }
-
-  .qa-slide {
-    --x: 0px;
-    --s: 1;
-    position: absolute;
-    left: 50%;
-    top: 1.25rem;
-    width: var(--w);
-    transform-origin: 50% calc(var(--card-h) / 2);
-    transform: translateX(calc(-50% + var(--x))) scale(var(--s));
-    will-change: transform, opacity;
-  }
-
-  /* position, scale, opacity and z-index are set per frame by initQuickCarousel */
-  .qa-stage {
-    cursor: grab;
-    touch-action: pan-y;
-    user-select: none;
-    -webkit-user-select: none;
-  }
-
-  .qa-carousel.is-dragging .qa-stage {
-    cursor: grabbing;
-  }
-
-  .qa-carousel .quick-access-card {
-    border-radius: 28px;
-    box-shadow: 0 14px 34px rgba(16, 27, 45, 0.18);
-  }
-
-  .qa-carousel .quick-access-card:hover {
-    transform: none;
-  }
-
-  .qa-carousel .quick-access-scrim,
-  .qa-carousel .quick-access-body {
-    display: none;
-  }
-
-  .qa-caption {
-    margin-top: 0.9rem;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: var(--ink);
-  }
-
-  .qa-arrow {
-    position: absolute;
-    top: calc(1.25rem + var(--card-h) / 2);
-    transform: translateY(-50%);
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 46px;
-    height: 46px;
-    border: 0;
-    border-radius: 50%;
-    background: var(--navy);
-    color: #fff;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-  }
-
-  .qa-arrow:hover {
-    background: var(--kinabalu-blue);
-    transform: translateY(-50%) scale(1.08);
-  }
-
-  .qa-arrow--prev {
-    left: 0;
-  }
-
-  .qa-arrow--next {
-    right: 0;
   }
 }
