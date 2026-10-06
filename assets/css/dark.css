@@ -129,11 +129,16 @@ html[data-theme='dark'] img:not(.logo-img):not(.hero-teh) {
 
 /* Tea-plant strip: swap to the dark-coloured copy so it blends with the dark page */
 html[data-theme='dark'] .hero-teh--light {
-  display: none;
+  opacity: 0;
 }
 
 html[data-theme='dark'] .hero-teh--dark {
-  display: block;
+  opacity: 1;
+}
+
+/* the blanket theme-anim rule below would cancel the fade, so give the strips their own */
+html.theme-anim .hero-teh {
+  transition: opacity 0.25s ease !important;
 }
 
 /* Footer needs a visible edge against the dark page */

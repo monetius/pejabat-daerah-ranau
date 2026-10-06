@@ -462,6 +462,74 @@ function initAccessibility() {
   sync();
 }
 
+function initPdCarousel() {
+  const root = document.getElementById('pdCarousel');
+  if (!root) return;
+  const cards = Array.from(root.querySelectorAll('.pd-card'));
+  const info = root.querySelector('.pd-info');
+  const title = root.querySelector('.pd-title');
+  const desc = root.querySelector('.pd-desc');
+  const link = root.querySelector('.pd-link');
+  const credit = root.querySelector('.pd-credit');
+  const count = root.querySelector('.pd-count');
+  const n = cards.length;
+  let active = 0;
+
+  const layout = () => {
+    cards.forEach((card, i) => {
+      const pos = (i - active + n) % n;
+      card.dataset.pos = pos < 3 ? String(pos) : 'hidden';
+      card.tabIndex = pos === 0 ? 0 : -1;
+    });
+  };
+
+  const text = () => {
+    const c = cards[active];
+    title.textContent = c.dataset.title;
+    desc.textContent = c.dataset.desc;
+    link.href = c.getAttribute('href');
+    credit.textContent = c.dataset.credit || '';
+    credit.hidden = !c.dataset.credit;
+    count.textContent = String(active + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
+  };
+
+  const go = (dir) => {
+    active = (active + dir + n) % n;
+    layout();
+    info.classList.add('is-changing');
+    setTimeout(() => { text(); info.classList.remove('is-changing'); }, 180);
+  };
+
+  root.querySelector('.pd-prev').addEventListener('click', () => go(-1));
+  root.querySelector('.pd-next').addEventListener('click', () => go(1));
+
+  // clicking a card behind the front one brings it forward; the front card opens its page
+  cards.forEach((card, i) => card.addEventListener('click', (e) => {
+    const pos = (i - active + n) % n;
+    if (pos === 0) return;
+    e.preventDefault();
+    go(pos);
+  }));
+
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') go(-1);
+    else if (e.key === 'ArrowRight') go(1);
+  });
+
+  // swipe on touch screens
+  let x0 = null;
+  root.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+  root.addEventListener('touchend', (e) => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    x0 = null;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+  });
+
+  layout();
+  text();
+}
+
 function initCardBlur() {
   // A card fades and blurs as it enters/leaves at the bottom of the screen.
   // No effect at the top, so cards stay sharp when they scroll under the navbar.
@@ -546,5 +614,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   loadGoogleTranslate();
   initOfficeHours();
   initSmoothScroll();
+  initPdCarousel();
   initCardBlur();
 });

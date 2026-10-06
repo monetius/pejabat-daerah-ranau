@@ -82,7 +82,12 @@
 }
 
 .hero-teh--dark {
-  display: none;
+  opacity: 0;
+}
+
+/* both strips stay in the page and cross-fade, so they change in step with the page background */
+.hero-teh {
+  transition: opacity 0.25s ease;
 }
 
 .hero-scrim {
@@ -668,5 +673,269 @@ img.showcase-media {
 @media (prefers-reduced-motion: reduce) {
   .hero-layer {
     transform: none !important;
+  }
+}
+
+/* ==========================================================================
+   Profil Daerah — stacked slanted-card carousel
+   Front card is large; the next cards peek out behind it, smaller, to the right.
+   ========================================================================== */
+.pd-carousel {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 2.5rem;
+  padding-right: 4.5rem;
+  /* room for the right arrow */
+  /* break out of the 1160px container so the cards can be much larger */
+  width: min(96vw, 1700px);
+  margin-left: calc(50% - min(96vw, 1700px) / 2);
+}
+
+.pd-stage {
+  position: relative;
+  padding-left: 1.5rem;
+  /* room for the left arrow overlapping the front card */
+}
+
+.pd-cards {
+  position: relative;
+  height: clamp(480px, 49vw, 740px);
+}
+
+.pd-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+  background: var(--navy);
+  /* parallelogram leaning right, like the sketch */
+  clip-path: polygon(22% 0, 100% 0, 78% 100%, 0 100%);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(.2, .7, .2, 1), opacity 0.4s ease, filter 0.4s ease, left 0.55s cubic-bezier(.2, .7, .2, 1);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pd-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 12, 22, 0.35);
+  transition: background 0.4s ease;
+}
+
+.pd-card[data-pos="0"] {
+  left: 0;
+  transform: scale(1);
+  opacity: 1;
+  z-index: 3;
+  pointer-events: auto;
+}
+
+.pd-card[data-pos="1"] {
+  left: 24%;
+  transform: scale(0.84);
+  opacity: 1;
+  z-index: 2;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.pd-card[data-pos="2"] {
+  left: 42%;
+  transform: scale(0.68);
+  opacity: 1;
+  z-index: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.pd-card[data-pos="0"]::after {
+  background: rgba(6, 12, 22, 0);
+}
+
+.pd-card[data-pos="2"]::after {
+  background: rgba(6, 12, 22, 0.5);
+}
+
+.pd-card[data-pos="hidden"] {
+  left: 0;
+  transform: scale(0.6);
+  opacity: 0;
+}
+
+.pd-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+}
+
+.pd-media.ph-1 {
+  background: linear-gradient(155deg, var(--navy) 0%, var(--kinabalu-blue) 100%);
+}
+
+.pd-media.ph-2 {
+  background: linear-gradient(155deg, var(--kinabalu-blue) 0%, var(--navy) 100%);
+}
+
+.pd-media.ph-3 {
+  background: linear-gradient(155deg, var(--navy) 0%, var(--gold-dark) 100%);
+}
+
+.pd-media i {
+  font-size: 7rem;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* soft shadow behind the stack (clip-path would cut a box-shadow) */
+.pd-cards {
+  filter: drop-shadow(0 14px 22px rgba(16, 27, 45, 0.28));
+}
+
+.pd-nav {
+  display: grid;
+  place-items: center;
+  width: 3.4rem;
+  height: 3.4rem;
+  border: 2px solid var(--navy);
+  border-radius: 50%;
+  background: var(--paper-raised, #fff);
+  color: var(--navy);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.pd-nav:hover,
+.pd-nav:focus-visible {
+  background: var(--navy);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+.pd-prev {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  margin-top: -1.7rem;
+  z-index: 5;
+}
+
+.pd-next {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -1.7rem;
+  z-index: 5;
+}
+
+.pd-info {
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.pd-info.is-changing {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.pd-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--kinabalu-blue);
+  margin-bottom: 0.6rem;
+}
+
+.pd-title {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.pd-desc {
+  margin: 0 0 1.6rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  font-size: 1.15rem;
+  max-width: 36ch;
+}
+
+.pd-credit {
+  display: block;
+  margin: -0.6rem 0 1.2rem;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+
+.pd-count {
+  display: block;
+  margin-top: 1.4rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 800px) {
+  .pd-carousel {
+    grid-template-columns: 1fr;
+    padding-right: 0;
+    gap: 1.5rem;
+    width: auto;
+    margin-left: 0;
+  }
+
+  .pd-cards {
+    height: clamp(300px, 80vw, 480px);
+  }
+
+  .pd-stage {
+    padding-left: 0;
+  }
+
+  .pd-prev {
+    left: -0.3rem;
+  }
+
+  .pd-next {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    margin-top: 0;
+  }
+
+  .pd-info {
+    padding-right: 3.5rem;
+    text-align: left;
+  }
+
+  .pd-card {
+    width: 66%;
+  }
+
+  .pd-media i {
+    font-size: 4.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .pd-card,
+  .pd-info {
+    transition: none;
   }
 }
