@@ -25,7 +25,7 @@ function initNavbar() {
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
   const dropdowns = document.querySelectorAll('.dropdown');
-  const isMobile = () => window.matchMedia('(max-width: 860px)').matches;
+  const isMobile = () => window.matchMedia('(max-width: 1280px)').matches;
 
   if (hamburger && navLinks) {
     const setMenu = (open) => {
@@ -665,6 +665,41 @@ function initCardBlur() {
   update();
 }
 
+// Dark mode: saved choice wins, otherwise follow the OS setting.
+// The <head> snippet applies it before first paint; this wires up the button.
+function initTheme() {
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+  const KEY = 'theme';
+  const icon = btn.querySelector('i');
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+
+  const saved = () => { try { return localStorage.getItem(KEY); } catch (_) { return null; } };
+  const isDark = () => root.getAttribute('data-theme') === 'dark';
+
+  const render = () => {
+    const dark = isDark();
+    btn.setAttribute('aria-pressed', String(dark));
+    btn.setAttribute('aria-label', dark ? 'Tukar ke mod cerah' : 'Tukar ke mod gelap');
+    btn.title = dark ? 'Mod cerah' : 'Mod gelap';
+    if (icon) icon.className = 'fa-solid ' + (dark ? 'fa-sun' : 'fa-moon');
+  };
+
+  const setTheme = (theme, persist) => {
+    root.classList.add('theme-anim');
+    root.setAttribute('data-theme', theme);
+    if (persist) { try { localStorage.setItem(KEY, theme); } catch (_) { } }
+    render();
+    setTimeout(() => root.classList.remove('theme-anim'), 300);
+  };
+
+  btn.addEventListener('click', () => setTheme(isDark() ? 'light' : 'dark', true));
+  // Follow OS changes only while the visitor hasn't picked a theme themselves
+  mq.addEventListener('change', (e) => { if (!saved()) setTheme(e.matches ? 'dark' : 'light', false); });
+  render();
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   await Promise.all([
     loadInclude('navbar-placeholder', 'assets/includes/navbar.html'),
@@ -672,6 +707,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   ]);
 
   initNavbar();
+  initTheme();
   initHeroParallax();
   initBackToTop();
   initLanguageSwitch();

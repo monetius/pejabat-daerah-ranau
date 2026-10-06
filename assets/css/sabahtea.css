@@ -6,8 +6,8 @@
   --navy: #101b2d;
   --ink: var(--navy);
   --ink-soft: #45566b;
-  --federal-red: #c99a3d;
-  --federal-red-dark: #a67d2f;
+  --gold: #c99a3d;
+  --gold-dark: #a67d2f;
   --kinabalu-blue: #2f6fb0;
   --sky-tint: #eef2f7;
   --paper: #f5f5f0;
@@ -99,12 +99,12 @@ h4 {
 }
 
 .btn-primary {
-  background: var(--federal-red);
+  background: var(--gold);
   color: #fff;
 }
 
 .btn-primary:hover {
-  background: var(--federal-red-dark);
+  background: var(--gold-dark);
 }
 
 
@@ -118,7 +118,7 @@ h4 {
   display: flex;
   align-items: flex-end;
   min-height: clamp(340px, 46vh, 460px);
-  background: var(--ink);
+  background: var(--navy);
   color: #fff;
   padding: calc(var(--nav-height) + var(--nav-gap) + 1.5rem) 0 3.5rem;
   overflow: hidden;
@@ -272,7 +272,7 @@ section {
   height: 48px;
   border-radius: 50%;
   border: 1.5px solid rgba(201, 154, 61, 0.55);
-  background: var(--ink);
+  background: var(--navy);
   color: #fff;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(16, 27, 45, 0.3);
@@ -290,7 +290,7 @@ section {
 
 .back-to-top:hover {
   background: #2a3f61;
-  background: color-mix(in srgb, var(--ink) 80%, #fff);
+  background: color-mix(in srgb, var(--navy) 80%, #fff);
 }
 
 .back-to-top svg {
@@ -375,7 +375,7 @@ section {
   height: 52px;
   border-radius: 50%;
   border: 1.5px solid rgba(201, 154, 61, 0.55);
-  background: var(--ink);
+  background: var(--navy);
   color: #fff;
   font-size: 1.5rem;
   cursor: pointer;
@@ -474,7 +474,7 @@ section {
 }
 
 .a11y-panel button[aria-pressed="true"] {
-  background: var(--ink);
+  background: var(--navy);
   color: #fff;
 }
 

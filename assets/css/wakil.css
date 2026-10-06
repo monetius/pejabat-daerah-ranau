@@ -131,7 +131,7 @@
     flex-direction: column;
     flex: 1;
     padding: 1.15rem 1.25rem 1.4rem;
-    border-top: 3px solid var(--federal-red);
+    border-top: 3px solid var(--gold);
 }
 
 .wr-role {

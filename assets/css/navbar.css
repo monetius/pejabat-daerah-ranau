@@ -6,7 +6,7 @@
   position: absolute;
   left: 1rem;
   top: -3rem;
-  background: var(--ink);
+  background: var(--navy);
   color: #fff;
   padding: 0.6rem 1rem;
   border-radius: var(--radius);
@@ -313,7 +313,7 @@ body {
   border-radius: 2px;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 1280px) {
 
   /* Full-screen menu. position:fixed needs the navbar to have no transform /
      backdrop-filter while open, otherwise it would size to the navbar. */
@@ -348,7 +348,7 @@ body {
     align-items: stretch;
     gap: 0.35rem;
     padding: calc(var(--nav-gap) + var(--nav-height) + 1.25rem) 1.25rem 3rem;
-    background: linear-gradient(180deg, #0b1424 0%, var(--ink) 55%, #172c4a 100%);
+    background: linear-gradient(180deg, #0b1424 0%, var(--navy) 55%, #172c4a 100%);
     border: 0;
     border-radius: 0;
     overflow-y: auto;
@@ -452,5 +452,24 @@ body {
 @media (max-width: 400px) {
   .logo-text {
     font-size: 0.85rem;
+  }
+}
+
+/* Desktop: tighter spacing so the links + theme toggle fit the capsule.
+   Below 1281px the hamburger menu takes over (see the 1280px block above). */
+@media (min-width: 1281px) {
+  .navbar {
+    gap: 1rem;
+    padding: 0 1.5rem;
+  }
+
+  .nav-links {
+    gap: 0.2rem;
+  }
+
+  .nav-links>li>a,
+  .dropdown-toggle {
+    font-size: 0.9rem;
+    padding: 0.55rem 0.6rem;
   }
 }

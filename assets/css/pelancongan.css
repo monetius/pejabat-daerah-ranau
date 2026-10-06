@@ -96,7 +96,7 @@
 .tr-card {
     background: var(--paper-raised);
     border: 1px solid var(--line);
-    border-top: 4px solid var(--federal-red);
+    border-top: 4px solid var(--gold);
     border-radius: var(--radius);
     padding: 1.25rem 1.3rem
 }
@@ -178,7 +178,7 @@
 }
 
 .tr-note {
-    border-left: 4px solid var(--federal-red);
+    border-left: 4px solid var(--gold);
     background: var(--paper);
     padding: 1rem 1.2rem;
     border-radius: 0 var(--radius) var(--radius) 0;

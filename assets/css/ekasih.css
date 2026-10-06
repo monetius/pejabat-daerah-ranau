@@ -41,9 +41,9 @@
 }
 
 .ek-all {
-    --ek: var(--ink);
-    background: var(--ink);
-    border-color: var(--ink);
+    --ek: var(--navy);
+    background: var(--navy);
+    border-color: var(--navy);
     border-top-color: var(--gold);
     color: #fff;
 }
@@ -177,7 +177,7 @@
 }
 
 .ek-table thead th {
-    background: var(--ink);
+    background: var(--navy);
     color: #fff;
     font-size: 0.78rem;
     font-weight: 600;
@@ -245,7 +245,7 @@
 }
 
 .ek-pgk thead th:first-child {
-    background: var(--ink);
+    background: var(--navy);
     z-index: 2;
 }
 

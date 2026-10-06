@@ -29,7 +29,7 @@
     aspect-ratio: 16/9;
     padding: 0;
     border: 0;
-    background: var(--ink) center/cover no-repeat;
+    background: var(--navy) center/cover no-repeat;
     cursor: pointer;
     overflow: hidden
 }
@@ -70,7 +70,7 @@
 }
 
 .vd-media:hover .vd-play {
-    background: var(--federal-red);
+    background: var(--gold);
     color: var(--ink)
 }
 

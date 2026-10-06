@@ -29,8 +29,8 @@
 }
 
 .gl-btn.is-on {
-    background: var(--federal-red);
-    border-color: var(--federal-red);
+    background: var(--gold);
+    border-color: var(--gold);
     color: var(--ink);
     font-weight: 600
 }

@@ -77,8 +77,8 @@
 
 .sk-jump a:hover,
 .sk-jump a:focus-visible {
-    background: var(--ink);
-    border-color: var(--ink);
+    background: var(--navy);
+    border-color: var(--navy);
     color: #fff;
 }
 
@@ -133,7 +133,7 @@
 .sk-tag {
     padding: 0.25rem 0.75rem;
     border-radius: 999px;
-    background: var(--ink);
+    background: var(--navy);
     color: #fff;
     font-size: 0.75rem;
     font-weight: 700;

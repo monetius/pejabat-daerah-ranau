@@ -1,11 +1,5 @@
 /* Mengenai Kami: semua gaya halaman ini dalam satu fail */
 
-/* --gold / --gold-dark dipakai di bawah tetapi tidak pernah ditakrif: sambung ke token emas sedia ada */
-:root {
-    --gold: var(--federal-red);
-    --gold-dark: var(--federal-red-dark);
-}
-
 /* pdr */
 .perutusan-wrap {
     display: flex;
@@ -722,7 +716,7 @@ main section[id] {
    "Carousel experimentation" (Sacha Jerrems, Dribbble).
    Palet dari shot itu, terkawal dalam .ab-slider sahaja. */
 .ab-slider {
-    --ab-deep: var(--ink);
+    --ab-deep: var(--navy);
     --ab-teal: #096164;
     --ab-sea: #659ea7;
     --ab-sage: #bfcbc0;
@@ -1142,7 +1136,7 @@ main section[id] {
 }
 
 .vm-list li::marker {
-    color: var(--federal-red-dark);
+    color: var(--gold-dark);
     font-weight: 700;
 }
 

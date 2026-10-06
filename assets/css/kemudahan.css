@@ -36,8 +36,8 @@
 }
 
 .ka-jump a:hover {
-    background: var(--ink);
-    border-color: var(--ink);
+    background: var(--navy);
+    border-color: var(--navy);
     color: #fff;
 }
 
