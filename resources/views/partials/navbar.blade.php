@@ -1,6 +1,6 @@
 <a href="#main" class="skip-link">Langkau ke kandungan utama</a>
 <nav class="navbar">
-  <a href="/index.html" class="logo">
+  <a href="/" class="logo">
     <img
       src="/assets/img/coat.png"
       alt="Jata Negeri Sabah"
@@ -11,7 +11,7 @@
     >
   </a>
   <ul class="nav-links" id="navLinks">
-    <li><a href="/index.html">Laman Utama</a></li>
+    <li><a href="/">Laman Utama</a></li>
     <li class="dropdown">
       <button
         class="dropdown-toggle"
@@ -23,15 +23,15 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a href="/info-korporat/mengenai-kami.html">Mengenai Kami</a>
+          <a href="/info-korporat/mengenai-kami">Mengenai Kami</a>
         </li>
         <li>
-          <a href="/info-korporat/carta-organisasi.html"
+          <a href="/info-korporat/carta-organisasi"
             >Carta Organisasi</a
           >
         </li>
         <li>
-          <a href="/info-korporat/hebahan-integriti.html"
+          <a href="/info-korporat/hebahan-integriti"
             >Hebahan Integriti</a
           >
         </li>
@@ -48,26 +48,26 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a href="/profil-daerah/kemudahan-awam.html"
+          <a href="/profil-daerah/kemudahan-awam"
             >Senarai Kemudahan Awam</a
           >
         </li>
         <li>
-          <a href="/profil-daerah/senarai-kampung.html"
+          <a href="/profil-daerah/senarai-kampung"
             >Senarai Kampung</a
           >
         </li>
         <li>
-          <a href="/profil-daerah/wakil-rakyat.html">Wakil Rakyat</a>
+          <a href="/profil-daerah/wakil-rakyat">Wakil Rakyat</a>
         </li>
         <li>
-          <a href="/profil-daerah/ekasih.html">eKasih</a>
+          <a href="/profil-daerah/ekasih">eKasih</a>
         </li>
         <li>
-          <a href="/profil-daerah/pelancongan.html">Pelancongan</a>
+          <a href="/profil-daerah/pelancongan">Pelancongan</a>
         </li>
         <li>
-          <a href="/profil-daerah/data-penduduk.html"
+          <a href="/profil-daerah/data-penduduk"
             >Data Penduduk Daerah Ranau</a
           >
         </li>
@@ -85,12 +85,12 @@
       <ul class="dropdown-menu">
         <li><a href="https://i-adu.sabah.gov.my/">Sistem Aduan Awam</a></li>
         <li>
-          <a href="/perkhidmatan-online/latihan-industri.html"
+          <a href="/perkhidmatan-online/latihan-industri"
             >Permohonan Latihan Industri</a
           >
         </li>
         <li>
-          <a href="/perkhidmatan-online/lesen-berniaga.html"
+          <a href="/perkhidmatan-online/lesen-berniaga"
             >Permohonan Lesen Berniaga</a
           >
         </li>
@@ -107,21 +107,21 @@
       </button>
       <ul class="dropdown-menu">
         <li>
-          <a href="/galeri-pautan/gambar.html">Gambar</a>
+          <a href="/galeri-pautan/gambar">Gambar</a>
         </li>
         <li>
-          <a href="/galeri-pautan/video.html">Video</a>
+          <a href="/galeri-pautan/video">Video</a>
         </li>
         <li>
-          <a href="/galeri-pautan/intranet.html">Intranet</a>
+          <a href="/galeri-pautan/intranet">Intranet</a>
         </li>
         <li>
-          <a href="/galeri-pautan/agensi.html">Pautan Agensi</a>
+          <a href="/galeri-pautan/agensi">Pautan Agensi</a>
         </li>
       </ul>
     </li>
     <li>
-      <a href="/hubungi-kami/alamat.html">Hubungi Kami</a>
+      <a href="/hubungi-kami/alamat">Hubungi Kami</a>
     </li>
   </ul>
   <button

@@ -22,25 +22,25 @@
 
       <div class="footer-col">
         <h5>Info Korporat</h5>
-        <a href="/info-korporat/mengenai-kami.html">Mengenai Kami</a>
-        <a href="/info-korporat/carta-organisasi.html"
+        <a href="/info-korporat/mengenai-kami">Mengenai Kami</a>
+        <a href="/info-korporat/carta-organisasi"
           >Carta Organisasi</a
         >
-        <a href="/info-korporat/hebahan-integriti.html"
+        <a href="/info-korporat/hebahan-integriti"
           >Hebahan Integriti</a
         >
       </div>
 
       <div class="footer-col">
         <h5>Profil Daerah</h5>
-        <a href="/profil-daerah/kemudahan-awam.html"
+        <a href="/profil-daerah/kemudahan-awam"
           >Senarai Kemudahan Awam</a
         >
-        <a href="/profil-daerah/senarai-kampung.html">Senarai Kampung</a>
-        <a href="/profil-daerah/wakil-rakyat.html">Wakil Rakyat</a>
-        <a href="/profil-daerah/ekasih.html">eKasih</a>
-        <a href="/profil-daerah/pelancongan.html">Pelancongan</a>
-        <a href="/profil-daerah/data-penduduk.html"
+        <a href="/profil-daerah/senarai-kampung">Senarai Kampung</a>
+        <a href="/profil-daerah/wakil-rakyat">Wakil Rakyat</a>
+        <a href="/profil-daerah/ekasih">eKasih</a>
+        <a href="/profil-daerah/pelancongan">Pelancongan</a>
+        <a href="/profil-daerah/data-penduduk"
           >Data Penduduk Daerah Ranau</a
         >
       </div>
@@ -48,28 +48,28 @@
       <div class="footer-col">
         <h5>Perkhidmatan Online</h5>
         <a href="https://i-adu.sabah.gov.my/">Sistem Aduan Awam</a>
-        <a href="/perkhidmatan-online/latihan-industri.html"
+        <a href="/perkhidmatan-online/latihan-industri"
           >Permohonan Latihan Industri</a
         >
-        <a href="/perkhidmatan-online/lesen-berniaga.html"
+        <a href="/perkhidmatan-online/lesen-berniaga"
           >Permohonan Lesen Berniaga</a
         >
       </div>
 
       <div class="footer-col">
         <h5>Galeri &amp; Pautan</h5>
-        <a href="/galeri-pautan/gambar.html">Gambar</a>
-        <a href="/galeri-pautan/video.html">Video</a>
-        <a href="/galeri-pautan/intranet.html">Intranet</a>
-        <a href="/galeri-pautan/agensi.html">Pautan Agensi</a>
+        <a href="/galeri-pautan/gambar">Gambar</a>
+        <a href="/galeri-pautan/video">Video</a>
+        <a href="/galeri-pautan/intranet">Intranet</a>
+        <a href="/galeri-pautan/agensi">Pautan Agensi</a>
       </div>
     </div>
     <div class="footer-bottom">
       <nav class="footer-legal" aria-label="Pautan tambahan">
-        <a href="/hubungi-kami/alamat.html">Hubungi Kami</a>
-        <a href="/info-korporat/privacypolicy.html">Dasar Privasi</a>
-        <a href="/info-korporat/notice.html">Notis Penafian</a>
-        <a href="/info-korporat/securitypolicy.html"
+        <a href="/hubungi-kami/alamat">Hubungi Kami</a>
+        <a href="/info-korporat/privacypolicy">Dasar Privasi</a>
+        <a href="/info-korporat/notice">Notis Penafian</a>
+        <a href="/info-korporat/securitypolicy"
           >Dasar Keselamatan</a
         >
         <a href="https://www.facebook.com/PDRanau"
