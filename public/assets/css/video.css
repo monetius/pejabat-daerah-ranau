@@ -1,0 +1,127 @@
+/* Galeri Video */
+.vd-intro {
+    max-width: 720px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    margin-bottom: 1.75rem
+}
+
+.vd-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+    padding-bottom: 3rem
+}
+
+.vd-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column
+}
+
+.vd-media {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16/9;
+    padding: 0;
+    border: 0;
+    background: var(--navy) center/cover no-repeat;
+    cursor: pointer;
+    overflow: hidden
+}
+
+.vd-media img,
+.vd-media iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    object-fit: cover
+}
+
+.vd-media img {
+    transition: transform .35s
+}
+
+.vd-media:hover img {
+    transform: scale(1.04)
+}
+
+.vd-play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .92);
+    color: var(--ink);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .35);
+    display: grid;
+    place-items: center;
+    font-size: 1.3rem;
+    padding-left: 4px
+}
+
+.vd-media:hover .vd-play {
+    background: var(--gold);
+    color: var(--ink)
+}
+
+.vd-media:focus-visible,
+.vd-body a:focus-visible {
+    outline: 3px solid var(--kinabalu-blue);
+    outline-offset: 2px
+}
+
+.vd-body {
+    padding: 1rem 1.2rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    flex: 1
+}
+
+.vd-body h3 {
+    font-size: 1.02rem;
+    line-height: 1.35;
+    color: var(--ink)
+}
+
+.vd-body a {
+    margin-top: auto;
+    color: var(--kinabalu-blue);
+    font-weight: 600;
+    font-size: .9rem;
+    text-decoration: none
+}
+
+.vd-body a:hover {
+    text-decoration: underline
+}
+
+.vd-more {
+    padding-bottom: 3rem
+}
+
+.vd-more a {
+    color: var(--kinabalu-blue);
+    font-weight: 600;
+    text-decoration: none
+}
+
+.vd-more a:hover {
+    text-decoration: underline
+}
+
+@media(max-width:600px) {
+    .vd-grid {
+        grid-template-columns: 1fr
+    }
+}

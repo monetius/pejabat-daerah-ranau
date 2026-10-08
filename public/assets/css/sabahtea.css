@@ -1,0 +1,546 @@
+/* BACA LA KALAU KO MAU */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  --navy: #101b2d;
+  --ink: var(--navy);
+  --ink-soft: #45566b;
+  --gold: #c99a3d;
+  --gold-dark: #a67d2f;
+  --kinabalu-blue: #2f6fb0;
+  --sky-tint: #eef2f7;
+  --paper: #f5f5f0;
+  --paper-raised: #ffffff;
+  --line: rgba(16, 27, 45, 0.12);
+  --line-strong: rgba(16, 27, 45, 0.22);
+
+  /* Type */
+  --font-display: 'DM Serif Display', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Layout */
+  --nav-height: 84px;
+  --nav-height-condensed: 64px;
+  --nav-gap: 1rem;
+  --content-width: 1160px;
+  --radius: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink-soft);
+  background: var(--paper);
+  line-height: 1.55;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-weight: 1;
+  line-height: 1.15;
+}
+
+.container {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0 1.75rem;
+}
+
+
+:focus-visible {
+  outline: 3px solid var(--kinabalu-blue);
+  outline-offset: 2px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--gold-dark);
+}
+
+
+
+/* ==========================================================================
+   Page header — non-home pages (breadcrumb + title, no photo)
+   ========================================================================== */
+
+.page-header {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(340px, 46vh, 460px);
+  background: var(--navy);
+  color: #fff;
+  padding: calc(var(--nav-height) + var(--nav-gap) + 1.5rem) 0 3.5rem;
+  overflow: hidden;
+}
+
+/* Banner image + scrim (same treatment as the homepage hero) */
+.page-header-media {
+  position: absolute;
+  inset: -12% 0;
+  height: 124%;
+  will-change: transform;
+}
+
+.page-header-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-header-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(16, 27, 45, 0.88) 0%, rgba(16, 27, 45, 0.35) 46%, rgba(16, 27, 45, 0.55) 100%);
+}
+
+.page-header>.container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.breadcrumb {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  color: #b9c6d4;
+  margin-bottom: 1rem;
+}
+
+.breadcrumb li:not(:last-child)::after {
+  content: '/';
+  margin-left: 0.4rem;
+  color: #5c6b7d;
+}
+
+.breadcrumb a {
+  position: relative;
+  color: #cfe0ee;
+  text-decoration: none;
+}
+
+.breadcrumb a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.breadcrumb a:hover {
+  color: #fff;
+}
+
+.breadcrumb a:hover::after {
+  transform: scaleX(1);
+}
+
+.page-header h1 {
+  color: #fff;
+  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  max-width: 28ch;
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Content sections
+   ========================================================================== */
+
+section {
+  padding: 4.5rem 0;
+}
+
+.section-tint {
+  background: var(--sky-tint);
+}
+
+.section-head {
+  max-width: 62ch;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.section-head h2 {
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  margin-bottom: 0.6rem;
+}
+
+.section-head p {
+  font-size: 1.05rem;
+}
+
+.notice-block {
+  border: 1px solid var(--line-strong);
+  border-left: 4px solid var(--kinabalu-blue);
+  border-radius: var(--radius);
+  padding: 1.75rem 2rem;
+  background: var(--paper-raised);
+  max-width: 62ch;
+}
+
+.notice-block h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.notice-block p {
+  color: var(--ink-soft);
+}
+
+.notice-block a {
+  color: var(--kinabalu-blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.notice-block a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Back to top — fixed bottom-right button (injected by kinomulok.js)
+   ========================================================================== */
+
+.back-to-top {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201, 154, 61, 0.55);
+  background: var(--navy);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(16, 27, 45, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s, background 0.2s ease;
+}
+
+.back-to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  background: #2a3f61;
+  background: color-mix(in srgb, var(--navy) 80%, #fff);
+}
+
+.back-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 640px) {
+  .back-to-top {
+    right: 1rem;
+    bottom: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ==========================================================================
+   Mobile optimisation — tighter spacing, smaller touch chrome, no
+   horizontal scroll on small screens.
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  section {
+    padding: 3rem 0;
+  }
+
+  .section-head {
+    margin: 0 auto 1.75rem;
+  }
+
+  .page-header {
+    padding: calc(var(--nav-height) + var(--nav-gap) + 1rem) 0 3rem;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* ==========================================================================
+   Motion preferences
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .btn:hover {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Accessibility widget — fixed bottom-left button + panel (kinomulok.js)
+   Holds the language translator, text size and display options.
+   ========================================================================== */
+
+.a11y {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 95;
+}
+
+.a11y-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201, 154, 61, 0.55);
+  background: var(--navy);
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(16, 27, 45, 0.3);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.a11y-btn:hover {
+  background: #2a3f61;
+  transform: scale(1.06);
+}
+
+.a11y-panel {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 0.75rem);
+  width: min(320px, calc(100vw - 2rem));
+  max-height: calc(100vh - 7rem);
+  max-height: calc(100dvh - 7rem);
+  overflow-y: auto;
+  padding: 1rem 1.1rem 1.1rem;
+  background: var(--paper-raised);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(16, 27, 45, 0.28);
+}
+
+.a11y-panel[hidden] {
+  display: none;
+}
+
+.a11y-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.a11y-head strong {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.a11y-reset {
+  background: none;
+  border: 0;
+  color: var(--kinabalu-blue);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.a11y-panel h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 1rem 0 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.a11y-langs,
+.a11y-opts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.a11y-panel button:not(.a11y-reset) {
+  font: inherit;
+  font-size: 0.88rem;
+  color: var(--ink);
+  background: var(--sky-tint);
+  border: 1.5px solid transparent;
+  border-radius: 12px;
+  padding: 0.6rem 0.7rem;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.a11y-panel button:not(.a11y-reset):hover:not(:disabled) {
+  border-color: var(--kinabalu-blue);
+}
+
+.a11y-panel button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.a11y-panel button[aria-pressed="true"] {
+  background: var(--navy);
+  color: #fff;
+}
+
+.a11y-opts button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.a11y-size {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.a11y-size button {
+  flex: 1;
+  font-weight: 700;
+}
+
+.a11y-size-val {
+  min-width: 3.2rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Options the widget switches on (classes set on <html>) */
+html.a11y-links a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+html.a11y-font body,
+html.a11y-font body :where(p, h1, h2, h3, h4, h5, h6, a, li, span, button, small, label, td, th, div):not([class*="fa-"]) {
+  font-family: Verdana, Arial, sans-serif !important;
+  letter-spacing: 0.02em;
+  word-spacing: 0.08em;
+}
+
+html.a11y-contrast {
+  --ink-soft: #000;
+  --line: rgba(0, 0, 0, 0.55);
+  --line-strong: #000;
+}
+
+html.a11y-contrast body {
+  color: #000;
+}
+
+html.a11y-contrast :focus-visible {
+  outline: 3px solid #ffbf00 !important;
+  outline-offset: 2px;
+}
+
+html.a11y-no-motion *,
+html.a11y-no-motion *::before,
+html.a11y-no-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+@media (max-width: 640px) {
+  .a11y {
+    left: 1rem;
+    bottom: 1rem;
+  }
+}

@@ -1,0 +1,163 @@
+/* Mod gelap — theme toggle button + dark palette.
+   Load AFTER every other stylesheet. Switched by <html data-theme="dark">
+   (set by the inline snippet in <head> and initTheme() in kinomulok.js).
+   Navy surfaces (navbar, footer, hero scrims) use --navy and stay dark in both modes. */
+
+/* ---- Toggle button (navbar) ---- */
+.theme-toggle {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+/* keep the button above the full-screen mobile menu, otherwise it can't be tapped */
+.theme-toggle {
+  position: relative;
+  z-index: 2;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+@media (max-width: 1280px) {
+  .theme-toggle {
+    margin-left: auto;
+    margin-right: 0.5rem;
+    width: 38px;
+    height: 38px;
+  }
+}
+
+/* Phones: logo + toggle + hamburger didn't fit, so the hamburger/toggle were
+   pushed past the screen edge. Let the logo text wrap and tighten the gaps. */
+@media (max-width: 520px) {
+  .navbar {
+    gap: 0.5rem;
+  }
+
+  .navbar .logo {
+    flex-shrink: 1;
+    min-width: 0;
+    gap: 0.5rem;
+  }
+
+  .logo-text {
+    white-space: normal;
+    font-size: 0.85rem;
+    line-height: 1.15;
+  }
+
+  .theme-toggle {
+    width: 34px;
+    height: 34px;
+    margin-right: 0.25rem;
+  }
+}
+
+/* ---- Dark palette ---- */
+html[data-theme='dark'] {
+  color-scheme: dark;
+  --ink: #e8edf4;
+  --ink-soft: #aab6c6;
+  --paper: #182436;
+  --paper-raised: #223249;
+  --sky-tint: #2a3d58;
+  --line: rgba(255, 255, 255, 0.12);
+  --line-strong: rgba(255, 255, 255, 0.24);
+  --kinabalu-blue: #5b9bd5;
+  --gold-dark: #d6a94c;
+}
+
+html[data-theme='dark'] body {
+  background: var(--paper);
+}
+
+/* Surfaces that were hardcoded white */
+html[data-theme='dark'] .gl-btn,
+html[data-theme='dark'] .tr-chips li,
+html[data-theme='dark'] .tr-map figure {
+  background: var(--paper-raised);
+  color: var(--ink);
+}
+
+html[data-theme='dark'] .ek-pgk tr.is-sabah th,
+html[data-theme='dark'] .ek-pgk tr.is-sabah td,
+html[data-theme='dark'] .ek-pgk tr.is-sabah th:first-child {
+  background: rgba(201, 154, 61, 0.2);
+  color: var(--ink);
+}
+
+html[data-theme='dark'] .ek-all {
+  --ek: #9db8d9;
+}
+
+html[data-theme='dark'] .dropdown-menu li a:hover {
+  background: color-mix(in srgb, var(--kinabalu-blue) 22%, var(--paper-raised));
+}
+
+/* Hubungi Kami page has its own palette */
+html[data-theme='dark'] .apple-page {
+  --ac-ink: #e8edf4;
+  --ac-sub: #aab6c6;
+  --ac-panel: #2a3d58;
+  --ac-line: rgba(255, 255, 255, 0.12);
+  --ac-blue: #5b9bd5;
+  --ac-link: #7db2e3;
+  background: var(--paper);
+}
+
+/* Photos/maps: soften so they don't glare against dark surfaces */
+html[data-theme='dark'] img:not(.logo-img):not(.hero-teh) {
+  filter: brightness(0.9) contrast(1.03);
+}
+
+/* Tea-plant strip: swap to the dark-coloured copy so it blends with the dark page */
+html[data-theme='dark'] .hero-teh--light {
+  opacity: 0;
+}
+
+html[data-theme='dark'] .hero-teh--dark {
+  opacity: 1;
+}
+
+/* the blanket theme-anim rule below would cancel the fade, so give the strips their own */
+html.theme-anim .hero-teh {
+  transition: opacity 0.25s ease !important;
+}
+
+/* Footer needs a visible edge against the dark page */
+html[data-theme='dark'] footer,
+html[data-theme='dark'] .footer {
+  border-top: 1px solid var(--line);
+}
+
+html.theme-anim,
+html.theme-anim body,
+html.theme-anim * {
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  html.theme-anim,
+  html.theme-anim body,
+  html.theme-anim * {
+    transition: none !important;
+  }
+}

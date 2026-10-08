@@ -1,0 +1,474 @@
+/* Navbar — skip link, logo, nav links, dropdowns, language switch, hamburger.
+   Loaded after sabahtea.css (uses its :root tokens). Markup: includes/navbar.html */
+
+/* Skip link — accessibility */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  background: var(--navy);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
+  z-index: 200;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+.navbar {
+  position: fixed;
+  top: var(--nav-gap);
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - (var(--nav-gap) * 2));
+  max-width: 1240px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: var(--nav-height);
+  padding: 0 2rem;
+  background: rgba(16, 27, 45, 0.78);
+  border: 1.5px solid rgba(201, 154, 61, 0.55);
+  border-radius: 999px;
+  --nav-hover: rgba(255, 255, 255, 0.16);
+  --nav-active: rgba(255, 255, 255, 0.24);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  transition: height 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+    backdrop-filter 0.25s ease;
+}
+
+.navbar.is-condensed {
+  height: var(--nav-height-condensed);
+}
+
+/* Homepage + banner pages: navbar starts invisible over the hero/banner, then
+   becomes the frosted capsule once scrolled (is-condensed). */
+body.is-home .navbar:not(.is-condensed),
+body.has-banner .navbar:not(.is-condensed) {
+  background: transparent;
+  border-color: transparent;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.logo-img {
+  height: 42px;
+  width: auto;
+  transition: height 0.25s ease;
+}
+
+.navbar.is-condensed .logo-img {
+  height: 34px;
+}
+
+.logo-text {
+  font-size: 1.0rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.logo-text small {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.68rem;
+  color: #cfd8e3;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .logo-text small {
+    display: none;
+  }
+
+  .logo-text {
+    font-size: 0.95rem;
+  }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  list-style: none;
+}
+
+.nav-links>li>a,
+.dropdown-toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #e7ebf1;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  white-space: nowrap;
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-links>li>a:hover,
+.dropdown-toggle:hover,
+.dropdown.active .dropdown-toggle {
+  background: var(--nav-hover);
+  color: #fff;
+}
+
+.nav-links>li>a.is-active {
+  background: var(--nav-active);
+  color: #fff;
+}
+
+.arrow {
+  font-size: 0.65rem;
+  transition: transform 0.2s ease;
+  opacity: 0.75;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown.active .arrow,
+.dropdown:hover .arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  background: var(--paper-raised);
+  list-style: none;
+  min-width: 260px;
+  overflow: hidden;
+  padding: 0.4rem;
+  border-radius: 18px;
+  box-shadow: 0 16px 32px rgba(16, 27, 45, 0.22);
+  border: 1px solid var(--line);
+  z-index: 10;
+}
+
+.dropdown::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+}
+
+.dropdown-menu.active {
+  display: block;
+}
+
+/* Desktop: animated flyout instead of an instant show/hide.
+   .dropdown-menu stays display:block always at this breakpoint and is
+   revealed with opacity/transform so the transition can actually play. */
+@media (min-width: 861px) {
+  .dropdown:hover .dropdown-toggle {
+    background: var(--nav-hover);
+    color: #fff;
+  }
+
+  .dropdown-menu {
+    display: block;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.28s;
+  }
+
+  .dropdown:hover .dropdown-menu,
+  .dropdown-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* Cascade each item in slightly staggered, instead of the whole panel
+     popping in at once. */
+  .dropdown-menu li {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+    transition-delay: 0s;
+  }
+
+  .dropdown:hover .dropdown-menu li,
+  .dropdown-menu.active li {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .dropdown-menu li:nth-child(1) {
+    transition-delay: 0.03s;
+  }
+
+  .dropdown-menu li:nth-child(2) {
+    transition-delay: 0.06s;
+  }
+
+  .dropdown-menu li:nth-child(3) {
+    transition-delay: 0.09s;
+  }
+
+  .dropdown-menu li:nth-child(4) {
+    transition-delay: 0.12s;
+  }
+
+  .dropdown-menu li:nth-child(5) {
+    transition-delay: 0.15s;
+  }
+
+  .dropdown-menu li:nth-child(6) {
+    transition-delay: 0.18s;
+  }
+
+  .dropdown-menu li:nth-child(7) {
+    transition-delay: 0.21s;
+  }
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 0.7rem 1rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 0.92rem;
+  border-radius: 12px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menu li a:hover {
+  background: #e4ebf4;
+  background: color-mix(in srgb, var(--kinabalu-blue) 13%, var(--paper-raised));
+  color: var(--ink);
+}
+
+/* Google Translate adds its own top banner + shifts body down by default —
+   suppress that chrome since we drive translation through the accessibility panel instead. */
+.goog-te-banner-frame,
+.skiptranslate>iframe {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.goog-te-gadget {
+  height: 0;
+  overflow: hidden;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.4rem;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+@media (max-width: 1280px) {
+
+  /* Full-screen menu. position:fixed needs the navbar to have no transform /
+     backdrop-filter while open, otherwise it would size to the navbar. */
+  .navbar.menu-open {
+    left: var(--nav-gap);
+    transform: none;
+    background: transparent;
+    border-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  .navbar .logo,
+  .hamburger {
+    position: relative;
+    z-index: 2;
+  }
+
+  .nav-links {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    padding: calc(var(--nav-gap) + var(--nav-height) + 1.25rem) 1.25rem 3rem;
+    background: linear-gradient(180deg, #0b1424 0%, var(--navy) 55%, #172c4a 100%);
+    border: 0;
+    border-radius: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .nav-links.active {
+    display: flex;
+    animation: navOverlayIn 0.25s ease;
+  }
+
+  @keyframes navOverlayIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  .nav-links>li>a,
+  .dropdown-toggle {
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    padding: 0.8rem 2.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #fff;
+    background: none;
+  }
+
+  .dropdown-toggle .arrow {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    margin: 0;
+    transform: translateY(-50%);
+    transition: transform 0.25s ease;
+  }
+
+  .dropdown.active .dropdown-toggle .arrow {
+    transform: translateY(-50%) rotate(180deg);
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    margin: 0.2rem 0 0.6rem;
+    padding: 0.4rem;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 18px;
+  }
+
+  .dropdown-menu li a {
+    justify-content: center;
+    text-align: center;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    color: #e7ebf1;
+  }
+
+  .dropdown-menu li a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .hamburger span {
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .hamburger[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .hamburger[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+
+/* Small-screen navbar tweaks */
+@media (max-width: 640px) {
+  .navbar {
+    padding: 0 1.1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .logo-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* Desktop: tighter spacing so the links + theme toggle fit the capsule.
+   Below 1281px the hamburger menu takes over (see the 1280px block above). */
+@media (min-width: 1281px) {
+  .navbar {
+    gap: 1rem;
+    padding: 0 1.5rem;
+  }
+
+  .nav-links {
+    gap: 0.2rem;
+  }
+
+  .nav-links>li>a,
+  .dropdown-toggle {
+    font-size: 0.9rem;
+    padding: 0.55rem 0.6rem;
+  }
+}

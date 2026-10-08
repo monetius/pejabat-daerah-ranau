@@ -1,0 +1,295 @@
+/* eKasih */
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Status colours (never the only cue — labels + legend always shown) */
+.ek-tegar {
+    --ek: #b4413a;
+}
+
+.ek-miskin {
+    --ek: var(--gold);
+}
+
+.ek-keluar {
+    --ek: var(--kinabalu-blue);
+}
+
+/* Stat cards */
+.ek-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.25rem;
+}
+
+.ek-stat {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--ek);
+    border-radius: var(--radius);
+    padding: 1.4rem 1.5rem 1.5rem;
+}
+
+.ek-all {
+    --ek: var(--navy);
+    background: var(--navy);
+    border-color: var(--navy);
+    border-top-color: var(--gold);
+    color: #fff;
+}
+
+.ek-stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--sky-tint);
+    color: var(--ek);
+    font-size: 1rem;
+    margin-bottom: 0.9rem;
+}
+
+.ek-all .ek-stat-icon {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--gold);
+}
+
+.ek-stat-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.25rem;
+}
+
+.ek-all .ek-stat-label {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.ek-stat-num {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.4vw, 2.6rem);
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 0.35rem;
+}
+
+.ek-all .ek-stat-num {
+    color: #fff;
+}
+
+.ek-stat-pct {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+.ek-all .ek-stat-pct {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Proportion bar */
+.ek-bar-wrap {
+    margin-top: 2rem;
+}
+
+.ek-bar {
+    display: flex;
+    height: 14px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: var(--sky-tint);
+}
+
+.ek-seg {
+    display: block;
+    height: 100%;
+    background: var(--ek);
+}
+
+.ek-seg+.ek-seg {
+    border-left: 2px solid var(--paper);
+}
+
+.ek-legend {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+}
+
+.ek-legend li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ek-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--ek);
+}
+
+/* Tables */
+.ek-subhead {
+    font-size: 1.1rem;
+    margin: 2rem 0 0.9rem;
+}
+
+.ek-table-wrap {
+    overflow-x: auto;
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    -webkit-overflow-scrolling: touch;
+}
+
+.ek-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.93rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.ek-table th,
+.ek-table td {
+    padding: 0.7rem 0.95rem;
+    border-bottom: 1px solid var(--line);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.ek-table thead th {
+    background: var(--navy);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom-color: rgba(255, 255, 255, 0.15);
+}
+
+.ek-table thead th.grp {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.ek-table thead th[rowspan] {
+    text-align: left;
+    vertical-align: bottom;
+}
+
+.ek-table tbody th {
+    text-align: left;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.ek-table tbody tr:last-child th,
+.ek-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.ek-table tbody tr:hover td,
+.ek-table tbody tr:hover th {
+    background: var(--sky-tint);
+}
+
+.ek-total {
+    font-weight: 700;
+    color: var(--ink);
+}
+
+/* PGK highlights */
+.ek-pgk tr.is-my th,
+.ek-pgk tr.is-my td {
+    background: var(--sky-tint);
+    font-weight: 600;
+}
+
+.ek-pgk tr.is-sabah th,
+.ek-pgk tr.is-sabah td {
+    background: #f8edd4;
+    color: var(--ink);
+    font-weight: 700;
+}
+
+.ek-pgk tr.is-sabah th {
+    box-shadow: inset 3px 0 0 var(--gold);
+}
+
+/* Sticky state column so it stays visible when scrolling sideways */
+.ek-pgk th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--paper-raised);
+    min-width: 9.5rem;
+}
+
+.ek-pgk thead th:first-child {
+    background: var(--navy);
+    z-index: 2;
+}
+
+.ek-pgk tr.is-my th:first-child {
+    background: var(--sky-tint);
+}
+
+.ek-pgk tr.is-sabah th:first-child {
+    background: #f8edd4;
+}
+
+.ek-source {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+    .ek-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .ek-stats {
+        grid-template-columns: 1fr;
+        gap: 0.9rem;
+    }
+
+    .ek-stat {
+        padding: 1.15rem 1.2rem 1.25rem;
+    }
+
+    .ek-table th,
+    .ek-table td {
+        padding: 0.6rem 0.75rem;
+    }
+
+    .ek-dun {
+        min-width: 460px;
+    }
+
+    .ek-pgk {
+        min-width: 640px;
+    }
+}

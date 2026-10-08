@@ -1,0 +1,200 @@
+/* Pelancongan page */
+.tr-intro {
+    max-width: 760px;
+    margin: 0 auto 2.5rem;
+    text-align: center
+}
+
+.tr-intro h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    margin-bottom: .75rem
+}
+
+.tr-intro p {
+    color: var(--ink-soft);
+    line-height: 1.7
+}
+
+.tr-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin: 0 0 3rem
+}
+
+.tr-stat {
+    background: var(--sky-tint);
+    border-radius: var(--radius);
+    padding: 1.1rem;
+    text-align: center
+}
+
+.tr-stat b {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    color: var(--kinabalu-blue)
+}
+
+.tr-stat span {
+    font-size: .85rem;
+    color: var(--ink-soft)
+}
+
+.tr-map {
+    margin: 0 0 3rem
+}
+
+.tr-map figure {
+    margin: 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: #fff
+}
+
+.tr-map img {
+    display: block;
+    width: 100%;
+    height: auto
+}
+
+.tr-map figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding: .8rem 1rem;
+    font-size: .9rem;
+    color: var(--ink-soft)
+}
+
+.tr-map figcaption a {
+    color: var(--kinabalu-blue);
+    font-weight: 600
+}
+
+.tr-h {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin: 0 0 .4rem
+}
+
+.tr-sub {
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem
+}
+
+.tr-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 3rem
+}
+
+.tr-card {
+    background: var(--paper-raised);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.3rem
+}
+
+.tr-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: .15rem;
+    color: var(--ink)
+}
+
+.tr-card small {
+    display: block;
+    color: var(--ink-soft);
+    margin-bottom: .8rem;
+    font-size: .82rem
+}
+
+.tr-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0
+}
+
+.tr-card li {
+    padding: .4rem 0 .4rem 1.5rem;
+    position: relative;
+    border-top: 1px solid var(--line);
+    font-size: .95rem
+}
+
+.tr-card li:first-child {
+    border-top: 0
+}
+
+.tr-card li::before {
+    content: "\f3c5";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    top: .5rem;
+    color: var(--kinabalu-blue);
+    font-size: .8rem
+}
+
+.tr-more {
+    background: var(--sky-tint);
+    border-radius: var(--radius);
+    padding: 1.4rem;
+    margin-bottom: 3rem
+}
+
+.tr-more h3 {
+    margin-bottom: .8rem
+}
+
+.tr-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0
+}
+
+.tr-chips li {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: .35rem .85rem;
+    font-size: .9rem
+}
+
+.tr-stay {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 3rem
+}
+
+.tr-note {
+    border-left: 4px solid var(--gold);
+    background: var(--paper);
+    padding: 1rem 1.2rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: var(--ink-soft);
+    line-height: 1.6
+}
+
+.tr-credit {
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: .9rem;
+    padding-bottom: 1rem
+}
+
+@media(max-width:600px) {
+    .tr-grid {
+        grid-template-columns: 1fr
+    }
+}
