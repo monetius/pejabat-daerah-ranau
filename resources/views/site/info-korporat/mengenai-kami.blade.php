@@ -1,0 +1,734 @@
+@extends('layouts.site')
+
+@section('title', 'Mengenai Kami - Pejabat Daerah Ranau')
+@section('description', 'Mengenai Pejabat Daerah Ranau, Sabah: perutusan, sejarah, visi dan misi, fungsi jabatan serta profil Daerah Ranau.')
+@section('body_class', 'has-banner')
+
+@push('styles')
+  <link rel="stylesheet" href="{{ asset('assets/css/mengenai-kami.css') }}">
+@endpush
+
+@section('content')
+@verbatim
+
+      <header class="ab-hero">
+        <div class="ab-hero-bg" aria-hidden="true"></div>
+        <div class="container ab-hero-inner">
+          <img
+            class="ab-hero-building"
+            src="/assets/img/hero/bangunan.webp"
+            alt="Bangunan Pejabat Daerah Ranau"
+          />
+          <div class="ab-hero-text">
+            <ul class="breadcrumb">
+              <li><a href="/">Laman Utama</a></li>
+              <li>Info Korporat</li>
+              <li>Mengenai Kami</li>
+            </ul>
+            <h1>Mengenai Kami</h1>
+            <p>
+              Pejabat Daerah Ranau ialah ketua penyelaras pelaksana pembangunan
+              daerah dan agen terpenting Kerajaan dalam melaksanakan dasar-dasar
+              Kerajaan di peringkat Daerah Ranau, Sabah.
+            </p>
+            <nav class="about-jump" aria-label="Pada halaman ini">
+              <a href="#profil" data-slide="0">Perutusan</a>
+              <a href="#profil" data-slide="1">Sejarah Jabatan</a>
+              <a href="#profil" data-slide="2">Senarai Pegawai</a>
+              <a href="#visi">Visi &amp; Misi</a>
+              <a href="#fungsi">Fungsi</a>
+              <a href="#daerah">Daerah Ranau</a>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <section
+        id="profil"
+        class="ab-slider"
+        aria-roledescription="carousel"
+        aria-label="Perutusan, sejarah dan senarai pegawai"
+      >
+        <div class="ab-frame">
+          <button
+            class="ab-btn ab-side ab-prev"
+            type="button"
+            aria-label="Sebelumnya"
+          >
+            <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+          </button>
+          <div
+            class="ab-viewport"
+            tabindex="0"
+            aria-label="Seret atau gunakan anak panah untuk menukar bahagian"
+          >
+            <div class="ab-track">
+              <article
+                class="ab-slide"
+                id="perutusan"
+                aria-roledescription="slide"
+                aria-label="Perutusan Pegawai Daerah"
+              >
+                <div class="ab-card-head">
+                  <span class="ab-num" aria-hidden="true">01</span
+                  ><span class="ab-kicker">Perutusan</span>
+                </div>
+                <div class="perutusan-wrap">
+                  <div class="perutusan-photo">
+                    <div class="perutusan-photo-frame">
+                      <img
+                        src="/assets/img/muka_do.png"
+                        alt="gambar pegawai"
+                      />
+                    </div>
+                    <p class="perutusan-photo-caption">
+                      Tinus Bin Manggam<br />Pegawai Daerah Ranau
+                    </p>
+                  </div>
+                  <div class="perutusan-text">
+                    <!-- tajuk -->
+                    <h2>Perutusan Pegawai Daerah</h2>
+
+                    <!-- first para-->
+                    <p>
+                      Salam sejahtera, Salam Malaysia Madani, Salam Sabah Maju
+                      Jaya dan Selamat Datang ke Laman Web Pejabat Daerah Ranau.
+                    </p>
+                    <p>
+                      Pewujudan laman web ini salah satu inisiatif menyokong
+                      usaha-usaha Kerajaan Negeri bersama- sama merealisasikan
+                      Pelan Pendigitalan Kerajaan Negeri Sabah melalui Konsep SA
+                      iaitu "Acessible by Anyone at Anytime, Anywhere by Any
+                      Mobile Device."
+                    </p>
+
+                    <!-- second para-->
+                    <p>
+                      Laman Web Pejabat Daerah Ranau adalah platform untuk
+                      menyediakan maklumat terkini berkaitan dengan pentadbiran,
+                      pembangunan, program-program semasa dan info terkini
+                      berkenaan Daerah Ranau agar ia menjadi sumber maklumat
+                      serta bahan rujukan yang boleh dikongsi bersama seterusnya
+                      dapat memberi manfaat kepada pelayar laman web ini.
+                    </p>
+
+                    <p>Akhir kata, selamat melayari laman web pejabat ini.</p>
+
+                    <p>Sekian, terima kasih.</p>
+                    <p class="perutusan-signoff">
+                      <br /><strong>Tinus Bin Manggam</strong><br />Pegawai
+                      Daerah Ranau
+                    </p>
+                  </div>
+                </div>
+              </article>
+              <article
+                class="ab-slide"
+                id="sejarah"
+                aria-roledescription="slide"
+                aria-label="Sejarah Jabatan"
+              >
+                <div class="ab-card-head">
+                  <span class="ab-num" aria-hidden="true">02</span
+                  ><span class="ab-kicker">Sejarah Jabatan</span>
+                </div>
+                <h2>Sejarah Jabatan</h2>
+                <div class="pj-history">
+                  <p>
+                    Pada tahun antara 1943 hingga 1947, Daerah Ranau merupakan
+                    sebuah Daerah Kecil di bawah pentadbiran Tambunan.
+                    Seterusnya diambil alih oleh Resident Sandakan di bawah
+                    kuasa En. Evan dengan Penolong Pegawai Daerahnya En. Thomas
+                    Koroh (Tun Ahmad Koroh) ketika itu.
+                  </p>
+                  <p>
+                    Pada tahun 1961 Daerah Ranau kemudiannya menjadi daerah
+                    penuh yang ditadbir oleh Datuk John B. Dusing pada tahun
+                    1961. Pejabat Daerah Ranau ketika itu terletak bersebelahan
+                    dengan Jambatan Liwagu pada ketika itu.
+                  </p>
+                  <p>
+                    Pejabat Daerah Ranau kemudian berpindah ke Bangunan Urusetia
+                    yang baharu semasa pentadbiran Encik Andrew J. Nusius pada
+                    tahun 1991 yang terletak di kawasan Pekan Ranau. Bangunan
+                    ini dikongsi dengan jabatan lain seperti Jabatan Kebajikan
+                    Masyarakat, Jabatan Tanah, Mahkamah Anak Negeri, dan jabatan
+                    persekutuan seperti Jabatan Pendaftaran Negara dan Pejabat
+                    RELA.
+                  </p>
+                  <p>
+                    Kemudian Pejabat Daerah Ranau berpindah ke bangunan baharu
+                    bersebelahan dengan Bangunan Urusetia semasa pentadbiran
+                    Encik Siriman M.F. Basir pada tahun 2006 sehingga kini.
+                  </p>
+                </div>
+              </article>
+              <article
+                class="ab-slide"
+                id="pegawai"
+                aria-roledescription="slide"
+                aria-label="Senarai nama pegawai dan ketua daerah"
+              >
+                <div class="ab-card-head">
+                  <span class="ab-num" aria-hidden="true">03</span
+                  ><span class="ab-kicker">Senarai Pegawai</span>
+                </div>
+                <div class="pj-lists">
+                  <div class="pj-list-card">
+                    <h2>Senarai Nama Pegawai Daerah</h2>
+                    <ol class="pj-list">
+                      <li>Datuk John B. Dusing (1961 – 1964)</li>
+                      <li>Encik Kassim Osman (1964 – 1965)</li>
+                      <li>Encik Peter Seck (1965 – 1969)</li>
+                      <li>Datuk Clarence Mansul (1969 – 15 Okt. 1970)</li>
+                      <li>Haji Jasnie Gindog (1970 – 1971)</li>
+                      <li>Encik Awang Salleh Konolon (1971 – 1975)</li>
+                      <li>Encik Norbert Lee (31 Mac 1975 – 25 Mei 1976)</li>
+                      <li>
+                        Haji Abd. Majid Chong (25 Mei 1976 – 29 Nov. 1976)
+                      </li>
+                      <li>
+                        Haji Awang Nuhin Pg. Hj. Abd Rauf (29 Nov. 1976 – 31
+                        Jul. 1978)
+                      </li>
+                      <li>Datuk Sari Suhut (01 Ogos 1978 – 16 Feb. 1982)</li>
+                      <li>
+                        Datuk Abd. Amit Guyah (16 Feb. 1982 – 17 Feb. 1983)
+                      </li>
+                      <li>
+                        Encik Mohd Rahfee Hj. Abd. Rauf (17 Feb. 1983 – 13 Jan.
+                        1989)
+                      </li>
+                      <li>Datuk Louis Rampas (13 Jan. 1989 – 19 Jan. 1991)</li>
+                      <li>
+                        Encik Andrew J. Nusius (19 Jan. 1991 – 20 Jun 1994)
+                      </li>
+                      <li>Encik Suhaili Riman (20 Jun. 1994 – Ogos 1996)</li>
+                      <li>Datuk Haji Amri A Hj. Suratman (Ogos 1996 – 2006)</li>
+                      <li>Encik Siriman M.F. Basir (2006 – 2009)</li>
+                      <li>Haji Faimin Kamin (2009 – 2019)</li>
+                      <li>Encik Mohd Yassin Bin Ibrahim (2019 – 2020)</li>
+                      <li>
+                        Encik Syahrin Samsir (18 Dis. 2020 – 25 Jan. 2022)
+                      </li>
+                      <li>
+                        Haji Jumain Abdul Ghani (25 Jan. 2022 – 1 Nov. 2023)
+                      </li>
+                      <li>Encik Tinus Bin Manggam (1 Nov. 2023 – Kini)</li>
+                    </ol>
+                  </div>
+                  <div class="pj-list-card">
+                    <h2>Senarai Nama Ketua Daerah</h2>
+                    <ol class="pj-list">
+                      <li>O.K.K. Akoi Abing (Ranau) 21 Februari 1962 – 1967</li>
+                      <li>
+                        O.K.K. Sepikit Kebindong (Ranau) 13 Disember 1976 – 1985
+                      </li>
+                      <li>K.D. Apin Dangi (Kundasang) 2 Disember 1985</li>
+                      <li>K.D. Unsoh Awit (Ranau) 01 Ogos 1987 – 1995</li>
+                      <li>
+                        K.D. Tuan Hj. Madi Yaakub (Kundasang) 2 Feb. 1995 – 30
+                        April 2001 (N.30)
+                      </li>
+                      <li>K.D. Saban Basinau 2000 – 2001 (N.31)</li>
+                      <li>
+                        K.D. Tuan Haji Mohd. Din Selinggong 24 April 2001
+                        sehingga 2019
+                      </li>
+                      <li>
+                        K.D. Tuan Haji Muhasip Haji Ruman 2020 hingga kini
+                      </li>
+                    </ol>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+          <button
+            class="ab-btn ab-side ab-next"
+            type="button"
+            aria-label="Seterusnya"
+          >
+            <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="container ab-stage">
+          <div class="ab-controls">
+            <button
+              class="ab-btn ab-inline ab-prev"
+              type="button"
+              aria-label="Sebelumnya"
+            >
+              <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            </button>
+            <div class="ab-meta">
+              <span class="ab-count" aria-live="polite"><b>01</b> / 03</span>
+              <div class="ab-dots" role="tablist" aria-label="Pilih bahagian">
+                <button
+                  type="button"
+                  role="tab"
+                  aria-label="Perutusan"
+                ></button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-label="Sejarah Jabatan"
+                ></button>
+                <button
+                  type="button"
+                  role="tab"
+                  aria-label="Senarai Pegawai"
+                ></button>
+              </div>
+            </div>
+            <button
+              class="ab-btn ab-inline ab-next"
+              type="button"
+              aria-label="Seterusnya"
+            >
+              <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="vm" aria-label="Visi dan Misi">
+        <div class="container">
+          <div class="vm-row vm-row-visi" id="visi">
+            <h2 class="vm-word">Visi</h2>
+            <p class="vm-text">
+              Kami sentiasa berusaha menjadikan pejabat Daerah Ranau sebagai
+              pejabat contoh dan disegani.
+            </p>
+          </div>
+          <div class="vm-row vm-row-misi" id="misi">
+            <ol class="vm-text vm-list">
+              <li>
+                Untuk memberikan perkhidmatan yang cepat, cekap dan prihatin
+                pada setiap masa.
+              </li>
+              <li>
+                Sentiasa pro-aktif dan berada dihadapan dalam proses pembangunan
+                daerah.
+              </li>
+              <li>
+                Sentiasa mengumpul, menyimpan dan mengemaskinikan data profil
+                daerah.
+              </li>
+              <li>
+                Sentiasa menunjukan kepimpinan yang berkesan dalam sektor awam
+                mahupun sektor swasta.
+              </li>
+            </ol>
+            <h2 class="vm-word">Misi</h2>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-tint" id="objektif">
+        <div class="container">
+          <div class="section-head">
+            <span class="vm-eyebrow">Objektif</span>
+            <h2>Objektif Jabatan</h2>
+          </div>
+          <div class="vm-obj-grid">
+            <div class="vm-obj-item">
+              <span class="vm-obj-icon"
+                ><i class="fa-solid fa-arrow-trend-up"></i
+              ></span>
+              <p>
+                Memodenkan dan meningkatkan taraf hidup penduduk luar bandar.
+              </p>
+            </div>
+            <div class="vm-obj-item">
+              <span class="vm-obj-icon"
+                ><i class="fa-solid fa-lightbulb"></i
+              ></span>
+              <p>
+                Merancang pembangunan infrastruktur asas dan kemudahan awam di
+                peringkat Daerah.
+              </p>
+            </div>
+            <div class="vm-obj-item">
+              <span class="vm-obj-icon"
+                ><i class="fa-solid fa-briefcase"></i
+              ></span>
+              <p>Menggalakkan pewujudan peluang pekerjaan.</p>
+            </div>
+            <div class="vm-obj-item">
+              <span class="vm-obj-icon"><i class="fa-solid fa-users"></i></span>
+              <p>Meningkatkan pembangunan masyarakat.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="vm-hala" id="hala-tuju">
+        <div class="container">
+          <div class="section-head">
+            <span class="vm-eyebrow">Hala Tuju</span>
+            <h2>Daerah Ranau akan mencapai status:</h2>
+          </div>
+          <ol class="vm-path">
+            <li class="vm-path-item">
+              <span class="vm-path-icon"
+                ><i class="fa-solid fa-mountain-sun"></i
+              ></span>
+              <p>Pusat pelancongan yang unggul di Sabah amnya Malaysia.</p>
+            </li>
+            <li class="vm-path-item">
+              <span class="vm-path-icon"><i class="fa-solid fa-city"></i></span>
+              <p>
+                Taraf hidup penduduk luar bandar yang maju, progresif dan
+                dinamik seiring dengan kemajuan kawasan bandar.
+              </p>
+            </li>
+            <li class="vm-path-item">
+              <span class="vm-path-icon"
+                ><i class="fa-solid fa-graduation-cap"></i
+              ></span>
+              <p>Pusat kecemerlangan pendidikan.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="fungsi" class="fn-core">
+        <div class="container">
+          <span class="fn-eyebrow">Peranan Utama</span>
+          <h2>Fungsi Pejabat Daerah Ranau</h2>
+          <div class="fn-core-grid">
+            <div class="fn-core-item">
+              <span class="fn-core-icon"
+                ><i class="fa-solid fa-sitemap"></i
+              ></span>
+              <p>
+                Ketua penyelaras pelaksana pembangunan daerah di peringkat
+                Daerah.
+              </p>
+            </div>
+            <div class="fn-core-item">
+              <span class="fn-core-icon"><i class="fa-solid fa-flag"></i></span>
+              <p>
+                Pemimpin pertubuhan dan agen terpenting Kerajaan dalam
+                melaksanakan dasar-dasar Kerajaan di peringkat Daerah.
+              </p>
+            </div>
+            <div class="fn-core-item">
+              <span class="fn-core-icon"
+                ><i class="fa-solid fa-compass-drafting"></i
+              ></span>
+              <p>
+                Ketua perancang bagi aktiviti-aktiviti dan program di peringkat
+                Daerah.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="fn-grid">
+            <article class="fn-card">
+              <h3>
+                <span class="fn-icon"
+                  ><i class="fa-solid fa-magnifying-glass-chart"></i
+                ></span>
+                Pemantauan Projek Pembangunan
+              </h3>
+              <ul class="fn-list">
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Mengesan faedah dan
+                  keberkesanan projek yang telah siap.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Meminta laporan
+                  kemajuan pelaksanaan projek daripada Jabatan-Jabatan dan
+                  Agensi-Agensi Kerajaan, swasta dan pertubuhan.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Mengumpul data untuk
+                  tujuan perancangan projek pembangunan.
+                </li>
+              </ul>
+            </article>
+            <article class="fn-card">
+              <h3>
+                <span class="fn-icon"
+                  ><i class="fa-solid fa-handshake"></i
+                ></span>
+                Pentadbiran &amp; Protokol
+              </h3>
+              <ul class="fn-list">
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Mengeluarkan arahan
+                  kerja am (G.W.O) dan perintah pembelian tempatan.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Menjalankan
+                  kerja-kerja protokol iaitu menerima lawatan orang-orang
+                  kenamaan.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Menyelaras /
+                  menjadikan urusetia kepada aktiviti-aktiviti pertubuhan
+                  persatuan.
+                </li>
+              </ul>
+            </article>
+            <article class="fn-card fn-card-wide">
+              <h3>
+                <span class="fn-icon"><i class="fa-solid fa-coins"></i></span>
+                Kewangan &amp; Perkhidmatan Awam
+              </h3>
+              <ul class="fn-list">
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Mengawal kewangan
+                  yang diperuntukkan kepada ADUN dan ADR.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Pusat bayaran
+                  setempat.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Mengeluarkan dan
+                  mengawal lesen-lesen perniagaan.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Tempat rujukan orang
+                  awam tentang hal-hal pentadbiran Kerajaan.
+                </li>
+              </ul>
+            </article>
+            <article class="fn-card">
+              <h3>
+                <span class="fn-icon"
+                  ><i class="fa-solid fa-shield-halved"></i
+                ></span>
+                Perayaan &amp; Keselamatan
+              </h3>
+              <ul class="fn-list">
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Penyelaras utama
+                  kepada perayaan rasmi Kerajaan.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Menyelaras
+                  keselamatan Daerah.
+                </li>
+              </ul>
+            </article>
+            <article class="fn-card">
+              <h3>
+                <span class="fn-icon"><i class="fa-solid fa-gavel"></i></span>
+                Kehakiman
+              </h3>
+              <ul class="fn-list">
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Menjalankan
+                  kerja-kerja Majistret Dua (2).
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Pengadil rayuan
+                  Mahkamah Anak Negeri.
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="daerah" class="about-divider">
+        <div class="container">
+          <div class="md-head">
+            <span class="md-eyebrow">Profil Daerah</span>
+            <h2>Mengenai Daerah Ranau</h2>
+          </div>
+        </div>
+      </section>
+
+      <section id="sejarah-daerah" class="md-section">
+        <div class="container md-split">
+          <div class="md-split-head">
+            <span class="md-eyebrow">Sejarah Daerah</span>
+            <h2>Daerah Ranau</h2>
+          </div>
+          <div class="md-split-body">
+            <p>
+              Ranau pernah menjadi Daerah Kecil Daerah Tambunan, dan Daerah Kota
+              Belud sebelum menjadi sebuah daerah penuh pada awal tahun 1960-an.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="muka-bumi" class="md-section section-tint">
+        <div class="container md-split">
+          <div class="md-split-head">
+            <span class="md-eyebrow">Muka Bumi</span>
+            <h2>Daerah yang berbukit-bukau</h2>
+          </div>
+          <div class="md-split-body">
+            <p>
+              Ranau merupakan sebuah daerah yang berbukit bukau. Di antara
+              ciri-ciri utamanya ialah:
+            </p>
+            <div class="md-dirs">
+              <div class="md-dir">
+                <span class="md-dir-icon"
+                  ><i class="fa-solid fa-arrow-up"></i></span
+                ><strong>Utara</strong
+                ><span>Banjaran Crocker dan kemuncak Pinousuk</span>
+              </div>
+              <div class="md-dir">
+                <span class="md-dir-icon"
+                  ><i class="fa-solid fa-arrow-right"></i></span
+                ><strong>Timur</strong><span>Lembah Ranau</span>
+              </div>
+              <div class="md-dir">
+                <span class="md-dir-icon"
+                  ><i class="fa-solid fa-arrow-down"></i></span
+                ><strong>Selatan</strong
+                ><span>Banjaran Trus Madi serta Tanah Tinggi Labuk</span>
+              </div>
+              <div class="md-dir">
+                <span class="md-dir-icon"
+                  ><i class="fa-solid fa-water"></i></span
+                ><strong>Saliran utama</strong><span>Sungai Liwagu</span>
+              </div>
+            </div>
+            <p>
+              Secara amnya, Daerah Ranau mempunyai ciri-ciri bentuk muka bumi
+              mengalon, mengombak, dataran lembah, tanah beralun dan
+              bergunung-ganang di kebanyakan tempat serta memiliki iklim yang
+              lembap dan sejuk.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="asal-nama" class="md-section">
+        <div class="container md-split">
+          <div class="md-split-head">
+            <span class="md-eyebrow">Asal Nama</span>
+            <h2>Dari “Ranahon” kepada Ranau</h2>
+          </div>
+          <div class="md-split-body">
+            <p>
+              Bagi penduduk di Lembah Ranau, mereka mengusahakan tanaman padi
+              sawah atau dalam bahasa tempatan Ranahon. Panggilan singkat
+              Ranahon ialah Ranau. Kebetulan kawasan ini telah membangun dan
+              menjadi pusat pentadbiran daerah dan oleh itu perkataan Ranau
+              telah digunakan sebagai nama rasmi daerah ini.
+            </p>
+            <p>
+              Ranau berasal dari perkataan “Ranahon” yang membawa maksud kawasan
+              sawah padi. Biasanya, masyarakat Dusun di Daerah Ranau
+              mengusahakan tanaman padi huma atau padi bukit memandangkan bentuk
+              muka bumi yang berbukit-bukau.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="kedudukan" class="md-section section-tint">
+        <div class="container md-split">
+          <div class="md-split-head">
+            <span class="md-eyebrow">Kedudukan</span>
+            <h2>Lokasi &amp; Sempadan</h2>
+          </div>
+          <div class="md-split-body">
+            <p>
+              Daerah Ranau terletak di antara garisan lintang (Latitude) 5° 30′
+              U dan 6° 25′ U dan garisan bujur (Longitude) 116° 30′ dan 117° 5′
+              T dan di kelilingi oleh tujuh (7) buah daerah lain iaitu Tuaran,
+              Kota Belud, Tambunan, Keningau, Kinabatangan, Beluran dan Kota
+              Belud.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="triple-crown" class="md-section">
+        <div class="container">
+          <div class="md-head">
+            <span class="md-eyebrow">Warisan Dunia</span>
+            <h2>Kinabalu Park: “Triple Crown” UNESCO</h2>
+            <p>
+              Kinabalu Park yang khususnya terletak di Kundasang, Ranau telah
+              diberikan anugerah “triple crown” oleh UNESCO. Ini berikutan
+              pengisytiharan Geopark Negara Kinabalu sebagai The Kinabalu UNESCO
+              Global Geopark.
+            </p>
+          </div>
+          <div class="md-crowns">
+            <div class="md-crown">
+              <span class="md-crown-icon"
+                ><i class="fa-solid fa-crown"></i
+              ></span>
+              <h3>Tapak Warisan Dunia UNESCO</h3>
+              <p>Taman Kinabalu Sabah, diisytiharkan pada 2 Disember 2000.</p>
+            </div>
+            <div class="md-crown">
+              <span class="md-crown-icon"
+                ><i class="fa-solid fa-crown"></i
+              ></span>
+              <h3>Rizab Biosfera Banjaran Crocker UNESCO</h3>
+              <p>Diisytiharkan pada 12 Jun 2014.</p>
+            </div>
+            <div class="md-crown">
+              <span class="md-crown-icon"
+                ><i class="fa-solid fa-crown"></i
+              ></span>
+              <h3>Geopark Global UNESCO Kinabalu</h3>
+              <p>
+                Geopark Negara Kinabalu diisytiharkan sebagai The Kinabalu
+                UNESCO Global Geopark.
+              </p>
+            </div>
+          </div>
+          <div class="md-stats">
+            <div>
+              <strong>16 Jan 1964</strong><span>Kinabalu Park diwartakan</span>
+            </div>
+            <div>
+              <strong>4,750 km²</strong
+              ><span>Keluasan Geopark Global UNESCO Kinabalu</span>
+            </div>
+            <div>
+              <strong>290,000+</strong
+              ><span
+                >Masyarakat tempatan yang mendapat manfaat sosioekonomi</span
+              >
+            </div>
+          </div>
+          <div class="md-prose">
+            <p>
+              Ini menjadikan Sabah lokasi ketiga di dunia yang memperoleh
+              “triple crown” di samping Pulau Jeju di Korea Selatan dan
+              Shennongjia di China. Pengisytiharan ini merupakan hasil dari
+              inisiatif Hala Tuju Sabah Maju Jaya melalui Kementerian
+              Pelancongan, Kebudayaan, dan Alam Sekitar serta Taman-Taman Sabah.
+              Geopark Global UNESCO Kinabalu seluas 4,750 kilometer persegi kini
+              secara rasmi menjadi destinasi Geopelancongan Global, yang akan
+              menambah nilai penting kepada produk eko-pelancongan yang ada di
+              Sabah.
+            </p>
+            <p>
+              Pengisytiharan ini juga membawa manfaat kepada sosioekonomi Sabah,
+              khususnya bagi lebih dari 290,000 masyarakat tempatan di daerah
+              Kota Belud, Kota Marudu, dan Ranau.
+            </p>
+          </div>
+        </div>
+      </section>
+    
+@endverbatim
+@endsection
+
+@push('scripts')
+@verbatim
+<script src="/assets/js/mengenai-slider.js"></script>
+@endverbatim
+@endpush

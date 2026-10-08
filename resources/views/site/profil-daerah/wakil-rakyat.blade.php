@@ -1,0 +1,162 @@
+@extends('layouts.site')
+
+@section('title', 'Wakil Rakyat - Pejabat Daerah Ranau')
+@section('description', 'Wakil rakyat Daerah Ranau: Ahli Parlimen P.179 Ranau dan Ahli Dewan Undangan Negeri Karanaan, Paginatan dan Kundasang.')
+@section('body_class', 'has-banner')
+
+@push('styles')
+  <link rel="stylesheet" href="{{ asset('assets/css/wakil.css') }}">
+@endpush
+
+@section('content')
+@verbatim
+
+      <div class="page-header">
+        <div class="page-header-media">
+          <img src="/assets/img/banner.jpg" alt="" />
+        </div>
+        <div class="page-header-scrim"></div>
+        <div class="container">
+          <ul class="breadcrumb">
+            <li><a href="/">Laman Utama</a></li>
+            <li>Profil Daerah</li>
+            <li>Wakil Rakyat</li>
+          </ul>
+          <h1>Wakil Rakyat Ranau</h1>
+        </div>
+      </div>
+
+      <section class="wr-intro">
+        <div class="container">
+          <p class="wr-lead">
+            Kawasan Pilihan Raya di Daerah Ranau meliputi Dewan Undangan Negeri
+            Karanaan, Dewan Undangan Negeri Paginatan dan Dewan Undangan Negeri
+            Kundasang yang membentuk satu kawasan parlimen iaitu P.179 Ranau.
+          </p>
+          <p class="wr-sub">Daerah Ranau mempunyai 5 wakil rakyat:</p>
+          <div class="wr-stats">
+            <div class="wr-stat">
+              <span class="wr-num">1</span
+              ><span class="wr-lbl">Ahli Parlimen</span>
+            </div>
+            <div class="wr-stat">
+              <span class="wr-num">3</span
+              ><span class="wr-lbl">Ahli Dewan Undangan Negeri</span>
+            </div>
+            <div class="wr-stat">
+              <span class="wr-num">1</span
+              ><span class="wr-lbl">Ahli Dewan Undangan Negeri (Dilantik)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="wr-list">
+        <div class="container">
+          <h2 class="wr-heading">Ahli Parlimen</h2>
+          <div class="wr-grid wr-grid-single">
+            <article class="wr-card wr-parlimen">
+              <img
+                class="wr-photo"
+                src="/assets/img/wakil/portrait-4.webp"
+                alt="YB Datuk Jonathan Yasin"
+                loading="lazy"
+                width="1024"
+                height="1280"
+              />
+              <div class="wr-body">
+                <span class="wr-role">Ahli Parlimen</span>
+                <h3>YB Datuk Jonathan Yasin</h3>
+                <span class="wr-kaw">P.179 Ranau</span>
+                <ul>
+                  <li>Ahli Parlimen P.179 Ranau</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+          <h2 class="wr-heading">Ahli Dewan Undangan Negeri</h2>
+          <div class="wr-grid">
+            <article class="wr-card wr-adun">
+              <img
+                class="wr-photo"
+                src="/assets/img/wakil/portrait-3.webp"
+                alt="YB DSP Haji Masidi Manjun"
+                loading="lazy"
+                width="1024"
+                height="1280"
+              />
+              <div class="wr-body">
+                <span class="wr-role">Ahli Dewan Undangan Negeri</span>
+                <h3>YB DSP Haji Masidi Manjun</h3>
+                <span class="wr-kaw">N.37 Karanaan</span>
+                <ul>
+                  <li>Menteri Kewangan Sabah</li>
+                  <li>Ahli Dewan Undangan Negeri N.37 Karanaan</li>
+                </ul>
+              </div>
+            </article>
+            <article class="wr-card wr-adun">
+              <img
+                class="wr-photo"
+                src="/assets/img/wakil/portrait-5.webp"
+                alt="YB Datuk Abidin Madingkir"
+                loading="lazy"
+                width="1024"
+                height="1280"
+              />
+              <div class="wr-body">
+                <span class="wr-role">Ahli Dewan Undangan Negeri</span>
+                <h3>YB Datuk Abidin Madingkir</h3>
+                <span class="wr-kaw">N.38 Paginatan</span>
+                <ul>
+                  <li>Pembantu Menteri Kepada Ketua Menteri Sabah</li>
+                  <li>Ahli Dewan Undangan Negeri N.38 Paginatan</li>
+                </ul>
+              </div>
+            </article>
+            <article class="wr-card wr-adun">
+              <img
+                class="wr-photo"
+                src="/assets/img/wakil/portrait-2.webp"
+                alt="YB DSP Dr. Joachim Gunsalam"
+                loading="lazy"
+                width="1024"
+                height="1280"
+              />
+              <div class="wr-body">
+                <span class="wr-role">Ahli Dewan Undangan Negeri</span>
+                <h3>YB DSP Dr. Joachim Gunsalam</h3>
+                <span class="wr-kaw">N.36 Kundasang</span>
+                <ul>
+                  <li>Timbalan Ketua Menteri Sabah II</li>
+                  <li>Menteri Kerajaan Tempatan dan Perumahan Sabah</li>
+                  <li>Ahli Dewan Undangan Negeri N.36 Kundasang</li>
+                </ul>
+              </div>
+            </article>
+            <article class="wr-card wr-dilantik">
+              <img
+                class="wr-photo"
+                src="/assets/img/wakil/portrait-1.webp"
+                alt="YB Datuk Amisah Yasin"
+                loading="lazy"
+                width="1024"
+                height="1280"
+              />
+              <div class="wr-body">
+                <span class="wr-role"
+                  >Ahli Dewan Undangan Negeri (Dilantik)</span
+                >
+                <h3>YB Datuk Amisah Yasin</h3>
+
+                <ul>
+                  <li>Ahli Dewan Undangan Negeri Sabah (Dilantik)</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    
+@endverbatim
+@endsection

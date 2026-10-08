@@ -38,7 +38,7 @@
             <img class="hero-teh hero-teh--dark" src="assets/img/hero/tehijo-gelap.webp" alt="" aria-hidden="true" />
 
             <a href="#kandungan-utama" class="hero-scroll-cue" aria-label="Tatal ke bawah">
-                <span>Tatal untuk terokai</span>
+                <span>Tatal untuk melihat</span>
                 <i class="fa-solid fa-chevron-down"></i>
             </a>
         </div>
@@ -57,32 +57,32 @@
                             <i class="fa-solid fa-arrow-left"></i>
                         </button>
                         <div class="pd-cards">
-                            <a class="pd-card" href="profil-daerah/kemudahan-awam.html" data-title="Senarai Kemudahan Awam"
+                            <a class="pd-card" href="/profil-daerah/kemudahan-awam" data-title="Senarai Kemudahan Awam"
                                 data-desc="Direktori sekolah, klinik, balai dan kemudahan awam lain di seluruh Daerah Ranau."
                                 data-credit="Sumber imej: hospital.com.my" aria-label="Senarai Kemudahan Awam">
                                 <img class="pd-media" src="assets/img/hospital.jpg" alt="Hospital Ranau" />
                             </a>
-                            <a class="pd-card" href="profil-daerah/senarai-kampung.html" data-title="Senarai Kampung"
+                            <a class="pd-card" href="/profil-daerah/senarai-kampung" data-title="Senarai Kampung"
                                 data-desc="Senarai kampung dalam Daerah Ranau beserta maklumat ketua kampung."
                                 data-credit="Sumber imej: www.clladventureborneo.com" aria-label="Senarai Kampung">
                                 <img class="pd-media" src="/assets/img/ranau.jpg" alt="Senarai Kampung" />
                             </a>
-                            <a class="pd-card" href="profil-daerah/wakil-rakyat.html" data-title="Wakil Rakyat"
+                            <a class="pd-card" href="/profil-daerah/wakil-rakyat" data-title="Wakil Rakyat"
                                 data-desc="Kenali wakil rakyat yang mewakili penduduk Daerah Ranau."
                                 aria-label="Wakil Rakyat">
                                 <img class="pd-media" src="/assets/img/menara_parlimen.JPG" alt="Wakil Rakyat" />
                             </a>
-                            <a class="pd-card" href="profil-daerah/ekasih.html" data-title="eKasih"
+                            <a class="pd-card" href="/profil-daerah/ekasih" data-title="eKasih"
                                 data-desc="Maklumat program dan data kemiskinan melalui sistem eKasih." aria-label="eKasih">
                                 <img class="pd-media" src="/assets/img/ekasih.png" alt="eKasih" />
                             </a>
-                            <a class="pd-card" href="profil-daerah/pelancongan.html" data-title="Pelancongan"
+                            <a class="pd-card" href="/profil-daerah/pelancongan" data-title="Pelancongan"
                                 data-desc="Terokai tarikan pelancong dan penginapan di sekitar Ranau dan Kundasang."
                                 data-credit="Sumber imej: Mohd Nuruzzaman / Sarawak Nature Explorers (Facebook), 7 Jun 2025"
                                 aria-label="Pelancongan">
                                 <img class="pd-media" src="assets/img/airterjun.webp" alt="Air terjun" />
                             </a>
-                            <a class="pd-card" href="profil-daerah/data-penduduk.html"
+                            <a class="pd-card" href="/profil-daerah/data-penduduk"
                                 data-title="Data Penduduk Daerah Ranau"
                                 data-desc="Statistik dan taburan penduduk mengikut kaum dan kawasan."
                                 aria-label="Data Penduduk Daerah Ranau">
@@ -118,7 +118,7 @@
                     <div class="bulletin-notices">
                         <h3>Hebahan</h3>
                         <div class="notice-grid">
-                            <a class="notice-card" href="hubungi-kami/alamat.html">
+                            <a class="notice-card" href="/hubungi-kami/alamat">
                                 <div class="notice-card-body">
                                     <span class="notice-tag">Notis</span>
                                     <h4>Waktu Urusan Semasa Cuti Perayaan</h4>
@@ -129,7 +129,7 @@
                                     <span class="notice-link">Maklumat Lanjut →</span>
                                 </div>
                             </a>
-                            <a class="notice-card" href="perkhidmatan-online/aduan-awam.html">
+                            <a class="notice-card" href="/perkhidmatan-online/aduan-awam">
                                 <div class="notice-card-body">
                                     <span class="notice-tag is-notice">Pengumuman</span>
                                     <h4>Sistem Aduan Awam Kini Dalam Talian</h4>
@@ -146,7 +146,7 @@
                         <h3>Berita Terkini</h3>
                         <ul class="news-list">
                             <li>
-                                <a href="info-korporat/hebahan-integriti.html">
+                                <a href="/info-korporat/hebahan-integriti">
                                     <span class="news-date"><span class="day">12</span><span class="month">Sep</span></span>
                                     <span class="news-body">
                                         <h4>Taklimat Integriti Jabatan 2026</h4>
@@ -158,7 +158,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="profil-daerah/pelancongan.html">
+                                <a href="/profil-daerah/pelancongan">
                                     <span class="news-date"><span class="day">28</span><span class="month">Ogo</span></span>
                                     <span class="news-body">
                                         <h4>Promosi Pelancongan Daerah Ranau</h4>
@@ -170,7 +170,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="perkhidmatan-online/lesen-berniaga.html">
+                                <a href="/perkhidmatan-online/lesen-berniaga">
                                     <span class="news-date"><span class="day">15</span><span class="month">Ogo</span></span>
                                     <span class="news-body">
                                         <h4>Pembaharuan Lesen Berniaga Tahun 2026</h4>
@@ -194,7 +194,7 @@
                     <p>Gambar, video dan pautan berguna</p>
                 </div>
                 <div class="quick-access-grid quick-access-grid--four">
-                    <a class="quick-access-card" href="galeri-pautan/gambar.html">
+                    <a class="quick-access-card" href="/galeri-pautan/gambar">
                         <div class="quick-access-media">
                             <div class="showcase-media ph-3" aria-hidden="true">
                                 <i class="fa-solid fa-images"></i>
@@ -207,7 +207,7 @@
                                     aria-hidden="true">→</span></span>
                         </div>
                     </a>
-                    <a class="quick-access-card" href="galeri-pautan/video.html">
+                    <a class="quick-access-card" href="/galeri-pautan/video">
                         <div class="quick-access-media">
                             <div class="showcase-media ph-1" aria-hidden="true">
                                 <i class="fa-solid fa-video"></i>
@@ -220,7 +220,7 @@
                                     aria-hidden="true">→</span></span>
                         </div>
                     </a>
-                    <a class="quick-access-card" href="galeri-pautan/intranet.html">
+                    <a class="quick-access-card" href="/galeri-pautan/intranet">
                         <div class="quick-access-media">
                             <div class="showcase-media ph-2" aria-hidden="true">
                                 <i class="fa-solid fa-network-wired"></i>
@@ -233,7 +233,7 @@
                                     aria-hidden="true">→</span></span>
                         </div>
                     </a>
-                    <a class="quick-access-card" href="galeri-pautan/agensi.html">
+                    <a class="quick-access-card" href="/galeri-pautan/agensi">
                         <div class="quick-access-media">
                             <div class="showcase-media ph-3" aria-hidden="true">
                                 <i class="fa-solid fa-link"></i>

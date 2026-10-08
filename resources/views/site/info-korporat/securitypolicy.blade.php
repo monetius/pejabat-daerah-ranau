@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
-@section('title')Dasar Keselamatan - Pejabat Daerah Ranau@endsection
-@section('description')Dasar keselamatan Pejabat Daerah Ranau - perlindungan data dan keselamatan storan maklumat peribadi.@endsection
+@section('title', 'Dasar Keselamatan - Pejabat Daerah Ranau')
+@section('description', 'Dasar keselamatan Pejabat Daerah Ranau - perlindungan data dan keselamatan storan maklumat peribadi.')
 @section('body_class', 'has-banner')
 
 @push('styles')
@@ -9,6 +9,8 @@
 @endpush
 
 @section('content')
+@verbatim
+
       <div class="page-header">
         <div class="page-header-media">
           <img src="/assets/img/banner.jpg" alt="" />
@@ -44,4 +46,6 @@
           </div>
         </div>
       </section>
-    @endsection
+    
+@endverbatim
+@endsection

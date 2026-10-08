@@ -1,0 +1,175 @@
+@extends('layouts.site')
+
+@section('title', 'Permohonan Latihan Industri - Pejabat Daerah Ranau')
+@section('description', 'Laman web rasmi Pejabat Daerah Ranau, Sabah.')
+@section('body_class', 'has-banner')
+
+@push('styles')
+  <link rel="stylesheet" href="{{ asset('assets/css/pekerjaburuhpercuma.css') }}">
+@endpush
+
+@section('content')
+@verbatim
+
+      <div class="page-header">
+        <div class="page-header-media">
+          <img src="/assets/img/banner.jpg" alt="" />
+        </div>
+        <div class="page-header-scrim"></div>
+        <div class="container">
+          <ul class="breadcrumb">
+            <li><a href="/">Laman Utama</a></li>
+            <li>Perkhidmatan Online</li>
+            <li>Permohonan Latihan Industri</li>
+          </ul>
+          <h1>Permohonan Latihan Industri - update ui/requirement</h1>
+        </div>
+      </div>
+      <section class="li-lead">
+        <div class="container">
+          <div class="li-lead-grid">
+            <div class="li-lead-copy">
+              <p>
+                Pejabat Daerah Ranau menerima permohonan penempatan latihan
+                industri / praktikal daripada pelajar institusi pengajian tinggi
+                (IPT), politeknik dan kolej vokasional bagi bidang yang
+                berkaitan. Program ini memberi pendedahan sebenar kepada pelajar
+                mengenai operasi harian jabatan kerajaan negeri.
+              </p>
+              <div class="hero-actions">
+                <a
+                  href="https://docs.google.com/forms/d/e/1FAIpQLSdfa8t-AeCdfY3FuINdVULRk9GFUXhb0P4zpm30IgUNT9eBIw/viewform"
+                  class="btn btn-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Mohon Sekarang
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+              </div>
+              <p class="li-lead-note">
+                Permohonan dibuat sepenuhnya secara dalam talian melalui borang
+                Google Form.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-tint">
+        <div class="container">
+          <div class="section-head">
+            <h2>Syarat &amp; Dokumen Permohonan</h2>
+            <p>
+              Pastikan perkara berikut disediakan sebelum mengisi borang
+              permohonan.
+            </p>
+          </div>
+          <div class="req-grid">
+            <div class="req-card">
+              <h3>
+                <i class="fa-solid fa-clipboard-check"></i> Syarat Kelayakan
+              </h3>
+              <ul class="req-list">
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Pelajar aktif dari
+                  IPT, politeknik, kolej vokasional atau institusi latihan yang
+                  diiktiraf.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Mempunyai surat
+                  pengesahan / tawaran latihan industri daripada institusi.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Tempoh latihan
+                  sekurang-kurangnya 8 minggu, atau seperti ditetapkan
+                  institusi.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Berkelakuan baik dan
+                  tiada rekod tatatertib.
+                </li>
+              </ul>
+            </div>
+            <div class="req-card">
+              <h3><i class="fa-solid fa-file-lines"></i> Dokumen Diperlukan</h3>
+              <ul class="req-list">
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Salinan kad
+                  pengenalan / kad pelajar.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Surat rasmi
+                  permohonan latihan industri daripada institusi pengajian.
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle-check"></i> Resume / curriculum
+                  vitae terkini.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="section-head">
+            <h2>Cara Memohon</h2>
+            <p>Empat langkah mudah untuk melengkapkan permohonan anda.</p>
+          </div>
+          <div class="steps-grid">
+            <div class="step-card">
+              <span class="step-num">1</span>
+              <h3>Sediakan Dokumen</h3>
+              <p>
+                Imbas atau sediakan salinan digital semua dokumen yang
+                diperlukan dalam format PDF atau imej.
+              </p>
+            </div>
+            <div class="step-card">
+              <span class="step-num">2</span>
+              <h3>Isi Borang Dalam Talian</h3>
+              <p>
+                Klik butang "Mohon Sekarang" dan lengkapkan borang Google Form
+                beserta muat naik dokumen.
+              </p>
+            </div>
+            <div class="step-card">
+              <span class="step-num">3</span>
+              <h3>Semak E-mel</h3>
+              <p>
+                Pejabat akan menghubungi anda melalui e-mel untuk pengesahan dan
+                sebarang maklumat tambahan.
+              </p>
+            </div>
+            <div class="step-card">
+              <span class="step-num">4</span>
+              <h3>Lapor Diri</h3>
+              <p>
+                Lapor diri pada tarikh yang ditetapkan bersama surat tawaran
+                latihan daripada institusi anda.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="notice-block">
+            <h2>Ada pertanyaan?</h2>
+            <p>
+              Untuk sebarang pertanyaan berkaitan permohonan latihan industri,
+              sila
+              <a href="/hubungi-kami/alamat"
+                >hubungi Pejabat Daerah Ranau</a
+              >
+              di talian 088-875500 semasa waktu urusan pejabat.
+            </p>
+          </div>
+        </div>
+      </section>
+    
+@endverbatim
+@endsection

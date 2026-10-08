@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
-@section('title')Notis Penafian - Pejabat Daerah Ranau@endsection
-@section('description')Notis penafian Pejabat Daerah Ranau berhubung penggunaan maklumat yang terdapat di dalam laman web ini.@endsection
+@section('title', 'Notis Penafian - Pejabat Daerah Ranau')
+@section('description', 'Notis penafian Pejabat Daerah Ranau berhubung penggunaan maklumat yang terdapat di dalam laman web ini.')
 @section('body_class', 'has-banner')
 
 @push('styles')
@@ -9,6 +9,8 @@
 @endpush
 
 @section('content')
+@verbatim
+
       <div class="page-header">
         <div class="page-header-media">
           <img src="/assets/img/banner.jpg" alt="" />
@@ -34,4 +36,6 @@
           </div>
         </div>
       </section>
-    @endsection
+    
+@endverbatim
+@endsection

@@ -1,0 +1,796 @@
+@extends('layouts.site')
+
+@section('title', 'Senarai Kemudahan Awam - Pejabat Daerah Ranau')
+@section('description', 'Laman web rasmi Pejabat Daerah Ranau, Sabah.')
+@section('body_class', 'has-banner')
+
+@push('styles')
+  <link rel="stylesheet" href="{{ asset('assets/css/kemudahan.css') }}">
+@endpush
+
+@section('content')
+@verbatim
+
+      <div class="page-header">
+        <div class="page-header-media">
+          <img src="/assets/img/banner.jpg" alt="" />
+        </div>
+        <div class="page-header-scrim"></div>
+        <div class="container">
+          <ul class="breadcrumb">
+            <li><a href="/">Laman Utama</a></li>
+            <li>Profil Daerah</li>
+            <li>Senarai Kemudahan Awam</li>
+          </ul>
+          <h1>Senarai Kemudahan Awam</h1>
+        </div>
+      </div>
+      <section class="ka-jump-wrap">
+        <div class="container">
+          <p class="ka-intro">
+            Senarai kemudahan awam di Daerah Ranau mengikut kategori. Pilih
+            kategori di bawah untuk terus ke bahagian berkenaan.
+          </p>
+          <nav class="ka-jump" aria-label="Kategori kemudahan awam">
+            <a href="#jalan-raya"
+              ><i class="fa-solid fa-road"></i> Jalan Raya</a
+            >
+            <a href="#kesihatan"
+              ><i class="fa-solid fa-hospital"></i> Kesihatan</a
+            >
+            <a href="#keselamatan"
+              ><i class="fa-solid fa-shield-halved"></i> Keselamatan</a
+            >
+            <a href="#perpustakaan"
+              ><i class="fa-solid fa-book-open"></i> Perpustakaan</a
+            >
+            <a href="#rumah-ibadat"
+              ><i class="fa-solid fa-place-of-worship"></i> Rumah Ibadat</a
+            >
+            <a href="#sekolah"><i class="fa-solid fa-school"></i> Sekolah</a>
+            <a href="#perbankan"
+              ><i class="fa-solid fa-building-columns"></i> Perbankan</a
+            >
+          </nav>
+        </div>
+      </section>
+      <section id="jalan-raya" class="section-tint">
+        <div class="container">
+          <div class="section-head">
+            <h2>Jalan Raya</h2>
+            <p>
+              Daerah Ranau mempunyai 3 rangkaian jalanraya utama yang
+              menghubungkannya dengan bandar dan daerah seperti Kota Kinabalu,
+              Pantai Timur Sabah dan Pedalaman.
+            </p>
+          </div>
+          <div class="ka-routes">
+            <div class="ka-route">
+              <i class="fa-solid fa-route"></i
+              ><span>Jalanraya Ranau/Tamparuli</span>
+            </div>
+            <div class="ka-route">
+              <i class="fa-solid fa-route"></i
+              ><span>Jalanraya Ranau/Tambunan</span>
+            </div>
+            <div class="ka-route">
+              <i class="fa-solid fa-route"></i
+              ><span>Jalanraya Ranau/Telupid</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="kesihatan">
+        <div class="container">
+          <div class="section-head">
+            <h2>Pusat Perubatan</h2>
+          </div>
+          <div class="ka-grid ka-grid-3">
+            <div class="ka-card">
+              <h3>
+                <i class="fa-solid fa-hospital"></i> Hospital &amp; Pejabat
+                Kesihatan
+              </h3>
+              <ul class="ka-list">
+                <li>Hospital Daerah Ranau</li>
+                <li>Pusat Pergigian Daerah Ranau</li>
+                <li>Pejabat Kesihatan Daerah Ranau</li>
+              </ul>
+            </div>
+            <div class="ka-card">
+              <h3><i class="fa-solid fa-stethoscope"></i> Klinik Kesihatan</h3>
+              <ul class="ka-list">
+                <li>Klinik Kesihatan Lohan</li>
+                <li>Klinik Kesihatan Kundasang</li>
+                <li>Klinik Kesihatan Bundu Tuhan</li>
+                <li>Klinik Kesihatan Perancangan</li>
+                <li>Klinik Kesihatan Paginatan</li>
+                <li>Klinik Kesihatan Timbua</li>
+                <li>Klinik Kesihatan Kaingaran</li>
+                <li>Klinik Kesihatan Paginatan</li>
+              </ul>
+            </div>
+            <div class="ka-card">
+              <h3><i class="fa-solid fa-house-medical"></i> Klinik Desa</h3>
+              <ul class="ka-list">
+                <li>Klinik Desa Terolobou</li>
+                <li>Klinik Desa Randagong</li>
+                <li>Klinik Desa Nalapak</li>
+                <li>Klinik Desa Matupang</li>
+                <li>Klinik Desa Tampios</li>
+                <li>Klinik Desa Bongkud</li>
+                <li>Klinik Desa Narawang</li>
+                <li>Klinik Desa Pinawantai</li>
+                <li>Klinik Desa Malinsau</li>
+                <li>Klinik Desa Kinarasan</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="keselamatan" class="section-tint">
+        <div class="container">
+          <div class="section-head">
+            <h2>Keselamatan</h2>
+          </div>
+          <div class="ka-grid ka-grid-2">
+            <div class="ka-card">
+              <h3><i class="fa-solid fa-fire-extinguisher"></i> Balai Bomba</h3>
+              <ul class="ka-list">
+                <li>Balai Bomba Daerah Ranau</li>
+              </ul>
+            </div>
+            <div class="ka-card">
+              <h3>
+                <i class="fa-solid fa-shield-halved"></i> Balai Polis / Pondok
+                Polis
+              </h3>
+              <ul class="ka-list">
+                <li>Balai Polis Daerah Ranau</li>
+                <li>Pondok Polis Bundu Tuhan</li>
+                <li>Pondok Polis Paginatan</li>
+                <li>Pondok Polis Lohan</li>
+                <li>Pondok Polis Kundasang</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="perpustakaan">
+        <div class="container">
+          <div class="section-head">
+            <h2>Perpustakaan</h2>
+          </div>
+          <div class="ka-grid ka-grid-1">
+            <div class="ka-card">
+              <h3>
+                <i class="fa-solid fa-book-open"></i> Perpustakaan Cawangan
+                &amp; Desa
+              </h3>
+              <ul class="ka-list">
+                <li>Perpustakaan Cawangan Ranau</li>
+                <li>Perpustakaan Desa Kg. Kituntul Baru</li>
+                <li>Perpustakaan Desa Kg. Karanaan</li>
+                <li>Perpustakaan Desa Kg. Mohimboyon</li>
+                <li>Perpustakaan Desa Kg. Paginatan</li>
+                <li>Perpustakaan Desa Kg. Randagong</li>
+                <li>Perpustakaan Desa Kg. Sokid, Bundu Tuhan</li>
+                <li>Perpustakaan Desa Kg. Toboh</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="rumah-ibadat" class="section-tint">
+        <div class="container">
+          <div class="section-head">
+            <h2>Rumah Ibadat</h2>
+            <p>Klik pada setiap kategori untuk melihat senarai penuh.</p>
+          </div>
+          <details class="ka-details">
+            <summary>
+              <span class="ka-sum-title"
+                ><i class="fa-solid fa-church"></i> Gereja SIB</span
+              ><span class="ka-count">18 buah</span>
+            </summary>
+            <div class="ka-details-body">
+              <ul class="ka-list">
+                <li>Gereja SIB Pekan Ranau</li>
+                <li>Gereja SIB Kg. Kinirasan</li>
+                <li>Gereja SIB Kg. Bundu Tuhan</li>
+                <li>Gereja SIB Kg. Gana-Gana</li>
+                <li>Gereja SIB Kg. Kapangian</li>
+                <li>Gereja SIB Kg. Marakau</li>
+                <li>Gereja SIB Kg. Tudangan</li>
+                <li>Gereja SIB Kg. Paropot</li>
+                <li>Gereja SIB Kg. Suminimpod</li>
+                <li>Gereja SIB Kg. Matupang</li>
+                <li>Gereja SIB Kg. Kemburongoh</li>
+                <li>Gereja SIB Kg. Lobou Baru</li>
+                <li>Gereja SIB Kg. Takutan</li>
+                <li>Gereja SIB Kg. Narawang</li>
+                <li>Gereja GPI Kg. Kandawayon</li>
+                <li>Gereja SIB Kg. Bongkud</li>
+                <li>Gereja SIB Kg. Kokob Baru</li>
+                <li>Gereja SIB Kg. Tibabar</li>
+              </ul>
+            </div>
+          </details>
+          <details class="ka-details">
+            <summary>
+              <span class="ka-sum-title"
+                ><i class="fa-solid fa-church"></i> Gereja RC</span
+              ><span class="ka-count">31 buah</span>
+            </summary>
+            <div class="ka-details-body">
+              <ul class="ka-list">
+                <li>Gereja RC Pekan Ranau</li>
+                <li>Gereja RC Kg. Bundu Tuhan</li>
+                <li>Chapel Kg. Kinasaraban Lama</li>
+                <li>Chapel Kg. Himbaan</li>
+                <li>Chapel Kg. Bongkud</li>
+                <li>Chapel Kg. Toboh</li>
+                <li>Chapel Kg. Nalumad</li>
+                <li>Chapel Kg. Perancangan</li>
+                <li>Chapel Kg. Meringkan</li>
+                <li>Chapel Kg. Paginatan</li>
+                <li>Chapel Kg. Kokob</li>
+                <li>Chapel Kg. Kinasaraban</li>
+                <li>Chapel Kg. Kinaratuan</li>
+                <li>Chapel Kg. Wakalu</li>
+                <li>Chapel Kg. Marakau</li>
+                <li>Chapel Kg. Matupang</li>
+                <li>Gereja RC Kg. Kiwawoi</li>
+                <li>Gereja RC Kg. Soborong</li>
+                <li>Chapel Kg. Kibbas</li>
+                <li>Chapel Kg. Kauluan</li>
+                <li>Chapel Kg. Napong II</li>
+                <li>Chapel Kg. Kirusaban Baru</li>
+                <li>Chapel Kg. Tambiau</li>
+                <li>Chapel Kg. Maukab</li>
+                <li>Chapel Kg. Randagong Lama</li>
+                <li>Chapel Kg. Toboh Baru</li>
+                <li>Chapel Kg. Tiang Lama</li>
+                <li>Chapel Kg. Longut Lama</li>
+                <li>Chapel Kg. Karagasan</li>
+                <li>Chapel Kg. Toupas</li>
+                <li>Chapel St. Fidelis Kg. Lungkidau</li>
+              </ul>
+            </div>
+          </details>
+          <details class="ka-details">
+            <summary>
+              <span class="ka-sum-title"
+                ><i class="fa-solid fa-mosque"></i> Masjid / Surau — N36
+                Kundasang</span
+              ><span class="ka-count">39 buah</span>
+            </summary>
+            <div class="ka-details-body">
+              <ul class="ka-list">
+                <li>Masjid Jamek Kundasang</li>
+                <li>Surau Kg. Dumpiring Atas</li>
+                <li>Surau Kg. Kundasang Lama</li>
+                <li>Surau Kg. Lembah Permai</li>
+                <li>Surau Kg. Mesilou</li>
+                <li>Surau Kg. Semurah</li>
+                <li>Surau Kg. Desa Aman</li>
+                <li>Surau Kg. Dumpiring Bawah</li>
+                <li>Surau Kg. Pinausok</li>
+                <li>Surau Kg. Cinta Mata</li>
+                <li>Surau Kg. Kauluan</li>
+                <li>Surau Kg. Kinasaraban</li>
+                <li>Surau Kg. Ruhukon</li>
+                <li>Surau Kg. Bundu Tuhan</li>
+                <li>Surau Kg. Kinandusan</li>
+                <li>Surau Gerai Kundasang</li>
+                <li>Masjid Kg. Timbua</li>
+                <li>Surau Kg. Lobou Baru</li>
+                <li>Surau Kg. Lobou Lama</li>
+                <li>Surau Kg. Merungin I</li>
+                <li>Surau Kg. Pinampadan</li>
+                <li>Surau Kg. Tarawas</li>
+                <li>Surau Kg. Togop Darat</li>
+                <li>Surau Kg. Tinutuan</li>
+                <li>Surau Kg. Daramakan</li>
+                <li>Surau Kg. Pinawantai</li>
+                <li>Surau Kg. Sumbilingan</li>
+                <li>Surau Kg. Langsat</li>
+                <li>Surau Kg. Dabut</li>
+                <li>Surau Kg. Ruhukon</li>
+                <li>Surau Kg. Bundu Tuhan</li>
+                <li>Surau Kg. Kinandusan</li>
+                <li>Surau Kg. Karagasan</li>
+                <li>Surau Gerai Kundasang</li>
+                <li>Surau Kg. Agan</li>
+                <li>Surau Kg. Timbua</li>
+                <li>Surau Kg. Gusi</li>
+                <li>Surau Kg. Lobou Baru</li>
+                <li>Surau Kg. Minantolob</li>
+              </ul>
+            </div>
+          </details>
+          <details class="ka-details">
+            <summary>
+              <span class="ka-sum-title"
+                ><i class="fa-solid fa-mosque"></i> Masjid / Surau — N37
+                Karanaan</span
+              ><span class="ka-count">26 buah</span>
+            </summary>
+            <div class="ka-details-body">
+              <ul class="ka-list">
+                <li>Masjid Ar Rahman Pekan Ranau</li>
+                <li>Surau Kg. Kimolohing</li>
+                <li>Surau Kg. Paka Jaya</li>
+                <li>Surau Kg. Muhibbah</li>
+                <li>Surau Kg. Pasir Puteh</li>
+                <li>Surau Kg. Lipasu Baru</li>
+                <li>Surau Kg. Lipasu Lama</li>
+                <li>Surau Kg. Purakagis</li>
+                <li>Surau Kg. Tambiau</li>
+                <li>Surau Kg. Mohimboyon</li>
+                <li>Surau Kg. Koparingon</li>
+                <li>Surau Kg. Mohimboyon Lipantai</li>
+                <li>Surau Kg. Tamalang</li>
+                <li>Surau Kg. Waang</li>
+                <li>Surau Kg. Tinatasan</li>
+                <li>Surau Kg. Sasandaton</li>
+                <li>Masjid Kg. Ratau</li>
+                <li>Surau Kg. Terolobou</li>
+                <li>Surau Kg. Tudan II</li>
+                <li>Surau Kg. Karanaan</li>
+                <li>Surau Kg. Kemburongoh</li>
+                <li>Surau Kg. Tagudon Lama</li>
+                <li>Surau Kg. Sumolong</li>
+                <li>Surau Kg. Pahu</li>
+                <li>Surau Kg. Himbaan</li>
+                <li>Surau Kg. Sayad</li>
+              </ul>
+            </div>
+          </details>
+          <details class="ka-details">
+            <summary>
+              <span class="ka-sum-title"
+                ><i class="fa-solid fa-mosque"></i> Masjid / Surau — N38
+                Paginatan</span
+              ><span class="ka-count">35 buah</span>
+            </summary>
+            <div class="ka-details-body">
+              <ul class="ka-list">
+                <li>Masjid Kg. Libang</li>
+                <li>Masjid Kg. Kinapulidan</li>
+                <li>Surau Kg. Tagudon Baru</li>
+                <li>Surau Kg. Bohab</li>
+                <li>Surau Kg. Tanah Merah</li>
+                <li>Surau Kg. Kituntul Baru</li>
+                <li>Surau Kg. Sileu</li>
+                <li>Surau Kg. Kigiok</li>
+                <li>Surau Kg. Puru-Puru</li>
+                <li>Surau Kg. Marakau</li>
+                <li>Surau Kg. Kilimu</li>
+                <li>Surau Kg. Lukapon</li>
+                <li>Surau Kg. Liwagu</li>
+                <li>Masjid Al Khautar Lohan</li>
+                <li>Surau Kg. Lohan Ulu</li>
+                <li>Surau Kg. Kinaratuan</li>
+                <li>Surau Kg. Silad</li>
+                <li>Surau Kg. Napong I</li>
+                <li>Surau Kg. Napong II</li>
+                <li>Surau Kg. Namaus</li>
+                <li>Masjid Nurul Iman Kg. Matupang</li>
+                <li>Surau Kg. Minihas</li>
+                <li>Surau Kg. Lohan Skim II</li>
+                <li>Surau Kg. Tampios</li>
+                <li>Surau Kg. Nunuk Ragang</li>
+                <li>Surau Kg. Tarikon</li>
+                <li>Surau Kg. Lungkidau</li>
+                <li>Surau Kg. Bitoon</li>
+                <li>Surau Kg. Paginatan</li>
+                <li>Surau Kg. Muruk</li>
+                <li>Surau Kg. Luanti Baru</li>
+                <li>Surau Kg. Nalapak</li>
+                <li>Surau Kg. Naburan</li>
+                <li>Surau Kg. Sagindai Lama</li>
+                <li>Surau Kg. Sagindai Baru</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+      </section>
+      <section id="sekolah">
+        <div class="container">
+          <div class="section-head">
+            <h2>Sekolah</h2>
+          </div>
+          <details class="ka-details" open>
+            <summary>
+              <span class="ka-sum-title"
+                ><i class="fa-solid fa-school"></i> Sekolah Menengah</span
+              ><span class="ka-count">11 buah</span>
+            </summary>
+            <div class="ka-details-body">
+              <div class="ka-table-wrap">
+                <table class="ka-table">
+                  <thead>
+                    <tr>
+                      <th>Sekolah Menengah</th>
+                      <th>Lokasi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>SMK Datu Paduka Mat Salleh</td>
+                      <td>Pekan Ranau</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Ranau</td>
+                      <td>Kg. Sinarut</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Bundu Tuhan</td>
+                      <td>Kg. Bundu Tuhan</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Kundasang</td>
+                      <td>Kg. Kolagan</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Matupang</td>
+                      <td>Kg. Matupang</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Timbua</td>
+                      <td>Kg. Timbua</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Lohan</td>
+                      <td>Kg. Lohan Ulu</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Ulu Sugut</td>
+                      <td>Kg. Ulu Sugut</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Agama Muhammad Ali Ranau</td>
+                      <td>Kg. Lohan</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Kemburongoh</td>
+                      <td>Kg. Kemburongoh</td>
+                    </tr>
+                    <tr>
+                      <td>SMK Agama Irsyadiah</td>
+                      <td>Kg. Marakau</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+          <details class="ka-details">
+            <summary>
+              <span class="ka-sum-title"
+                ><i class="fa-solid fa-school"></i> Sekolah Rendah</span
+              ><span class="ka-count">67 buah</span>
+            </summary>
+            <div class="ka-details-body">
+              <div class="ka-table-wrap">
+                <table class="ka-table">
+                  <thead>
+                    <tr>
+                      <th>Sekolah Rendah</th>
+                      <th>Lokasi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>SK Tudan</td>
+                      <td>Kg. Tudan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Toboh</td>
+                      <td>Kg. Toboh</td>
+                    </tr>
+                    <tr>
+                      <td>SK Ratau</td>
+                      <td>Kg. Ratau</td>
+                    </tr>
+                    <tr>
+                      <td>SK Tagudon</td>
+                      <td>Kg. Tagudon</td>
+                    </tr>
+                    <tr>
+                      <td>SK Pahu</td>
+                      <td>Kg. Pahu</td>
+                    </tr>
+                    <tr>
+                      <td>SK Karanaan</td>
+                      <td>Kg. Karanaan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kemburongoh</td>
+                      <td>Kg. Kemburongoh</td>
+                    </tr>
+                    <tr>
+                      <td>SK Maukab</td>
+                      <td>Kg. Maukab</td>
+                    </tr>
+                    <tr>
+                      <td>SK Tungou</td>
+                      <td>Kg. Tungou</td>
+                    </tr>
+                    <tr>
+                      <td>SK Randagong</td>
+                      <td>Kg. Randagong</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kapangian</td>
+                      <td>Kg. Kapangian</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kinirasan</td>
+                      <td>Kg. Kinirasan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Gana-Gana</td>
+                      <td>Kg. Gana-Gana</td>
+                    </tr>
+                    <tr>
+                      <td>SK Nampasan Lama</td>
+                      <td>Kg. Nampasan Lama</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kandawayon</td>
+                      <td>Kg. Kandawayon</td>
+                    </tr>
+                    <tr>
+                      <td>SK Badukan</td>
+                      <td>Kg. Badukan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kinapulidan</td>
+                      <td>Kg. Kinapulidan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kituntul Baru</td>
+                      <td>Kg. Kituntul Baru</td>
+                    </tr>
+                    <tr>
+                      <td>SK Pekan 1</td>
+                      <td>Pekan Ranau</td>
+                    </tr>
+                    <tr>
+                      <td>SK Pekan 2</td>
+                      <td>Pekan Ranau</td>
+                    </tr>
+                    <tr>
+                      <td>SRJK (C) Pai Wen</td>
+                      <td>Pekan Ranau</td>
+                    </tr>
+                    <tr>
+                      <td>SK St Benedict</td>
+                      <td>Pekan Ranau</td>
+                    </tr>
+                    <tr>
+                      <td>SK Marakau</td>
+                      <td>Kg. Marakau</td>
+                    </tr>
+                    <tr>
+                      <td>SK Libang</td>
+                      <td>Kg. Libang</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kilimu</td>
+                      <td>Kg. Kilimu</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kibbas</td>
+                      <td>Kg. Kibbas</td>
+                    </tr>
+                    <tr>
+                      <td>SK Waang</td>
+                      <td>Kg. Waang</td>
+                    </tr>
+                    <tr>
+                      <td>SK Mohimboyon</td>
+                      <td>Kg. Mohimboyon</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kundasang</td>
+                      <td>Kg. Kundasang</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kauluan</td>
+                      <td>Kg. Kauluan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kinasaraban</td>
+                      <td>Kg. Kinasaraban</td>
+                    </tr>
+                    <tr>
+                      <td>SK Bundu Tuhan</td>
+                      <td>Kg. Bundu Tuhan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Lipasu</td>
+                      <td>Kg. Lipasu</td>
+                    </tr>
+                    <tr>
+                      <td>SK Lohan</td>
+                      <td>Kg. Lohan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Poring</td>
+                      <td>Kg. Poring</td>
+                    </tr>
+                    <tr>
+                      <td>SK Bongkud</td>
+                      <td>Kg. Bongkud</td>
+                    </tr>
+                    <tr>
+                      <td>SK Narawang</td>
+                      <td>Kg. Narawang</td>
+                    </tr>
+                    <tr>
+                      <td>SK Langsat</td>
+                      <td>Kg. Langsat</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kirokot</td>
+                      <td>Kg. Kirokot</td>
+                    </tr>
+                    <tr>
+                      <td>SK Napong II</td>
+                      <td>Kg. Napong II</td>
+                    </tr>
+                    <tr>
+                      <td>SK Perancangan</td>
+                      <td>Kg. Perancangan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Timbua</td>
+                      <td>Kg. Timbua</td>
+                    </tr>
+                    <tr>
+                      <td>SK Tarawas</td>
+                      <td>Kg. Tarawas</td>
+                    </tr>
+                    <tr>
+                      <td>SK Pinawantai</td>
+                      <td>Kg. Pinawantai</td>
+                    </tr>
+                    <tr>
+                      <td>SK Togop Darat</td>
+                      <td>Kg. Togop Darat</td>
+                    </tr>
+                    <tr>
+                      <td>SK Tibabar</td>
+                      <td>Kg. Tibabar</td>
+                    </tr>
+                    <tr>
+                      <td>SK Nawanon</td>
+                      <td>Kg. Nawanon</td>
+                    </tr>
+                    <tr>
+                      <td>SK Malinsau</td>
+                      <td>Kg. Malinsau</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kaingaran</td>
+                      <td>Kg. Kaingaran</td>
+                    </tr>
+                    <tr>
+                      <td>SK Karagasan</td>
+                      <td>Kg. Karagasan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Mangkapah</td>
+                      <td>Kg. Mangkapah</td>
+                    </tr>
+                    <tr>
+                      <td>SK Karanapon</td>
+                      <td>Kg. Karanapon</td>
+                    </tr>
+                    <tr>
+                      <td>SK Nalapak</td>
+                      <td>Kg. Nalapak</td>
+                    </tr>
+                    <tr>
+                      <td>SK Matupang</td>
+                      <td>Kg. Matupang</td>
+                    </tr>
+                    <tr>
+                      <td>SK Segindai</td>
+                      <td>Kg. Segindai</td>
+                    </tr>
+                    <tr>
+                      <td>SK Paginatan</td>
+                      <td>Kg. Paginatan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Tampios</td>
+                      <td>Kg. Tampios</td>
+                    </tr>
+                    <tr>
+                      <td>SK Nunuk Ragang</td>
+                      <td>Kg. Nunuk Ragang</td>
+                    </tr>
+                    <tr>
+                      <td>SK Paus</td>
+                      <td>Kg. Paus</td>
+                    </tr>
+                    <tr>
+                      <td>SK Tinanom</td>
+                      <td>Kg. Tinanom</td>
+                    </tr>
+                    <tr>
+                      <td>SK Miruru</td>
+                      <td>Kg. Miruru</td>
+                    </tr>
+                    <tr>
+                      <td>SK Pinausok</td>
+                      <td>Kg. Pinausok</td>
+                    </tr>
+                    <tr>
+                      <td>SK Nalumad</td>
+                      <td>Kg. Nalumad</td>
+                    </tr>
+                    <tr>
+                      <td>SK Kawiyan</td>
+                      <td>Kg. Kawiyan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Tiang</td>
+                      <td>Kg. Tiang</td>
+                    </tr>
+                    <tr>
+                      <td>SRJK Don Bosco</td>
+                      <td>Kg. Bundu Tuhan</td>
+                    </tr>
+                    <tr>
+                      <td>SK Longut</td>
+                      <td>Kg. Longut</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
+      <section id="perbankan" class="section-tint">
+        <div class="container">
+          <div class="section-head">
+            <h2>Institusi Perbankan</h2>
+            <p>Institusi perbankan yang beroperasi di Daerah Ranau.</p>
+          </div>
+          <div class="ka-banks">
+            <div class="ka-bank">
+              <i class="fa-solid fa-building-columns"></i><span>BSN</span>
+            </div>
+            <div class="ka-bank">
+              <i class="fa-solid fa-building-columns"></i><span>Agrobank</span>
+            </div>
+            <div class="ka-bank">
+              <i class="fa-solid fa-building-columns"></i><span>Maybank</span>
+            </div>
+            <div class="ka-bank">
+              <i class="fa-solid fa-building-columns"></i
+              ><span>Alliance Bank</span>
+            </div>
+            <div class="ka-bank">
+              <i class="fa-solid fa-building-columns"></i><span>CIMB Bank</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="ka-source-wrap">
+        <div class="container">
+          <p class="ka-source">
+            Sumber: Profil Daerah Ranau 2017/2018 &middot; Pejabat Daerah Ranau
+            2021
+          </p>
+        </div>
+      </section>
+    
+@endverbatim
+@endsection
