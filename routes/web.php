@@ -1,40 +1,49 @@
 <?php
 
+use App\Http\Controllers\Admin\AnnouncementController as AdminAnnouncementController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\PageController as AdminPageController;
+use App\Http\Controllers\Admin\SitePartController;
+use App\Http\Controllers\SiteController;
+use App\Http\Middleware\EnsureAdmin;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'site.home');
+// ---------- Public: announcements ----------
+Route::get('/hebahan', [SiteController::class, 'announcements'])->name('announcements.index');
+Route::get('/hebahan/{slug}', [SiteController::class, 'announcement'])->name('announcements.show');
 
-// hubungi-kami
-Route::view('/hubungi-kami/alamat', 'site.hubungi-kami.alamat');
+// ---------- Admin ----------
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+        Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    });
 
-// info-korporat
-Route::view('/info-korporat/carta-organisasi', 'site.info-korporat.carta-organisasi');
-Route::view('/info-korporat/hebahan-integriti', 'site.info-korporat.hebahan-integriti');
-Route::view('/info-korporat/mengenai-kami', 'site.info-korporat.mengenai-kami');
+    Route::middleware(['auth', EnsureAdmin::class])->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+        Route::resource('announcements', AdminAnnouncementController::class)->except('show');
 
+        Route::match(['post', 'put'], '/pages/preview', [AdminPageController::class, 'preview'])->name('pages.preview');
+        Route::post('/pages/{page}/revisions/{revision}/restore', [AdminPageController::class, 'restore'])->name('pages.restore');
+        Route::resource('pages', AdminPageController::class)->except('show');
 
+        Route::get('/parts', [SitePartController::class, 'index'])->name('parts.index');
+        Route::get('/parts/{part}/edit', [SitePartController::class, 'edit'])->name('parts.edit');
+        Route::put('/parts/{part}', [SitePartController::class, 'update'])->name('parts.update');
 
-// profil-daerah
-Route::view('/profil-daerah/data-penduduk', 'site.profil-daerah.data-penduduk');
-Route::view('/profil-daerah/ekasih', 'site.profil-daerah.ekasih');
-Route::view('/profil-daerah/kemudahan-awam', 'site.profil-daerah.kemudahan-awam');
-Route::view('/profil-daerah/pelancongan', 'site.profil-daerah.pelancongan');
-Route::view('/profil-daerah/senarai-kampung', 'site.profil-daerah.senarai-kampung');
-Route::view('/profil-daerah/wakil-rakyat', 'site.profil-daerah.wakil-rakyat');
+        Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+        Route::post('/media', [MediaController::class, 'store'])->name('media.store');
+        Route::delete('/media', [MediaController::class, 'destroy'])->name('media.destroy');
+    });
+});
 
-// perkhidmatan-online
-Route::view('/perkhidmatan-online/latihan-industri', 'site.perkhidmatan-online.latihan-industri');
-Route::view('/perkhidmatan-online/lesen-berniaga', 'site.perkhidmatan-online.lesen-berniaga');
+// Laravel's `auth` middleware redirects to a route named "login".
+Route::redirect('/login', '/admin/login')->name('login');
 
-// galeri-pautan
-Route::view('/galeri-pautan/agensi', 'site.galeri-pautan.agensi');
-Route::view('/galeri-pautan/gambar', 'site.galeri-pautan.gambar');
-Route::view('/galeri-pautan/intranet', 'site.galeri-pautan.intranet');
-Route::view('/galeri-pautan/video', 'site.galeri-pautan.video');
-
-
-// policies
-Route::view('/info-korporat/notice', 'site.info-korporat.notice');
-Route::view('/info-korporat/privacypolicy', 'site.info-korporat.privacypolicy');
-Route::view('/info-korporat/securitypolicy', 'site.info-korporat.securitypolicy');
+// ---------- Public: every CMS page (keep these LAST) ----------
+Route::get('/', [SiteController::class, 'show'])->name('home');
+Route::get('/{path}', [SiteController::class, 'show'])->where('path', '.+')->name('page');

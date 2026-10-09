@@ -26,11 +26,11 @@
 </head>
 
 <body class="@yield('body_class')">
-    @include('partials.navbar')
+    @include('partials.dyn', ['key' => 'navbar'])
     <main id="main">
         @yield('content')
     </main>
-    @include('partials.footer')
+    @include('partials.dyn', ['key' => 'footer'])
     <script src="{{ asset('assets/js/kinomulok.js') }}"></script>
     @stack('scripts')
 </body>
