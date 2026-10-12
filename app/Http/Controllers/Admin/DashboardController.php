@@ -17,4 +17,10 @@ class DashboardController extends Controller
             'recentPages' => Page::orderByDesc('updated_at')->take(5)->get(),
         ]);
     }
+
+    /** Called by the admin pages while the user is active, to keep the session alive. */
+    public function keepalive()
+    {
+        return response()->noContent();
+    }
 }

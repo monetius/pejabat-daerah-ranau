@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Admin') - CMS PD Ranau</title>
     <style>
         * {
@@ -313,7 +314,7 @@
         <aside class="side">
             <div class="brand">CMS PD Ranau</div>
             <nav>
-                <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'on' : '' }}">Dashboard</a>
+                <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'on' : '' }}">Papan Pemuka</a>
                 <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements.*') ? 'on' : '' }}">Hebahan</a>
                 <a href="{{ route('admin.pages.index') }}" class="{{ request()->routeIs('admin.pages.*') ? 'on' : '' }}">Halaman</a>
                 <a href="{{ route('admin.menu.index') }}" class="{{ request()->routeIs('admin.menu.*') ? 'on' : '' }}">Menu</a>
@@ -322,7 +323,7 @@
             </nav>
             <div class="foot">
                 <a href="/" target="_blank">Lihat laman web</a>
-                <form method="POST" action="{{ route('admin.logout') }}">@csrf<button class="btn link" style="padding:9px 12px">Log keluar</button></form>
+                <form method="POST" id="logout-form" action="{{ route('admin.logout') }}">@csrf<button class="btn link" style="padding:9px 12px">Log keluar</button></form>
             </div>
         </aside>
     @endauth
@@ -333,6 +334,60 @@
         <div class="flash">{{ session('status') }}</div>@endif
         @yield('content')
     </div>
+    @auth
+        <div id="idle-warn" hidden
+            style="position:fixed;right:16px;bottom:16px;z-index:100;background:#fff7ed;border:1px solid #fdba74;color:#7c2d12;padding:12px 16px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.18);max-width:320px">
+            Anda akan dilog keluar dalam <b id="idle-sec">60</b> saat kerana tiada aktiviti.
+            <div style="margin-top:8px"><button type="button" class="btn" id="idle-stay">Kekal log masuk</button></div>
+        </div>
+        <script>
+            (function () {
+                var LIMIT = {{ max(1, (int) config('cms.idle_minutes', 5)) }} * 60000;
+                var WARN = Math.min(60000, LIMIT / 2);
+                var PING_EVERY = 60000;
+                var KEY = 'cms_last_activity';
+                var last = Date.now(), lastPing = Date.now(), warned = false, done = false;
+                var box = document.getElementById('idle-warn'), sec = document.getElementById('idle-sec');
+                var token = document.querySelector('meta[name="csrf-token"]').content;
+
+                function shared() { try { return +localStorage.getItem(KEY) || 0; } catch (e) { return 0; } }
+                function ping() {
+                    lastPing = Date.now();
+                    fetch('{{ route('admin.keepalive') }}', {
+                        method: 'POST', credentials: 'same-origin',
+                        headers: { 'X-CSRF-TOKEN': token, 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' }
+                    }).then(function (r) { if (r.status === 401 || r.status === 419 || r.redirected) location.reload(); })
+                      .catch(function () {});
+                }
+                function active() {
+                    if (done) return;
+                    last = Date.now();
+                    try { localStorage.setItem(KEY, String(last)); } catch (e) {}
+                    if (Date.now() - lastPing > (warned ? 0 : PING_EVERY)) ping();
+                }
+                ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click'].forEach(function (ev) {
+                    document.addEventListener(ev, active, { capture: true, passive: true });
+                });
+                document.getElementById('idle-stay').addEventListener('click', active);
+
+                setInterval(function () {
+                    if (done) return;
+                    var idle = Date.now() - Math.max(last, shared());
+                    if (idle >= LIMIT) {
+                        done = true;
+                        document.getElementById('logout-form').submit();
+                    } else if (idle >= LIMIT - WARN) {
+                        warned = true;
+                        sec.textContent = Math.ceil((LIMIT - idle) / 1000);
+                        box.hidden = false;
+                    } else if (warned) {
+                        warned = false;
+                        box.hidden = true;
+                    }
+                }, 1000);
+            })();
+        </script>
+    @endauth
     @stack('foot')
 </body>
 

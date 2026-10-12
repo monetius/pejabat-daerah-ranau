@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\SitePartController;
+use App\Http\Middleware\AdminIdleTimeout;
 use App\Http\Controllers\SiteController;
 use App\Http\Middleware\EnsureAdmin;
 use Illuminate\Support\Facades\Route;
@@ -22,9 +23,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
     });
 
-    Route::middleware(['auth', EnsureAdmin::class])->group(function () {
+    Route::middleware(['auth', EnsureAdmin::class, AdminIdleTimeout::class])->group(function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::post('/keepalive', [DashboardController::class, 'keepalive'])->name('keepalive');
 
         Route::resource('announcements', AdminAnnouncementController::class)->except('show');
 
