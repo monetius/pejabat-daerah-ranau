@@ -26,6 +26,24 @@ class Announcement extends Model
             ->where(fn($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()));
     }
 
+    public function publicationState(): string
+    {
+        if ($this->status !== 'published') {
+            return 'draft';
+        }
+
+        return $this->published_at?->isFuture() ? 'scheduled' : 'published';
+    }
+
+    public function publicationLabel(): string
+    {
+        return match ($this->publicationState()) {
+            'published' => 'Diterbitkan',
+            'scheduled' => 'Dijadualkan',
+            default => 'Draf',
+        };
+    }
+
     public function categoryLabel(): string
     {
         return self::CATEGORIES[$this->category] ?? ucfirst((string) $this->category);

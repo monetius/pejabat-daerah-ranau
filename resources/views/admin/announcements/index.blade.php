@@ -2,7 +2,7 @@
 @section('title', 'Hebahan')
 @section('content')
     <div class="row" style="justify-content:space-between;margin-bottom:12px">
-        <h1 style="margin:0">Hebahan</h1>
+        <div><p class="eyebrow">KANDUNGAN LAMAN</p><h1 style="margin:0">Hebahan &amp; Berita</h1><p class="page-intro">Urus berita, notis dan maklumat untuk orang awam.</p></div>
         <a class="btn" href="{{ route('admin.announcements.create') }}">+ Hebahan baru</a>
     </div>
     <div class="card">
@@ -11,17 +11,17 @@
                 <th>Tajuk</th>
                 <th>Kategori</th>
                 <th>Status</th>
-                <th>Tarikh terbit</th>
+                <th>Tarikh terbit (MYT)</th>
                 <th></th>
             </tr>
             @forelse ($items as $item)
                 <tr>
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->categoryLabel() }}</td>
-                    <td><span class="badge {{ $item->status }}">{{ $item->status }}</span></td>
+                    <td><span class="badge {{ $item->publicationState() }}">{{ $item->publicationLabel() }}</span></td>
                     <td>{{ $item->published_at?->format('d/m/Y H:i') ?? '-' }}</td>
                     <td class="row">
-                        @if ($item->status === 'published')<a href="{{ route('announcements.show', $item->slug) }}"
+                        @if ($item->publicationState() === 'published')<a href="{{ route('announcements.show', $item->slug) }}"
                         target="_blank">Lihat</a>@endif
                         <a href="{{ route('admin.announcements.edit', $item) }}">Sunting</a>
                         <form method="POST" action="{{ route('admin.announcements.destroy', $item) }}"

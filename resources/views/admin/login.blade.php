@@ -1,8 +1,8 @@
 @extends('admin.layout')
 @section('title', 'Log Masuk')
 @section('content')
-    <div class="card" style="max-width:420px;margin:60px auto">
-        <h1>Log Masuk CMS</h1>
+    <div class="card login-card"><span class="brand-mark">R</span><p class="eyebrow">PEJABAT DAERAH RANAU</p>
+        <h1>Selamat kembali.</h1><p class="page-intro">Log masuk untuk mengurus kandungan laman web.</p>
         <form method="POST" action="{{ route('admin.login.submit') }}">
             @csrf
             <label for="email">E-mel</label>

@@ -12,6 +12,7 @@ class DashboardController extends Controller
     {
         return view('admin.dashboard', [
             'announcementCount' => Announcement::count(),
+            'publishedCount' => Announcement::published()->count(),
             'pageCount' => Page::count(),
             'latest' => Announcement::latest()->take(5)->get(),
             'recentPages' => Page::orderByDesc('updated_at')->take(5)->get(),

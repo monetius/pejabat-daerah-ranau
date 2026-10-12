@@ -62,7 +62,7 @@ class AnnouncementController extends Controller
             'published_at' => ['nullable', 'date'],
         ]);
 
-        $data['slug'] = $data['slug'] ?: $this->uniqueSlug($data['title'], $current);
+        $data['slug'] = ($data['slug'] ?? null) ?: $this->uniqueSlug($data['title'], $current);
 
         // Cover image: a new upload replaces the old one; the tick box removes it.
         unset($data['image']);
@@ -73,7 +73,7 @@ class AnnouncementController extends Controller
         }
 
         if ($data['status'] === 'published' && empty($data['published_at'])) {
-            $data['published_at'] = $current?->published_at ?? now();
+            $data['published_at'] = now();
         }
 
         return $data;

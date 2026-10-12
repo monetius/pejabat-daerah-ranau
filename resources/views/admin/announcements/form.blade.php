@@ -2,6 +2,7 @@
 @section('title', $item->exists ? 'Sunting Hebahan' : 'Hebahan Baru')
 @section('content')
     <h1>{{ $item->exists ? 'Sunting Hebahan' : 'Hebahan Baru' }}</h1>
+    <p class="page-intro">Sediakan kandungan, pilih kategori dan tentukan masa penerbitan.</p>
     <div class="card">
         <form method="POST"
             action="{{ $item->exists ? route('admin.announcements.update', $item) : route('admin.announcements.store') }}"
@@ -51,6 +52,7 @@
             @error('body')
             <div class="err">{{ $message }}</div>@enderror
 
+            <h2 class="sec">Penerbitan</h2>
             <label for="status">Status</label>
             <select id="status" name="status">
                 @foreach (['draft' => 'Draf', 'published' => 'Diterbitkan'] as $v => $l)
@@ -58,14 +60,14 @@
                 @endforeach
             </select>
 
-            <label for="published_at">Tarikh terbit</label>
+            <label for="published_at">Tarikh terbit (waktu Malaysia, MYT)</label>
             <input type="datetime-local" id="published_at" name="published_at"
                 value="{{ old('published_at', $item->published_at?->format('Y-m-d\TH:i')) }}">
-            <div class="hint">Kosongkan untuk guna masa sekarang apabila diterbitkan.</div>
+            <div class="hint">Kosongkan untuk terbit sekarang. Tarikh akan datang menjadualkan hebahan; ia hanya muncul di laman web apabila tiba waktunya.</div>
             @error('published_at')
             <div class="err">{{ $message }}</div>@enderror
 
-            <p class="row"><button class="btn">Simpan</button><a class="btn gray"
+            <p class="row"><button class="btn">Simpan hebahan</button><a class="btn gray"
                     href="{{ route('admin.announcements.index') }}">Batal</a></p>
         </form>
     </div>

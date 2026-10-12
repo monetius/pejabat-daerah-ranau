@@ -1,10 +1,10 @@
 @extends('admin.layout')
-@section('title', 'CMS Dashboard')
+@section('title', 'Papan Pemuka')
 @section('content')
-    <h1>Dashboard</h1>
+    <div class="page-heading"><div><p class="eyebrow">RUANG PENGURUSAN</p><h1>Papan Pemuka</h1><p class="page-intro">Selamat datang, {{ auth()->user()->name }}. Apa yang ingin dikemas kini hari ini?</p></div><a class="btn" href="{{ route('admin.announcements.create') }}">+ Cipta hebahan</a></div>
     <div class="stats">
-        <div class="card"><b>{{ $pageCount }}</b>Halaman</div>
-        <div class="card"><b>{{ $announcementCount }}</b>Hebahan</div>
+        <div class="card stat-card"><span class="stat-label">Jumlah halaman</span><b>{{ $pageCount }}</b><a href="{{ route('admin.pages.index') }}">Urus halaman &rarr;</a></div>
+        <div class="card stat-card"><span class="stat-label">Hebahan &amp; berita</span><b>{{ $announcementCount }}</b><a href="{{ route('admin.announcements.index') }}">Urus hebahan &rarr;</a></div><div class="card stat-card accent"><span class="stat-label">Hebahan diterbitkan</span><b>{{ $publishedCount }}</b><span>Dipaparkan kepada orang awam</span></div>
     </div>
     <div class="card" style="margin-top:20px">
         <div class="row" style="justify-content:space-between">
@@ -34,7 +34,7 @@
             @forelse ($latest as $a)
                 <tr>
                     <td><a href="{{ route('admin.announcements.edit', $a) }}">{{ $a->title }}</a></td>
-                    <td><span class="badge {{ $a->status }}">{{ $a->status }}</span></td>
+                    <td><span class="badge {{ $a->publicationState() }}">{{ $a->publicationLabel() }}</span></td>
                     <td>{{ $a->updated_at->format('d/m/Y H:i') }}</td>
                 </tr>
             @empty

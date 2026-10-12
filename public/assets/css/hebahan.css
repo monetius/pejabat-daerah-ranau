@@ -52,9 +52,9 @@
 /* big card left, three stacked cards right */
 .hb-grid {
   display: grid;
-  grid-template-columns: 1.25fr 1fr;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
   gap: 28px;
-  align-items: stretch;
+  align-items: start;
 }
 .hb-feature,
 .hb-card {
@@ -63,8 +63,9 @@
 }
 .hb-feature { display: flex; flex-direction: column; gap: 14px; }
 .hb-feature-media {
-  flex: 1;
-  min-height: 280px;
+  flex: none;
+  height: 320px;
+  min-height: 0;
   border-radius: 28px;
   overflow: hidden;
   background: var(--hb-card);
@@ -78,10 +79,10 @@
 .hb-feature:hover h3,
 .hb-card:hover h4 { color: var(--hb-accent); }
 
-.hb-side { display: grid; grid-template-rows: repeat(3, 1fr); gap: 16px; }
+.hb-side { display: grid; grid-auto-rows: 128px; gap: 16px; min-width: 0; }
 .hb-card {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) 160px;
   background: var(--hb-card);
   border: 1px solid var(--hb-border);
   border-radius: 22px;
@@ -107,7 +108,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.hb-card-media { min-height: 110px; background: var(--hb-card); }
+.hb-card-media { height: 128px; min-height: 0; overflow: hidden; background: var(--hb-card); }
 .hb-card-media img,
 .hb-card-media .hb-ph { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -233,14 +234,20 @@
 /* ----- responsive ----- */
 @media (max-width: 900px) {
   .hb-grid { grid-template-columns: 1fr; }
-  .hb-feature-media { min-height: 0; aspect-ratio: 16 / 10; flex: none; }
-  .hb-side { grid-template-rows: none; }
+  .hb-feature-media { height: 300px; }
+  .hb-side { grid-auto-rows: 128px; }
 }
 @media (max-width: 600px) {
   .hb-section { padding: 40px 0; }
   .hb-head { grid-template-columns: 1fr; text-align: center; }
   .hb-head span { display: none; }
   .hb-all { justify-self: center; }
-  .hb-card { grid-template-columns: 1fr 120px; }
+  .hb-feature-media { height: 240px; }
+  .hb-card { grid-template-columns: minmax(0, 1fr) 112px; }
+  .hb-card-text { padding: 12px; gap: 6px; }
+  .hb-card-text .hb-meta { gap: 4px; font-size: .75rem; }
   .hb-search, .hb-search input { width: 100%; min-width: 0; }
 }
+
+.hb-section .hb-feature-media img, .hb-section .hb-card-media img { max-height: none; height: 100%; width: 100%; object-fit: cover; }
+.hb-section .hb-ph { display: flex; }
