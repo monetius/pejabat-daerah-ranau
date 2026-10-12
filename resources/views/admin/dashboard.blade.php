@@ -1,7 +1,7 @@
 @extends('admin.layout')
-@section('title', 'Papan Pemuka')
+@section('title', 'CMS Dashboard')
 @section('content')
-    <h1>Papan Pemuka</h1>
+    <h1>Dashboard</h1>
     <div class="stats">
         <div class="card"><b>{{ $pageCount }}</b>Halaman</div>
         <div class="card"><b>{{ $announcementCount }}</b>Hebahan</div>

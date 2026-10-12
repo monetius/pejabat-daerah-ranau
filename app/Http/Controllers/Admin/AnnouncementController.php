@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Announcement;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -19,7 +20,7 @@ class AnnouncementController extends Controller
 
     public function create()
     {
-        return view('admin.announcements.form', ['item' => new Announcement(['status' => 'draft'])]);
+        return view('admin.announcements.form', ['item' => new Announcement(['status' => 'draft', 'category' => 'hebahan'])]);
     }
 
     public function store(Request $request)
@@ -53,7 +54,9 @@ class AnnouncementController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'max:220'],
             'slug' => ['nullable', 'string', 'max:220', 'alpha_dash', Rule::unique('announcements', 'slug')->ignore($current)],
+            'category' => ['required', Rule::in(array_keys(Announcement::CATEGORIES))],
             'summary' => ['nullable', 'string', 'max:1000'],
+            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'body' => ['required', 'string'],
             'status' => ['required', Rule::in(['draft', 'published'])],
             'published_at' => ['nullable', 'date'],
@@ -61,11 +64,29 @@ class AnnouncementController extends Controller
 
         $data['slug'] = $data['slug'] ?: $this->uniqueSlug($data['title'], $current);
 
+        // Cover image: a new upload replaces the old one; the tick box removes it.
+        unset($data['image']);
+        if ($request->hasFile('image')) {
+            $data['image'] = $this->storeImage($request->file('image'));
+        } elseif ($request->boolean('remove_image')) {
+            $data['image'] = null;
+        }
+
         if ($data['status'] === 'published' && empty($data['published_at'])) {
             $data['published_at'] = $current?->published_at ?? now();
         }
 
         return $data;
+    }
+
+    private function storeImage(UploadedFile $file): string
+    {
+        $base = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) ?: 'gambar';
+        $name = $base . '-' . Str::lower(Str::random(6)) . '.' . $file->extension();
+        $folder = 'uploads/' . date('Y/m');
+        $file->move(public_path($folder), $name);
+
+        return '/' . $folder . '/' . $name;
     }
 
     private function uniqueSlug(string $title, ?Announcement $current): string

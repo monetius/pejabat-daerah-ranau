@@ -22,10 +22,29 @@ class SiteController extends Controller
         return view('site.cms-page', ['page' => $page]);
     }
 
-    public function announcements()
+    /** Every announcement / news item, with category filter, search and paging. */
+    public function announcements(Request $request)
     {
+        $category = (string) $request->query('kategori');
+        if (!array_key_exists($category, Announcement::CATEGORIES)) {
+            $category = '';
+        }
+        $q = trim((string) $request->query('q'));
+        $like = '%' . addcslashes($q, '%_\\') . '%';
+
+        $items = Announcement::published()
+            ->when($category !== '', fn($b) => $b->where('category', $category))
+            ->when($q !== '', fn($b) => $b->where(
+                fn($w) => $w->where('title', 'like', $like)->orWhere('summary', 'like', $like)
+            ))
+            ->orderByDesc('published_at')->orderByDesc('id')
+            ->paginate(12)
+            ->withQueryString();
+
         return view('site.announcements.index', [
-            'items' => Announcement::published()->orderByDesc('published_at')->paginate(10),
+            'items' => $items,
+            'category' => $category,
+            'q' => $q,
         ]);
     }
 
@@ -33,6 +52,11 @@ class SiteController extends Controller
     {
         $item = Announcement::published()->where('slug', $slug)->firstOrFail();
 
-        return view('site.announcements.show', ['item' => $item]);
+        $more = Announcement::published()
+            ->whereKeyNot($item->getKey())
+            ->orderByDesc('published_at')->orderByDesc('id')
+            ->take(3)->get();
+
+        return view('site.announcements.show', ['item' => $item, 'more' => $more]);
     }
 }

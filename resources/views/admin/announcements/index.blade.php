@@ -9,6 +9,7 @@
         <table>
             <tr>
                 <th>Tajuk</th>
+                <th>Kategori</th>
                 <th>Status</th>
                 <th>Tarikh terbit</th>
                 <th></th>
@@ -16,6 +17,7 @@
             @forelse ($items as $item)
                 <tr>
                     <td>{{ $item->title }}</td>
+                    <td>{{ $item->categoryLabel() }}</td>
                     <td><span class="badge {{ $item->status }}">{{ $item->status }}</span></td>
                     <td>{{ $item->published_at?->format('d/m/Y H:i') ?? '-' }}</td>
                     <td class="row">
@@ -31,7 +33,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4">Tiada hebahan lagi.</td>
+                    <td colspan="5">Tiada hebahan lagi.</td>
                 </tr>
             @endforelse
         </table>
