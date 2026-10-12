@@ -389,3 +389,23 @@
     transition: none
   }
 }
+/* The telephone card keeps its light background in dark mode. */
+html[data-theme='dark'] .apple-page .ac-card.ac-dark {
+  color: #101b2d;
+}
+
+html[data-theme='dark'] .apple-page .ac-card.ac-dark .ac-label {
+  color: #45566b;
+}
+
+html[data-theme='dark'] .apple-page .ac-card.ac-dark .ac-btn {
+  color: #101b2d;
+}
+
+html[data-theme='dark'] .apple-page .ac-card.ac-dark .ac-btn.is-ghost {
+  background: rgba(16, 27, 45, .07);
+}
+
+html[data-theme='dark'] .apple-page .ac-card.ac-dark .ac-btn.is-ghost:hover {
+  background: rgba(16, 27, 45, .13);
+}

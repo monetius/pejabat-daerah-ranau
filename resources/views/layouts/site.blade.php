@@ -27,21 +27,6 @@
 
 <body class="@yield('body_class')">
     @include('partials.dyn', ['key' => 'navbar'])
-    <svg class="hero-edge-filter" width="0" height="0" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <filter id="tehijo-sharp-edges" x="-1%" y="-2%" width="102%" height="104%" color-interpolation-filters="sRGB">
-                <feMorphology in="SourceAlpha" operator="dilate" radius="0.45" result="filled" />
-                <feMorphology in="filled" operator="erode" radius="0.45" result="clean" />
-                <feComponentTransfer in="clean" result="sharp">
-                    <feFuncA type="linear" slope="2" intercept="-0.5" />
-                </feComponentTransfer>
-                <feComponentTransfer in="SourceGraphic" result="solid">
-                    <feFuncA type="linear" slope="0" intercept="1" />
-                </feComponentTransfer>
-                <feComposite in="solid" in2="sharp" operator="in" />
-            </filter>
-        </defs>
-    </svg>
     <main id="main">
         @yield('content')
     </main>

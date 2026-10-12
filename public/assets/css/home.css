@@ -948,9 +948,6 @@ img.showcase-media {
     transition: none;
   }
 }
-/* Clean the original transparent foliage edges without replacing either design. */
-.hero-edge-filter { position: absolute; pointer-events: none; }
-.hero .hero-teh { filter: url(#tehijo-sharp-edges); }
 
 html[data-theme='dark'] .pd-nav {
   background: #1e293b;
