@@ -73,8 +73,8 @@
   box-shadow: var(--hb-shadow);
 }
 .hb-feature-media img,
-.hb-feature-media .hb-ph { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s; }
-.hb-feature:hover .hb-feature-media img { transform: scale(1.03); }
+.hb-feature-media .hb-ph { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; transition: transform .35s; }
+.hb-feature:hover .hb-feature-media img { transform: none; }
 .hb-feature-body h3 { margin: 0 0 8px; font-size: 1.3rem; line-height: 1.3; }
 .hb-feature:hover h3,
 .hb-card:hover h4 { color: var(--hb-accent); }
@@ -110,7 +110,7 @@
 }
 .hb-card-media { height: 128px; min-height: 0; overflow: hidden; background: var(--hb-card); }
 .hb-card-media img,
-.hb-card-media .hb-ph { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hb-card-media .hb-ph { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
 
 /* category tag + date */
 .hb-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: .82rem; color: var(--hb-muted); }
@@ -195,7 +195,7 @@
 .hb-item:hover { transform: translateY(-3px); }
 .hb-item-media { aspect-ratio: 16 / 10; overflow: hidden; }
 .hb-item-media img,
-.hb-item-media .hb-ph { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hb-item-media .hb-ph { width: 100%; height: 100%; object-fit: contain; object-position: center; display: block; }
 .hb-item-body { padding: 16px 18px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .hb-item-body h3 { margin: 0; font-size: 1.05rem; line-height: 1.35; }
 .hb-item:hover h3 { color: var(--hb-accent); }
@@ -249,5 +249,5 @@
   .hb-search, .hb-search input { width: 100%; min-width: 0; }
 }
 
-.hb-section .hb-feature-media img, .hb-section .hb-card-media img { max-height: none; height: 100%; width: 100%; object-fit: cover; }
+.hb-section .hb-feature-media img, .hb-section .hb-card-media img { max-height: none; height: 100%; width: 100%; object-fit: contain; object-position: center; }
 .hb-section .hb-ph { display: flex; }
