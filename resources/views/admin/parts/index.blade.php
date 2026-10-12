@@ -10,7 +10,7 @@
                 <tr>
                     <td>{{ $part->label }}</td>
                     <td>{{ $part->updated_at?->format('d/m/Y H:i') }}</td>
-                    <td><a href="{{ route('admin.parts.edit', $part) }}">Sunting</a></td>
+                    <td><a href="{{ route('admin.parts.edit', $part) }}">Edit</a></td>
                 </tr>
             @empty
                 <tr>

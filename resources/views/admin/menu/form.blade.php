@@ -1,7 +1,7 @@
 @extends('admin.layout')
-@section('title', $item->exists ? 'Sunting Menu' : 'Item Menu Baru')
+@section('title', $item->exists ? 'Edit Menu' : 'Item Menu Baru')
 @section('content')
-    <h1>{{ $item->exists ? 'Sunting Menu' : 'Item Menu Baru' }}</h1>
+    <h1>{{ $item->exists ? 'Edit Menu' : 'Item Menu Baru' }}</h1>
     <div class="card">
         <form method="POST" action="{{ $item->exists ? route('admin.menu.update', $item) : route('admin.menu.store') }}">
             @csrf

@@ -19,7 +19,7 @@
         <div class="card">
             <p class="hint">Menu utama yang mempunyai sub-menu akan menjadi dropdown. Untuk halaman baru: cipta di
                 <a href="{{ route('admin.pages.index') }}">Halaman</a> dahulu (status Diterbitkan), kemudian tambah di sini.
-                Logo dan tema navbar masih disunting di <a href="{{ route('admin.parts.index') }}">Navbar &amp; Footer</a>.
+                Logo dan tema navbar masih diurus di <a href="{{ route('admin.parts.index') }}">Navbar &amp; Footer</a>.
             </p>
             <table>
                 @foreach ($items as $item)

@@ -23,7 +23,7 @@
                     <td class="row">
                         @if ($item->publicationState() === 'published')<a href="{{ route('announcements.show', $item->slug) }}"
                         target="_blank">Lihat</a>@endif
-                        <a href="{{ route('admin.announcements.edit', $item) }}">Sunting</a>
+                        <a href="{{ route('admin.announcements.edit', $item) }}">Edit</a>
                         <form method="POST" action="{{ route('admin.announcements.destroy', $item) }}"
                             onsubmit="return confirm('Padam hebahan ini?')">
                             @csrf @method('DELETE')

@@ -1,5 +1,5 @@
 @extends('admin.layout')
-@section('title', 'Sunting ' . $part->label)
+@section('title', 'Edit ' . $part->label)
 
 @push('head')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">

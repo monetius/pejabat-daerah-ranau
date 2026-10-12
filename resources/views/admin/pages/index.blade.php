@@ -23,7 +23,7 @@
                         <td><span class="badge {{ $item->status }}">{{ $item->status }}</span></td>
                         <td class="row">
                             <a href="{{ $item->url() }}" target="_blank">Lihat</a>
-                            <a href="{{ route('admin.pages.edit', $item) }}">Sunting</a>
+                            <a href="{{ route('admin.pages.edit', $item) }}">Edit</a>
                             @unless ($item->is_system)
                                 <form method="POST" action="{{ route('admin.pages.destroy', $item) }}"
                                     onsubmit="return confirm('Padam halaman ini?')">

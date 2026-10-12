@@ -1,7 +1,7 @@
 @extends('admin.layout')
-@section('title', $item->exists ? 'Sunting Hebahan' : 'Hebahan Baru')
+@section('title', $item->exists ? 'Edit Hebahan' : 'Hebahan Baru')
 @section('content')
-    <h1>{{ $item->exists ? 'Sunting Hebahan' : 'Hebahan Baru' }}</h1>
+    <h1>{{ $item->exists ? 'Edit Hebahan' : 'Hebahan Baru' }}</h1>
     <p class="page-intro">Sediakan kandungan, pilih kategori dan tentukan masa penerbitan.</p>
     <div class="card">
         <form method="POST"

@@ -1,5 +1,5 @@
 @extends('admin.layout')
-@section('title', $item->exists ? 'Sunting: ' . $item->title : 'Halaman Baru')
+@section('title', $item->exists ? 'Edit: ' . $item->title : 'Halaman Baru')
 
 @push('head')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
@@ -8,7 +8,7 @@
 @section('content')
 @php($isHome = $item->exists && $item->path === '')
 <div class="row" style="justify-content:space-between;margin-bottom:12px">
-    <h1 style="margin:0">{{ $item->exists ? 'Sunting Halaman' : 'Halaman Baru' }}</h1>
+    <h1 style="margin:0">{{ $item->exists ? 'Edit Halaman' : 'Halaman Baru' }}</h1>
     @if ($item->exists)<a href="{{ $item->url() }}" target="_blank">Lihat di laman web &rarr;</a>@endif
 </div>
 

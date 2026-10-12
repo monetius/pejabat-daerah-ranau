@@ -30,7 +30,7 @@
         @unless ($sub)
             <a href="{{ route('admin.menu.create', ['parent_id' => $item->id]) }}">+ Sub-menu</a>
         @endunless
-        <a href="{{ route('admin.menu.edit', $item) }}">Sunting</a>
+        <a href="{{ route('admin.menu.edit', $item) }}">Edit</a>
         <form method="POST" action="{{ route('admin.menu.destroy', $item) }}"
             onsubmit="return confirm('Padam {{ $sub ? 'item' : 'menu ini dan semua sub-menunya' }}?')">
             @csrf @method('DELETE')
