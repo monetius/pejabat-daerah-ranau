@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\PageRevision;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
@@ -19,16 +21,69 @@ class PageController extends Controller
     {
         $q = trim((string) $request->query('q'));
 
-        $groups = Page::query()
+        $pages = Page::query()
             ->when($q !== '', fn($query) => $query->where(
                 fn($w) => $w->where('title', 'like', "%{$q}%")->orWhere('path', 'like', "%{$q}%")
             ))
-            ->orderBy('section')
             ->orderBy('path')
-            ->get()
-            ->groupBy(fn(Page $p) => $p->section ?: 'Lain-lain');
+            ->get();
 
-        return view('admin.pages.index', ['groups' => $groups, 'q' => $q]);
+        [$sectionRank, $pageRank] = $this->navOrder();
+        $norm = fn(string $name) => preg_replace('/[^a-z0-9]/', '', strtolower($name));
+
+        $groups = $pages->groupBy(fn(Page $p) => $p->section ?: 'Lain-lain');
+
+        // Sections follow the navbar order; unknown sections come after, "Lain-lain" last.
+        $names = $groups->keys()->map(fn($n) => (string) $n)->all();
+        usort($names, function (string $a, string $b) use ($sectionRank, $norm) {
+            $ra = $a === 'Lain-lain' ? PHP_INT_MAX : ($sectionRank[$norm($a)] ?? PHP_INT_MAX - 1);
+            $rb = $b === 'Lain-lain' ? PHP_INT_MAX : ($sectionRank[$norm($b)] ?? PHP_INT_MAX - 1);
+
+            return [$ra, $a] <=> [$rb, $b];
+        });
+
+        // Pages inside a section follow the dropdown order; unlinked pages go after, by path.
+        $ordered = [];
+        foreach ($names as $name) {
+            $ordered[$name] = $groups[$name]->sort(
+                fn(Page $a, Page $b) => [$pageRank[$a->id] ?? PHP_INT_MAX, $a->path] <=> [$pageRank[$b->id] ?? PHP_INT_MAX, $b->path]
+            )->values();
+        }
+
+        return view('admin.pages.index', ['groups' => collect($ordered), 'q' => $q]);
+    }
+
+    /**
+     * Order of sections and pages as they appear in the navbar.
+     * Uses the Menu screen when it exists, otherwise the original site order.
+     *
+     * @return array{0: array<string,int>, 1: array<int,int>}
+     */
+    private function navOrder(): array
+    {
+        $sections = ['utama' => -1];
+        $pageRank = [];
+
+        if (Schema::hasTable('menu_items')) {
+            foreach (DB::table('menu_items')->whereNull('parent_id')->orderBy('sort_order')->orderBy('id')->pluck('label') as $i => $label) {
+                $sections[preg_replace('/[^a-z0-9]/', '', strtolower($label))] ??= $i;
+            }
+
+            $ids = DB::table('menu_items as c')
+                ->join('menu_items as p', 'c.parent_id', '=', 'p.id')
+                ->whereNotNull('c.page_id')
+                ->orderBy('p.sort_order')->orderBy('p.id')->orderBy('c.sort_order')->orderBy('c.id')
+                ->pluck('c.page_id');
+            foreach ($ids as $i => $id) {
+                $pageRank[$id] ??= $i;
+            }
+        }
+
+        foreach (['infokorporat', 'profildaerah', 'perkhidmatanonline', 'galeripautan', 'hubungikami'] as $i => $key) {
+            $sections[$key] ??= 100 + $i;
+        }
+
+        return [$sections, $pageRank];
     }
 
     public function create()
