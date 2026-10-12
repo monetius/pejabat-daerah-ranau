@@ -451,13 +451,17 @@ function initPdCarousel() {
   const credit = root.querySelector('.pd-credit');
   const count = root.querySelector('.pd-count');
   const n = cards.length;
+  if (!n || !info || !title || !desc || !link) return;
   let active = 0;
+  let textTimer;
+  let suppressClickUntil = 0;
 
   const layout = () => {
     cards.forEach((card, i) => {
       const pos = (i - active + n) % n;
       card.dataset.pos = pos < 3 ? String(pos) : 'hidden';
       card.tabIndex = pos === 0 ? 0 : -1;
+      card.setAttribute('aria-hidden', String(pos !== 0));
     });
   };
 
@@ -466,16 +470,20 @@ function initPdCarousel() {
     title.textContent = c.dataset.title;
     desc.textContent = c.dataset.desc;
     link.href = c.getAttribute('href');
-    credit.textContent = c.dataset.credit || '';
-    credit.hidden = !c.dataset.credit;
-    count.textContent = String(active + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
+    if (credit) {
+      credit.textContent = c.dataset.credit || '';
+      credit.hidden = !c.dataset.credit;
+    }
+    if (count) count.textContent = String(active + 1).padStart(2, '0') + ' / ' + String(n).padStart(2, '0');
   };
 
   const go = (dir) => {
     active = (active + dir + n) % n;
     layout();
+    clearTimeout(textTimer);
+    text();
     info.classList.add('is-changing');
-    setTimeout(() => { text(); info.classList.remove('is-changing'); }, 180);
+    textTimer = setTimeout(() => info.classList.remove('is-changing'), 180);
   };
 
   root.querySelector('.pd-prev').addEventListener('click', () => go(-1));
@@ -490,19 +498,37 @@ function initPdCarousel() {
   }));
 
   root.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') go(-1);
-    else if (e.key === 'ArrowRight') go(1);
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    go(e.key === 'ArrowLeft' ? -1 : 1);
+    if (e.target.classList.contains('pd-card')) cards[active].focus({ preventScroll: true });
   });
 
-  // swipe on touch screens
-  let x0 = null;
-  root.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; }, { passive: true });
-  root.addEventListener('touchend', (e) => {
-    if (x0 === null) return;
-    const dx = e.changedTouches[0].clientX - x0;
-    x0 = null;
-    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
-  });
+  // Horizontal swipes belong to the cards; vertical gestures keep scrolling the page.
+  const stage = root.querySelector('.pd-cards');
+  let touchStart = null;
+  stage.addEventListener('touchstart', (e) => {
+    touchStart = e.touches.length === 1
+      ? { x: e.touches[0].clientX, y: e.touches[0].clientY }
+      : null;
+  }, { passive: true });
+  stage.addEventListener('touchcancel', () => { touchStart = null; }, { passive: true });
+  stage.addEventListener('touchend', (e) => {
+    if (!touchStart || !e.changedTouches.length) return;
+    const dx = e.changedTouches[0].clientX - touchStart.x;
+    const dy = e.changedTouches[0].clientY - touchStart.y;
+    touchStart = null;
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+      suppressClickUntil = Date.now() + 500;
+      go(dx < 0 ? 1 : -1);
+    }
+  }, { passive: true });
+  stage.addEventListener('click', (e) => {
+    if (Date.now() < suppressClickUntil) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
 
   layout();
   text();
