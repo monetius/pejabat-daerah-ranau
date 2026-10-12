@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AnnouncementController as AdminAnnouncementContro
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\SitePartController;
 use App\Http\Controllers\SiteController;
@@ -30,6 +31,15 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::match(['post', 'put'], '/pages/preview', [AdminPageController::class, 'preview'])->name('pages.preview');
         Route::post('/pages/{page}/revisions/{revision}/restore', [AdminPageController::class, 'restore'])->name('pages.restore');
         Route::resource('pages', AdminPageController::class)->except('show');
+
+        Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+        Route::get('/menu/create', [MenuController::class, 'create'])->name('menu.create');
+        Route::post('/menu', [MenuController::class, 'store'])->name('menu.store');
+        Route::post('/menu/import', [MenuController::class, 'import'])->name('menu.import');
+        Route::get('/menu/{item}/edit', [MenuController::class, 'edit'])->name('menu.edit');
+        Route::put('/menu/{item}', [MenuController::class, 'update'])->name('menu.update');
+        Route::delete('/menu/{item}', [MenuController::class, 'destroy'])->name('menu.destroy');
+        Route::post('/menu/{item}/move', [MenuController::class, 'move'])->name('menu.move');
 
         Route::get('/parts', [SitePartController::class, 'index'])->name('parts.index');
         Route::get('/parts/{part}/edit', [SitePartController::class, 'edit'])->name('parts.edit');

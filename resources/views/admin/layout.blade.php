@@ -21,31 +21,105 @@
             color: #0b5ed7;
             text-decoration: none
         }
-
-        .top {
+        .side {
+            position: fixed;
+            inset: 0 auto 0 0;
+            width: 230px;
             background: #14304f;
             color: #fff;
             display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 12px 24px;
-            flex-wrap: wrap
+            flex-direction: column;
+            padding: 18px 12px;
+            overflow-y: auto;
+            z-index: 50
         }
 
-        .top strong {
-            margin-right: 12px
+        .side .brand {
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 4px 10px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, .15);
+            margin-bottom: 12px
         }
 
-        .top a {
-            color: #dbe7f5
+        .side nav {
+            display: flex;
+            flex-direction: column;
+            gap: 2px
         }
 
-        .top a:hover {
+        .side a {
+            color: #dbe7f5;
+            padding: 9px 12px;
+            border-radius: 6px
+        }
+
+        .side a:hover {
+            background: rgba(255, 255, 255, .1);
             color: #fff
         }
 
-        .top form {
-            margin-left: auto
+        .side a.on {
+            background: #0b5ed7;
+            color: #fff;
+            font-weight: 600
+        }
+
+        .side .foot {
+            margin-top: auto;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, .15)
+        }
+
+        .side .foot form {
+            margin: 6px 0 0
+        }
+
+        .side-toggle {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 60;
+            background: #14304f;
+            color: #fff;
+            border: 0;
+            border-radius: 6px;
+            padding: 7px 12px;
+            font-size: 1.1rem;
+            cursor: pointer
+        }
+
+        body.has-side .wrap {
+            margin-left: 230px;
+            max-width: none;
+            padding: 0 24px;
+            margin-top: 24px;
+            margin-bottom: 24px
+        }
+
+        body.has-side .wrap>* {
+            max-width: 1000px
+        }
+
+        @media(max-width:860px) {
+            .side {
+                transform: translateX(-100%);
+                transition: transform .2s
+            }
+
+            body.side-open .side {
+                transform: none
+            }
+
+            .side-toggle {
+                display: block
+            }
+
+            body.has-side .wrap {
+                margin-left: 0;
+                padding: 56px 16px 0
+            }
         }
 
         .wrap {
@@ -232,19 +306,25 @@
     @stack('head')
 </head>
 
-<body>
+<body class="{{ auth()->check() ? 'has-side' : '' }}">
     @auth
-        <div class="top">
-            <strong>CMS PD Ranau</strong>
-            <a href="{{ route('admin.dashboard') }}">Papan Pemuka</a>
-            <a href="{{ route('admin.announcements.index') }}">Hebahan</a>
-            <a href="{{ route('admin.pages.index') }}">Halaman</a>
-            <a href="{{ route('admin.parts.index') }}">Navbar &amp; Footer</a>
-            <a href="{{ route('admin.media.index') }}">Media</a>
-            <a href="/" target="_blank">Lihat laman web</a>
-            <form method="POST" action="{{ route('admin.logout') }}">@csrf<button class="btn link">Log keluar</button>
-            </form>
-        </div>
+        <button class="side-toggle" type="button" aria-label="Menu"
+            onclick="document.body.classList.toggle('side-open')">&#9776;</button>
+        <aside class="side">
+            <div class="brand">CMS PD Ranau</div>
+            <nav>
+                <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'on' : '' }}">Papan Pemuka</a>
+                <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements.*') ? 'on' : '' }}">Hebahan</a>
+                <a href="{{ route('admin.pages.index') }}" class="{{ request()->routeIs('admin.pages.*') ? 'on' : '' }}">Halaman</a>
+                <a href="{{ route('admin.menu.index') }}" class="{{ request()->routeIs('admin.menu.*') ? 'on' : '' }}">Menu</a>
+                <a href="{{ route('admin.parts.index') }}" class="{{ request()->routeIs('admin.parts.*') ? 'on' : '' }}">Navbar &amp; Footer</a>
+                <a href="{{ route('admin.media.index') }}" class="{{ request()->routeIs('admin.media.*') ? 'on' : '' }}">Media</a>
+            </nav>
+            <div class="foot">
+                <a href="/" target="_blank">Lihat laman web</a>
+                <form method="POST" action="{{ route('admin.logout') }}">@csrf<button class="btn link" style="padding:9px 12px">Log keluar</button></form>
+            </div>
+        </aside>
     @endauth
     <div class="wrap">
         @if ($errors->has('delete'))

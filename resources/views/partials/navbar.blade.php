@@ -35,6 +35,11 @@
             >Hebahan Integriti</a
           >
         </li>
+        <li>
+          <a href="/info-korporat/pelan-pembangunan"
+            >Pelan Pembangunan</a
+          >
+        </li>
       </ul>
     </li>
     <li class="dropdown">
