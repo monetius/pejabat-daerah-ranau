@@ -544,3 +544,187 @@ html.a11y-no-motion *::after {
     bottom: 1rem;
   }
 }
+
+/* Public pages: scroll-triggered reveals and section rules. */
+#main [data-scroll-reveal] {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--scroll-reveal-delay, 0ms);
+  will-change: opacity, filter, transform;
+}
+
+#main [data-scroll-reveal].is-scroll-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translate3d(0, 0, 0);
+}
+
+#main section[data-scroll-section] {
+  position: relative;
+}
+
+#main section[data-scroll-section]::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--line-strong, rgba(20, 48, 79, 0.32));
+  opacity: 0.55;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+#main section[data-scroll-section].is-scroll-visible::before {
+  transform: scaleX(1);
+}
+
+.page-position-rail {
+  position: fixed;
+  z-index: 80;
+  inset: 0 0 0 auto;
+  width: 60px;
+  pointer-events: none;
+}
+
+.page-position-rail::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+  backdrop-filter: blur(9px);
+  -webkit-backdrop-filter: blur(9px);
+  mask-image: linear-gradient(to left, #000 38%, transparent 100%);
+}
+
+.page-position-track {
+  position: absolute;
+  inset: 0;
+  cursor: ns-resize;
+  outline: none;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+.page-position-track:focus-visible {
+  outline: 2px solid var(--kinabalu-blue);
+  outline-offset: -3px;
+}
+
+.page-position-tick {
+  position: absolute;
+  right: 0;
+  width: 10px;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.4;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.page-position-tick.is-major {
+  width: 20px;
+  opacity: 0.7;
+}
+
+.page-position-progress {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 32px;
+  height: 1px;
+  background: var(--ink-strong);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--kinabalu-blue) 55%, transparent);
+  transform: translateY(-50%);
+  transition: top 0.08s linear;
+  pointer-events: none;
+}
+
+.page-position-progress::after {
+  content: attr(data-label);
+  position: absolute;
+  top: 50%;
+  right: 36px;
+  color: var(--ink);
+  font-family: var(--font-mono, monospace);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+
+.page-position-label {
+  position: fixed;
+  top: 50%;
+  right: 8px;
+  z-index: 81;
+  max-height: 75vh;
+  overflow: hidden;
+  color: var(--ink-strong);
+  font-family: var(--font-display, inherit);
+  font-size: clamp(1rem, 2.2vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+  text-shadow: 0 0 8px var(--bg);
+  opacity: 0.55;
+  transform: translateY(-50%) rotate(180deg);
+  transition: opacity 0.28s ease, translate 0.28s ease;
+  pointer-events: none;
+}
+
+.page-position-label.is-hidden {
+  opacity: 0;
+}
+
+.page-position-label.is-changing {
+  opacity: 0;
+  translate: 0 10px;
+}
+
+body.has-page-position-rail .back-to-top {
+  right: calc(1.5rem + 60px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #main [data-scroll-reveal] {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  #main section[data-scroll-section]::before {
+    transform: none;
+    transition: none;
+  }
+
+  .page-position-label,
+  .page-position-progress {
+    transition: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .page-position-rail,
+  .page-position-label {
+    display: none;
+  }
+
+  body.has-page-position-rail .back-to-top {
+    right: 1rem;
+  }
+}

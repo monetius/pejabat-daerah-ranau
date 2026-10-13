@@ -903,6 +903,7 @@ img.showcase-media {
   .pd-stage {
     min-width: 0;
     padding: 0 0 64px;
+    touch-action: pan-y pinch-zoom;
   }
 
   .pd-cards {
