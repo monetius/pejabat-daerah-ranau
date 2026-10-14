@@ -1,0 +1,364 @@
+.terrain-compass-container {
+  margin-top: 2rem;
+}
+
+.terrain-compass {
+  --compass-bearing: 0deg;
+  --compass-face: #f7f4e9;
+  --compass-ink: #24394d;
+  --compass-accent: #805d1c;
+  scroll-margin-top: 110px;
+  overflow: hidden;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper-raised);
+}
+
+.terrain-compass-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.terrain-compass-heading .md-eyebrow {
+  margin-bottom: .5rem;
+}
+
+.terrain-compass-heading h3 {
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+}
+
+.terrain-compass-location {
+  padding: .4rem .75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  font-size: .8rem;
+  white-space: nowrap;
+}
+
+.terrain-compass-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  margin-top: 1.5rem;
+}
+
+.terrain-compass-figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.terrain-compass-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 320px;
+  perspective: 950px;
+  isolation: isolate;
+}
+
+.terrain-compass-contours {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  stroke: var(--ink);
+  stroke-opacity: .07;
+  stroke-width: 1;
+}
+
+.terrain-compass-shadow {
+  position: absolute;
+  top: 55%;
+  left: 12%;
+  width: 76%;
+  height: 38%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(16, 27, 45, .25), transparent 68%);
+  transform: rotate(-8deg);
+}
+
+.terrain-compass-instrument {
+  position: relative;
+  width: min(300px, 82%);
+  aspect-ratio: 1;
+  transform-style: preserve-3d;
+  transform: rotateX(38deg) rotateZ(-14deg);
+}
+
+.terrain-compass-case,
+.terrain-compass-face,
+.terrain-compass-ticks,
+.terrain-compass-needle,
+.terrain-compass-rose {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.terrain-compass-case {
+  background: conic-gradient(from 25deg, #eedaa4, #9c7230, #e2c47c, #f6e5b7, #aa7c31, #ead29a);
+  box-shadow: 0 2px 0 #c3a269, 0 4px 0 #b49661, 0 6px 0 #a78854, 0 8px 0 #8c7043, 0 10px 0 #745a36, 0 14px 18px rgba(16, 27, 45, .22);
+}
+
+.terrain-compass-face {
+  inset: 10px;
+  border: 2px solid #a78a51;
+  background: radial-gradient(circle at 38% 25%, #fffef6, var(--compass-face) 65%);
+  color: var(--compass-ink);
+  box-shadow: inset 0 1px 5px rgba(16, 27, 45, .18);
+  transform: translateZ(2px);
+}
+
+.terrain-compass-ticks {
+  inset: 8px;
+  background: repeating-conic-gradient(from -.3deg, var(--compass-ink) 0deg .6deg, transparent .6deg 6deg);
+  mask: radial-gradient(circle, transparent 64%, #000 64% 69%, transparent 69%);
+  opacity: .65;
+}
+
+.terrain-compass-rose {
+  width: 100%;
+  height: 100%;
+}
+
+.terrain-compass-mark,
+.terrain-compass-intercardinal {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  font: 700 18px var(--font-body);
+  transform: translate(-50%, -50%);
+  transition: color .2s ease;
+}
+
+.terrain-compass-north { top: 13%; left: 50%; }
+.terrain-compass-east { top: 50%; left: 87%; }
+.terrain-compass-south { top: 87%; left: 50%; }
+.terrain-compass-west { top: 50%; left: 13%; }
+.terrain-compass-mark.is-active { color: #a47320; }
+
+.terrain-compass-intercardinal {
+  width: 24px;
+  height: 20px;
+  font-size: 9px;
+  font-weight: 500;
+  opacity: .6;
+}
+
+.terrain-compass-ne { top: 24%; left: 76%; }
+.terrain-compass-se { top: 76%; left: 76%; }
+.terrain-compass-sw { top: 76%; left: 24%; }
+.terrain-compass-nw { top: 24%; left: 24%; }
+
+.terrain-compass-needle {
+  inset: 10px;
+  transform: translateZ(13px) rotate(var(--compass-bearing));
+  transition: transform .75s cubic-bezier(.22, .7, .2, 1);
+  filter: drop-shadow(3px 5px 3px rgba(16, 27, 45, .28));
+}
+
+.terrain-compass-needle svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.terrain-compass-pivot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e4cd93;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 25%, #f8e5b6, #bd934a 60%, #84602a);
+  box-shadow: 0 3px 4px rgba(16, 27, 45, .25);
+  transform: translate(-50%, -50%) translateZ(17px);
+}
+
+.terrain-compass-figure figcaption {
+  display: grid;
+  justify-items: center;
+  gap: .55rem;
+  text-align: center;
+}
+
+.terrain-compass-status {
+  padding: .45rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--ink);
+  font-size: .9rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.terrain-compass-scale {
+  color: var(--ink-soft);
+  font-size: .75rem;
+}
+
+.terrain-compass-directions {
+  min-width: 0;
+}
+
+.terrain-compass-instruction {
+  margin: 0 0 1rem;
+  color: var(--ink-soft);
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+.terrain-compass-options {
+  display: grid;
+  gap: .65rem;
+}
+
+.terrain-compass-direction {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: .85rem;
+  width: 100%;
+  min-height: 80px;
+  padding: .9rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.terrain-compass-direction:hover {
+  border-color: var(--gold-dark);
+  background: var(--paper);
+}
+
+.terrain-compass-direction[aria-pressed='true'] {
+  border-color: var(--gold-dark);
+  background: color-mix(in srgb, var(--gold) 9%, var(--paper-raised));
+  box-shadow: inset 3px 0 var(--gold-dark);
+}
+
+.terrain-compass-letter {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.terrain-compass-direction[aria-pressed='true'] .terrain-compass-letter {
+  border-color: transparent;
+  background: var(--compass-accent);
+  color: #fff;
+}
+
+.terrain-compass-direction strong {
+  display: block;
+  margin-bottom: .2rem;
+  color: var(--ink);
+  font-size: .95rem;
+  font-weight: 700;
+}
+
+.terrain-compass-direction [data-direction-terrain] {
+  display: block;
+  font-size: .87rem;
+  line-height: 1.5;
+}
+
+.terrain-compass-direction > svg {
+  color: var(--gold-dark);
+  opacity: 0;
+}
+
+.terrain-compass-direction[aria-pressed='true'] > svg {
+  opacity: 1;
+}
+
+.terrain-compass-river {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  margin: 1.15rem 0 0;
+  padding: 1rem .5rem 0;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-size: .8rem;
+}
+
+.terrain-compass-river svg {
+  flex: 0 0 24px;
+  color: var(--kinabalu-blue);
+}
+
+.terrain-compass-river strong {
+  display: block;
+  color: var(--ink);
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+html[data-theme='dark'] .terrain-compass {
+  --compass-face: #24374a;
+  --compass-ink: #e0e6ec;
+  --compass-accent: #e2bc6b;
+}
+
+html[data-theme='dark'] .terrain-compass-face {
+  background: radial-gradient(circle at 38% 25%, #344b61, var(--compass-face) 65%);
+}
+
+html[data-theme='dark'] .terrain-compass-mark.is-active {
+  color: #f4d083;
+}
+
+html[data-theme='dark'] .terrain-compass-direction[aria-pressed='true'] .terrain-compass-letter {
+  color: #182436;
+}
+
+@media (max-width: 760px) {
+  .terrain-compass-layout {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin-top: .5rem;
+  }
+
+  .terrain-compass-stage {
+    height: 285px;
+  }
+
+  .terrain-compass-instrument {
+    width: min(280px, 82%);
+  }
+
+  .terrain-compass-location {
+    display: none;
+  }
+
+  .terrain-compass-direction {
+    padding: .85rem;
+    gap: .7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terrain-compass * {
+    transition: none;
+  }
+}

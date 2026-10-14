@@ -13,6 +13,9 @@
 @if (in_array($page->path, ['profil-daerah/senarai-kampung', 'profil-daerah/kemudahan-awam'], true))
 <link rel="stylesheet" href="{{ asset('assets/css/location-directory.css') }}">
 @endif
+@if ($page->path === 'info-korporat/mengenai-kami')
+<link rel="stylesheet" href="{{ asset('assets/css/terrain-compass.css') }}">
+@endif
 @endpush
 
 @section('content')
@@ -22,11 +25,17 @@
       Pratonton - belum disimpan</div>
   @endif
   {!! \App\Support\Shortcodes::render($page->body) !!}
+  @if ($page->path === 'info-korporat/mengenai-kami')
+    @include('partials.terrain-compass')
+  @endif
 @endsection
 
 @push('scripts')
   {!! $page->scripts !!}
   @if (in_array($page->path, ['profil-daerah/senarai-kampung', 'profil-daerah/kemudahan-awam'], true))
     <script src="{{ asset('assets/js/location-directory.js') }}" defer></script>
+  @endif
+  @if ($page->path === 'info-korporat/mengenai-kami')
+    <script src="{{ asset('assets/js/terrain-compass.js') }}" defer></script>
   @endif
 @endpush

@@ -130,7 +130,7 @@
                     <a class="quick-access-card" href="/galeri-pautan/video">
                         <div class="quick-access-media">
                             <div class="showcase-media ph-1" aria-hidden="true">
-                                <i class="fa-solid fa-video"></i>
+                                <img src="/assets/img/banner" alt="doge">
                             </div>
                         </div>
                         <div class="quick-access-body">

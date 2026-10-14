@@ -6,6 +6,7 @@
 
 @push('styles')
   <link rel="stylesheet" href="{{ asset('assets/css/mengenai-kami.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/terrain-compass.css') }}">
 @endpush
 
 @section('content')
@@ -725,10 +726,12 @@
       </section>
     
 @endverbatim
+@include('partials.terrain-compass')
 @endsection
 
 @push('scripts')
 @verbatim
 <script src="/assets/js/mengenai-slider.js"></script>
+<script src="/assets/js/terrain-compass.js" defer></script>
 @endverbatim
 @endpush
