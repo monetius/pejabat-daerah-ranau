@@ -568,160 +568,6 @@ function initCardBlur() {
   update();
 }
 
-function initPageChoreography() {
-  if (window.location.pathname.startsWith('/admin')) return;
-
-  const main = document.getElementById('main');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!main || reduceMotion || !('IntersectionObserver' in window)) return;
-
-  const sections = Array.from(main.querySelectorAll('section'));
-  sections.forEach((section) => section.setAttribute('data-scroll-section', ''));
-
-  const candidates = Array.from(main.querySelectorAll(
-    '.page-header, .hero-content, .section-head, .quick-access-card, .pd-carousel, .hb-feature, .hb-card, .hb-item, .hb-article, h1, h2, h3'
-  ));
-  const candidateSet = new Set(candidates);
-  const revealTargets = candidates.filter((element) => {
-    let parent = element.parentElement;
-    while (parent && parent !== main) {
-      if (candidateSet.has(parent)) return false;
-      parent = parent.parentElement;
-    }
-    return true;
-  });
-
-  const observer = new IntersectionObserver((entries, activeObserver) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('is-scroll-visible');
-      activeObserver.unobserve(entry.target);
-    });
-  }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
-
-  revealTargets.forEach((element, index) => {
-    element.setAttribute('data-scroll-reveal', '');
-    element.style.setProperty('--scroll-reveal-delay', `${(index % 4) * 75}ms`);
-    observer.observe(element);
-  });
-
-  sections.forEach((section) => observer.observe(section));
-}
-
-function initPagePositionRail() {
-  if (window.location.pathname.startsWith('/admin')) return;
-
-  const main = document.getElementById('main');
-  if (!main) return;
-
-  const candidates = Array.from(main.querySelectorAll('.hero, .page-header, section'));
-  const candidateSet = new Set(candidates);
-  const landmarks = candidates.filter((element) => {
-    let parent = element.parentElement;
-    while (parent && parent !== main) {
-      if (candidateSet.has(parent)) return false;
-      parent = parent.parentElement;
-    }
-    return true;
-  });
-  if (!landmarks.length) landmarks.push(main);
-
-  const pageLabel = main.querySelector('h1')?.textContent || document.title;
-  const sections = landmarks.map((element, index) => {
-    const heading = element.querySelector('h1, h2, h3');
-    const label = (element.getAttribute('aria-label') || heading?.textContent || pageLabel || `Bahagian ${index + 1}`)
-      .replace(/\s+/g, ' ')
-      .trim();
-    return { element, label };
-  });
-
-  const rail = document.createElement('div');
-  rail.className = 'page-position-rail';
-  rail.innerHTML = '<div class="page-position-track" role="scrollbar" tabindex="0" aria-controls="main" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="0%" aria-label="Kedudukan halaman"></div>' +
-    '<span class="page-position-label" aria-hidden="true"></span>';
-  const track = rail.querySelector('.page-position-track');
-  const label = rail.querySelector('.page-position-label');
-
-  for (let tick = 0; tick <= 100; tick += 5) {
-    const marker = document.createElement('span');
-    marker.className = `page-position-tick${tick % 25 === 0 ? ' is-major' : ''}`;
-    marker.style.top = `${tick}%`;
-    marker.setAttribute('aria-hidden', 'true');
-    track.appendChild(marker);
-  }
-
-  const progress = document.createElement('span');
-  progress.className = 'page-position-progress';
-  progress.setAttribute('aria-hidden', 'true');
-  track.appendChild(progress);
-  document.body.appendChild(rail);
-  document.body.classList.add('has-page-position-rail');
-
-  let activeIndex = -1;
-  let isDragging = false;
-
-  const scrollToPointer = (event) => {
-    const bounds = track.getBoundingClientRect();
-    const ratio = Math.min(Math.max((event.clientY - bounds.top) / bounds.height, 0), 1);
-    const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
-    window.scrollTo({ top: ratio * maxScroll, behavior: 'auto' });
-  };
-
-  track.addEventListener('pointerdown', (event) => {
-    isDragging = true;
-    track.setPointerCapture(event.pointerId);
-    scrollToPointer(event);
-  });
-  track.addEventListener('pointermove', (event) => {
-    if (isDragging) scrollToPointer(event);
-  });
-  track.addEventListener('pointerup', () => { isDragging = false; });
-  track.addEventListener('pointercancel', () => { isDragging = false; });
-  track.addEventListener('keydown', (event) => {
-    const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
-    const step = Math.max(window.innerHeight * 0.12, 80);
-    if (event.key === 'ArrowDown' || event.key === 'PageDown') {
-      event.preventDefault();
-      window.scrollBy({ top: step, behavior: 'smooth' });
-    } else if (event.key === 'ArrowUp' || event.key === 'PageUp') {
-      event.preventDefault();
-      window.scrollBy({ top: -step, behavior: 'smooth' });
-    } else if (event.key === 'Home' || event.key === 'End') {
-      event.preventDefault();
-      window.scrollTo({ top: event.key === 'Home' ? 0 : maxScroll, behavior: 'smooth' });
-    }
-  });
-
-  const update = () => {
-    const maxScroll = Math.max(document.documentElement.scrollHeight - window.innerHeight, 0);
-    const percentage = maxScroll ? Math.min(Math.max(window.scrollY / maxScroll, 0), 1) : 0;
-    const roundedPercentage = Math.round(percentage * 100);
-    progress.style.top = `${percentage * 100}%`;
-    progress.dataset.label = `${String(roundedPercentage).padStart(2, '0')}%`;
-    track.setAttribute('aria-valuenow', String(roundedPercentage));
-
-    const anchorY = window.innerHeight * 0.35;
-    let nextActiveIndex = 0;
-    sections.forEach((section, index) => {
-      if (section.element.getBoundingClientRect().top <= anchorY) nextActiveIndex = index;
-    });
-
-    const activeSection = sections[nextActiveIndex];
-    track.setAttribute('aria-valuetext', `${roundedPercentage}%, ${activeSection.label}`);
-    label.classList.toggle('is-hidden', nextActiveIndex === 0);
-    if (nextActiveIndex !== activeIndex) {
-      activeIndex = nextActiveIndex;
-      label.classList.add('is-changing');
-      label.textContent = activeSection.label;
-      requestAnimationFrame(() => label.classList.remove('is-changing'));
-    }
-  };
-
-  window.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
-}
-
 // Dark mode: saved choice wins, otherwise follow the OS setting.
 // The <head> snippet applies it before first paint; this wires up the button.
 function initTheme() {
@@ -729,7 +575,9 @@ function initTheme() {
   const btn = document.getElementById('themeToggle');
   if (!btn) return;
   const KEY = 'theme';
-  const icon = btn.querySelector('i');
+  // Update older navbar content saved in the CMS as well as the default navbar.
+  btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>';
+  const icon = btn.querySelector('svg');
   const mq = window.matchMedia('(prefers-color-scheme: dark)');
 
   const saved = () => { try { return localStorage.getItem(KEY); } catch (_) { return null; } };
@@ -740,7 +588,9 @@ function initTheme() {
     btn.setAttribute('aria-pressed', String(dark));
     btn.setAttribute('aria-label', dark ? 'Tukar ke mod cerah' : 'Tukar ke mod gelap');
     btn.title = dark ? 'Mod cerah' : 'Mod gelap';
-    if (icon) icon.className = 'fa-solid ' + (dark ? 'fa-sun' : 'fa-moon');
+    icon.innerHTML = dark
+      ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
+      : '<path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>';
   };
 
   const setTheme = (theme, persist) => {
@@ -770,6 +620,4 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initPdCarousel();
   initCardBlur();
-  initPageChoreography();
-  initPagePositionRail();
 });

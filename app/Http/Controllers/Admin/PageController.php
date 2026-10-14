@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\PageRevision;
+use App\Support\ContentEditor;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -17,24 +20,24 @@ class PageController extends Controller
     /** First URL segments that belong to the app itself. */
     private const RESERVED = ['admin', 'hebahan', 'assets', 'uploads', 'storage', 'build', 'login', 'up'];
 
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $q = trim((string) $request->query('q'));
 
         $pages = Page::query()
-            ->when($q !== '', fn($query) => $query->where(
-                fn($w) => $w->where('title', 'like', "%{$q}%")->orWhere('path', 'like', "%{$q}%")
+            ->when($q !== '', fn ($query) => $query->where(
+                fn ($w) => $w->where('title', 'like', "%{$q}%")->orWhere('path', 'like', "%{$q}%")
             ))
             ->orderBy('path')
             ->get();
 
         [$sectionRank, $pageRank] = $this->navOrder();
-        $norm = fn(string $name) => preg_replace('/[^a-z0-9]/', '', strtolower($name));
+        $norm = fn (string $name) => preg_replace('/[^a-z0-9]/', '', strtolower($name));
 
-        $groups = $pages->groupBy(fn(Page $p) => $p->section ?: 'Lain-lain');
+        $groups = $pages->groupBy(fn (Page $p) => $p->section ?: 'Lain-lain');
 
         // Sections follow the navbar order; unknown sections come after, "Lain-lain" last.
-        $names = $groups->keys()->map(fn($n) => (string) $n)->all();
+        $names = $groups->keys()->map(fn ($n) => (string) $n)->all();
         usort($names, function (string $a, string $b) use ($sectionRank, $norm) {
             $ra = $a === 'Lain-lain' ? PHP_INT_MAX : ($sectionRank[$norm($a)] ?? PHP_INT_MAX - 1);
             $rb = $b === 'Lain-lain' ? PHP_INT_MAX : ($sectionRank[$norm($b)] ?? PHP_INT_MAX - 1);
@@ -46,7 +49,7 @@ class PageController extends Controller
         $ordered = [];
         foreach ($names as $name) {
             $ordered[$name] = $groups[$name]->sort(
-                fn(Page $a, Page $b) => [$pageRank[$a->id] ?? PHP_INT_MAX, $a->path] <=> [$pageRank[$b->id] ?? PHP_INT_MAX, $b->path]
+                fn (Page $a, Page $b) => [$pageRank[$a->id] ?? PHP_INT_MAX, $a->path] <=> [$pageRank[$b->id] ?? PHP_INT_MAX, $b->path]
             )->values();
         }
 
@@ -86,65 +89,43 @@ class PageController extends Controller
         return [$sections, $pageRank];
     }
 
-    public function create()
+    public function create(): View
     {
-        $starter = <<<'HTML'
-<div class="page-header">
-  <div class="page-header-media"><img src="/assets/img/banner.jpg" alt="" /></div>
-  <div class="page-header-scrim"></div>
-  <div class="container">
-    <ul class="breadcrumb">
-      <li><a href="/">Laman Utama</a></li>
-      <li>Tajuk Halaman</li>
-    </ul>
-    <h1>Tajuk Halaman</h1>
-  </div>
-</div>
-<section class="ds-section">
-  <div class="container">
-    <div class="ds-block">
-      <h2>Subtajuk</h2>
-      <p>Tulis kandungan di sini.</p>
-    </div>
-  </div>
-</section>
-HTML;
-
         return view('admin.pages.form', [
-            'item' => new Page([
-                'status' => 'draft',
-                'body_class' => 'has-banner',
-                'styles' => 'dasar.css',
-                'body' => $starter,
-            ])
+            'item' => new Page(['status' => 'draft']),
+            'editor' => (new ContentEditor(''))->schema(),
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $page = Page::create($this->validated($request));
 
         return redirect()->route('admin.pages.edit', $page)->with('status', 'Halaman disimpan.');
     }
 
-    public function edit(Page $page)
+    public function edit(Page $page): View
     {
         return view('admin.pages.form', [
             'item' => $page,
+            'editor' => $this->editor($page)->schema(),
             'revisions' => $page->revisions()->with('author')->orderByDesc('id')->take(30)->get(),
         ]);
     }
 
-    public function update(Request $request, Page $page)
+    public function update(Request $request, Page $page): RedirectResponse
     {
-        $data = $this->validated($request, $page);
-        $this->snapshot($page, $data, $request->user()?->id);
-        $page->update($data);
+        DB::transaction(function () use ($request, $page): void {
+            $current = Page::lockForUpdate()->findOrFail($page->id);
+            $data = $this->validated($request, $current);
+            $this->snapshot($current, $data, $request->user()?->id);
+            $current->update($data);
+        });
 
         return redirect()->route('admin.pages.edit', $page)->with('status', 'Halaman dikemas kini.');
     }
 
-    public function destroy(Page $page)
+    public function destroy(Page $page): RedirectResponse
     {
         if ($page->is_system) {
             return back()->withErrors(['delete' => 'Halaman asal tapak tidak boleh dipadam. Tukar status kepada Draf jika mahu menyembunyikannya.']);
@@ -156,15 +137,17 @@ HTML;
     }
 
     /** Renders unsaved form content inside the real site layout, in a new tab. */
-    public function preview(Request $request)
+    public function preview(Request $request): View
     {
-        $page = new Page($request->only(['title', 'meta_description', 'body_class', 'styles', 'body', 'scripts']));
-        $page->title = $page->title ?: 'Pratonton';
+        $request->validate(['page_id' => ['nullable', 'integer', 'exists:pages,id']]);
+        $current = $request->filled('page_id') ? Page::findOrFail($request->integer('page_id')) : null;
+        $page = $current?->replicate() ?? new Page;
+        $page->fill($this->validated($request, $current));
 
         return view('site.cms-page', ['page' => $page, 'preview' => true]);
     }
 
-    public function restore(Request $request, Page $page, PageRevision $revision)
+    public function restore(Request $request, Page $page, PageRevision $revision): RedirectResponse
     {
         abort_unless($revision->page_id === $page->id, 404);
 
@@ -182,7 +165,7 @@ HTML;
             || $page->body !== $new['body']
             || (string) $page->scripts !== (string) ($new['scripts'] ?? '');
 
-        if (!$changed) {
+        if (! $changed) {
             return;
         }
 
@@ -207,16 +190,15 @@ HTML;
             'path' => ['nullable', 'string', 'max:255', 'regex:/^[A-Za-z0-9_\-\/]+$/'],
             'section' => ['nullable', 'string', 'max:80'],
             'meta_description' => ['nullable', 'string', 'max:320'],
-            'body_class' => ['nullable', 'string', 'max:120'],
-            'styles' => ['nullable', 'string', 'max:2000'],
-            'body' => ['required', 'string'],
-            'scripts' => ['nullable', 'string'],
+            'content' => ['required', 'string', 'max:2000000'],
             'status' => ['required', Rule::in(['draft', 'published'])],
         ]);
 
-        $data['body'] = str_replace("\r\n", "\n", $data['body']);
-        $data['scripts'] = isset($data['scripts']) ? str_replace("\r\n", "\n", $data['scripts']) : null;
-        $data['styles'] = $this->cleanLines($data['styles'] ?? null);
+        $data['body'] = ($current ? $this->editor($current) : new ContentEditor(''))->apply($data['content']);
+        unset($data['content']);
+        $data['body_class'] = $current?->body_class;
+        $data['styles'] = $current?->styles;
+        $data['scripts'] = $current?->scripts;
 
         $isHome = $current !== null && $current->path === '';
 
@@ -224,16 +206,16 @@ HTML;
             $data['path'] = '';
             $data['slug'] = $current->slug;
         } else {
-            $data['slug'] = $data['slug'] ?: $this->uniqueSlug($data['title'], $current);
+            $data['slug'] = ($data['slug'] ?? $current?->slug) ?: $this->uniqueSlug($data['title'], $current);
             $path = strtolower(trim((string) ($data['path'] ?? ''), '/ '));
             if ($path === '') {
-                $path = 'halaman/' . $data['slug'];
+                $path = 'halaman/'.$data['slug'];
             }
 
             if (in_array(explode('/', $path)[0], self::RESERVED, true)) {
                 throw ValidationException::withMessages(['path' => 'Laluan ini dikhaskan untuk sistem. Pilih laluan lain.']);
             }
-            $taken = Page::where('path', $path)->when($current, fn($q) => $q->whereKeyNot($current->getKey()))->exists();
+            $taken = Page::where('path', $path)->when($current, fn ($q) => $q->whereKeyNot($current->getKey()))->exists();
             if ($taken) {
                 throw ValidationException::withMessages(['path' => 'Laluan ini sudah digunakan oleh halaman lain.']);
             }
@@ -243,14 +225,9 @@ HTML;
         return $data;
     }
 
-    private function cleanLines(?string $value): ?string
+    private function editor(Page $page): ContentEditor
     {
-        if ($value === null) {
-            return null;
-        }
-        $lines = array_filter(array_map('trim', preg_split('/\R/', $value)));
-
-        return $lines ? implode("\n", $lines) : null;
+        return new ContentEditor((string) $page->body, true, hash('sha256', serialize($page->getRawOriginal())));
     }
 
     private function uniqueSlug(string $title, ?Page $current): string
@@ -258,8 +235,8 @@ HTML;
         $base = Str::slug($title) ?: 'halaman';
         $slug = $base;
         $i = 2;
-        while (Page::where('slug', $slug)->when($current, fn($q) => $q->whereKeyNot($current->getKey()))->exists()) {
-            $slug = $base . '-' . $i++;
+        while (Page::where('slug', $slug)->when($current, fn ($q) => $q->whereKeyNot($current->getKey()))->exists()) {
+            $slug = $base.'-'.$i++;
         }
 
         return $slug;

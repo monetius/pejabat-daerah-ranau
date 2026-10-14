@@ -2,11 +2,22 @@
 <html lang="ms">
 
 <head>
+    <script>
+        (() => {
+            let theme;
+            try { theme = localStorage.getItem('cms-theme'); } catch {}
+            if (theme !== 'light' && theme !== 'dark') {
+                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.dataset.cmsTheme = theme;
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin') - CMS PD Ranau</title>
+    <title>@yield('title', 'Admin') - CMS Ranau</title>
     <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+    <script src="{{ asset('assets/js/admin-theme.js') }}" defer></script>
     @stack('head')
 </head>
 
@@ -16,9 +27,10 @@
             onclick="toggleSidebar(!document.body.classList.contains('side-open'))">&#9776;</button>
         <button class="side-backdrop" type="button" aria-label="Tutup menu" onclick="toggleSidebar(false)"></button>
         <aside class="side" id="admin-sidebar">
-            <div class="brand"><span class="brand-mark">R</span><div>PD Ranau<small>Pengurusan kandungan</small></div></div><p class="nav-caption">RUANG KERJA</p>
+            @include('admin.brand')
+            <p class="nav-caption">RUANG KERJA</p>
             <nav aria-label="Navigasi pentadbir">
-                <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'on' : '' }}">@include('admin.icon', ['name' => 'dashboard'])<span>Papan Pemuka</span></a>
+                <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'on' : '' }}">@include('admin.icon', ['name' => 'dashboard'])<span>Dashboard</span></a>
                 <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'news'])<span>Hebahan</span></a>
                 <a href="{{ route('admin.pages.index') }}" class="{{ request()->routeIs('admin.pages.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'pages'])<span>Halaman</span></a>
                 <a href="{{ route('admin.menu.index') }}" class="{{ request()->routeIs('admin.menu.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'menu'])<span>Menu</span></a>
@@ -32,7 +44,15 @@
         </aside>
     @endauth
     @auth
-        <header class="topbar"><span>Pejabat Daerah Ranau <span class="topbar-divider">/</span> <strong>@yield('title', 'CMS')</strong></span><span class="user-chip"><span class="avatar">{{ mb_substr(auth()->user()->name, 0, 1) }}</span>{{ auth()->user()->name }}</span></header>
+        <header class="topbar">
+            <span>Pejabat Daerah Ranau <span class="topbar-divider">/</span> <strong>@yield('title', 'CMS')</strong></span>
+            <div class="topbar-actions">
+                @include('admin.theme-toggle')
+                <span class="user-chip"><span class="avatar">{{ mb_substr(auth()->user()->name, 0, 1) }}</span>{{ auth()->user()->name }}</span>
+            </div>
+        </header>
+    @else
+        @include('admin.theme-toggle', ['guest' => true])
     @endauth
     <main class="wrap" id="admin-main">
         @if ($errors->has('delete'))
@@ -42,8 +62,7 @@
         @yield('content')
     </main>
     @auth
-        <div id="idle-warn" hidden
-            style="position:fixed;right:16px;bottom:16px;z-index:100;background:#fff7ed;border:1px solid #fdba74;color:#7c2d12;padding:12px 16px;border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.18);max-width:320px">
+        <div id="idle-warn" class="idle-warning" hidden>
             Anda akan dilog keluar dalam <b id="idle-sec">60</b> saat kerana tiada aktiviti.
             <div style="margin-top:8px"><button type="button" class="btn" id="idle-stay">Kekal log masuk</button></div>
         </div>

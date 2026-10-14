@@ -137,7 +137,7 @@
     aria-pressed="false"
     title="Mod gelap"
   >
-    <i class="fa-solid fa-moon" aria-hidden="true"></i>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
   </button>
   <button
     class="hamburger"

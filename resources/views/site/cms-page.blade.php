@@ -10,6 +10,9 @@
 <link rel="stylesheet"
   href="{{ (str_starts_with($css, '/') || str_starts_with($css, 'http')) ? $css : asset('assets/css/' . $css) }}">
 @endforeach
+@if (in_array($page->path, ['profil-daerah/senarai-kampung', 'profil-daerah/kemudahan-awam'], true))
+<link rel="stylesheet" href="{{ asset('assets/css/location-directory.css') }}">
+@endif
 @endpush
 
 @section('content')
@@ -23,4 +26,7 @@
 
 @push('scripts')
   {!! $page->scripts !!}
+  @if (in_array($page->path, ['profil-daerah/senarai-kampung', 'profil-daerah/kemudahan-awam'], true))
+    <script src="{{ asset('assets/js/location-directory.js') }}" defer></script>
+  @endif
 @endpush

@@ -39,8 +39,7 @@
     @empty
         <div class="card">
             Tiada halaman dijumpai.
-            @if ($q === '')<br>Jalankan <code>php artisan cms:import</code> untuk import semua halaman sedia ada ke dalam
-            CMS.@endif
+            @if ($q === '')<br>Klik “Halaman Baru” untuk menyediakan kandungan baharu.@endif
         </div>
     @endforelse
 @endsection

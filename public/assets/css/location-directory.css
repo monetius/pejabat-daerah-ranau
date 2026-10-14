@@ -1,0 +1,361 @@
+/* Shared public village and facility directories. */
+.location-directory .directory-toolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.75rem 2rem;
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+    margin-bottom: 1.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 24px;
+    background: var(--paper-raised);
+    box-shadow: 0 12px 35px rgba(16, 27, 45, 0.06);
+}
+.directory-eyebrow {
+    color: var(--gold-dark);
+    font: 700 0.72rem var(--font-body);
+    letter-spacing: 0.14em;
+    margin: 0 0 0.6rem;
+}
+.directory-summary h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+}
+.directory-summary p {
+    color: var(--ink-soft);
+    margin: 0;
+    max-width: 50ch;
+}
+.directory-stats {
+    display: flex;
+    gap: 1.75rem;
+    align-items: center;
+}
+.directory-stats div {
+    display: grid;
+    gap: 0.2rem;
+}
+.directory-stats strong {
+    font: 400 2rem var(--font-display);
+    color: var(--ink);
+}
+.directory-stats span {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+}
+.directory-filters {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 0.45fr) auto;
+    align-items: end;
+    gap: 1rem;
+}
+.directory-filters label {
+    display: grid;
+    gap: 0.5rem;
+    min-width: 0;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+}
+.directory-filters input,
+.directory-filters select {
+    width: 100%;
+    min-width: 0;
+    height: 48px;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    padding: 0 1rem;
+    font: 400 0.95rem var(--font-body);
+    background: var(--paper);
+    color: var(--ink);
+}
+.directory-filters input:focus-visible,
+.directory-filters select:focus-visible,
+.directory-map-button:focus-visible,
+.directory-reset:focus-visible {
+    outline: 3px solid var(--kinabalu-blue);
+    outline-offset: 3px;
+}
+.directory-reset {
+    min-height: 48px;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    color: var(--ink);
+    background: transparent;
+    font: 600 0.85rem var(--font-body);
+    cursor: pointer;
+}
+.directory-results {
+    grid-column: 1 / -1;
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    margin: -0.5rem 0 0;
+}
+.location-directory .sk-lead,
+.location-directory .ka-intro {
+    font-size: 0.95rem;
+}
+.location-directory .sk-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+.location-directory .sk-card,
+.location-directory .ka-card,
+.location-directory .ka-details {
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(16, 27, 45, 0.04);
+}
+.location-directory .sk-card header,
+.location-directory .ka-card h3 {
+    padding: 1.25rem;
+    margin: 0;
+    background: var(--sky-tint);
+    border-bottom: 1px solid var(--line);
+}
+.location-directory .sk-card h3 {
+    font-size: 1.15rem;
+}
+.location-directory .sk-card ul,
+.location-directory .ka-card .ka-list {
+    padding: 0 1.25rem;
+}
+.location-directory .directory-location:not(tr) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.9rem 0;
+    margin: 0;
+    border-top: 0;
+    border-bottom: 1px solid var(--line);
+}
+.location-directory .directory-location:last-child {
+    border-bottom: 0;
+}
+.location-directory .ka-list li::before {
+    display: none;
+}
+.directory-location-name {
+    flex: 1 1 130px;
+    color: var(--ink);
+    font-size: 0.91rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+}
+.directory-map-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    min-height: 36px;
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 0.4rem 0.6rem;
+    font: 600 0.73rem var(--font-body);
+    color: var(--kinabalu-blue);
+    background: var(--paper);
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+.directory-map-button:hover {
+    background: var(--sky-tint);
+    border-color: var(--kinabalu-blue);
+}
+.location-directory .ka-grid-1 .ka-list,
+.location-directory .ka-details-body .ka-list {
+    columns: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 2rem;
+}
+.location-directory .ka-route,
+.location-directory .ka-bank {
+    padding: 1.25rem !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 18px;
+}
+.location-directory .ka-route .directory-location-name {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+.location-directory .ka-bank {
+    flex-direction: column;
+}
+.location-directory .ka-bank .directory-location-name {
+    flex: auto;
+    display: grid;
+    justify-items: center;
+    gap: 0.8rem;
+}
+.location-directory .ka-table {
+    min-width: 440px;
+}
+.location-directory .ka-table td,
+.location-directory .ka-table th {
+    padding: 0.85rem;
+}
+.location-directory .sk-dun-head {
+    padding-bottom: 1rem;
+}
+.location-directory [hidden] {
+    display: none !important;
+}
+.directory-empty {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--ink-soft);
+}
+.directory-empty > i {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+.directory-empty h2 {
+    margin-bottom: 0.5rem;
+}
+body.directory-map-open {
+    overflow: hidden;
+}
+.directory-map-dialog {
+    width: min(940px, calc(100vw - 32px));
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: 22px;
+    color: var(--ink);
+    background: var(--paper-raised);
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.35);
+    overflow: auto;
+}
+.directory-map-dialog::backdrop {
+    background: rgba(9, 18, 32, 0.65);
+    backdrop-filter: blur(5px);
+}
+.directory-map-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.5rem;
+}
+.directory-map-header h2 {
+    margin: 0 0 0.4rem;
+    font-size: clamp(1.3rem, 3vw, 1.9rem);
+}
+.directory-map-area {
+    color: var(--ink-soft);
+    margin: 0;
+    font-size: 0.85rem;
+}
+.directory-map-close {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--paper);
+    color: var(--ink);
+    cursor: pointer;
+}
+.directory-map-close:focus-visible {
+    outline: 3px solid var(--kinabalu-blue);
+    outline-offset: 3px;
+}
+.directory-map-frame {
+    height: clamp(250px, 48dvh, 440px);
+    background: var(--sky-tint);
+}
+.directory-map-frame iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    color-scheme: light;
+}
+.directory-map-footer {
+    padding: 1.25rem 1.5rem 1.5rem;
+}
+.directory-map-footer p {
+    color: var(--ink-soft);
+    font-size: 0.8rem;
+    max-width: 70ch;
+    margin: 0 0 1rem;
+}
+.directory-map-footer > div {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+.directory-map-footer a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    color: var(--ink);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+.directory-map-footer .directory-directions {
+    background: var(--navy);
+    border-color: var(--gold);
+    color: #fff;
+}
+@media (max-width: 1000px) {
+    .location-directory .sk-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .location-directory .directory-toolbar {
+        grid-template-columns: 1fr;
+    }
+    .directory-stats {
+        gap: 2rem;
+    }
+}
+@media (max-width: 640px) {
+    .location-directory .sk-grid,
+    .location-directory .ka-grid-1 .ka-list,
+    .location-directory .ka-details-body .ka-list {
+        grid-template-columns: 1fr;
+    }
+    .directory-filters {
+        grid-template-columns: 1fr;
+    }
+    .directory-reset {
+        justify-self: start;
+    }
+    .location-directory .directory-toolbar {
+        border-radius: 18px;
+        gap: 1.25rem;
+    }
+    .directory-map-dialog {
+        width: calc(100vw - 16px);
+        max-height: calc(100dvh - 16px);
+        border-radius: 16px;
+    }
+    .directory-map-header,
+    .directory-map-footer {
+        padding: 1rem;
+    }
+    .directory-map-footer a {
+        flex: 1 1 auto;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .directory-map-button {
+        transition: none;
+    }
+}

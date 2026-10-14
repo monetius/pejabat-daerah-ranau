@@ -1,0 +1,635 @@
+.pp-header .page-header-media img {
+  object-position: center 70%;
+}
+
+/* Pelan Pembangunan: public overview of the Ranau 2024-2040 plan. */
+.pp-header .pp-kicker {
+  display: block;
+  margin-bottom: 0.8rem;
+  color: #f1d8a4;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.pp-header p {
+  color: #edf2f8;
+  font-size: 1.15rem;
+  margin-top: 0.8rem;
+}
+
+.pp-page {
+  --pp-radius: 12px;
+  color: var(--ink-soft);
+}
+
+.pp-page section {
+  padding-block: clamp(3rem, 6vw, 4.5rem);
+  scroll-margin-top: 100px;
+}
+
+.pp-page h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
+}
+
+.pp-page p, .pp-page li {
+  line-height: 1.75;
+}
+
+.pp-page p + p {
+  margin-top: 1rem;
+}
+
+.pp-tint {
+  background: var(--sky-tint);
+}
+
+.pp-navigation {
+  padding-block: 1.75rem 0;
+}
+
+.pp-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.pp-jump a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--paper-raised);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.pp-jump a:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+.pp-eyebrow {
+  display: block;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.pp-intro-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: start;
+}
+
+.pp-facts {
+  padding: 1.5rem;
+  border: 1px solid var(--line-strong);
+  border-top: 3px solid var(--gold);
+  border-radius: var(--pp-radius);
+  background: var(--paper-raised);
+}
+
+.pp-facts dl > div {
+  padding-bottom: 0.85rem;
+  margin-bottom: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.pp-facts dt {
+  font-size: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+
+.pp-facts dd {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pp-text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  color: var(--kinabalu-blue);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.pp-heading {
+  max-width: 68ch;
+  margin-bottom: 2rem;
+}
+
+.pp-heading h2 {
+  margin-bottom: 0.75rem;
+}
+
+.pp-direction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.pp-vision, .pp-direction {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border-radius: var(--pp-radius);
+}
+
+.pp-vision {
+  background: var(--navy);
+  border: 1px solid var(--gold);
+  color: #fff;
+}
+
+.pp-vision .pp-eyebrow {
+  color: #f1d8a4;
+}
+
+.pp-vision h3 {
+  color: #fff;
+  font-size: clamp(1.7rem, 2.6vw, 2.25rem);
+  line-height: 1.4;
+}
+
+.pp-direction {
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+}
+
+.pp-direction h3 {
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.pp-goal-label {
+  margin-top: 1.5rem;
+}
+
+.pp-source, .pp-page-note {
+  margin-top: 1.5rem;
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+
+.pp-source a {
+  text-underline-offset: 3px;
+}
+
+.pp-pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.pp-pillar {
+  border: 1px solid var(--line-strong);
+  border-radius: var(--pp-radius);
+  background: var(--paper-raised);
+  overflow: hidden;
+}
+
+.pp-pillar summary {
+  display: flex;
+  align-items: start;
+  gap: 1rem;
+  list-style: none;
+  padding: 1.4rem;
+  cursor: pointer;
+}
+
+.pp-pillar summary::-webkit-details-marker {
+  display: none;
+}
+
+.pp-pillar summary:focus-visible {
+  outline-offset: -4px;
+  border-radius: var(--pp-radius);
+}
+
+.pp-pillar summary:hover {
+  background: var(--sky-tint);
+}
+
+.pp-pillar-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--kinabalu-blue);
+  background: var(--sky-tint);
+  font-size: 1.2rem;
+}
+
+.pp-pillar-copy {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.pp-number {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pp-pillar-copy strong {
+  font-size: 1.0625rem;
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.pp-pillar-description {
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.pp-expand-icon {
+  flex-shrink: 0;
+  margin: 0.25rem 0 0 auto;
+  color: var(--kinabalu-blue);
+}
+
+.pp-pillar[open] .pp-expand-icon {
+  transform: rotate(45deg);
+}
+
+.pp-pillar[open] summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.pp-pillar-body {
+  padding: 1.4rem;
+}
+
+.pp-pillar-body h3 {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.pp-pillar-body ul {
+  padding-left: 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.pp-pillar-body li + li {
+  margin-top: 0.65rem;
+}
+
+.pp-pillar-body .pp-text-link {
+  margin-top: 0.75rem;
+}
+
+.pp-project-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.pp-project {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 1.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--pp-radius);
+  background: var(--paper-raised);
+}
+
+.pp-project-code {
+  padding: 0.25rem 0.55rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  background: var(--sky-tint);
+  color: var(--ink);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.pp-project h3 {
+  font-size: 1.35rem;
+  line-height: 1.4;
+  margin-bottom: 0.75rem;
+}
+
+.pp-project p {
+  font-size: 0.9375rem;
+  margin-bottom: 1rem;
+}
+
+.pp-project .pp-text-link {
+  margin-top: auto;
+}
+
+.pp-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  list-style: none;
+}
+
+.pp-timeline li {
+  padding: 1.25rem;
+  border-top: 3px solid var(--gold);
+  background: var(--paper-raised);
+  border-radius: 0 0 var(--pp-radius) var(--pp-radius);
+}
+
+.pp-timeline li > span {
+  color: var(--kinabalu-blue);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.pp-timeline h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5;
+  margin: 0.65rem 0 0.4rem;
+}
+
+.pp-timeline p {
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.pp-map-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.pp-map-points {
+  padding-left: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.pp-map-points li + li {
+  margin-top: 0.75rem;
+}
+
+.pp-map-figure {
+  margin: 0;
+}
+
+.pp-map-open {
+  display: block;
+  overflow: hidden;
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--pp-radius);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.pp-map-open img {
+  width: 100%;
+  height: auto;
+  filter: none !important;
+}
+
+.pp-map-open > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 48px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-top: 1px solid var(--line);
+}
+
+.pp-map-open:hover > span {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.pp-map-figure figcaption {
+  font-size: 0.8125rem;
+  margin-top: 0.75rem;
+}
+
+.pp-document {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.4fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.25rem, 4vw, 2.5rem);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--pp-radius);
+  background: var(--paper-raised);
+}
+
+.pp-cover {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.pp-document h2 {
+  margin-bottom: 0.75rem;
+}
+
+.pp-file-info {
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.pp-document-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.pp-read-document {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
+.pp-download-note {
+  font-size: 0.8125rem;
+}
+
+.pp-page-note {
+  text-align: center;
+}
+
+.pp-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body.pp-map-opened {
+  overflow: hidden;
+}
+
+.pp-map-dialog {
+  width: min(1200px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: var(--paper-raised);
+  color: var(--ink);
+}
+
+.pp-map-dialog::backdrop {
+  background: rgba(10, 20, 35, 0.75);
+}
+
+.pp-map-dialog-head {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--paper-raised);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.pp-map-dialog-head h2 {
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+.pp-map-dialog-head p {
+  margin-top: 0.3rem;
+  color: var(--ink-soft);
+  font-size: 0.8125rem;
+}
+
+.pp-map-close {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.pp-map-viewport {
+  max-height: calc(100dvh - 150px);
+  overflow: auto;
+}
+
+.pp-map-viewport img {
+  width: 100%;
+  min-width: 1000px;
+  max-width: none;
+  height: auto;
+  filter: none !important;
+}
+
+@media (max-width: 900px) {
+  .pp-intro-grid, .pp-direction-grid, .pp-map-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pp-project-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pp-timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .pp-pillars, .pp-project-grid, .pp-document {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pp-pillar summary {
+    gap: 0.75rem;
+    padding: 1.1rem;
+  }
+
+  .pp-pillar-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .pp-pillar-copy strong {
+    font-size: 1rem;
+  }
+
+  .pp-pillar-body {
+    padding: 1.1rem;
+  }
+
+  .pp-jump {
+    gap: 0.4rem;
+  }
+
+  .pp-jump a {
+    flex: 1 1 auto;
+    justify-content: center;
+    font-size: 0.8125rem;
+  }
+
+  .pp-timeline li {
+    padding: 1rem;
+  }
+
+  .pp-timeline h3 {
+    font-size: 0.9375rem;
+  }
+
+  .pp-header p {
+    font-size: 1rem;
+  }
+
+  .pp-document-actions {
+    align-items: stretch;
+  }
+
+  .pp-read-document {
+    justify-content: center;
+    flex: 1 1 auto;
+  }
+}

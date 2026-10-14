@@ -24,7 +24,7 @@
             @error('category')
             <div class="err">{{ $message }}</div>@enderror
 
-            <label for="slug">Slug (URL)</label>
+            <label for="slug">Nama ringkas URL (pilihan)</label>
             <input type="text" id="slug" name="slug" value="{{ old('slug', $item->slug) }}">
             <div class="hint">Kosongkan untuk dijana daripada tajuk.</div>
             @error('slug')
@@ -47,10 +47,7 @@
             @error('image')
             <div class="err">{{ $message }}</div>@enderror
 
-            <label for="body">Kandungan (HTML dibenarkan)</label>
-            <textarea id="body" name="body" required>{{ old('body', $item->body) }}</textarea>
-            @error('body')
-            <div class="err">{{ $message }}</div>@enderror
+            @include('admin.content-editor')
 
             <h2 class="sec">Penerbitan</h2>
             <label for="status">Status</label>

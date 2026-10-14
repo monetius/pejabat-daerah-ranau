@@ -4,7 +4,7 @@
     <h1>Navbar &amp; Footer</h1>
     <div class="card">
         <p class="hint">Bahagian yang dipaparkan pada setiap halaman: menu atas (navbar) dan bahagian bawah (footer). Ubah
-            pautan, alamat dan nombor telefon di sini.</p>
+            logo, alamat, nombor telefon dan pautan footer di sini. Pautan navigasi diurus melalui halaman Menu.</p>
         <table>
             @forelse ($parts as $part)
                 <tr>
@@ -14,7 +14,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td>Belum diimport. Jalankan <code>php artisan cms:import</code>.</td>
+                    <td>Kandungan belum disediakan. Hubungi pentadbir sistem.</td>
                 </tr>
             @endforelse
         </table>

@@ -1,35 +1,16 @@
 @extends('admin.layout')
 @section('title', 'Edit ' . $part->label)
-
-@push('head')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
-@endpush
-
 @section('content')
     <h1>{{ $part->label }}</h1>
+    <p class="page-intro">Perubahan teks, gambar dan pautan di sini terpakai pada semua halaman.</p>
+    @if ($part->key === 'navbar')
+        <p class="flash">Untuk menambah atau menyusun pautan navigasi, gunakan <a href="{{ route('admin.menu.index') }}">pengurusan Menu</a>.</p>
+    @endif
     <div class="card">
         <form method="POST" action="{{ route('admin.parts.update', $part) }}">
             @csrf @method('PUT')
-            <div class="hint" style="margin-bottom:8px">Perubahan terpakai pada <b>semua</b> halaman. Berhati-hati dengan
-                tag dan nama kelas.</div>
-            <textarea id="html" name="html">{{ old('html', $part->html) }}</textarea>
-            @error('html')
-            <div class="err">{{ $message }}</div>@enderror
-            <p class="row"><button class="btn">Simpan</button><a class="btn gray"
-                    href="{{ route('admin.parts.index') }}">Batal</a></p>
+            @include('admin.content-editor')
+            <p class="row"><button class="btn">Simpan perubahan</button><a class="btn gray" href="{{ route('admin.parts.index') }}">Batal</a></p>
         </form>
     </div>
 @endsection
-
-@push('foot')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
-    <script>
-        if (window.CodeMirror) {
-            CodeMirror.fromTextArea(document.getElementById('html'), { mode: 'htmlmixed', lineNumbers: true, lineWrapping: true });
-        }
-    </script>
-@endpush

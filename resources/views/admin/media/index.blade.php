@@ -17,7 +17,7 @@
     <table>
         <tr>
             <th>Pratonton</th>
-            <th>URL (salin ke dalam halaman)</th>
+            <th>Alamat fail</th>
             <th>Saiz</th>
             <th></th>
         </tr>
@@ -47,8 +47,7 @@
         </tr>
         @endforelse
     </table>
-    <div class="hint" style="margin-top:8px">Klik pada URL untuk menyalinnya. Contoh dalam HTML:
-        <code>&lt;img src="/uploads/2026/10/gambar.jpg" alt=""&gt;</code>
+    <div class="hint" style="margin-top:8px">Gunakan butang “Pilih / muat naik gambar” atau “Pilih / muat naik fail” dalam editor halaman dan hebahan untuk menggunakan fail ini.
     </div>
 </div>
 @endsection

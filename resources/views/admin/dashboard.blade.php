@@ -1,7 +1,7 @@
 @extends('admin.layout')
-@section('title', 'Papan Pemuka')
+@section('title', 'Dashboard')
 @section('content')
-    <div class="page-heading"><div><p class="eyebrow">RUANG PENGURUSAN</p><h1>Papan Pemuka</h1><p class="page-intro">Selamat datang, {{ auth()->user()->name }}. Apa yang ingin dikemas kini hari ini?</p></div><a class="btn" href="{{ route('admin.announcements.create') }}">+ Cipta hebahan</a></div>
+    <div class="page-heading"><div><p class="eyebrow">RUANG PENGURUSAN</p><h1>Dashboard</h1><p class="page-intro">Selamat datang, {{ auth()->user()->name }}. Apa yang ingin dikemas kini hari ini?</p></div><a class="btn" href="{{ route('admin.announcements.create') }}">+ Cipta hebahan</a></div>
     <div class="stats">
         <div class="card stat-card"><span class="stat-label">Jumlah halaman</span><b>{{ $pageCount }}</b><a href="{{ route('admin.pages.index') }}">Urus halaman &rarr;</a></div>
         <div class="card stat-card"><span class="stat-label">Hebahan &amp; berita</span><b>{{ $announcementCount }}</b><a href="{{ route('admin.announcements.index') }}">Urus hebahan &rarr;</a></div><div class="card stat-card accent"><span class="stat-label">Hebahan diterbitkan</span><b>{{ $publishedCount }}</b><span>Dipaparkan kepada orang awam</span></div>
@@ -20,7 +20,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td>Tiada halaman. Jalankan <code>php artisan cms:import</code> untuk import halaman sedia ada.</td>
+                    <td>Belum ada halaman. Buka Halaman untuk menambah kandungan baharu.</td>
                 </tr>
             @endforelse
         </table>

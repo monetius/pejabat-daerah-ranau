@@ -23,6 +23,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="icon" href="{{ asset('assets/img/favicon.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ asset('assets/css/dark.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/professional.css') }}">
 </head>
 
 <body class="@yield('body_class')">

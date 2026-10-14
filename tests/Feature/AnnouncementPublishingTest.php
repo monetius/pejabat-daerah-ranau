@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Announcement;
 use App\Models\Page;
 use App\Models\User;
+use App\Support\ContentEditor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -24,8 +25,13 @@ class AnnouncementPublishingTest extends TestCase
         return User::factory()->create(['is_admin' => true]);
     }
 
-    private function payload(array $changes = []): array
+    private function payload(array $changes = [], ?Announcement $current = null): array
     {
+        $editor = new ContentEditor((string) $current?->body, true, $current ? hash('sha256', serialize($current->fresh()->getRawOriginal())) : null);
+        $schema = $editor->schema();
+        $content = json_encode(['version' => $schema['version'], 'fields' => array_map(fn (array $field): array => ['id' => $field['id'], 'value' => $field['value']], $schema['fields']), 'blocks' => $current ? $schema['blocks'] : [['type' => 'paragraph', 'text' => 'Maklumat terkini']]]);
+        $changes['content'] = $content;
+
         return array_merge(['title' => 'Berita baharu', 'category' => 'berita', 'body' => '<p>Maklumat terkini</p>', 'status' => 'published'], $changes);
     }
 
@@ -64,7 +70,7 @@ class AnnouncementPublishingTest extends TestCase
     public function test_clearing_a_future_date_publishes_now(): void
     {
         $item = Announcement::create($this->payload(['slug' => 'scheduled', 'published_at' => now()->addDay()]));
-        $this->actingAs($this->admin())->put(route('admin.announcements.update', $item), $this->payload(['published_at' => '']))->assertSessionHasNoErrors();
+        $this->actingAs($this->admin())->put(route('admin.announcements.update', $item), $this->payload(['published_at' => ''], $item))->assertSessionHasNoErrors();
         $this->assertSame('published', $item->fresh()->publicationState());
         $this->get('/hebahan/'.$item->fresh()->slug)->assertOk();
     }
