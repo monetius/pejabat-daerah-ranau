@@ -167,6 +167,88 @@
                         </div>
                     </a>
                 </div>
+                <div class="affiliated-links" data-affiliated-carousel role="region" aria-roledescription="carousel"
+                    aria-labelledby="affiliated-links-title">
+                    <div class="affiliated-head">
+                        <div>
+                            <h3 id="affiliated-links-title">Pautan Berkaitan</h3>
+                            <p id="affiliated-links-note">Pautan luar dibuka dalam tab baharu.</p>
+                        </div>
+                        <div class="affiliated-controls" hidden>
+                            <button class="affiliated-prev" type="button" aria-label="Pautan sebelumnya" aria-controls="affiliated-links-track">
+                                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                            </button>
+                            <button class="affiliated-pause" type="button" aria-label="Jeda putaran automatik" aria-controls="affiliated-links-track">
+                                <i class="fa-solid fa-pause" aria-hidden="true"></i>
+                            </button>
+                            <button class="affiliated-next" type="button" aria-label="Pautan seterusnya" aria-controls="affiliated-links-track">
+                                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <ul class="affiliated-grid" id="affiliated-links-track" tabindex="0" aria-label="Pautan agensi berkaitan">
+                        <li>
+                            <a class="affiliated-card" href="https://www.malaysia.gov.my/my" target="_blank"
+                                rel="noopener noreferrer" aria-describedby="affiliated-links-note">
+                                <span class="affiliated-icon"><img src="/assets/img/affiliates/mygovernment.png" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
+                                <div class="affiliated-body">
+                                    <h4>MyGovernment</h4>
+                                    <p>Portal Rasmi Kerajaan Malaysia</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="affiliated-card" href="https://www.sabah-net.com/" target="_blank"
+                                rel="noopener noreferrer" aria-describedby="affiliated-links-note">
+                                <span class="affiliated-icon"><img src="/assets/img/affiliates/sabah-net.png" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
+                                <div class="affiliated-body">
+                                    <h4>Sabah Net</h4>
+                                    <p>Sabah Net Sdn. Bhd.</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="affiliated-card" href="https://jtdi.sabah.gov.my/" target="_blank"
+                                rel="noopener noreferrer" aria-describedby="affiliated-links-note">
+                                <span class="affiliated-icon"><img src="/assets/img/affiliates/jtdi.webp" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
+                                <div class="affiliated-body">
+                                    <h4>JTDI Sabah</h4>
+                                    <p>Jabatan Teknologi Digital dan Inovasi Negeri Sabah</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="affiliated-card" href="https://jpan.sabah.gov.my/" target="_blank"
+                                rel="noopener noreferrer" aria-describedby="affiliated-links-note">
+                                <span class="affiliated-icon"><img src="/assets/img/affiliates/jpan.png" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
+                                <div class="affiliated-body">
+                                    <h4>JPAN Sabah</h4>
+                                    <p>Jabatan Perkhidmatan Awam Negeri Sabah</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="affiliated-card" href="https://www.jpa.gov.my/" target="_blank"
+                                rel="noopener noreferrer" aria-describedby="affiliated-links-note">
+                                <span class="affiliated-icon"><img src="/assets/img/affiliates/jpa.png" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
+                                <div class="affiliated-body">
+                                    <h4>JPA Malaysia</h4>
+                                    <p>Jabatan Perkhidmatan Awam Malaysia</p>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="affiliated-card" href="https://www.sprm.gov.my/" target="_blank"
+                                rel="noopener noreferrer" aria-describedby="affiliated-links-note">
+                                <span class="affiliated-icon"><img src="/assets/img/affiliates/sprm.png" alt="" width="48" height="48" loading="lazy" decoding="async"></span>
+                                <div class="affiliated-body">
+                                    <h4>SPRM</h4>
+                                    <p>Suruhanjaya Pencegahan Rasuah Malaysia</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
     </main>

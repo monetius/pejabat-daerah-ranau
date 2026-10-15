@@ -534,6 +534,189 @@ function initPdCarousel() {
   text();
 }
 
+function initAffiliatedCarousel() {
+  const root = document.querySelector('[data-affiliated-carousel]');
+  if (!root) return;
+  const track = root.querySelector('.affiliated-grid');
+  const controls = root.querySelector('.affiliated-controls');
+  const previous = root.querySelector('.affiliated-prev');
+  const next = root.querySelector('.affiliated-next');
+  const pause = root.querySelector('.affiliated-pause');
+  if (!track || !controls || !previous || !next || !pause) return;
+  const items = Array.from(track.children);
+  if (items.length < 2) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reduceMotion = () => reducedMotion.matches || document.documentElement.classList.contains('a11y-no-motion');
+  let autoplayEnabled = true;
+  let hovered = false;
+  let focused = false;
+  let touching = false;
+  let inView = false;
+  let drag = null;
+  let suppressClickUntil = 0;
+  let autoplayTimer;
+  let settleTimer;
+  let firstOffset = 0;
+  let cycleWidth = 0;
+  let step = 0;
+  let active = 0;
+
+  const cloneItem = (item) => {
+    const clone = item.cloneNode(true);
+    clone.dataset.carouselClone = '';
+    clone.setAttribute('aria-hidden', 'true');
+    clone.querySelectorAll('[id]').forEach((element) => element.removeAttribute('id'));
+    clone.querySelectorAll('a').forEach((link) => { link.tabIndex = -1; });
+    return clone;
+  };
+  const before = document.createDocumentFragment();
+  const after = document.createDocumentFragment();
+  items.forEach((item) => {
+    before.append(cloneItem(item));
+    after.append(cloneItem(item));
+  });
+  track.prepend(before);
+  track.append(after);
+
+  const wrap = (index) => (index % items.length + items.length) % items.length;
+  const nearest = () => Math.round((track.scrollLeft - firstOffset) / step);
+  const normalize = () => {
+    if (!step || drag?.active || touching) return;
+    const index = nearest();
+    if (Math.abs(track.scrollLeft - (firstOffset + index * step)) > 1.5) return;
+    active = wrap(index);
+    const offset = track.scrollLeft - firstOffset;
+    if (offset < -1 || offset >= cycleWidth - 1) {
+      track.scrollTo({ left: firstOffset + active * step, behavior: 'instant' });
+    }
+  };
+  const goTo = (index) => {
+    active = wrap(index);
+    track.scrollTo({ left: firstOffset + index * step, behavior: reduceMotion() ? 'instant' : 'smooth' });
+  };
+  const scheduleAutoplay = () => {
+    clearTimeout(autoplayTimer);
+    if (!autoplayEnabled || reduceMotion() || hovered || focused || touching || drag || !inView || document.hidden) return;
+    autoplayTimer = setTimeout(() => {
+      normalize();
+      goTo(nearest() + 1);
+      scheduleAutoplay();
+    }, 4000);
+  };
+  const renderPause = () => {
+    const limited = reduceMotion();
+    const label = limited ? 'Putaran automatik dimatikan untuk mengurangkan pergerakan'
+      : autoplayEnabled ? 'Jeda putaran automatik' : 'Mulakan putaran automatik';
+    pause.disabled = limited;
+    pause.setAttribute('aria-label', label);
+    pause.title = label;
+    pause.querySelector('i').className = `fa-solid ${autoplayEnabled && !limited ? 'fa-pause' : 'fa-play'}`;
+  };
+  const measure = () => {
+    clearTimeout(settleTimer);
+    firstOffset = items[0].offsetLeft - track.firstElementChild.offsetLeft;
+    cycleWidth = items[items.length - 1].nextElementSibling.offsetLeft - items[0].offsetLeft;
+    step = cycleWidth / items.length;
+    track.scrollTo({ left: firstOffset + active * step, behavior: 'instant' });
+  };
+  const shift = (direction) => {
+    normalize();
+    goTo(nearest() + direction);
+    scheduleAutoplay();
+  };
+
+  previous.disabled = false;
+  next.disabled = false;
+  controls.hidden = false;
+  previous.addEventListener('click', () => shift(-1));
+  next.addEventListener('click', () => shift(1));
+  pause.addEventListener('click', () => {
+    autoplayEnabled = !autoplayEnabled;
+    if (autoplayEnabled) focused = false;
+    renderPause();
+    scheduleAutoplay();
+  });
+  track.addEventListener('scroll', () => {
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(normalize, 180);
+  }, { passive: true });
+  track.addEventListener('scrollend', normalize);
+  track.addEventListener('keydown', (event) => {
+    if (event.target !== track || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    focused = true;
+    if (event.key === 'Home') goTo(0);
+    else if (event.key === 'End') goTo(items.length - 1);
+    else shift(event.key === 'ArrowLeft' ? -1 : 1);
+    scheduleAutoplay();
+  });
+  root.addEventListener('mouseenter', () => { hovered = true; scheduleAutoplay(); });
+  root.addEventListener('mouseleave', () => { hovered = false; scheduleAutoplay(); });
+  root.addEventListener('focusin', (event) => { focused = event.target.matches(':focus-visible'); scheduleAutoplay(); });
+  root.addEventListener('focusout', () => setTimeout(() => {
+    if (!root.contains(document.activeElement)) focused = false;
+    scheduleAutoplay();
+  }, 0));
+  track.addEventListener('touchstart', () => { touching = true; scheduleAutoplay(); }, { passive: true });
+  const finishTouch = () => { touching = false; scheduleAutoplay(); };
+  track.addEventListener('touchend', finishTouch, { passive: true });
+  track.addEventListener('touchcancel', finishTouch, { passive: true });
+
+  track.addEventListener('pointerdown', (event) => {
+    if (!event.isPrimary || event.pointerType !== 'mouse' || event.button !== 0) return;
+    drag = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, left: track.scrollLeft, active: false };
+    scheduleAutoplay();
+  });
+  track.addEventListener('pointermove', (event) => {
+    if (!drag || event.pointerId !== drag.pointerId) return;
+    const horizontal = event.clientX - drag.x;
+    const vertical = event.clientY - drag.y;
+    if (!drag.active) {
+      if (Math.max(Math.abs(horizontal), Math.abs(vertical)) < 8) return;
+      if (Math.abs(vertical) >= Math.abs(horizontal)) {
+        drag = null;
+        scheduleAutoplay();
+        return;
+      }
+      drag.active = true;
+      track.setPointerCapture(event.pointerId);
+      track.classList.add('is-dragging');
+    }
+    event.preventDefault();
+    track.scrollLeft = drag.left - horizontal;
+  });
+  const finishDrag = () => {
+    const moved = drag?.active;
+    drag = null;
+    track.classList.remove('is-dragging');
+    if (moved) {
+      suppressClickUntil = Date.now() + 300;
+      goTo(nearest());
+    }
+    scheduleAutoplay();
+  };
+  track.addEventListener('pointerup', finishDrag);
+  track.addEventListener('pointercancel', finishDrag);
+  track.addEventListener('lostpointercapture', finishDrag);
+  track.addEventListener('dragstart', (event) => event.preventDefault());
+  track.addEventListener('click', (event) => {
+    if (Date.now() >= suppressClickUntil) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+  window.addEventListener('resize', () => { measure(); scheduleAutoplay(); });
+  document.addEventListener('visibilitychange', scheduleAutoplay);
+  reducedMotion.addEventListener('change', () => { renderPause(); scheduleAutoplay(); });
+  new MutationObserver(() => { renderPause(); scheduleAutoplay(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  new IntersectionObserver((entries) => {
+    inView = entries[0].isIntersecting;
+    scheduleAutoplay();
+  }).observe(root);
+
+  measure();
+  renderPause();
+}
+
 function initCardBlur() {
   // A card fades and blurs as it enters/leaves at the bottom of the screen.
   // No effect at the top, so cards stay sharp when they scroll under the navbar.
@@ -619,5 +802,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initOfficeHours();
   initSmoothScroll();
   initPdCarousel();
+  initAffiliatedCarousel();
   initCardBlur();
 });
