@@ -49,10 +49,10 @@ class CmsLocalizationTest extends TestCase
             '/admin' => 'CONTENT MANAGEMENT',
             '/admin/pages' => 'New page',
             '/admin/pages/create' => 'Page hero',
-            '/admin/pages/'.$page->id.'/edit' => 'Existing content',
+            '/admin/pages/' . $page->id . '/edit' => 'Existing content',
             '/admin/announcements' => 'Announcements &amp; news',
             '/admin/announcements/create' => 'Author (optional)',
-            '/admin/announcements/'.$announcement->id.'/edit' => 'Publication date (Malaysia time, MYT)',
+            '/admin/announcements/' . $announcement->id . '/edit' => 'Publication date (Malaysia time, MYT)',
             '/admin/menu' => 'Navigation menu',
             '/admin/menu/create' => 'Parent menu',
             '/admin/parts' => 'Header &amp; footer',
@@ -67,7 +67,7 @@ class CmsLocalizationTest extends TestCase
     public function test_editor_controls_receive_english_translations_and_legacy_field_labels(): void
     {
         $page = Page::create(['title' => 'Halaman asal', 'slug' => 'asal', 'path' => 'halaman/asal', 'body' => '<h1>Tajuk asal</h1><p>Perenggan asal</p><a href="/">Kembali</a>']);
-        $response = $this->actingAs($this->admin())->withCookie('cms_locale', 'en')->get('/admin/pages/'.$page->id.'/edit')
+        $response = $this->actingAs($this->admin())->withCookie('cms_locale', 'en')->get('/admin/pages/' . $page->id . '/edit')
             ->assertOk()->assertSee('data-editor-translations', false)->assertSee('Hero style');
         preg_match('/<script type="application\/json" data-editor-translations>(.*?)<\/script>/s', $response->getContent(), $matches);
         $translations = json_decode($matches[1], true, 512, JSON_THROW_ON_ERROR);
@@ -82,9 +82,9 @@ class CmsLocalizationTest extends TestCase
     {
         $page = Page::create(['title' => 'Nama halaman', 'slug' => 'asal', 'path' => 'halaman/asal', 'status' => 'published', 'body' => '<h1>Nama halaman</h1><p>Teks perenggan</p>']);
         $this->actingAs($this->admin())->withCookie('cms_locale', 'en');
-        $schema = $this->get('/admin/pages/'.$page->id.'/edit')->viewData('editor');
-        $payload = ['version' => $schema['version'], 'fields' => array_map(fn (array $field): array => ['id' => $field['id'], 'value' => $field['value']], $schema['fields']), 'blocks' => $schema['blocks']];
-        $this->put('/admin/pages/'.$page->id, ['title' => $page->title, 'path' => $page->path, 'status' => 'published', 'content' => json_encode($payload)])
+        $schema = $this->get('/admin/pages/' . $page->id . '/edit')->viewData('editor');
+        $payload = ['version' => $schema['version'], 'fields' => array_map(fn(array $field): array => ['id' => $field['id'], 'value' => $field['value']], $schema['fields']), 'blocks' => $schema['blocks']];
+        $this->put('/admin/pages/' . $page->id, ['title' => $page->title, 'path' => $page->path, 'status' => 'published', 'content' => json_encode($payload)])
             ->assertSessionHasNoErrors()->assertSessionHas('status', 'Page updated.');
         $this->assertSame($page->body, $page->fresh()->body);
         $this->assertSame(0, $page->revisions()->count());

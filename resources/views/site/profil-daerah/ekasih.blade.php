@@ -28,48 +28,38 @@
     <section>
       <div class="container">
         <div class="section-head">
-          <h2>Maklumat eKasih Daerah Ranau 2023</h2>
+          <h2>Maklumat eKasih Daerah Ranau 2026</h2>
           <p>
-            Jumlah Ketua Isi Rumah (KIR) eKasih mengikut status bagi Daerah
-            Ranau, setakat Jun 2023.
+            Jumlah Ketua Isi Rumah (KIR) eKasih mengikut status bagi Daerah Ranau, setakat 30 September 2026.
           </p>
         </div>
 
-        <div class="ek-stats">
-          <div class="ek-stat ek-tegar">
-            <span class="ek-stat-icon"><i class="fa-solid fa-triangle-exclamation"></i></span>
-            <p class="ek-stat-label">Miskin Tegar</p>
-            <p class="ek-stat-num">1,345</p>
-            <p class="ek-stat-pct">29.8% daripada jumlah KIR</p>
-          </div>
+        <div class="ek-stats ek-stats-current">
           <div class="ek-stat ek-miskin">
-            <span class="ek-stat-icon"><i class="fa-solid fa-house-chimney-crack"></i></span>
+            <span class="ek-stat-icon"><i class="fa-solid fa-house-chimney-crack" aria-hidden="true"></i></span>
             <p class="ek-stat-label">Miskin</p>
-            <p class="ek-stat-num">2,101</p>
-            <p class="ek-stat-pct">46.6% daripada jumlah KIR</p>
+            <p class="ek-stat-num">2,928</p>
+            <p class="ek-stat-pct">51.7% daripada jumlah KIR</p>
           </div>
           <div class="ek-stat ek-keluar">
-            <span class="ek-stat-icon"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>
+            <span class="ek-stat-icon"><i class="fa-solid fa-arrow-right-from-bracket" aria-hidden="true"></i></span>
             <p class="ek-stat-label">Terkeluar</p>
-            <p class="ek-stat-num">1,067</p>
-            <p class="ek-stat-pct">23.6% daripada jumlah KIR</p>
+            <p class="ek-stat-num">2,739</p>
+            <p class="ek-stat-pct">48.3% daripada jumlah KIR</p>
           </div>
           <div class="ek-stat ek-all">
-            <span class="ek-stat-icon"><i class="fa-solid fa-users"></i></span>
+            <span class="ek-stat-icon"><i class="fa-solid fa-users" aria-hidden="true"></i></span>
             <p class="ek-stat-label">Jumlah keseluruhan</p>
-            <p class="ek-stat-num">4,513</p>
-            <p class="ek-stat-pct">KIR eKasih setakat Jun 2023</p>
+            <p class="ek-stat-num">5,667</p>
+            <p class="ek-stat-pct">KIR eKasih setakat 30 September 2026</p>
           </div>
         </div>
-
-        <div class="ek-bar-wrap" role="img" aria-label="Pecahan KIR eKasih mengikut status">
+        <div class="ek-bar-wrap" role="img" aria-label="Pecahan KIR eKasih setakat 30 September 2026: Miskin 2,928 (51.7%); Terkeluar 2,739 (48.3%).">
           <div class="ek-bar">
-            <span class="ek-seg ek-tegar" style="width: 29.8%" title="Miskin Tegar: 1,345"></span><span
-              class="ek-seg ek-miskin" style="width: 46.55%" title="Miskin: 2,101"></span><span class="ek-seg ek-keluar"
-              style="width: 23.64%" title="Terkeluar: 1,067"></span>
+            <span class="ek-seg ek-miskin" style="width: 51.7%" title="Miskin: 2,928 (51.7%)"></span>
+            <span class="ek-seg ek-keluar" style="width: 48.3%" title="Terkeluar: 2,739 (48.3%)"></span>
           </div>
           <ul class="ek-legend">
-            <li><span class="ek-dot ek-tegar"></span>Miskin Tegar</li>
             <li><span class="ek-dot ek-miskin"></span>Miskin</li>
             <li><span class="ek-dot ek-keluar"></span>Terkeluar</li>
           </ul>
@@ -77,13 +67,52 @@
       </div>
     </section>
 
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>Rujukan rasmi ICU JPM: 15 Januari 2026</h2>
+          <p>Statistik status kemiskinan nasional dan negeri Sabah setakat 15 Januari 2026 (dinamik), berdasarkan laporan ICU JPM.</p>
+        </div>
+        <div class="ek-table-wrap">
+          <table class="ek-table ek-dun ek-icu-reference">
+            <caption class="sr-only">KIR miskin dan miskin tegar bagi Malaysia dan Sabah setakat 15 Januari 2026</caption>
+            <thead>
+              <tr>
+                <th scope="col">Kawasan</th>
+                <th scope="col">Miskin (KIR)</th>
+                <th scope="col">Miskin tegar (KIR)</th>
+                <th scope="col">Jumlah (KIR)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Malaysia (nasional)</th>
+                <td>374,292</td>
+                <td>50,178</td>
+                <td class="ek-total">424,470</td>
+              </tr>
+              <tr>
+                <th scope="row">Sabah (negeri)</th>
+                <td>67,133</td>
+                <td>10,854</td>
+                <td class="ek-total">77,987</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ek-source">
+          Jumlah dalam laporan ini ialah gabungan KIR miskin dan miskin tegar. Angka ini mempunyai skop dan tarikh berbeza daripada statistik Daerah Ranau di atas.
+          <a href="https://www.icu.gov.my/pdf/stat_ekasih/MAP_Laporan_Statistik_Kemiskinan_Nasional_15012026..pdf">Lihat laporan rasmi ICU JPM Januari 2026 (PDF)</a>.
+        </p>
+      </div>
+    </section>
+
     <section class="section-tint">
       <div class="container">
         <div class="section-head">
-          <h2>Status eKasih mengikut DUN</h2>
+          <h2>Rekod eKasih mengikut DUN: Jun 2023</h2>
           <p>
-            Taburan status eKasih bagi setiap Dewan Undangan Negeri (DUN) di
-            Daerah Ranau, setakat Jun 2023.
+            Taburan KIR mengikut Dewan Undangan Negeri (DUN) bagi rekod Jun 2023. Jadual sejarah ini berasingan daripada ringkasan daerah setakat 30 September 2026.
           </p>
         </div>
         <div class="ek-table-wrap">
@@ -139,18 +168,41 @@
             PGK ialah paras pendapatan yang digunakan untuk menentukan status
             kemiskinan sesebuah isi rumah. Isi rumah dengan pendapatan di
             bawah PGK keseluruhan dikategorikan sebagai miskin, manakala di
-            bawah PGK makanan dikategorikan sebagai miskin tegar. Jadual di
-            bawah menunjukkan PGK mengikut negeri dan strata bagi tahun 2019.
+            bawah PGK makanan dikategorikan sebagai miskin tegar. Laporan ICU JPM setakat 15 Januari 2026 memaparkan rujukan PGK Malaysia di bawah. Nilai PGK isi rumah adalah dalam RM sebulan.
           </p>
         </div>
 
-        <h3 class="ek-subhead">PGK mengikut negeri dan strata, 2019</h3>
+        <h3 class="ek-subhead">PGK Malaysia: rujukan laporan 15 Januari 2026</h3>
+        <div class="ek-table-wrap">
+          <table class="ek-table ek-national-pgk">
+            <caption class="sr-only">PGK Malaysia dalam laporan ICU JPM setakat 15 Januari 2026, dalam RM sebulan</caption>
+            <thead>
+              <tr>
+                <th scope="col">Kategori</th>
+                <th scope="col">PGK Malaysia (RM sebulan)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Miskin (PGK keseluruhan)</th>
+                <td>2,705</td>
+              </tr>
+              <tr>
+                <th scope="row">Miskin tegar (PGK makanan)</th>
+                <td>1,236</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ek-source">
+          Rujukan nasional: <a href="https://www.icu.gov.my/pdf/stat_ekasih/MAP_Laporan_Statistik_Kemiskinan_Nasional_15012026..pdf">Laporan ICU JPM Januari 2026 (PDF)</a>.
+          Jadual terperinci mengikut negeri dan strata di bawah ialah rujukan tahun 2022 daripada dokumen KKDW.
+        </p>
+
+        <h3 class="ek-subhead">PGK isi rumah mengikut negeri dan strata, 2022</h3>
         <div class="ek-table-wrap">
           <table class="ek-table ek-pgk">
-            <caption class="sr-only">
-              Pendapatan Garis Kemiskinan (PGK) mengikut negeri dan strata,
-              2019
-            </caption>
+            <caption class="sr-only">Pendapatan Garis Kemiskinan (PGK) isi rumah mengikut negeri dan strata, 2022 (RM sebulan bagi isi rumah)</caption>
             <thead>
               <tr>
                 <th rowspan="2" scope="col">Negeri</th>
@@ -173,170 +225,167 @@
             <tbody>
               <tr class="is-my">
                 <th scope="row">Malaysia</th>
-                <td>2,210</td>
-                <td>2,199</td>
-                <td>2,208</td>
-                <td>1,176</td>
-                <td>1,142</td>
-                <td>1,169</td>
+                <td>2,660</td>
+                <td>2,342</td>
+                <td>2,589</td>
+                <td>1,197</td>
+                <td>1,199</td>
+                <td>1,198</td>
               </tr>
               <tr>
                 <th scope="row">Johor</th>
-                <td>2,517</td>
-                <td>2,455</td>
-                <td>2,505</td>
-                <td>1,267</td>
-                <td>1,257</td>
-                <td>1,165</td>
+                <td>2,665</td>
+                <td>2,481</td>
+                <td>2,627</td>
+                <td>1,143</td>
+                <td>1,232</td>
+                <td>1,161</td>
               </tr>
               <tr>
                 <th scope="row">Kedah</th>
-                <td>2,267</td>
-                <td>2,218</td>
-                <td>2,254</td>
-                <td>1,219</td>
-                <td>1,201</td>
-                <td>1,214</td>
+                <td>2,303</td>
+                <td>2,206</td>
+                <td>2,271</td>
+                <td>1,109</td>
+                <td>1,253</td>
+                <td>1,156</td>
               </tr>
               <tr>
                 <th scope="row">Kelantan</th>
-                <td>2,158</td>
-                <td>2,119</td>
-                <td>2,139</td>
-                <td>1,184</td>
-                <td>1,177</td>
-                <td>1,181</td>
+                <td>2,415</td>
+                <td>2,199</td>
+                <td>2,297</td>
+                <td>1,193</td>
+                <td>1,199</td>
+                <td>1,196</td>
               </tr>
               <tr>
                 <th scope="row">Melaka</th>
-                <td>2,387</td>
-                <td>2,140</td>
-                <td>2,375</td>
-                <td>1,289</td>
-                <td>1,070</td>
-                <td>1,279</td>
+                <td>2,721</td>
+                <td>2,122</td>
+                <td>2,670</td>
+                <td>1,251</td>
+                <td>1,171</td>
+                <td>1,244</td>
               </tr>
               <tr>
                 <th scope="row">Negeri Sembilan</th>
-                <td>3,138</td>
-                <td>1,930</td>
-                <td>2,088</td>
-                <td>1,241</td>
-                <td>1,136</td>
-                <td>1,216</td>
+                <td>2,617</td>
+                <td>1,876</td>
+                <td>2,402</td>
+                <td>1,240</td>
+                <td>1,006</td>
+                <td>1,173</td>
               </tr>
               <tr>
                 <th scope="row">Pahang</th>
-                <td>2,344</td>
-                <td>2,146</td>
-                <td>2,270</td>
-                <td>1,265</td>
-                <td>1,093</td>
-                <td>1,201</td>
+                <td>2,675</td>
+                <td>2,235</td>
+                <td>2,480</td>
+                <td>1,250</td>
+                <td>1,145</td>
+                <td>1,204</td>
               </tr>
               <tr>
                 <th scope="row">Pulau Pinang</th>
-                <td>1,974</td>
-                <td>2,379</td>
-                <td>1,989</td>
-                <td>993</td>
-                <td>1,281</td>
-                <td>1,004</td>
+                <td>2,258</td>
+                <td>2,136</td>
+                <td>2,250</td>
+                <td>1,022</td>
+                <td>1,214</td>
+                <td>1,036</td>
               </tr>
               <tr>
                 <th scope="row">Perak</th>
-                <td>2,089</td>
-                <td>2,025</td>
-                <td>2,077</td>
-                <td>1,118</td>
-                <td>1,035</td>
-                <td>1,102</td>
+                <td>2,332</td>
+                <td>2,199</td>
+                <td>2,297</td>
+                <td>1,066</td>
+                <td>1,136</td>
+                <td>1,084</td>
               </tr>
               <tr>
                 <th scope="row">Perlis</th>
-                <td>2,012</td>
-                <td>1,871</td>
-                <td>1,967</td>
-                <td>1,176</td>
-                <td>1,042</td>
-                <td>1,133</td>
+                <td>2,199</td>
+                <td>2,069</td>
+                <td>2,140</td>
+                <td>1,145</td>
+                <td>1,132</td>
+                <td>1,139</td>
               </tr>
               <tr>
                 <th scope="row">Selangor</th>
-                <td>2,029</td>
-                <td>1,901</td>
-                <td>2,022</td>
-                <td>1,171</td>
-                <td>1,074</td>
-                <td>1,166</td>
+                <td>2,848</td>
+                <td>2,421</td>
+                <td>2,830</td>
+                <td>1,274</td>
+                <td>1,262</td>
+                <td>1,274</td>
               </tr>
               <tr>
                 <th scope="row">Terengganu</th>
-                <td>2,520</td>
-                <td>2,477</td>
-                <td>2,507</td>
-                <td>1,312</td>
-                <td>1,311</td>
-                <td>1,312</td>
+                <td>2,799</td>
+                <td>2,662</td>
+                <td>2,751</td>
+                <td>1,352</td>
+                <td>1,394</td>
+                <td>1,367</td>
               </tr>
               <tr class="is-sabah">
                 <th scope="row">Sabah</th>
-                <td>2,506</td>
-                <td>2,589</td>
-                <td>2,537</td>
-                <td>1,160</td>
-                <td>1,209</td>
-                <td>1,179</td>
+                <td>2,706</td>
+                <td>2,795</td>
+                <td>2,742</td>
+                <td>1,180</td>
+                <td>1,275</td>
+                <td>1,218</td>
               </tr>
               <tr>
                 <th scope="row">Sarawak</th>
-                <td>2,243</td>
-                <td>1,979</td>
-                <td>2,131</td>
-                <td>1,160</td>
-                <td>1,009</td>
-                <td>1,096</td>
+                <td>2,860</td>
+                <td>2,263</td>
+                <td>2,618</td>
+                <td>1,420</td>
+                <td>1,119</td>
+                <td>1,298</td>
               </tr>
               <tr>
                 <th scope="row">W.P. Kuala Lumpur</th>
-                <td>2,216</td>
-                <td>–</td>
-                <td>2,216</td>
-                <td>1,110</td>
-                <td>–</td>
-                <td>1,110</td>
+                <td>2,816</td>
+                <td>&ndash;</td>
+                <td>2,816</td>
+                <td>1,109</td>
+                <td>&ndash;</td>
+                <td>1,109</td>
               </tr>
               <tr>
                 <th scope="row">W.P. Labuan</th>
-                <td>2,627</td>
-                <td>2,684</td>
-                <td>2,633</td>
-                <td>1,318</td>
-                <td>1,328</td>
-                <td>1,319</td>
+                <td>2,606</td>
+                <td>2,196</td>
+                <td>2,576</td>
+                <td>1,265</td>
+                <td>1,301</td>
+                <td>1,268</td>
               </tr>
               <tr>
                 <th scope="row">W.P. Putrajaya</th>
-                <td>2,128</td>
-                <td>–</td>
-                <td>2,128</td>
-                <td>1,074</td>
-                <td>–</td>
-                <td>1,074</td>
+                <td>2,450</td>
+                <td>&ndash;</td>
+                <td>2,450</td>
+                <td>1,206</td>
+                <td>&ndash;</td>
+                <td>1,206</td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <h3 class="ek-subhead">
-          PGK per kapita mengikut negeri dan strata, 2019
+          PGK per kapita mengikut negeri dan strata, 2022
         </h3>
         <div class="ek-table-wrap">
           <table class="ek-table ek-pgk">
-            <caption class="sr-only">
-              Pendapatan Garis Kemiskinan (PGK) per kapita mengikut negeri dan
-              strata, 2019
-            </caption>
+            <caption class="sr-only">Pendapatan Garis Kemiskinan (PGK) per kapita mengikut negeri dan strata, 2022 (RM seorang sebulan)</caption>
             <thead>
               <tr>
                 <th rowspan="2" scope="col">Negeri</th>
@@ -359,164 +408,165 @@
             <tbody>
               <tr class="is-my">
                 <th scope="row">Malaysia</th>
-                <td>601</td>
-                <td>567</td>
-                <td>594</td>
-                <td>315</td>
-                <td>290</td>
-                <td>310</td>
+                <td>747</td>
+                <td>602</td>
+                <td>715</td>
+                <td>328</td>
+                <td>303</td>
+                <td>322</td>
               </tr>
               <tr>
                 <th scope="row">Johor</th>
-                <td>701</td>
-                <td>658</td>
-                <td>692</td>
-                <td>347</td>
-                <td>331</td>
-                <td>344</td>
+                <td>758</td>
+                <td>652</td>
+                <td>735</td>
+                <td>317</td>
+                <td>318</td>
+                <td>317</td>
               </tr>
               <tr>
                 <th scope="row">Kedah</th>
-                <td>619</td>
-                <td>583</td>
-                <td>609</td>
-                <td>327</td>
-                <td>311</td>
-                <td>323</td>
+                <td>649</td>
+                <td>587</td>
+                <td>629</td>
+                <td>307</td>
+                <td>330</td>
+                <td>315</td>
               </tr>
               <tr>
                 <th scope="row">Kelantan</th>
-                <td>523</td>
-                <td>497</td>
-                <td>510</td>
-                <td>282</td>
-                <td>272</td>
-                <td>277</td>
+                <td>606</td>
+                <td>532</td>
+                <td>566</td>
+                <td>292</td>
+                <td>287</td>
+                <td>289</td>
               </tr>
               <tr>
                 <th scope="row">Melaka</th>
-                <td>634</td>
-                <td>568</td>
-                <td>631</td>
-                <td>337</td>
-                <td>280</td>
-                <td>334</td>
+                <td>728</td>
+                <td>560</td>
+                <td>713</td>
+                <td>326</td>
+                <td>306</td>
+                <td>325</td>
               </tr>
               <tr>
                 <th scope="row">Negeri Sembilan</th>
-                <td>596</td>
-                <td>567</td>
-                <td>589</td>
-                <td>341</td>
+                <td>739</td>
+                <td>564</td>
+                <td>689</td>
+                <td>340</td>
+                <td>297</td>
                 <td>328</td>
-                <td>338</td>
               </tr>
               <tr>
                 <th scope="row">Pahang</th>
-                <td>653</td>
-                <td>590</td>
-                <td>630</td>
-                <td>348</td>
-                <td>296</td>
-                <td>328</td>
+                <td>750</td>
+                <td>628</td>
+                <td>696</td>
+                <td>341</td>
+                <td>316</td>
+                <td>330</td>
               </tr>
               <tr>
                 <th scope="row">Pulau Pinang</th>
-                <td>581</td>
-                <td>583</td>
-                <td>581</td>
-                <td>289</td>
-                <td>311</td>
-                <td>289</td>
+                <td>719</td>
+                <td>564</td>
+                <td>708</td>
+                <td>315</td>
+                <td>314</td>
+                <td>315</td>
               </tr>
               <tr>
                 <th scope="row">Perak</th>
-                <td>523</td>
-                <td>569</td>
-                <td>612</td>
-                <td>328</td>
-                <td>287</td>
-                <td>320</td>
+                <td>708</td>
+                <td>623</td>
+                <td>686</td>
+                <td>312</td>
+                <td>312</td>
+                <td>312</td>
               </tr>
               <tr>
                 <th scope="row">Perlis</th>
-                <td>549</td>
-                <td>493</td>
-                <td>531</td>
-                <td>317</td>
-                <td>271</td>
-                <td>302</td>
+                <td>593</td>
+                <td>569</td>
+                <td>582</td>
+                <td>299</td>
+                <td>301</td>
+                <td>300</td>
               </tr>
               <tr>
                 <th scope="row">Selangor</th>
-                <td>534</td>
-                <td>501</td>
-                <td>532</td>
-                <td>305</td>
-                <td>280</td>
-                <td>303</td>
+                <td>775</td>
+                <td>592</td>
+                <td>768</td>
+                <td>345</td>
+                <td>312</td>
+                <td>343</td>
               </tr>
               <tr>
                 <th scope="row">Terengganu</th>
-                <td>555</td>
-                <td>546</td>
-                <td>552</td>
-                <td>286</td>
-                <td>287</td>
-                <td>286</td>
+                <td>631</td>
+                <td>580</td>
+                <td>613</td>
+                <td>299</td>
+                <td>301</td>
+                <td>300</td>
               </tr>
               <tr class="is-sabah">
                 <th scope="row">Sabah</th>
-                <td>599</td>
-                <td>576</td>
-                <td>590</td>
-                <td>274</td>
-                <td>265</td>
-                <td>271</td>
+                <td>694</td>
+                <td>636</td>
+                <td>671</td>
+                <td>291</td>
+                <td>284</td>
+                <td>288</td>
               </tr>
               <tr>
                 <th scope="row">Sarawak</th>
-                <td>579</td>
-                <td>552</td>
-                <td>568</td>
-                <td>294</td>
-                <td>276</td>
-                <td>286</td>
+                <td>751</td>
+                <td>599</td>
+                <td>689</td>
+                <td>359</td>
+                <td>287</td>
+                <td>330</td>
               </tr>
               <tr>
                 <th scope="row">W.P. Kuala Lumpur</th>
-                <td>685</td>
-                <td>–</td>
-                <td>685</td>
-                <td>339</td>
-                <td>–</td>
-                <td>339</td>
+                <td>900</td>
+                <td>&ndash;</td>
+                <td>900</td>
+                <td>347</td>
+                <td>&ndash;</td>
+                <td>347</td>
               </tr>
               <tr>
                 <th scope="row">W.P. Labuan</th>
-                <td>630</td>
-                <td>642</td>
-                <td>632</td>
-                <td>313</td>
-                <td>313</td>
-                <td>313</td>
+                <td>684</td>
+                <td>527</td>
+                <td>672</td>
+                <td>320</td>
+                <td>305</td>
+                <td>318</td>
               </tr>
               <tr>
                 <th scope="row">W.P. Putrajaya</th>
-                <td>583</td>
-                <td>–</td>
-                <td>593</td>
-                <td>291</td>
-                <td>–</td>
-                <td>291</td>
+                <td>664</td>
+                <td>&ndash;</td>
+                <td>664</td>
+                <td>318</td>
+                <td>&ndash;</td>
+                <td>318</td>
               </tr>
             </tbody>
           </table>
         </div>
 
         <p class="ek-source">
-          Sumber: Unit Perancang Ekonomi (EPU), 2019 &middot; eKasih, setakat
-          Jun 2023
+          Sumber jadual terperinci PGK 2022: Portal Pembasmian Kemiskinan (eKasih), seperti diterbitkan oleh Kementerian Kemajuan Desa dan Wilayah (KKDW).
+          <a href="https://www.rurallink.gov.my/wp-content/uploads/2025/06/PGK.pdf">Lihat dokumen PGK 2022 (PDF)</a>.
+          Statistik Daerah Ranau merujuk 30 September 2026; statistik nasional dan Sabah daripada ICU JPM merujuk 15 Januari 2026; rekod DUN merujuk Jun 2023.
         </p>
       </div>
     </section>
