@@ -19,6 +19,8 @@ class ContentEditor
 
     private ?Element $blockContainer = null;
 
+    private ?Element $heroBlock = null;
+
     /** @var array<string, array{node: Node, attribute: ?string, type: string, label: string, group: string, value: string}> */
     private array $fields = [];
 
@@ -29,10 +31,14 @@ class ContentEditor
 
     public function __construct(private string $html, private bool $allowBlocks = true, private ?string $version = null)
     {
+        $this->group = __('Maklumat umum');
         $this->version ??= hash('sha256', $html);
         $this->document = HTMLDocument::createFromString('<!doctype html><html><head><meta charset="UTF-8"></head><body><div id="cms-editor-root">'.$html.'</div></body></html>', LIBXML_NOERROR, 'UTF-8');
         $this->root = $this->document->getElementById('cms-editor-root');
         $this->walk($this->root);
+        if ($this->heroBlock !== null) {
+            array_unshift($this->blocks, $this->readBlock($this->heroBlock));
+        }
     }
 
     /** @return array{version: string, fields: list<array<string, string>>, blocks: list<array<string, string>>, allowBlocks: bool} */
@@ -64,13 +70,21 @@ class ContentEditor
             'fields.*.id' => ['required', 'string', 'distinct'],
             'fields.*.value' => ['present', 'nullable', 'string', 'max:50000'],
             'blocks' => ['present', 'array', $this->allowBlocks ? 'max:100' : 'max:0'],
-            'blocks.*' => ['array:type,text,level,url,alt,caption'],
-            'blocks.*.type' => ['required', Rule::in(['heading', 'paragraph', 'list', 'image', 'link', 'download'])],
+            'blocks.*' => ['array:type,text,level,url,alt,caption,variant,eyebrow,description,alignment,size,image_fit,button_text,button_url'],
+            'blocks.*.type' => ['required', Rule::in(['hero', 'heading', 'paragraph', 'list', 'image', 'link', 'download'])],
             'blocks.*.text' => ['nullable', 'string', 'max:50000'],
             'blocks.*.level' => ['nullable', Rule::in(['h1', 'h2', 'h3'])],
             'blocks.*.url' => ['nullable', 'string', 'max:2000'],
             'blocks.*.alt' => ['nullable', 'string', 'max:500'],
             'blocks.*.caption' => ['nullable', 'string', 'max:1000'],
+            'blocks.*.variant' => ['nullable', Rule::in(['plain', 'image'])],
+            'blocks.*.eyebrow' => ['nullable', 'string', 'max:120'],
+            'blocks.*.description' => ['nullable', 'string', 'max:2000'],
+            'blocks.*.alignment' => ['nullable', Rule::in(['left', 'center'])],
+            'blocks.*.size' => ['nullable', Rule::in(['compact', 'large'])],
+            'blocks.*.image_fit' => ['nullable', Rule::in(['cover', 'contain'])],
+            'blocks.*.button_text' => ['nullable', 'string', 'max:80'],
+            'blocks.*.button_url' => ['nullable', 'string', 'max:2000'],
         ])->validate();
 
         if (count($data['fields']) !== count($this->fields)) {
@@ -108,14 +122,30 @@ class ContentEditor
         }
         if ($blocks !== $this->blocks) {
             $changed = true;
-            if ($this->blockContainer === null && $blocks !== []) {
+            $hero = array_find($blocks, fn (array $block): bool => $block['type'] === 'hero');
+            $contentBlocks = array_values(array_filter($blocks, fn (array $block): bool => $block['type'] !== 'hero'));
+            if ($hero === null && $this->heroBlock !== null) {
+                $this->heroBlock->remove();
+                $this->heroBlock = null;
+            } elseif ($hero !== null) {
+                $wrapper = $this->document->createElement('div');
+                $wrapper->innerHTML = $this->renderHero($hero);
+                $newHero = $wrapper->firstElementChild;
+                if ($this->heroBlock !== null) {
+                    $this->root->replaceChild($newHero, $this->heroBlock);
+                } else {
+                    $this->root->insertBefore($newHero, $this->root->firstChild);
+                }
+                $this->heroBlock = $newHero;
+            }
+            if ($this->blockContainer === null && $contentBlocks !== []) {
                 $this->blockContainer = $this->document->createElement('section');
                 $this->blockContainer->setAttribute('class', 'cms-blocks');
                 $this->blockContainer->setAttribute('data-cms-blocks', '');
                 $this->root->appendChild($this->blockContainer);
             }
             if ($this->blockContainer !== null) {
-                $this->blockContainer->innerHTML = $this->renderBlocks($blocks);
+                $this->blockContainer->innerHTML = $this->renderBlocks($contentBlocks);
             }
         }
 
@@ -139,6 +169,11 @@ class ContentEditor
 
                 return;
             }
+            if ($this->allowBlocks && $node->getAttribute('data-cms-type') === 'hero') {
+                $this->heroBlock = $node;
+
+                return;
+            }
             if (in_array($tag, ['h1', 'h2', 'h3'], true) && trim($node->textContent) !== '') {
                 $this->group = mb_substr(trim($node->textContent), 0, 100);
             }
@@ -146,7 +181,7 @@ class ContentEditor
                 $this->addField($node, 'src', 'image', 'Gambar');
                 $this->addField($node, 'alt', 'text', 'Penerangan gambar');
             } elseif ($tag === 'a' && $node->hasAttribute('href') && ! preg_match('/^\s*(javascript|data|vbscript):/i', (string) $node->getAttribute('href'))) {
-                $this->addField($node, 'href', 'url', 'Destinasi pautan: '.mb_substr(trim($node->textContent), 0, 60));
+                $this->addField($node, 'href', 'url', __('Destinasi pautan: :text', ['text' => mb_substr(trim($node->textContent), 0, 60)]));
             }
         } elseif ($node instanceof Text && trim($node->textContent) !== '') {
             if (preg_match('/^\[\[[^\]]+\]\]$/', trim($node->textContent))) {
@@ -174,7 +209,7 @@ class ContentEditor
         $id = 'f'.count($this->fields);
         $this->fields[$id] = [
             'node' => $node, 'attribute' => $attribute, 'type' => $type,
-            'label' => $label, 'group' => $this->group,
+            'label' => __($label), 'group' => $this->group,
             'value' => $attribute !== null ? (string) $node->getAttribute($attribute) : trim($node->textContent),
         ];
     }
@@ -184,7 +219,23 @@ class ContentEditor
     {
         $type = $block->getAttribute('data-cms-type');
         $result = ['type' => $type];
-        if ($type === 'image') {
+        if ($type === 'hero') {
+            $description = $block->querySelector('.cms-hero-description');
+            $button = $block->querySelector('.cms-hero-button');
+            $result += [
+                'variant' => $block->getAttribute('data-hero-variant') ?: 'plain',
+                'text' => $block->querySelector('.cms-hero-title')?->textContent ?? '',
+                'eyebrow' => $block->querySelector('.cms-hero-eyebrow')?->textContent ?? '',
+                'description' => $description !== null ? $this->plainText($description) : '',
+                'url' => $block->getAttribute('data-hero-image') ?? '',
+                'alt' => $block->getAttribute('data-hero-alt') ?? '',
+                'alignment' => $block->getAttribute('data-hero-alignment') ?: 'left',
+                'size' => $block->getAttribute('data-hero-size') ?: 'large',
+                'image_fit' => $block->getAttribute('data-hero-fit') ?: 'cover',
+                'button_text' => $button?->textContent ?? '',
+                'button_url' => $button?->getAttribute('href') ?? '',
+            ];
+        } elseif ($type === 'image') {
             $image = $block->querySelector('img');
             $result += ['url' => $image?->getAttribute('src') ?? '', 'alt' => $image?->getAttribute('alt') ?? '', 'caption' => $block->querySelector('figcaption')?->textContent ?? ''];
         } elseif (in_array($type, ['link', 'download'], true)) {
@@ -218,11 +269,20 @@ class ContentEditor
     private function normalizeBlocks(array $blocks): array
     {
         $result = [];
+        $hero = null;
         foreach ($blocks as $index => $block) {
             $type = $block['type'];
+            if ($type === 'hero') {
+                if ($hero !== null) {
+                    $this->invalid('Gunakan satu Hero sahaja bagi setiap halaman.');
+                }
+                $hero = $this->normalizeHero($block);
+
+                continue;
+            }
             $text = str_replace("\r\n", "\n", trim((string) ($block['text'] ?? '')));
             if ($type !== 'image' && $text === '') {
-                $this->invalid('Sila isi teks bagi blok '.($index + 1).'.');
+                $this->invalid(__('Sila isi teks bagi blok :number.', ['number' => $index + 1]));
             }
             $result[] = match ($type) {
                 'heading' => ['type' => $type, 'text' => $text, 'level' => in_array($block['level'] ?? '', ['h1', 'h2', 'h3'], true) ? $block['level'] : 'h2'],
@@ -231,8 +291,84 @@ class ContentEditor
                 default => ['type' => $type, 'text' => $text, 'url' => $this->safeUrl((string) ($block['url'] ?? ''))],
             };
         }
+        if ($hero !== null) {
+            array_unshift($result, $hero);
+        }
 
         return $result;
+    }
+
+    /** @param array<string, mixed> $block
+     * @return array<string, string>
+     */
+    private function normalizeHero(array $block): array
+    {
+        $hero = [
+            'type' => 'hero',
+            'variant' => in_array($block['variant'] ?? '', ['plain', 'image'], true) ? $block['variant'] : 'plain',
+            'text' => trim((string) ($block['text'] ?? '')),
+            'eyebrow' => trim((string) ($block['eyebrow'] ?? '')),
+            'description' => str_replace("\r\n", "\n", trim((string) ($block['description'] ?? ''))),
+            'url' => trim((string) ($block['url'] ?? '')),
+            'alt' => trim((string) ($block['alt'] ?? '')),
+            'alignment' => in_array($block['alignment'] ?? '', ['left', 'center'], true) ? $block['alignment'] : 'left',
+            'size' => in_array($block['size'] ?? '', ['compact', 'large'], true) ? $block['size'] : 'large',
+            'image_fit' => in_array($block['image_fit'] ?? '', ['cover', 'contain'], true) ? $block['image_fit'] : 'cover',
+            'button_text' => trim((string) ($block['button_text'] ?? '')),
+            'button_url' => trim((string) ($block['button_url'] ?? '')),
+        ];
+        if (mb_strlen($hero['text']) > 220) {
+            $this->invalid('Tajuk Hero mestilah tidak melebihi 220 aksara.');
+        }
+        if ($hero['url'] !== '') {
+            $hero['url'] = $this->safeUrl($hero['url'], true);
+        }
+        if ($hero['variant'] === 'image' && $hero['url'] === '') {
+            $this->invalid('Pilih gambar untuk Hero atau gunakan gaya tanpa gambar.');
+        }
+        if (($hero['button_text'] === '') !== ($hero['button_url'] === '')) {
+            $this->invalid('Isi teks dan alamat pautan butang Hero, atau kosongkan kedua-duanya.');
+        }
+        if ($hero['button_url'] !== '') {
+            $hero['button_url'] = $this->safeUrl($hero['button_url']);
+        }
+        if ($hero['variant'] === 'plain' && ($hero['text'].$hero['eyebrow'].$hero['description'].$hero['button_text']) === '') {
+            $this->invalid('Isi tajuk atau teks untuk Hero tanpa gambar.');
+        }
+
+        return $hero;
+    }
+
+    /** @param array<string, string> $hero */
+    private function renderHero(array $hero): string
+    {
+        $hasText = ($hero['text'].$hero['eyebrow'].$hero['description'].$hero['button_text']) !== '';
+        $classes = 'cms-hero cms-hero--'.$hero['variant'].' cms-hero--'.$hero['alignment'].' cms-hero--'.$hero['size'].' cms-hero--fit-'.$hero['image_fit'];
+        if (! $hasText) {
+            $classes .= ' cms-hero--image-only';
+        }
+        $html = '<section class="'.$classes.'" data-cms-type="hero" data-hero-variant="'.$hero['variant'].'" data-hero-alignment="'.$hero['alignment'].'" data-hero-size="'.$hero['size'].'" data-hero-fit="'.$hero['image_fit'].'" data-hero-image="'.e($hero['url']).'" data-hero-alt="'.e($hero['alt']).'">';
+        if ($hero['variant'] === 'image') {
+            $html .= '<img class="cms-hero-media" src="'.e($hero['url']).'" alt="'.e($hero['alt']).'" fetchpriority="high">';
+        }
+        if ($hasText) {
+            $html .= '<div class="container cms-hero-inner">';
+            if ($hero['eyebrow'] !== '') {
+                $html .= '<p class="cms-hero-eyebrow">'.e($hero['eyebrow']).'</p>';
+            }
+            if ($hero['text'] !== '') {
+                $html .= '<h1 class="cms-hero-title">'.e($hero['text']).'</h1>';
+            }
+            if ($hero['description'] !== '') {
+                $html .= '<p class="cms-hero-description">'.str_replace("\n", '<br>', e($hero['description'])).'</p>';
+            }
+            if ($hero['button_text'] !== '') {
+                $html .= '<a class="cms-hero-button" href="'.e($hero['button_url']).'">'.e($hero['button_text']).'</a>';
+            }
+            $html .= '</div>';
+        }
+
+        return $html.'</section>';
     }
 
     /** @param list<array<string, string>> $blocks */
@@ -270,6 +406,6 @@ class ContentEditor
 
     private function invalid(string $message): never
     {
-        throw ValidationException::withMessages(['content' => $message]);
+        throw ValidationException::withMessages(['content' => __($message)]);
     }
 }

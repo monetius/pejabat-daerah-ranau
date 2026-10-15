@@ -13,9 +13,9 @@
     };
     const applyTheme = theme => {
         root.dataset.cmsTheme = theme;
-        const label = theme === 'dark' ? 'Light mode' : 'Dark mode';
-        const description = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
         buttons.forEach(button => {
+            const label = theme === 'dark' ? button.dataset.labelLight : button.dataset.labelDark;
+            const description = theme === 'dark' ? button.dataset.actionLight : button.dataset.actionDark;
             button.setAttribute('aria-label', description);
             button.title = description;
             button.querySelector('[data-cms-theme-label]').textContent = label;

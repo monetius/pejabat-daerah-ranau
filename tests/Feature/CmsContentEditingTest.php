@@ -84,6 +84,105 @@ class CmsContentEditingTest extends TestCase
         $this->assertSame(0, $page->revisions()->count());
     }
 
+    public function test_plain_hero_is_saved_first_and_reopens_without_creating_unnecessary_revisions(): void
+    {
+        $payload = $this->payload((new ContentEditor(''))->schema());
+        $payload['blocks'] = [
+            ['type' => 'paragraph', 'text' => 'Kandungan halaman'],
+            ['type' => 'hero', 'variant' => 'plain', 'text' => 'Selamat <datang>', 'eyebrow' => 'Profil Daerah',
+                'description' => "Baris pertama\nBaris kedua", 'alignment' => 'center', 'size' => 'compact',
+                'button_text' => 'Ketahui lebih lanjut', 'button_url' => '/profil-daerah/pelan-pembangunan'],
+        ];
+        $this->post('/admin/pages', ['title' => 'Halaman hero', 'status' => 'published', 'content' => json_encode($payload)])
+            ->assertSessionHasNoErrors()->assertRedirect();
+        $page = Page::firstOrFail();
+        $this->assertStringStartsWith('<section class="cms-hero ', $page->body);
+        $this->get('/'.$page->path)->assertOk()->assertSee('Selamat &lt;datang&gt;', false)
+            ->assertSee('cms-hero--center')->assertSee('cms-hero--compact')->assertSee('Baris pertama<br>Baris kedua', false)
+            ->assertSee('href="/profil-daerah/pelan-pembangunan"', false)->assertSee('Kandungan halaman');
+        $schema = $this->get('/admin/pages/'.$page->id.'/edit')->viewData('editor');
+        $this->assertSame('hero', $schema['blocks'][0]['type']);
+        $this->assertSame("Baris pertama\nBaris kedua", $schema['blocks'][0]['description']);
+        $this->assertCount(0, $schema['fields']);
+        $this->put('/admin/pages/'.$page->id, ['title' => $page->title, 'path' => $page->path, 'status' => 'published', 'content' => json_encode($this->payload($schema))])->assertSessionHasNoErrors();
+        $this->assertSame($page->body, $page->fresh()->body);
+        $this->assertSame(0, $page->revisions()->count());
+    }
+
+    public function test_image_only_hero_can_switch_styles_without_losing_its_image(): void
+    {
+        $editor = new ContentEditor('');
+        $payload = $this->payload($editor->schema());
+        $payload['blocks'] = [['type' => 'hero', 'variant' => 'image', 'url' => '/assets/img/banner.jpg', 'alt' => 'Pemandangan Ranau', 'image_fit' => 'contain']];
+        $imageHtml = $editor->apply(json_encode($payload));
+        $this->assertStringContainsString('cms-hero--image-only', $imageHtml);
+        $this->assertStringContainsString('cms-hero--fit-contain', $imageHtml);
+        $this->assertStringContainsString('<img class="cms-hero-media"', $imageHtml);
+        $editor = new ContentEditor($imageHtml);
+        $payload = $this->payload($editor->schema());
+        $this->assertSame($imageHtml, $editor->apply(json_encode($payload)));
+        $payload['blocks'][0]['variant'] = 'plain';
+        $payload['blocks'][0]['text'] = 'Daerah Ranau';
+        $plainHtml = $editor->apply(json_encode($payload));
+        $this->assertStringContainsString('cms-hero--plain', $plainHtml);
+        $this->assertStringNotContainsString('<img', $plainHtml);
+        $editor = new ContentEditor($plainHtml);
+        $payload = $this->payload($editor->schema());
+        $this->assertSame('/assets/img/banner.jpg', $payload['blocks'][0]['url']);
+        $this->assertSame('Pemandangan Ranau', $payload['blocks'][0]['alt']);
+        $this->assertSame($plainHtml, $editor->apply(json_encode($payload)));
+        $payload['blocks'][0]['variant'] = 'image';
+        $this->assertStringContainsString('<img class="cms-hero-media" src="/assets/img/banner.jpg"', $editor->apply(json_encode($payload)));
+    }
+
+    public function test_hero_can_be_previewed_added_and_removed_without_losing_legacy_content(): void
+    {
+        $page = $this->page();
+        $payload = $this->payload($this->get('/admin/pages/'.$page->id.'/edit')->viewData('editor'));
+        $payload['blocks'] = [['type' => 'hero', 'text' => 'Hero baharu']];
+        $request = ['page_id' => $page->id, 'title' => $page->title, 'path' => $page->path, 'status' => 'published', 'content' => json_encode($payload)];
+        $this->put('/admin/pages/preview', $request)->assertOk()->assertSee('Hero baharu')->assertSee('Pratonton - belum disimpan');
+        $this->assertSame($page->body, $page->fresh()->body);
+        $this->put('/admin/pages/'.$page->id, $request)->assertSessionHasNoErrors();
+        $body = $page->fresh()->body;
+        $this->assertStringStartsWith('<section class="cms-hero ', $body);
+        foreach (['class="original"', '<strong>penting</strong>', '<table>', 'window.original = true;', '[[hebahan-berita]]'] as $expected) {
+            $this->assertStringContainsString($expected, $body);
+        }
+        $payload = $this->payload($this->get('/admin/pages/'.$page->id.'/edit')->viewData('editor'));
+        $this->assertNotEmpty($payload['fields']);
+        $payload['blocks'] = [];
+        $this->put('/admin/pages/'.$page->id, array_replace($request, ['content' => json_encode($payload)]))->assertSessionHasNoErrors();
+        $this->assertStringNotContainsString('data-cms-type="hero"', $page->fresh()->body);
+        $this->assertStringContainsString('class="original"', $page->fresh()->body);
+        $this->assertSame(2, $page->revisions()->count());
+    }
+
+    public function test_hero_rejects_invalid_images_buttons_duplicate_banners_and_layout_values(): void
+    {
+        $baseHero = ['type' => 'hero', 'text' => '<script>alert(1)</script>'];
+        $invalidBlocks = [
+            [array_replace($baseHero, ['variant' => 'image', 'url' => ''])],
+            [array_replace($baseHero, ['variant' => 'image', 'url' => 'javascript:alert(1)'])],
+            [array_replace($baseHero, ['button_text' => 'Buka', 'button_url' => 'javascript:alert(1)'])],
+            [array_replace($baseHero, ['button_text' => 'Buka'])],
+            [array_replace($baseHero, ['alignment' => 'left" onclick="alert(1)'])],
+            [array_replace($baseHero, ['text' => str_repeat('a', 221)])],
+            [['type' => 'hero', 'variant' => 'plain']],
+            [$baseHero, $baseHero],
+        ];
+        foreach ($invalidBlocks as $blocks) {
+            $payload = $this->payload((new ContentEditor(''))->schema());
+            $payload['blocks'] = $blocks;
+            $this->post('/admin/pages', ['title' => 'Hero tidak sah', 'status' => 'draft', 'content' => json_encode($payload)])->assertSessionHasErrors();
+        }
+        $this->assertDatabaseCount('pages', 0);
+        $payload['blocks'] = [$baseHero];
+        $html = (new ContentEditor(''))->apply(json_encode($payload));
+        $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', $html);
+        $this->assertStringNotContainsString('<script>', $html);
+    }
+
     public function test_editing_existing_text_preserves_layout_scripts_tables_svg_and_revisions(): void
     {
         $page = $this->page();

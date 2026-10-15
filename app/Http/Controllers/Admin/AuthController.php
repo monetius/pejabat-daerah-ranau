@@ -29,7 +29,7 @@ class AuthController extends Controller
         $ipKey = 'cms-login-ip:'.hash('sha256', (string) $request->ip());
         if (RateLimiter::tooManyAttempts($key, 5) || RateLimiter::tooManyAttempts($ipKey, 30)) {
             $seconds = max(RateLimiter::availableIn($key), RateLimiter::availableIn($ipKey));
-            throw ValidationException::withMessages(['email' => 'Terlalu banyak percubaan log masuk. Cuba lagi dalam '.$seconds.' saat.']);
+            throw ValidationException::withMessages(['email' => __('Terlalu banyak percubaan log masuk. Cuba lagi dalam :seconds saat.', ['seconds' => $seconds])]);
         }
 
         if (Auth::attempt($credentials + ['is_admin' => true], $request->boolean('remember'))) {
@@ -42,7 +42,7 @@ class AuthController extends Controller
         RateLimiter::hit($key, 60);
         RateLimiter::hit($ipKey, 60);
 
-        return back()->withErrors(['email' => 'E-mel atau kata laluan tidak betul.'])->onlyInput('email');
+        return back()->withErrors(['email' => __('E-mel atau kata laluan tidak betul.')])->onlyInput('email');
     }
 
     public function logout(Request $request): RedirectResponse

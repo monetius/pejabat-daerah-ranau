@@ -50,6 +50,7 @@
                 <div class="hb-meta">
                   <span class="hb-tag hb-tag-{{ $item->category }}">{{ $item->categoryLabel() }}</span>
                   <time>{{ $item->published_at?->format('d/m/Y') }}</time>
+                  @include('partials.news-author', ['item' => $item])
                 </div>
                 <h3>{{ $item->title }}</h3>
                 @if ($item->summary)<p>{{ $item->summary }}</p>@endif

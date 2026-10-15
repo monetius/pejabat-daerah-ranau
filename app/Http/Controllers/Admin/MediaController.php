@@ -53,7 +53,7 @@ class MediaController extends Controller
             return response()->json(['file' => ['name' => $name, 'url' => '/'.$folder.'/'.$name, 'image' => strtolower(pathinfo($name, PATHINFO_EXTENSION)) !== 'pdf']], 201);
         }
 
-        return back()->with('status', 'Fail dimuat naik: /'.$folder.'/'.$name);
+        return back()->with('status', __('Fail dimuat naik: :path', ['path' => '/'.$folder.'/'.$name]));
     }
 
     public function destroy(Request $request): RedirectResponse
@@ -70,6 +70,6 @@ class MediaController extends Controller
 
         File::delete($full);
 
-        return back()->with('status', 'Fail dipadam.');
+        return back()->with('status', __('Fail dipadam.'));
     }
 }

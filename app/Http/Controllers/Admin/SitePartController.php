@@ -30,6 +30,6 @@ class SitePartController extends Controller
             $current->update(['html' => (new ContentEditor($current->html, false))->apply($data['content'])]);
         });
 
-        return redirect()->route('admin.parts.index')->with('status', $part->label.' dikemas kini.');
+        return redirect()->route('admin.parts.index')->with('status', __(':name dikemas kini.', ['name' => $part->label]));
     }
 }

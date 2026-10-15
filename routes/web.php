@@ -3,12 +3,13 @@
 use App\Http\Controllers\Admin\AnnouncementController as AdminAnnouncementController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\LocaleController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\SitePartController;
-use App\Http\Middleware\AdminIdleTimeout;
 use App\Http\Controllers\SiteController;
+use App\Http\Middleware\AdminIdleTimeout;
 use App\Http\Middleware\EnsureAdmin;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,8 @@ Route::get('/hebahan/{slug}', [SiteController::class, 'announcement'])->name('an
 
 // ---------- Admin ----------
 Route::prefix('admin')->name('admin.')->group(function () {
+    Route::post('/language', [LocaleController::class, 'update'])->name('locale.update');
+
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [AuthController::class, 'login'])->name('login.submit');

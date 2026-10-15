@@ -10,8 +10,10 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class AnnouncementController extends Controller
 {
@@ -24,19 +26,19 @@ class AnnouncementController extends Controller
 
     public function create(): View
     {
-        return view('admin.announcements.form', ['item' => new Announcement(['status' => 'draft', 'category' => 'hebahan']), 'editor' => (new ContentEditor(''))->schema()]);
+        return view('admin.announcements.form', ['item' => new Announcement(['status' => 'draft', 'category' => 'hebahan']), 'editor' => (new ContentEditor(''))->schema(), 'authorEnabled' => Schema::hasColumn('announcements', 'author')]);
     }
 
     public function store(Request $request): RedirectResponse
     {
         Announcement::create($this->validated($request));
 
-        return redirect()->route('admin.announcements.index')->with('status', 'Hebahan disimpan.');
+        return redirect()->route('admin.announcements.index')->with('status', __('Hebahan disimpan.'));
     }
 
     public function edit(Announcement $announcement): View
     {
-        return view('admin.announcements.form', ['item' => $announcement, 'editor' => $this->editor($announcement)->schema()]);
+        return view('admin.announcements.form', ['item' => $announcement, 'editor' => $this->editor($announcement)->schema(), 'authorEnabled' => Schema::hasColumn('announcements', 'author')]);
     }
 
     public function update(Request $request, Announcement $announcement): RedirectResponse
@@ -46,14 +48,14 @@ class AnnouncementController extends Controller
             $current->update($this->validated($request, $current));
         });
 
-        return redirect()->route('admin.announcements.index')->with('status', 'Hebahan dikemas kini.');
+        return redirect()->route('admin.announcements.index')->with('status', __('Hebahan dikemas kini.'));
     }
 
     public function destroy(Announcement $announcement): RedirectResponse
     {
         $announcement->delete();
 
-        return redirect()->route('admin.announcements.index')->with('status', 'Hebahan dipadam.');
+        return redirect()->route('admin.announcements.index')->with('status', __('Hebahan dipadam.'));
     }
 
     private function validated(Request $request, ?Announcement $current = null): array
@@ -62,6 +64,7 @@ class AnnouncementController extends Controller
             'title' => ['required', 'string', 'max:220'],
             'slug' => ['nullable', 'string', 'max:220', 'alpha_dash', Rule::unique('announcements', 'slug')->ignore($current)],
             'category' => ['required', Rule::in(array_keys(Announcement::CATEGORIES))],
+            'author' => ['nullable', 'string', 'max:150'],
             'summary' => ['nullable', 'string', 'max:1000'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'content' => ['required', 'string', 'max:2000000'],
@@ -71,6 +74,14 @@ class AnnouncementController extends Controller
 
         $data['body'] = ($current ? $this->editor($current) : new ContentEditor(''))->apply($data['content']);
         unset($data['content']);
+        if (Schema::hasColumn('announcements', 'author')) {
+            $data['author'] = array_key_exists('author', $data) ? (trim((string) $data['author']) ?: null) : $current?->author;
+        } else {
+            if (filled($data['author'] ?? null)) {
+                throw ValidationException::withMessages(['author' => __('Fungsi penulis belum diaktifkan. Sila hubungi pentadbir.')]);
+            }
+            unset($data['author']);
+        }
         $data['slug'] = ($data['slug'] ?? $current?->slug) ?: $this->uniqueSlug($data['title'], $current);
 
         // Cover image: a new upload replaces the old one; the tick box removes it.

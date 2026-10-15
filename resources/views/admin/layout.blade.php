@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ms">
+<html lang="{{ app()->getLocale() }}">
 
 <head>
     <script>
@@ -15,44 +15,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Admin') - CMS Ranau</title>
-    <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
-    <script src="{{ asset('assets/js/admin-theme.js') }}" defer></script>
+    <title>@yield('title', __('Admin')) - CMS Ranau</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}?v={{ filemtime(public_path('assets/css/admin.css')) }}">
+    <script src="{{ asset('assets/js/admin-theme.js') }}?v={{ filemtime(public_path('assets/js/admin-theme.js')) }}" defer></script>
     @stack('head')
 </head>
 
 <body class="{{ auth()->check() ? 'has-side' : 'login-page' }}">
     @auth
-        <button class="side-toggle" type="button" aria-label="Buka menu" aria-controls="admin-sidebar" aria-expanded="false"
+        <button class="side-toggle" type="button" aria-label="{{ __('Buka menu') }}" aria-controls="admin-sidebar" aria-expanded="false"
             onclick="toggleSidebar(!document.body.classList.contains('side-open'))">&#9776;</button>
-        <button class="side-backdrop" type="button" aria-label="Tutup menu" onclick="toggleSidebar(false)"></button>
+        <button class="side-backdrop" type="button" aria-label="{{ __('Tutup menu') }}" onclick="toggleSidebar(false)"></button>
         <aside class="side" id="admin-sidebar">
             @include('admin.brand')
-            <p class="nav-caption">RUANG KERJA</p>
-            <nav aria-label="Navigasi pentadbir">
-                <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'on' : '' }}">@include('admin.icon', ['name' => 'dashboard'])<span>Dashboard</span></a>
-                <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'news'])<span>Hebahan</span></a>
-                <a href="{{ route('admin.pages.index') }}" class="{{ request()->routeIs('admin.pages.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'pages'])<span>Halaman</span></a>
-                <a href="{{ route('admin.menu.index') }}" class="{{ request()->routeIs('admin.menu.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'menu'])<span>Menu</span></a>
-                <a href="{{ route('admin.parts.index') }}" class="{{ request()->routeIs('admin.parts.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'layout'])<span>Navbar &amp; Footer</span></a>
-                <a href="{{ route('admin.media.index') }}" class="{{ request()->routeIs('admin.media.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'media'])<span>Media</span></a>
+            <p class="nav-caption">{{ __('RUANG KERJA') }}</p>
+            <nav aria-label="{{ __('Navigasi pentadbir') }}">
+                <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'on' : '' }}">@include('admin.icon', ['name' => 'dashboard'])<span>{{ __('Dashboard') }}</span></a>
+                <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'news'])<span>{{ __('Hebahan') }}</span></a>
+                <a href="{{ route('admin.pages.index') }}" class="{{ request()->routeIs('admin.pages.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'pages'])<span>{{ __('Halaman') }}</span></a>
+                <a href="{{ route('admin.menu.index') }}" class="{{ request()->routeIs('admin.menu.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'menu'])<span>{{ __('Menu') }}</span></a>
+                <a href="{{ route('admin.parts.index') }}" class="{{ request()->routeIs('admin.parts.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'layout'])<span>{{ __('Navbar & Footer') }}</span></a>
+                <a href="{{ route('admin.media.index') }}" class="{{ request()->routeIs('admin.media.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'media'])<span>{{ __('Media') }}</span></a>
             </nav>
             <div class="foot">
-                <a href="/" target="_blank">Lihat laman web</a>
-                <form method="POST" id="logout-form" action="{{ route('admin.logout') }}">@csrf<button class="btn link" style="padding:9px 12px">Log keluar</button></form>
+                <a href="/" target="_blank">{{ __('Lihat laman web') }}</a>
+                <form method="POST" id="logout-form" action="{{ route('admin.logout') }}">@csrf<button class="btn link" style="padding:9px 12px">{{ __('Log keluar') }}</button></form>
             </div>
         </aside>
     @endauth
     @auth
         <header class="topbar">
-            <span>Pejabat Daerah Ranau <span class="topbar-divider">/</span> <strong>@yield('title', 'CMS')</strong></span>
+            <span>{{ __('Pejabat Daerah Ranau') }} <span class="topbar-divider">/</span> <strong>@yield('title', 'CMS')</strong></span>
             <div class="topbar-actions">
+                @include('admin.language-switcher')
                 @include('admin.theme-toggle')
                 <span class="user-chip"><span class="avatar">{{ mb_substr(auth()->user()->name, 0, 1) }}</span>{{ auth()->user()->name }}</span>
             </div>
         </header>
     @else
-        @include('admin.theme-toggle', ['guest' => true])
+        <div class="cms-guest-controls">
+            @include('admin.language-switcher')
+            @include('admin.theme-toggle')
+        </div>
     @endauth
     <main class="wrap" id="admin-main">
         @if ($errors->has('delete'))
@@ -63,8 +67,8 @@
     </main>
     @auth
         <div id="idle-warn" class="idle-warning" hidden>
-            Anda akan dilog keluar dalam <b id="idle-sec">60</b> saat kerana tiada aktiviti.
-            <div style="margin-top:8px"><button type="button" class="btn" id="idle-stay">Kekal log masuk</button></div>
+            {!! __('Anda akan dilog keluar dalam :seconds saat kerana tiada aktiviti.', ['seconds' => '<b id="idle-sec">60</b>']) !!}
+            <div style="margin-top:8px"><button type="button" class="btn" id="idle-stay">{{ __('Kekal log masuk') }}</button></div>
         </div>
         <script>
             (function () {
@@ -126,7 +130,7 @@
         document.querySelectorAll('.card > table').forEach(function (table) {
             const wrapper = document.createElement('div');
             wrapper.className = 'table-scroll'; wrapper.tabIndex = 0;
-            wrapper.setAttribute('role', 'region'); wrapper.setAttribute('aria-label', 'Jadual kandungan');
+            wrapper.setAttribute('role', 'region'); wrapper.setAttribute('aria-label', @js(__('Jadual kandungan')));
             table.before(wrapper); wrapper.append(table);
         });
     </script>

@@ -6,7 +6,9 @@ use App\Models\Announcement;
 use App\Models\Page;
 use App\Models\User;
 use App\Support\ContentEditor;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
 class AnnouncementPublishingTest extends TestCase
@@ -52,6 +54,59 @@ class AnnouncementPublishingTest extends TestCase
         $this->actingAs($this->admin())->post(route('admin.announcements.store'), $this->payload(['published_at' => '2026-10-12T10:45']))->assertSessionHasNoErrors();
         $this->assertSame(1, Announcement::published()->count());
         $this->get('/')->assertSee('Berita baharu');
+    }
+
+    public function test_news_author_is_saved_editable_and_displayed_on_public_news_views(): void
+    {
+        $this->actingAs($this->admin())->post(route('admin.announcements.store'), $this->payload(['author' => '  Unit Komunikasi Ranau  ']))->assertSessionHasNoErrors();
+        $item = Announcement::firstOrFail();
+        $this->assertSame('Unit Komunikasi Ranau', $item->author);
+        foreach (['/', '/hebahan', '/hebahan/'.$item->slug] as $url) {
+            $this->get($url)->assertOk()->assertSee('Oleh Unit Komunikasi Ranau');
+        }
+        $this->get(route('admin.announcements.edit', $item))->assertOk()->assertSee('name="author"', false)->assertSee('value="Unit Komunikasi Ranau"', false);
+        $this->put(route('admin.announcements.update', $item), $this->payload(['author' => 'Penulis Baharu'], $item))->assertSessionHasNoErrors();
+        $this->get('/hebahan/'.$item->slug)->assertSee('Oleh Penulis Baharu');
+    }
+
+    public function test_news_author_can_be_omitted_or_cleared_and_legacy_updates_preserve_it(): void
+    {
+        $this->actingAs($this->admin())->post(route('admin.announcements.store'), $this->payload())->assertSessionHasNoErrors();
+        $item = Announcement::firstOrFail();
+        $this->assertNull($item->author);
+        $this->get('/hebahan/'.$item->slug)->assertDontSee('class="hb-author"', false);
+        $item->update(['author' => 'Penulis Asal']);
+        $this->put(route('admin.announcements.update', $item), $this->payload([], $item))->assertSessionHasNoErrors();
+        $this->assertSame('Penulis Asal', $item->fresh()->author);
+        $this->put(route('admin.announcements.update', $item), $this->payload(['author' => ''], $item->fresh()))->assertSessionHasNoErrors();
+        $this->assertNull($item->fresh()->author);
+        $this->get('/hebahan/'.$item->slug)->assertDontSee('class="hb-author"', false);
+    }
+
+    public function test_author_length_is_validated_and_author_text_is_escaped(): void
+    {
+        $this->actingAs($this->admin())->post(route('admin.announcements.store'), $this->payload(['author' => str_repeat('a', 151)]))->assertSessionHasErrors('author');
+        $this->assertDatabaseCount('announcements', 0);
+        $author = '<script>alert(1)</script>';
+        $this->post(route('admin.announcements.store'), $this->payload(['author' => $author]))->assertSessionHasNoErrors();
+        $item = Announcement::firstOrFail();
+        foreach (['/', '/hebahan', '/hebahan/'.$item->slug] as $url) {
+            $this->get($url)->assertOk()->assertSee('Oleh &lt;script&gt;alert(1)&lt;/script&gt;', false)->assertDontSee($author, false);
+        }
+    }
+
+    public function test_existing_news_editor_keeps_working_before_the_author_migration_is_applied(): void
+    {
+        Schema::table('announcements', function (Blueprint $table): void {
+            $table->dropColumn('author');
+        });
+        $this->actingAs($this->admin());
+        $this->get(route('admin.announcements.create'))->assertOk()->assertViewHas('authorEnabled', false);
+        $this->post(route('admin.announcements.store'), $this->payload(['author' => '']))->assertSessionHasNoErrors();
+        $item = Announcement::firstOrFail();
+        $this->put(route('admin.announcements.update', $item), $this->payload([], $item))->assertSessionHasNoErrors();
+        $this->get('/hebahan/'.$item->slug)->assertOk();
+        $this->post(route('admin.announcements.store'), $this->payload(['author' => 'Nama penulis']))->assertSessionHasErrors('author');
     }
 
     public function test_scheduled_posts_are_labelled_and_hidden_until_due(): void

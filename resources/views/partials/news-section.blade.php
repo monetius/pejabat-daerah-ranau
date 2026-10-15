@@ -21,18 +21,20 @@
                         <div class="hb-meta">
                             <span class="hb-tag hb-tag-{{ $__feature->category }}">{{ $__feature->categoryLabel() }}</span>
                             <time>{{ $__feature->published_at?->format('d/m/Y') }}</time>
+                            @include('partials.news-author', ['item' => $__feature])
                         </div>
                     </div>
                 </a>
 
                 <div class="hb-side">
                     @foreach ($__side as $item)
-                        <a class="hb-card" href="{{ route('announcements.show', $item->slug) }}">
+                        <a class="hb-card{{ $item->author ? ' hb-card--with-author' : '' }}" href="{{ route('announcements.show', $item->slug) }}">
                             <div class="hb-card-text">
                                 <h4>{{ $item->title }}</h4>
                                 <div class="hb-meta">
                                     <span class="hb-tag hb-tag-{{ $item->category }}">{{ $item->categoryLabel() }}</span>
                                     <time>{{ $item->published_at?->format('d/m/Y') }}</time>
+                                    @include('partials.news-author', ['item' => $item])
                                 </div>
                             </div>
                             <div class="hb-card-media">@include('partials.news-media', ['item' => $item])</div>

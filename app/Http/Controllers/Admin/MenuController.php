@@ -39,7 +39,7 @@ class MenuController extends Controller
         $data['sort_order'] = (int) MenuItem::where('parent_id', $data['parent_id'])->max('sort_order') + 1;
         MenuItem::create($data);
 
-        return redirect()->route('admin.menu.index')->with('status', 'Item menu disimpan.');
+        return redirect()->route('admin.menu.index')->with('status', __('Item menu disimpan.'));
     }
 
     public function edit(MenuItem $item)
@@ -57,14 +57,14 @@ class MenuController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('admin.menu.index')->with('status', 'Item menu dikemas kini.');
+        return redirect()->route('admin.menu.index')->with('status', __('Item menu dikemas kini.'));
     }
 
     public function destroy(MenuItem $item)
     {
         $item->delete(); // sub-items are removed with it
 
-        return redirect()->route('admin.menu.index')->with('status', 'Item menu dipadam.');
+        return redirect()->route('admin.menu.index')->with('status', __('Item menu dipadam.'));
     }
 
     public function move(Request $request, MenuItem $item)
@@ -98,12 +98,12 @@ class MenuController extends Controller
     public function import()
     {
         if (MenuItem::exists()) {
-            return redirect()->route('admin.menu.index')->with('status', 'Menu sudah wujud.');
+            return redirect()->route('admin.menu.index')->with('status', __('Menu sudah wujud.'));
         }
 
         $count = NavMenu::importFromNavbar();
 
-        return redirect()->route('admin.menu.index')->with('status', "{$count} item menu diimport daripada navbar semasa.");
+        return redirect()->route('admin.menu.index')->with('status', __(':count item menu diimport daripada navbar semasa.', ['count' => $count]));
     }
 
     private function formData(MenuItem $item): array
@@ -111,11 +111,11 @@ class MenuController extends Controller
         return [
             'item' => $item,
             'parents' => MenuItem::whereNull('parent_id')
-                ->when($item->exists, fn($q) => $q->whereKeyNot($item->id))
+                ->when($item->exists, fn ($q) => $q->whereKeyNot($item->id))
                 ->orderBy('sort_order')->orderBy('id')->get(),
             'pages' => Page::orderBy('section')->orderBy('path')
                 ->get(['id', 'title', 'path', 'section', 'status'])
-                ->groupBy(fn(Page $p) => $p->section ?: 'Lain-lain'),
+                ->groupBy(fn (Page $p) => $p->section ?: 'Lain-lain'),
             'hasChildren' => $item->exists && $item->children()->exists(),
         ];
     }
@@ -128,8 +128,8 @@ class MenuController extends Controller
             'page_id' => ['nullable', 'integer', 'exists:pages,id'],
             'url' => ['nullable', 'string', 'max:500', 'regex:/^(\/|https?:\/\/|mailto:|tel:|#)/i'],
         ], [
-            'url.regex' => 'URL mesti bermula dengan /, http://, https://, mailto: atau tel:.',
-            'parent_id.exists' => 'Menu induk tidak sah.',
+            'url.regex' => __('URL mesti bermula dengan /, http://, https://, mailto: atau tel:.'),
+            'parent_id.exists' => __('Menu induk tidak sah.'),
         ]);
 
         $data['parent_id'] = $data['parent_id'] ?? null;
@@ -140,15 +140,15 @@ class MenuController extends Controller
 
         if ($current && $data['parent_id'] !== null) {
             if ($data['parent_id'] === $current->id) {
-                throw ValidationException::withMessages(['parent_id' => 'Item tidak boleh menjadi induk kepada dirinya sendiri.']);
+                throw ValidationException::withMessages(['parent_id' => __('Item tidak boleh menjadi induk kepada dirinya sendiri.')]);
             }
             if ($current->children()->exists()) {
-                throw ValidationException::withMessages(['parent_id' => 'Item ini mempunyai sub-menu, jadi ia mesti kekal sebagai menu utama.']);
+                throw ValidationException::withMessages(['parent_id' => __('Item ini mempunyai sub-menu, jadi ia mesti kekal sebagai menu utama.')]);
             }
         }
 
         if ($data['parent_id'] !== null && $data['page_id'] === null && empty($data['url'])) {
-            throw ValidationException::withMessages(['url' => 'Sub-menu perlu halaman atau URL.']);
+            throw ValidationException::withMessages(['url' => __('Sub-menu perlu halaman atau URL.')]);
         }
 
         return $data;

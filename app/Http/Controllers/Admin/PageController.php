@@ -101,7 +101,7 @@ class PageController extends Controller
     {
         $page = Page::create($this->validated($request));
 
-        return redirect()->route('admin.pages.edit', $page)->with('status', 'Halaman disimpan.');
+        return redirect()->route('admin.pages.edit', $page)->with('status', __('Halaman disimpan.'));
     }
 
     public function edit(Page $page): View
@@ -122,18 +122,18 @@ class PageController extends Controller
             $current->update($data);
         });
 
-        return redirect()->route('admin.pages.edit', $page)->with('status', 'Halaman dikemas kini.');
+        return redirect()->route('admin.pages.edit', $page)->with('status', __('Halaman dikemas kini.'));
     }
 
     public function destroy(Page $page): RedirectResponse
     {
         if ($page->is_system) {
-            return back()->withErrors(['delete' => 'Halaman asal tapak tidak boleh dipadam. Tukar status kepada Draf jika mahu menyembunyikannya.']);
+            return back()->withErrors(['delete' => __('Halaman asal tapak tidak boleh dipadam. Tukar status kepada Draf jika mahu menyembunyikannya.')]);
         }
 
         $page->delete();
 
-        return redirect()->route('admin.pages.index')->with('status', 'Halaman dipadam.');
+        return redirect()->route('admin.pages.index')->with('status', __('Halaman dipadam.'));
     }
 
     /** Renders unsaved form content inside the real site layout, in a new tab. */
@@ -155,7 +155,7 @@ class PageController extends Controller
         $this->snapshot($page, $data, $request->user()?->id);
         $page->update($data);
 
-        return redirect()->route('admin.pages.edit', $page)->with('status', 'Versi lama dipulihkan.');
+        return redirect()->route('admin.pages.edit', $page)->with('status', __('Versi lama dipulihkan.'));
     }
 
     /** Saves the CURRENT content as a revision when it is about to change. */
@@ -213,11 +213,11 @@ class PageController extends Controller
             }
 
             if (in_array(explode('/', $path)[0], self::RESERVED, true)) {
-                throw ValidationException::withMessages(['path' => 'Laluan ini dikhaskan untuk sistem. Pilih laluan lain.']);
+                throw ValidationException::withMessages(['path' => __('Laluan ini dikhaskan untuk sistem. Pilih laluan lain.')]);
             }
             $taken = Page::where('path', $path)->when($current, fn ($q) => $q->whereKeyNot($current->getKey()))->exists();
             if ($taken) {
-                throw ValidationException::withMessages(['path' => 'Laluan ini sudah digunakan oleh halaman lain.']);
+                throw ValidationException::withMessages(['path' => __('Laluan ini sudah digunakan oleh halaman lain.')]);
             }
             $data['path'] = $path;
         }

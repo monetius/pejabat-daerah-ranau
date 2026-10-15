@@ -22,11 +22,11 @@ class AdminIdleTimeout
             $request->session()->regenerateToken();
 
             if ($request->expectsJson()) {
-                return response()->json(['message' => 'Sesi tamat.'], 401);
+                return response()->json(['message' => __('Sesi tamat.')], 401);
             }
 
             return redirect()->route('admin.login')
-                ->with('status', "Anda telah dilog keluar kerana tiada aktiviti selama {$minutes} minit.");
+                ->with('status', __('Anda telah dilog keluar kerana tiada aktiviti selama :minutes minit.', ['minutes' => $minutes]));
         }
 
         $request->session()->put('admin_last_activity', $now);

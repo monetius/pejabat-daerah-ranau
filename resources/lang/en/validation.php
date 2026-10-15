@@ -1,0 +1,32 @@
+<?php
+
+return [
+    'attributes' => [
+        'email' => 'email address',
+        'password' => 'password',
+        'title' => 'title',
+        'label' => 'menu label',
+        'locale' => 'language',
+        'path' => 'page URL',
+        'slug' => 'URL slug',
+        'section' => 'group',
+        'summary' => 'summary',
+        'author' => 'author',
+        'image' => 'cover image',
+        'file' => 'file',
+        'content' => 'content',
+        'meta_description' => 'search description',
+        'parent_id' => 'parent menu',
+        'page_id' => 'page',
+        'published_at' => 'publication date',
+        'fields.*.value' => 'content',
+        'blocks.*.text' => 'block text',
+        'blocks.*.description' => 'hero description',
+        'blocks.*.eyebrow' => 'eyebrow text',
+        'blocks.*.url' => 'image or link URL',
+        'blocks.*.alt' => 'image description',
+        'blocks.*.caption' => 'caption',
+        'blocks.*.button_text' => 'button text',
+        'blocks.*.button_url' => 'button link',
+    ],
+];

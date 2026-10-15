@@ -13,7 +13,7 @@ class Announcement extends Model
         'notis' => 'Notis',
     ];
 
-    protected $fillable = ['title', 'slug', 'category', 'summary', 'image', 'body', 'status', 'published_at'];
+    protected $fillable = ['title', 'slug', 'category', 'author', 'summary', 'image', 'body', 'status', 'published_at'];
 
     protected function casts(): array
     {
@@ -23,7 +23,7 @@ class Announcement extends Model
     public function scopePublished(Builder $query): Builder
     {
         return $query->where('status', 'published')
-            ->where(fn($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()));
+            ->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()));
     }
 
     public function publicationState(): string

@@ -950,3 +950,13 @@ body,.card,.topbar,.theme-toggle {
 }
 
 @media(prefers-reduced-motion:reduce) { body,.card,.topbar,.theme-toggle { transition:none; } }
+.cms-language { display:flex; gap:2px; padding:2px; border:1px solid var(--field-border); border-radius:9px; background:var(--panel); }
+.cms-language form { margin:0; }
+.cms-language button { display:grid; place-items:center; min-width:40px; min-height:40px; padding:7px; border:0; border-radius:6px; background:transparent; color:var(--muted); font:inherit; font-size:12px; font-weight:600; cursor:pointer; }
+.cms-language button[aria-pressed='true'] { background:var(--secondary-hover); color:var(--ink); }
+.cms-language button:hover { color:var(--ink); }
+.cms-guest-controls { position:fixed; top:36px; right:36px; z-index:10; display:flex; align-items:center; gap:10px; }
+@media(max-width:860px) {
+    .topbar-actions { gap:8px; }
+    .cms-guest-controls { top:16px; right:16px; }
+}

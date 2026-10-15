@@ -29,6 +29,7 @@
         <div class="hb-meta">
           <span class="hb-tag hb-tag-{{ $item->category }}">{{ $item->categoryLabel() }}</span>
           <time>{{ $item->published_at?->format('d/m/Y') }}</time>
+          @include('partials.news-author', ['item' => $item])
         </div>
         @if ($item->image)
           <div class="hb-article-media"><img src="{{ $item->image }}" alt=""></div>
@@ -48,6 +49,7 @@
                   <div class="hb-meta">
                     <span class="hb-tag hb-tag-{{ $m->category }}">{{ $m->categoryLabel() }}</span>
                     <time>{{ $m->published_at?->format('d/m/Y') }}</time>
+                    @include('partials.news-author', ['item' => $m])
                   </div>
                   <h3>{{ $m->title }}</h3>
                 </div>

@@ -22,7 +22,7 @@
   @if (!empty($preview))
     <div
       style="position:fixed;z-index:99999;bottom:12px;left:12px;background:#b45309;color:#fff;padding:8px 14px;border-radius:6px;font:14px system-ui">
-      Pratonton - belum disimpan</div>
+      {{ __('Pratonton - belum disimpan') }}</div>
   @endif
   {!! \App\Support\Shortcodes::render($page->body) !!}
   @if ($page->path === 'info-korporat/mengenai-kami')
