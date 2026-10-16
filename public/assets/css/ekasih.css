@@ -32,10 +32,6 @@
     gap: 1.25rem;
 }
 
-.ek-stats-current {
-    grid-template-columns: repeat(3, 1fr);
-}
-
 .ek-stat {
     background: var(--paper-raised);
     border: 1px solid var(--line);
@@ -123,7 +119,7 @@
     background: var(--ek);
 }
 
-.ek-seg+.ek-seg {
+.ek-seg + .ek-seg {
     border-left: 2px solid var(--paper);
 }
 
@@ -209,10 +205,6 @@
 .ek-table tbody tr:last-child th,
 .ek-table tbody tr:last-child td {
     border-bottom: none;
-}
-
-.ek-national-pgk th {
-    white-space: normal;
 }
 
 .ek-table tbody tr:hover td,
