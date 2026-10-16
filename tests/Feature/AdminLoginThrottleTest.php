@@ -3,12 +3,26 @@
 namespace Tests\Feature;
 
 use App\Models\User;
+use App\Support\CmsLoginCode;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class AdminLoginThrottleTest extends TestCase
 {
     use RefreshDatabase;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        config(['mail.default' => 'smtp']);
+        Mail::fake();
+    }
+
+    private function verifyEmail(): void
+    {
+        $this->post('/admin/two-factor-challenge', ['code' => Mail::sent(CmsLoginCode::class)->last()->code])->assertSessionHasNoErrors();
+    }
 
     public function test_repeated_failures_temporarily_block_login_then_expire(): void
     {
@@ -19,7 +33,9 @@ class AdminLoginThrottleTest extends TestCase
         $this->post('/admin/login', ['email' => $user->email, 'password' => 'correct-password'])->assertSessionHasErrors('email');
         $this->assertGuest();
         $this->travel(61)->seconds();
-        $this->post('/admin/login', ['email' => $user->email, 'password' => 'correct-password'])->assertSessionHasNoErrors()->assertRedirect('/admin');
+        $this->post('/admin/login', ['email' => $user->email, 'password' => 'correct-password'])->assertSessionHasNoErrors()->assertRedirect('/admin/two-factor-challenge');
+        $this->assertGuest();
+        $this->verifyEmail();
         $this->assertAuthenticatedAs($user);
     }
 
@@ -30,9 +46,12 @@ class AdminLoginThrottleTest extends TestCase
             $this->post('/admin/login', ['email' => $user->email, 'password' => 'wrong-password']);
         }
         $this->post('/admin/login', ['email' => $user->email, 'password' => 'correct-password'])->assertSessionHasNoErrors();
+        $this->verifyEmail();
         $this->post('/admin/logout');
+        $this->travel(61)->seconds();
         $this->post('/admin/login', ['email' => $user->email, 'password' => 'wrong-password']);
         $this->post('/admin/login', ['email' => $user->email, 'password' => 'correct-password'])->assertSessionHasNoErrors();
+        $this->verifyEmail();
         $this->assertAuthenticatedAs($user);
     }
 

@@ -960,3 +960,30 @@ body,.card,.topbar,.theme-toggle {
     .topbar-actions { gap:8px; }
     .cms-guest-controls { top:16px; right:16px; }
 }
+
+/* Calendar management uses the same fields and surfaces as the rest of the CMS. */
+.calendar-editor input[type=date], .calendar-editor input[type=time] {
+  width: 100%; padding: 11px 13px; min-height: 44px; min-width: 0;
+  border: 1px solid var(--field-border); border-radius: 8px;
+  background: var(--field); color: var(--ink); font: inherit; color-scheme: light;
+}
+html[data-cms-theme="dark"] .calendar-editor input[type=date],
+html[data-cms-theme="dark"] .calendar-editor input[type=time] { color-scheme: dark; }
+.calendar-editor textarea { min-height: 140px; font: inherit; }
+.calendar-editor label { margin-top: 18px; }
+.calendar-admin-filters .row { align-items: end; }
+.calendar-admin-filters label { margin-top: 0; }
+.calendar-admin-filters select { min-width: 140px; }
+.calendar-admin-date { white-space: nowrap; }
+.calendar-delete { padding: 4px 10px; }
+
+.security-card { max-width: 800px; }
+.security-heading { display:flex; align-items:center; gap:16px; padding-bottom:20px; margin-bottom:20px; border-bottom:1px solid var(--field-border); }
+.security-heading h2 { margin:0 0 5px; }
+.security-heading .hint { margin:0; }
+.security-symbol { display:inline-flex; flex-shrink:0; align-items:center; justify-content:center; width:48px; height:48px; border:1px solid var(--field-border); border-radius:14px; background:var(--secondary-hover); color:var(--ink); }
+.security-symbol svg { width:26px; height:26px; }
+.security-card form { max-width:520px; }
+.verification-code { font-family:monospace; font-size:24px; letter-spacing:8px; }
+.verification-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:24px; }
+.two-factor-challenge .security-symbol { margin-top:22px; }

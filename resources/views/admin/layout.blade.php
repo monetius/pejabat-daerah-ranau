@@ -32,10 +32,12 @@
             <nav aria-label="{{ __('Navigasi pentadbir') }}">
                 <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'on' : '' }}">@include('admin.icon', ['name' => 'dashboard'])<span>{{ __('Dashboard') }}</span></a>
                 <a href="{{ route('admin.announcements.index') }}" class="{{ request()->routeIs('admin.announcements.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'news'])<span>{{ __('Hebahan') }}</span></a>
+                <a href="{{ route('admin.calendar.index') }}" class="{{ request()->routeIs('admin.calendar.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'calendar'])<span>{{ __('Kalendar') }}</span></a>
                 <a href="{{ route('admin.pages.index') }}" class="{{ request()->routeIs('admin.pages.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'pages'])<span>{{ __('Halaman') }}</span></a>
                 <a href="{{ route('admin.menu.index') }}" class="{{ request()->routeIs('admin.menu.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'menu'])<span>{{ __('Menu') }}</span></a>
                 <a href="{{ route('admin.parts.index') }}" class="{{ request()->routeIs('admin.parts.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'layout'])<span>{{ __('Navbar & Footer') }}</span></a>
                 <a href="{{ route('admin.media.index') }}" class="{{ request()->routeIs('admin.media.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'media'])<span>{{ __('Media') }}</span></a>
+                <a href="{{ route('admin.account.edit') }}" class="{{ request()->routeIs('admin.account.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'security'])<span>{{ __('Akaun & keselamatan') }}</span></a>
             </nav>
             <div class="foot">
                 <a href="/" target="_blank">{{ __('Lihat laman web') }}</a>

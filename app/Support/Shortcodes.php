@@ -6,6 +6,8 @@ class Shortcodes
 {
     public const NEWS = '[[hebahan-berita]]';
 
+    public const CALENDAR = '[[kalendar]]';
+
     /** Replaces [[hebahan-berita]] in page HTML with the live announcements section. */
     public static function render(?string $html): string
     {
@@ -13,6 +15,10 @@ class Shortcodes
 
         if (str_contains($html, self::NEWS)) {
             $html = str_replace(self::NEWS, view('partials.news-section')->render(), $html);
+        }
+
+        if (str_contains($html, self::CALENDAR)) {
+            $html = str_replace(self::CALENDAR, view('partials.home-calendar')->render(), $html);
         }
 
         return $html;
@@ -24,7 +30,7 @@ class Shortcodes
      */
     public static function swapNewsSection(string $html): ?string
     {
-        if (!preg_match('/<h2[^>]*>\s*Hebahan\s*(?:&amp;|&)\s*Berita\s*<\/h2>/i', $html, $h, PREG_OFFSET_CAPTURE)) {
+        if (! preg_match('/<h2[^>]*>\s*Hebahan\s*(?:&amp;|&)\s*Berita\s*<\/h2>/i', $html, $h, PREG_OFFSET_CAPTURE)) {
             return null;
         }
 
@@ -50,6 +56,6 @@ class Shortcodes
             return null;
         }
 
-        return substr($html, 0, $start) . self::NEWS . substr($html, $end);
+        return substr($html, 0, $start).self::NEWS.substr($html, $end);
     }
 }

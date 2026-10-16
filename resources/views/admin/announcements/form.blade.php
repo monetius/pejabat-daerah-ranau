@@ -56,22 +56,54 @@
             @include('admin.content-editor')
 
             <h2 class="sec">{{ __('Penerbitan') }}</h2>
-            <label for="status">{{ __('Status') }}</label>
-            <select id="status" name="status">
-                @foreach (['draft' => __('Draf'), 'published' => __('Diterbitkan')] as $v => $l)
-                    <option value="{{ $v }}" @selected(old('status', $item->status) === $v)>{{ $l }}</option>
-                @endforeach
+            @php
+                $publicationMode = old('publication_mode', $item->status === 'published'
+                    ? ($item->published_at?->isFuture() ? 'scheduled' : 'now') : 'draft');
+            @endphp
+            <label for="publication_mode">{{ __('Pilihan penerbitan') }}</label>
+            <select id="publication_mode" name="publication_mode" aria-controls="publication-schedule">
+                <option value="draft" @selected($publicationMode === 'draft')>{{ __('Simpan sebagai draf') }}</option>
+                <option value="now" @selected($publicationMode === 'now')>{{ __('Terbitkan sekarang') }}</option>
+                <option value="scheduled" @selected($publicationMode === 'scheduled')>{{ __('Jadualkan penerbitan') }}</option>
             </select>
-
-            <label for="published_at">{{ __('Tarikh terbit (waktu Malaysia, MYT)') }}</label>
-            <input type="datetime-local" id="published_at" name="published_at"
-                value="{{ old('published_at', $item->published_at?->format('Y-m-d\TH:i')) }}">
-            <div class="hint">{{ __('Kosongkan untuk terbit sekarang. Tarikh akan datang menjadualkan hebahan; ia hanya muncul di laman web apabila tiba waktunya.') }}</div>
-            @error('published_at')
+            @error('publication_mode')
             <div class="err">{{ $message }}</div>@enderror
+            <div class="hint" data-publication-hint="draft" @if ($publicationMode !== 'draft') hidden @endif>{{ __('Disimpan untuk disemak dan tidak dipaparkan di laman web.') }}</div>
+            <div class="hint" data-publication-hint="now" @if ($publicationMode !== 'now') hidden @endif>{{ __('Terbit selepas disimpan tanpa menetapkan tarikh atau masa.') }}</div>
+
+            <div id="publication-schedule" @if ($publicationMode !== 'scheduled') hidden @endif>
+                <label for="published_at">{{ __('Tarikh dan masa penerbitan berjadual (MYT)') }}</label>
+                <input type="datetime-local" id="published_at" name="published_at"
+                    value="{{ old('published_at', $item->published_at?->isFuture() ? $item->published_at->format('Y-m-d\TH:i') : '') }}"
+                    aria-describedby="publication-schedule-hint" @required($publicationMode === 'scheduled') @disabled($publicationMode !== 'scheduled')>
+                <div class="hint" id="publication-schedule-hint">{{ __('Hebahan akan dipaparkan secara automatik pada tarikh dan masa yang dipilih, mengikut waktu Malaysia.') }}</div>
+                @error('published_at')
+                <div class="err">{{ $message }}</div>@enderror
+            </div>
 
             <p class="row"><button class="btn">{{ __('Simpan hebahan') }}</button><a class="btn gray"
                     href="{{ route('admin.announcements.index') }}">{{ __('Batal') }}</a></p>
         </form>
     </div>
 @endsection
+
+@push('foot')
+    <script>
+        (() => {
+            const mode = document.getElementById('publication_mode');
+            const schedule = document.getElementById('publication-schedule');
+            const date = document.getElementById('published_at');
+            const syncPublication = () => {
+                const scheduled = mode.value === 'scheduled';
+                schedule.hidden = !scheduled;
+                date.disabled = !scheduled;
+                date.required = scheduled;
+                document.querySelectorAll('[data-publication-hint]').forEach((hint) => {
+                    hint.hidden = hint.dataset.publicationHint !== mode.value;
+                });
+            };
+            mode.addEventListener('change', syncPublication);
+            syncPublication();
+        })();
+    </script>
+@endpush

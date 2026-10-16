@@ -1,21 +1,27 @@
 <?php
 
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\AnnouncementController as AdminAnnouncementController;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CalendarController as AdminCalendarController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\LocaleController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\PageController as AdminPageController;
 use App\Http\Controllers\Admin\SitePartController;
+use App\Http\Controllers\Admin\TwoFactorController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\SiteController;
 use App\Http\Middleware\AdminIdleTimeout;
 use App\Http\Middleware\EnsureAdmin;
+use App\Http\Middleware\EnsureTwoFactor;
 use Illuminate\Support\Facades\Route;
 
 // ---------- Public: announcements ----------
 Route::get('/hebahan', [SiteController::class, 'announcements'])->name('announcements.index');
 Route::get('/hebahan/{slug}', [SiteController::class, 'announcement'])->name('announcements.show');
+Route::get('/kalendar/data', [CalendarController::class, 'index'])->name('calendar.data');
 
 // ---------- Admin ----------
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -24,14 +30,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('guest')->group(function () {
         Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
         Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+        Route::get('/two-factor-challenge', [TwoFactorController::class, 'challenge'])->name('two-factor.challenge');
+        Route::post('/two-factor-challenge', [TwoFactorController::class, 'verify'])->name('two-factor.verify');
+        Route::post('/two-factor-resend', [TwoFactorController::class, 'resend'])->name('two-factor.resend');
+        Route::post('/two-factor-cancel', [TwoFactorController::class, 'cancel'])->name('two-factor.cancel');
     });
 
-    Route::middleware(['auth', EnsureAdmin::class, AdminIdleTimeout::class])->group(function () {
+    Route::middleware(['auth', EnsureAdmin::class, EnsureTwoFactor::class, AdminIdleTimeout::class])->group(function () {
         Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('/keepalive', [DashboardController::class, 'keepalive'])->name('keepalive');
+        Route::get('/account', [AccountController::class, 'edit'])->name('account.edit');
+        Route::put('/account', [AccountController::class, 'update'])->middleware('throttle:5,1')->name('account.update');
 
         Route::resource('announcements', AdminAnnouncementController::class)->except('show');
+        Route::resource('calendar', AdminCalendarController::class)->except('show')->parameters(['calendar' => 'event']);
 
         Route::match(['post', 'put'], '/pages/preview', [AdminPageController::class, 'preview'])->name('pages.preview');
         Route::post('/pages/{page}/revisions/{revision}/restore', [AdminPageController::class, 'restore'])->name('pages.restore');

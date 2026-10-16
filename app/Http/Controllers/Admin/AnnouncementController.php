@@ -60,6 +60,8 @@ class AnnouncementController extends Controller
 
     private function validated(Request $request, ?Announcement $current = null): array
     {
+        $publicationMode = $request->input('publication_mode');
+        $hasPublicationMode = $request->filled('publication_mode');
         $data = $request->validate([
             'title' => ['required', 'string', 'max:220'],
             'slug' => ['nullable', 'string', 'max:220', 'alpha_dash', Rule::unique('announcements', 'slug')->ignore($current)],
@@ -68,9 +70,30 @@ class AnnouncementController extends Controller
             'summary' => ['nullable', 'string', 'max:1000'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
             'content' => ['required', 'string', 'max:2000000'],
-            'status' => ['required', Rule::in(['draft', 'published'])],
-            'published_at' => ['nullable', 'date'],
+            'publication_mode' => ['nullable', Rule::in(['draft', 'now', 'scheduled'])],
+            'status' => [Rule::requiredIf(! $hasPublicationMode), 'nullable', Rule::in(['draft', 'published'])],
+            'published_at' => [
+                Rule::excludeIf($hasPublicationMode && $publicationMode !== 'scheduled'),
+                Rule::requiredIf($publicationMode === 'scheduled'),
+                'nullable',
+                'date',
+                Rule::when($publicationMode === 'scheduled', ['after:now']),
+            ],
+        ], [
+            'published_at.required' => __('Pilih tarikh dan masa untuk penerbitan berjadual.'),
+            'published_at.after' => __('Pilih tarikh dan masa akan datang untuk penerbitan berjadual.'),
         ]);
+
+        if ($hasPublicationMode) {
+            $data['status'] = $publicationMode === 'draft' ? 'draft' : 'published';
+            if ($publicationMode === 'now') {
+                $wasPublished = $current?->status === 'published' && ! $current->published_at?->isFuture();
+                $data['published_at'] = $wasPublished ? ($current->published_at ?? now()) : now();
+            } elseif ($publicationMode === 'draft') {
+                $data['published_at'] = $current?->published_at;
+            }
+        }
+        unset($data['publication_mode']);
 
         $data['body'] = ($current ? $this->editor($current) : new ContentEditor(''))->apply($data['content']);
         unset($data['content']);

@@ -18,7 +18,7 @@ class CmsContentEditingTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->actingAs(User::factory()->create(['is_admin' => true]));
+        $this->actingAsVerified(User::factory()->create(['is_admin' => true]));
     }
 
     /** @param array<string, mixed> $schema

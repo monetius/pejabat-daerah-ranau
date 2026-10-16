@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Support\TwoFactor;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -18,11 +20,11 @@ class AuthController extends Controller
         return view('admin.login');
     }
 
-    public function login(Request $request): RedirectResponse
+    public function login(Request $request, TwoFactor $twoFactor): RedirectResponse
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'],
+            'password' => ['required', 'string'],
         ]);
 
         $key = 'cms-login:'.hash('sha256', Str::lower($credentials['email']).'|'.$request->ip());
@@ -32,11 +34,14 @@ class AuthController extends Controller
             throw ValidationException::withMessages(['email' => __('Terlalu banyak percubaan log masuk. Cuba lagi dalam :seconds saat.', ['seconds' => $seconds])]);
         }
 
-        if (Auth::attempt($credentials + ['is_admin' => true], $request->boolean('remember'))) {
+        if (Auth::validate($credentials + ['is_admin' => true])) {
+            /** @var User $user */
+            $user = Auth::getLastAttempted();
+            Auth::getProvider()->rehashPasswordIfRequired($user, $credentials);
             RateLimiter::clear($key);
-            $request->session()->regenerate();
+            $twoFactor->beginLogin($request, $user, $request->boolean('remember'));
 
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->route('admin.two-factor.challenge');
         }
 
         RateLimiter::hit($key, 60);

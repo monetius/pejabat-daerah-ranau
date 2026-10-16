@@ -113,59 +113,62 @@
                     <h2>Galeri &amp; Pautan</h2>
                     <p>Gambar, video dan pautan berguna</p>
                 </div>
-                <div class="quick-access-grid quick-access-grid--four">
-                    <a class="quick-access-card" href="/galeri-pautan/gambar">
-                        <div class="quick-access-media">
-                            <div class="showcase-media ph-3" aria-hidden="true">
-                                <i class="fa-solid fa-images"></i>
+                <div class="home-gallery-layout" id="home-gallery">
+                    <div class="quick-access-grid quick-access-grid--four">
+                        <a class="quick-access-card" href="/galeri-pautan/gambar">
+                            <div class="quick-access-media">
+                                <div class="showcase-media ph-3" aria-hidden="true">
+                                    <i class="fa-solid fa-images"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="quick-access-body">
-                            <span class="quick-access-tag">Galeri &amp; Pautan</span>
-                            <h3>Gambar</h3>
-                            <span class="quick-access-link">Lihat Butiran<span class="arrow"
-                                    aria-hidden="true">→</span></span>
-                        </div>
-                    </a>
-                    <a class="quick-access-card" href="/galeri-pautan/video">
-                        <div class="quick-access-media">
-                            <div class="showcase-media ph-1" aria-hidden="true">
-                                <img src="/assets/img/banner" alt="doge">
+                            <div class="quick-access-body">
+                                <span class="quick-access-tag">Galeri &amp; Pautan</span>
+                                <h3>Gambar</h3>
+                                <span class="quick-access-link">Lihat Butiran<span class="arrow"
+                                        aria-hidden="true">→</span></span>
                             </div>
-                        </div>
-                        <div class="quick-access-body">
-                            <span class="quick-access-tag">Galeri &amp; Pautan</span>
-                            <h3>Video</h3>
-                            <span class="quick-access-link">Lihat Butiran<span class="arrow"
-                                    aria-hidden="true">→</span></span>
-                        </div>
-                    </a>
-                    <a class="quick-access-card" href="/galeri-pautan/intranet">
-                        <div class="quick-access-media">
-                            <div class="showcase-media ph-2" aria-hidden="true">
-                                <i class="fa-solid fa-network-wired"></i>
+                        </a>
+                        <a class="quick-access-card" href="/galeri-pautan/video">
+                            <div class="quick-access-media">
+                                <div class="showcase-media ph-1" aria-hidden="true">
+                                    <img src="/assets/img/banner" alt="doge">
+                                </div>
                             </div>
-                        </div>
-                        <div class="quick-access-body">
-                            <span class="quick-access-tag">Galeri &amp; Pautan</span>
-                            <h3>Intranet</h3>
-                            <span class="quick-access-link">Lihat Butiran<span class="arrow"
-                                    aria-hidden="true">→</span></span>
-                        </div>
-                    </a>
-                    <a class="quick-access-card" href="/galeri-pautan/agensi">
-                        <div class="quick-access-media">
-                            <div class="showcase-media ph-3" aria-hidden="true">
-                                <i class="fa-solid fa-link"></i>
+                            <div class="quick-access-body">
+                                <span class="quick-access-tag">Galeri &amp; Pautan</span>
+                                <h3>Video</h3>
+                                <span class="quick-access-link">Lihat Butiran<span class="arrow"
+                                        aria-hidden="true">→</span></span>
                             </div>
-                        </div>
-                        <div class="quick-access-body">
-                            <span class="quick-access-tag">Galeri &amp; Pautan</span>
-                            <h3>Pautan Agensi</h3>
-                            <span class="quick-access-link">Lihat Butiran<span class="arrow"
-                                    aria-hidden="true">→</span></span>
-                        </div>
-                    </a>
+                        </a>
+                        <a class="quick-access-card" href="/galeri-pautan/intranet">
+                            <div class="quick-access-media">
+                                <div class="showcase-media ph-2" aria-hidden="true">
+                                    <i class="fa-solid fa-network-wired"></i>
+                                </div>
+                            </div>
+                            <div class="quick-access-body">
+                                <span class="quick-access-tag">Galeri &amp; Pautan</span>
+                                <h3>Intranet</h3>
+                                <span class="quick-access-link">Lihat Butiran<span class="arrow"
+                                        aria-hidden="true">→</span></span>
+                            </div>
+                        </a>
+                        <a class="quick-access-card" href="/galeri-pautan/agensi">
+                            <div class="quick-access-media">
+                                <div class="showcase-media ph-3" aria-hidden="true">
+                                    <i class="fa-solid fa-link"></i>
+                                </div>
+                            </div>
+                            <div class="quick-access-body">
+                                <span class="quick-access-tag">Galeri &amp; Pautan</span>
+                                <h3>Pautan Agensi</h3>
+                                <span class="quick-access-link">Lihat Butiran<span class="arrow"
+                                        aria-hidden="true">→</span></span>
+                            </div>
+                        </a>
+                    </div>
+                    @include('partials.home-calendar')
                 </div>
                 <div class="affiliated-links" data-affiliated-carousel role="region" aria-roledescription="carousel"
                     aria-labelledby="affiliated-links-title">
@@ -173,17 +176,6 @@
                         <div>
                             <h3 id="affiliated-links-title">Pautan Berkaitan</h3>
                             <p id="affiliated-links-note">Pautan luar dibuka dalam tab baharu.</p>
-                        </div>
-                        <div class="affiliated-controls" hidden>
-                            <button class="affiliated-prev" type="button" aria-label="Pautan sebelumnya" aria-controls="affiliated-links-track">
-                                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-                            </button>
-                            <button class="affiliated-pause" type="button" aria-label="Jeda putaran automatik" aria-controls="affiliated-links-track">
-                                <i class="fa-solid fa-pause" aria-hidden="true"></i>
-                            </button>
-                            <button class="affiliated-next" type="button" aria-label="Pautan seterusnya" aria-controls="affiliated-links-track">
-                                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                            </button>
                         </div>
                     </div>
                     <ul class="affiliated-grid" id="affiliated-links-track" tabindex="0" aria-label="Pautan agensi berkaitan">

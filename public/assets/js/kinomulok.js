@@ -440,6 +440,142 @@ function initAccessibility() {
   sync();
 }
 
+// Shared motion only: each carousel keeps its existing card layout and styling.
+function initDriftMotion(stage, { render, cycle, settle = (position) => position, focusScope = stage }) {
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reduced = () => preference.matches || document.documentElement.classList.contains('a11y-no-motion');
+  let position = 0;
+  let velocity = -60;
+  let direction = -1;
+  let boost = 0;
+  let pointer = null;
+  let cursor = null;
+  let visible = false;
+  let focused = false;
+  let frameId = null;
+  let previousTime = 0;
+  let suppressClickUntil = 0;
+
+  const wrap = () => {
+    const width = cycle();
+    if (width > 0) position = ((position % width) + width) % width;
+  };
+  const paint = () => { wrap(); render(position); };
+  const canAnimate = () => visible && !document.hidden && !focused && !reduced();
+  const frame = (now) => {
+    frameId = null;
+    const elapsed = Math.min(0.05, (now - previousTime) / 1000);
+    previousTime = now;
+    if (!pointer && canAnimate()) {
+      boost *= Math.exp(-elapsed * 3.5);
+      const target = direction * 60 + boost;
+      velocity += (target - velocity) * (1 - Math.exp(-elapsed * 2.2));
+      position += velocity * elapsed;
+      paint();
+    }
+    if (canAnimate() && !pointer) frameId = requestAnimationFrame(frame);
+  };
+  const schedule = () => {
+    if (frameId !== null) cancelAnimationFrame(frameId);
+    frameId = null;
+    if (!canAnimate() || pointer) return;
+    previousTime = performance.now();
+    frameId = requestAnimationFrame(frame);
+  };
+  const setPosition = (next) => { position = next; velocity = 0; boost = 0; paint(); };
+
+  stage.classList.add('is-drifting');
+  stage.addEventListener('pointerdown', (event) => {
+    if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
+    pointer = { id: event.pointerId, startX: event.clientX, startY: event.clientY,
+      x: event.clientX, time: performance.now(), velocity: 0, active: false };
+    cursor = null;
+    boost = 0;
+    schedule();
+  });
+  stage.addEventListener('pointermove', (event) => {
+    const now = performance.now();
+    if (!pointer) {
+      if (event.pointerType !== 'mouse' || reduced() || focused) return;
+      if (cursor) {
+        const delta = event.clientX - cursor.x;
+        if (Math.abs(delta) > 1) {
+          direction = delta > 0 ? 1 : -1;
+          boost = Math.max(-700, Math.min(700, delta / Math.max(0.001, (now - cursor.time) / 1000) * 0.35));
+        }
+      }
+      cursor = { x: event.clientX, time: now };
+      return;
+    }
+    if (event.pointerId !== pointer.id) return;
+    if (!pointer.active) {
+      const horizontal = event.clientX - pointer.startX;
+      const vertical = event.clientY - pointer.startY;
+      if (Math.max(Math.abs(horizontal), Math.abs(vertical)) < 8) return;
+      if (Math.abs(vertical) >= Math.abs(horizontal)) { pointer = null; schedule(); return; }
+      pointer.active = true;
+      stage.setPointerCapture(event.pointerId);
+      stage.classList.add('is-dragging');
+    }
+    event.preventDefault();
+    const delta = event.clientX - pointer.x;
+    const elapsed = Math.max(0.001, (now - pointer.time) / 1000);
+    position += delta;
+    pointer.velocity = pointer.velocity * 0.6 + delta / elapsed * 0.4;
+    pointer.x = event.clientX;
+    pointer.time = now;
+    paint();
+  });
+  const release = (event) => {
+    if (!pointer || event.pointerId !== pointer.id) return;
+    const moved = pointer.active;
+    const cancelled = event.type === 'pointercancel' || event.type === 'lostpointercapture';
+    velocity = cancelled || nowSince(pointer.time) > 120 ? 0 : Math.max(-1800, Math.min(1800, pointer.velocity));
+    if (Math.abs(velocity) > 40) direction = velocity > 0 ? 1 : -1;
+    pointer = null;
+    stage.classList.remove('is-dragging');
+    if (moved) {
+      suppressClickUntil = Date.now() + 350;
+      if (reduced()) setPosition(settle(position));
+    }
+    schedule();
+  };
+  const nowSince = (time) => performance.now() - time;
+  stage.addEventListener('pointerup', release);
+  stage.addEventListener('pointercancel', release);
+  stage.addEventListener('lostpointercapture', release);
+  stage.addEventListener('pointerleave', () => { cursor = null; });
+  stage.addEventListener('dragstart', (event) => event.preventDefault());
+  stage.addEventListener('click', (event) => {
+    if (Date.now() >= suppressClickUntil) return;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+  stage.addEventListener('wheel', (event) => {
+    if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+    event.preventDefault();
+    const delta = event.deltaX * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? stage.clientWidth : 1);
+    position -= delta;
+    direction = delta < 0 ? 1 : -1;
+    velocity = direction * 60;
+    paint();
+  }, { passive: false });
+  focusScope.addEventListener('focusin', (event) => {
+    focused = event.target.matches(':focus-visible');
+    schedule();
+  });
+  focusScope.addEventListener('focusout', () => setTimeout(() => {
+    focused = focusScope.contains(document.activeElement) && document.activeElement.matches(':focus-visible');
+    schedule();
+  }, 0));
+  document.addEventListener('visibilitychange', schedule);
+  preference.addEventListener('change', () => { velocity = 0; boost = 0; schedule(); });
+  new MutationObserver(schedule).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+  new IntersectionObserver((entries) => { visible = entries[0].isIntersecting; schedule(); }).observe(stage);
+  paint();
+  return { setPosition, position: () => position, refresh: paint };
+}
+
 function initPdCarousel() {
   const root = document.getElementById('pdCarousel');
   if (!root) return;
@@ -536,186 +672,267 @@ function initPdCarousel() {
 
 function initAffiliatedCarousel() {
   const root = document.querySelector('[data-affiliated-carousel]');
-  if (!root) return;
-  const track = root.querySelector('.affiliated-grid');
-  const controls = root.querySelector('.affiliated-controls');
-  const previous = root.querySelector('.affiliated-prev');
-  const next = root.querySelector('.affiliated-next');
-  const pause = root.querySelector('.affiliated-pause');
-  if (!track || !controls || !previous || !next || !pause) return;
+  const track = root?.querySelector('.affiliated-grid');
+  if (!track) return;
   const items = Array.from(track.children);
   if (items.length < 2) return;
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const reduceMotion = () => reducedMotion.matches || document.documentElement.classList.contains('a11y-no-motion');
-  let autoplayEnabled = true;
-  let hovered = false;
-  let focused = false;
-  let touching = false;
-  let inView = false;
-  let drag = null;
-  let suppressClickUntil = 0;
-  let autoplayTimer;
-  let settleTimer;
-  let firstOffset = 0;
-  let cycleWidth = 0;
-  let step = 0;
-  let active = 0;
-
-  const cloneItem = (item) => {
-    const clone = item.cloneNode(true);
-    clone.dataset.carouselClone = '';
-    clone.setAttribute('aria-hidden', 'true');
-    clone.querySelectorAll('[id]').forEach((element) => element.removeAttribute('id'));
-    clone.querySelectorAll('a').forEach((link) => { link.tabIndex = -1; });
-    return clone;
+  const clone = (item) => {
+    const copy = item.cloneNode(true);
+    copy.dataset.carouselClone = '';
+    copy.setAttribute('aria-hidden', 'true');
+    copy.querySelectorAll('[id]').forEach((element) => element.removeAttribute('id'));
+    copy.querySelectorAll('a').forEach((anchor) => { anchor.tabIndex = -1; });
+    return copy;
   };
-  const before = document.createDocumentFragment();
-  const after = document.createDocumentFragment();
-  items.forEach((item) => {
-    before.append(cloneItem(item));
-    after.append(cloneItem(item));
-  });
-  track.prepend(before);
-  track.append(after);
-
-  const wrap = (index) => (index % items.length + items.length) % items.length;
-  const nearest = () => Math.round((track.scrollLeft - firstOffset) / step);
-  const normalize = () => {
-    if (!step || drag?.active || touching) return;
-    const index = nearest();
-    if (Math.abs(track.scrollLeft - (firstOffset + index * step)) > 1.5) return;
-    active = wrap(index);
-    const offset = track.scrollLeft - firstOffset;
-    if (offset < -1 || offset >= cycleWidth - 1) {
-      track.scrollTo({ left: firstOffset + active * step, behavior: 'instant' });
-    }
-  };
-  const goTo = (index) => {
-    active = wrap(index);
-    track.scrollTo({ left: firstOffset + index * step, behavior: reduceMotion() ? 'instant' : 'smooth' });
-  };
-  const scheduleAutoplay = () => {
-    clearTimeout(autoplayTimer);
-    if (!autoplayEnabled || reduceMotion() || hovered || focused || touching || drag || !inView || document.hidden) return;
-    autoplayTimer = setTimeout(() => {
-      normalize();
-      goTo(nearest() + 1);
-      scheduleAutoplay();
-    }, 4000);
-  };
-  const renderPause = () => {
-    const limited = reduceMotion();
-    const label = limited ? 'Putaran automatik dimatikan untuk mengurangkan pergerakan'
-      : autoplayEnabled ? 'Jeda putaran automatik' : 'Mulakan putaran automatik';
-    pause.disabled = limited;
-    pause.setAttribute('aria-label', label);
-    pause.title = label;
-    pause.querySelector('i').className = `fa-solid ${autoplayEnabled && !limited ? 'fa-pause' : 'fa-play'}`;
-  };
+  track.prepend(...items.map(clone));
+  track.append(...items.map(clone));
+  let offset = 0;
+  let width = 1;
   const measure = () => {
-    clearTimeout(settleTimer);
-    firstOffset = items[0].offsetLeft - track.firstElementChild.offsetLeft;
-    cycleWidth = items[items.length - 1].nextElementSibling.offsetLeft - items[0].offsetLeft;
-    step = cycleWidth / items.length;
-    track.scrollTo({ left: firstOffset + active * step, behavior: 'instant' });
+    offset = items[0].offsetLeft - track.firstElementChild.offsetLeft;
+    width = items[items.length - 1].nextElementSibling.offsetLeft - items[0].offsetLeft;
   };
-  const shift = (direction) => {
-    normalize();
-    goTo(nearest() + direction);
-    scheduleAutoplay();
-  };
-
-  previous.disabled = false;
-  next.disabled = false;
-  controls.hidden = false;
-  previous.addEventListener('click', () => shift(-1));
-  next.addEventListener('click', () => shift(1));
-  pause.addEventListener('click', () => {
-    autoplayEnabled = !autoplayEnabled;
-    if (autoplayEnabled) focused = false;
-    renderPause();
-    scheduleAutoplay();
-  });
-  track.addEventListener('scroll', () => {
-    clearTimeout(settleTimer);
-    settleTimer = setTimeout(normalize, 180);
-  }, { passive: true });
-  track.addEventListener('scrollend', normalize);
-  track.addEventListener('keydown', (event) => {
-    if (event.target !== track || !['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
-    event.preventDefault();
-    focused = true;
-    if (event.key === 'Home') goTo(0);
-    else if (event.key === 'End') goTo(items.length - 1);
-    else shift(event.key === 'ArrowLeft' ? -1 : 1);
-    scheduleAutoplay();
-  });
-  root.addEventListener('mouseenter', () => { hovered = true; scheduleAutoplay(); });
-  root.addEventListener('mouseleave', () => { hovered = false; scheduleAutoplay(); });
-  root.addEventListener('focusin', (event) => { focused = event.target.matches(':focus-visible'); scheduleAutoplay(); });
-  root.addEventListener('focusout', () => setTimeout(() => {
-    if (!root.contains(document.activeElement)) focused = false;
-    scheduleAutoplay();
-  }, 0));
-  track.addEventListener('touchstart', () => { touching = true; scheduleAutoplay(); }, { passive: true });
-  const finishTouch = () => { touching = false; scheduleAutoplay(); };
-  track.addEventListener('touchend', finishTouch, { passive: true });
-  track.addEventListener('touchcancel', finishTouch, { passive: true });
-
-  track.addEventListener('pointerdown', (event) => {
-    if (!event.isPrimary || event.pointerType !== 'mouse' || event.button !== 0) return;
-    drag = { pointerId: event.pointerId, x: event.clientX, y: event.clientY, left: track.scrollLeft, active: false };
-    scheduleAutoplay();
-  });
-  track.addEventListener('pointermove', (event) => {
-    if (!drag || event.pointerId !== drag.pointerId) return;
-    const horizontal = event.clientX - drag.x;
-    const vertical = event.clientY - drag.y;
-    if (!drag.active) {
-      if (Math.max(Math.abs(horizontal), Math.abs(vertical)) < 8) return;
-      if (Math.abs(vertical) >= Math.abs(horizontal)) {
-        drag = null;
-        scheduleAutoplay();
-        return;
-      }
-      drag.active = true;
-      track.setPointerCapture(event.pointerId);
-      track.classList.add('is-dragging');
-    }
-    event.preventDefault();
-    track.scrollLeft = drag.left - horizontal;
-  });
-  const finishDrag = () => {
-    const moved = drag?.active;
-    drag = null;
-    track.classList.remove('is-dragging');
-    if (moved) {
-      suppressClickUntil = Date.now() + 300;
-      goTo(nearest());
-    }
-    scheduleAutoplay();
-  };
-  track.addEventListener('pointerup', finishDrag);
-  track.addEventListener('pointercancel', finishDrag);
-  track.addEventListener('lostpointercapture', finishDrag);
-  track.addEventListener('dragstart', (event) => event.preventDefault());
-  track.addEventListener('click', (event) => {
-    if (Date.now() >= suppressClickUntil) return;
-    event.preventDefault();
-    event.stopPropagation();
-  }, true);
-  window.addEventListener('resize', () => { measure(); scheduleAutoplay(); });
-  document.addEventListener('visibilitychange', scheduleAutoplay);
-  reducedMotion.addEventListener('change', () => { renderPause(); scheduleAutoplay(); });
-  new MutationObserver(() => { renderPause(); scheduleAutoplay(); }).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-  new IntersectionObserver((entries) => {
-    inView = entries[0].isIntersecting;
-    scheduleAutoplay();
-  }).observe(root);
-
   measure();
-  renderPause();
+  const motion = initDriftMotion(track, {
+    cycle: () => width,
+    render: (position) => { track.scrollLeft = offset + ((-position % width) + width) % width; },
+  });
+  track.addEventListener('focusout', () => motion.setPosition(-(track.scrollLeft - offset)));
+  window.addEventListener('resize', () => {
+    const progress = motion.position() / width;
+    measure();
+    motion.setPosition(progress * width);
+  });
 }
+
+
+function initHomeCalendar() {
+  const root = document.querySelector('[data-home-calendar]');
+  if (!root) return;
+  const monthLabel = root.querySelector('#home-calendar-month');
+  const dates = root.querySelector('[data-calendar-dates]');
+  const agenda = root.querySelector('[data-calendar-agenda]');
+  const note = root.querySelector('[data-calendar-note]');
+  const source = root.querySelector('[data-calendar-source]');
+  const malaysiaDate = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Kuala_Lumpur', year: 'numeric', month: 'numeric', day: 'numeric',
+  });
+  const monthFormat = new Intl.DateTimeFormat('ms-MY', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const dateFormat = new Intl.DateTimeFormat('ms-MY', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const shortDate = new Intl.DateTimeFormat('ms-MY', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+  const currentDate = () => {
+    const parts = Object.fromEntries(malaysiaDate.formatToParts(new Date()).map((part) => [part.type, part.value]));
+    return new Date(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day)));
+  };
+  const isoDate = (date) => date.toISOString().slice(0, 10);
+  const parseDate = (date) => new Date(`${date}T12:00:00Z`);
+  const isSameMonth = (first, second) => first.getUTCFullYear() === second.getUTCFullYear() && first.getUTCMonth() === second.getUTCMonth();
+  const element = (tag, className, text) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
+  let today = currentDate();
+  let displayedMonth = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1));
+  let selectedDate = isoDate(today);
+  let daySelected = false;
+  let entries = [];
+  let loading = false;
+  let failed = false;
+  let holidaySource = null;
+  let requestId = 0;
+  let pendingRequest;
+
+  const entriesOn = (date) => entries.filter((entry) => entry.start_date <= date && entry.end_date >= date);
+  const renderDates = () => {
+    const restoreFocus = dates.contains(document.activeElement);
+    monthLabel.textContent = monthFormat.format(displayedMonth);
+    const firstWeekday = (displayedMonth.getUTCDay() + 6) % 7;
+    const fragment = document.createDocumentFragment();
+    for (let week = 0; week < 6; week++) {
+      const row = document.createElement('tr');
+      for (let weekday = 0; weekday < 7; weekday++) {
+        const date = new Date(displayedMonth);
+        date.setUTCDate(week * 7 + weekday - firstWeekday + 1);
+        const key = isoDate(date);
+        const items = entriesOn(key);
+        const cell = document.createElement('td');
+        const button = element('button', 'home-calendar-day');
+        button.type = 'button';
+        button.dataset.date = key;
+        button.tabIndex = key === selectedDate ? 0 : -1;
+        button.setAttribute('aria-pressed', String(daySelected && key === selectedDate));
+        button.setAttribute('aria-label', dateFormat.format(date) + (items.length ? `. ${items.map((item) => `${item.kind === 'holiday' ? 'Cuti umum' : 'Program'}: ${item.title}`).join('. ')}` : ''));
+        button.setAttribute('aria-controls', 'home-calendar-agenda');
+        if (!isSameMonth(date, displayedMonth)) cell.classList.add('is-outside-month');
+        if (key === isoDate(today)) {
+          button.classList.add('is-today');
+          button.setAttribute('aria-current', 'date');
+        }
+        if (daySelected && key === selectedDate) button.classList.add('is-selected');
+        const time = element('time', '', String(date.getUTCDate()));
+        time.dateTime = key;
+        button.append(time);
+        const dots = element('span', 'calendar-day-dots');
+        dots.setAttribute('aria-hidden', 'true');
+        for (const kind of ['program', 'holiday']) {
+          if (items.some((item) => item.kind === kind)) dots.append(element('i', `calendar-dot ${kind}`));
+        }
+        button.append(dots);
+        cell.append(button);
+        row.append(cell);
+      }
+      fragment.append(row);
+    }
+    dates.replaceChildren(fragment);
+    if (restoreFocus) dates.querySelector(`[data-date="${selectedDate}"]`)?.focus({ preventScroll: true });
+  };
+
+  const renderAgenda = () => {
+    agenda.replaceChildren();
+    agenda.setAttribute('aria-busy', String(loading));
+    if (loading || failed) {
+      agenda.append(element('p', 'home-calendar-empty', loading ? 'Memuatkan program & cuti umum…' : 'Maklumat kalendar tidak dapat dimuatkan.'));
+      if (failed) {
+        const retry = element('button', 'home-calendar-retry', 'Cuba lagi');
+        retry.type = 'button';
+        retry.addEventListener('click', loadEntries);
+        agenda.append(retry);
+      }
+      return;
+    }
+    const heading = element('h4', 'home-calendar-agenda-title', daySelected ? dateFormat.format(parseDate(selectedDate)) : `Agenda ${monthFormat.format(displayedMonth)}`);
+    agenda.append(heading);
+    const monthStart = isoDate(displayedMonth);
+    const monthEnd = new Date(displayedMonth);
+    monthEnd.setUTCMonth(monthEnd.getUTCMonth() + 1);
+    monthEnd.setUTCDate(0);
+    const items = daySelected ? entriesOn(selectedDate) : entries.filter((item) => item.start_date <= isoDate(monthEnd) && item.end_date >= monthStart);
+    if (!items.length) {
+      agenda.append(element('p', 'home-calendar-empty', daySelected ? 'Tiada program atau cuti umum pada tarikh ini.' : 'Tiada program atau cuti umum pada bulan ini.'));
+      return;
+    }
+    const list = element('ul', 'home-calendar-agenda-list');
+    items.forEach((item) => {
+      const row = element('li', `home-calendar-event ${item.kind === 'holiday' ? 'holiday' : 'program'}`);
+      const label = shortDate.format(parseDate(item.start_date)) + (item.end_date !== item.start_date ? ` – ${shortDate.format(parseDate(item.end_date))}` : '');
+      row.append(element('span', 'home-calendar-event-date', `${label} · ${item.kind === 'holiday' ? 'Cuti umum' : 'Program / Acara'}`));
+      row.append(element('h5', 'home-calendar-event-title', item.title));
+      const details = [];
+      if (item.start_time) details.push(item.start_time + (item.end_time ? ` – ${item.end_time}` : '') + ' MYT');
+      else if (item.kind !== 'holiday') details.push('Sepanjang hari');
+      if (item.location) details.push(item.location);
+      if (details.length) row.append(element('p', 'home-calendar-event-meta', details.join(' · ')));
+      if (item.description) row.append(element('p', 'home-calendar-event-description', item.description));
+      if (item.url) {
+        let url;
+        try { url = new URL(item.url, window.location.href); } catch {}
+        if (url && ['http:', 'https:'].includes(url.protocol)) {
+          const link = element('a', 'home-calendar-event-link', 'Lihat maklumat ↗');
+          link.href = url.href;
+          if (url.origin !== window.location.origin) { link.target = '_blank'; link.rel = 'noopener noreferrer'; }
+          row.append(link);
+        }
+      }
+      list.append(row);
+    });
+    agenda.append(list);
+  };
+  const render = () => {
+    renderDates();
+    renderAgenda();
+    note.textContent = holidaySource ? `Cuti umum Sabah & Malaysia · ${displayedMonth.getUTCFullYear()}`
+      : loading ? '' : `Jadual cuti umum ${displayedMonth.getUTCFullYear()} belum diimport.`;
+    source.href = holidaySource || 'https://sabah.gov.my/public-holidays';
+  };
+  async function loadEntries() {
+    const currentRequest = ++requestId;
+    pendingRequest?.abort();
+    pendingRequest = new AbortController();
+    entries = [];
+    loading = true;
+    failed = false;
+    holidaySource = null;
+    render();
+    try {
+      const url = new URL(root.dataset.calendarUrl, window.location.href);
+      url.searchParams.set('month', isoDate(displayedMonth).slice(0, 7));
+      const response = await fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store', signal: pendingRequest.signal });
+      if (!response.ok) throw new Error('Calendar request failed');
+      const data = await response.json();
+      if (currentRequest !== requestId) return;
+      entries = data.entries;
+      holidaySource = data.holiday_source;
+    } catch (error) {
+      if (error.name === 'AbortError' || currentRequest !== requestId) return;
+      failed = true;
+    }
+    loading = false;
+    render();
+  }
+
+  const changeMonth = (offset) => {
+    const next = new Date(displayedMonth);
+    next.setUTCMonth(next.getUTCMonth() + offset);
+    if (next.getUTCFullYear() < 2000 || next.getUTCFullYear() > 2100) return;
+    displayedMonth = next;
+    selectedDate = isSameMonth(today, displayedMonth) ? isoDate(today) : isoDate(displayedMonth);
+    daySelected = false;
+    loadEntries();
+  };
+  const selectDate = (key) => {
+    const date = parseDate(key);
+    if (date.getUTCFullYear() < 2000 || date.getUTCFullYear() > 2100) return;
+    const monthChanged = !isSameMonth(date, displayedMonth);
+    displayedMonth = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), 1));
+    selectedDate = key;
+    daySelected = true;
+    if (monthChanged) loadEntries();
+    else render();
+    dates.querySelector(`[data-date="${key}"]`)?.focus({ preventScroll: true });
+  };
+  dates.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-date]');
+    if (button) selectDate(button.dataset.date);
+  });
+  dates.addEventListener('keydown', (event) => {
+    const button = event.target.closest('[data-date]');
+    if (!button) return;
+    const offsets = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 };
+    const date = parseDate(button.dataset.date);
+    let offset = offsets[event.key];
+    if (event.key === 'Home') offset = -((date.getUTCDay() + 6) % 7);
+    if (event.key === 'End') offset = 6 - ((date.getUTCDay() + 6) % 7);
+    if (offset === undefined) return;
+    event.preventDefault();
+    date.setUTCDate(date.getUTCDate() + offset);
+    selectDate(isoDate(date));
+  });
+  root.querySelector('[data-calendar-previous]').addEventListener('click', () => changeMonth(-1));
+  root.querySelector('[data-calendar-next]').addEventListener('click', () => changeMonth(1));
+  const returnToToday = () => {
+    today = currentDate();
+    displayedMonth = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1));
+    selectedDate = isoDate(today);
+    daySelected = false;
+    loadEntries();
+  };
+  root.querySelector('[data-calendar-today]').addEventListener('click', returnToToday);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) { today = currentDate(); loadEntries(); } });
+  setInterval(() => {
+    if (document.hidden) return;
+    const nextToday = currentDate();
+    if (nextToday.getTime() !== today.getTime()) {
+      const wasCurrentMonth = isSameMonth(today, displayedMonth);
+      today = nextToday;
+      if (wasCurrentMonth && !daySelected) returnToToday();
+      else render();
+    }
+  }, 60000);
+  loadEntries();
+}
+
 
 function initCardBlur() {
   // A card fades and blurs as it enters/leaves at the bottom of the screen.
@@ -803,5 +1020,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initPdCarousel();
   initAffiliatedCarousel();
+  initHomeCalendar();
   initCardBlur();
 });

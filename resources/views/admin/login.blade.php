@@ -4,6 +4,7 @@
     <div class="card login-card">
         @include('admin.brand')
         <h1>{{ __('Selamat kembali.') }}</h1><p class="page-intro">{{ __('Log masuk untuk mengurus kandungan laman web.') }}</p>
+        <p class="hint">{{ __('Selepas kata laluan disahkan, kami akan menghantar kod log masuk ke e-mel akaun anda.') }}</p>
         <form method="POST" action="{{ route('admin.login.submit') }}">
             @csrf
             <label for="email">{{ __('E-mel') }}</label>

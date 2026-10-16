@@ -6,8 +6,10 @@ use App\Models\Announcement;
 use App\Models\Page;
 use App\Models\SitePart;
 use App\Models\User;
+use App\Support\CmsLoginCode;
 use App\Support\ContentEditor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class CmsLocalizationTest extends TestCase
@@ -24,7 +26,7 @@ class CmsLocalizationTest extends TestCase
         $this->get('/admin/login')->assertOk()->assertSee('lang="ms"', false)
             ->assertSee('Selamat kembali.')->assertSee('aria-label="English"', false)
             ->assertSee('aria-label="Bahasa Melayu"', false);
-        $this->actingAs($this->admin())->get('/admin/pages/create')->assertOk()
+        $this->actingAsVerified($this->admin())->get('/admin/pages/create')->assertOk()
             ->assertSee('Halaman Baru')->assertSee('Hero halaman');
     }
 
@@ -41,7 +43,7 @@ class CmsLocalizationTest extends TestCase
 
     public function test_every_admin_screen_has_native_english_labels(): void
     {
-        $this->actingAs($this->admin())->withCookie('cms_locale', 'en');
+        $this->actingAsVerified($this->admin())->withCookie('cms_locale', 'en');
         $page = Page::create(['title' => 'Kandungan asal', 'slug' => 'asal', 'path' => 'halaman/asal', 'status' => 'published', 'body' => '<h1>Tajuk asal</h1><p>Perenggan asal</p>']);
         $part = SitePart::create(['key' => 'footer', 'label' => 'Footer', 'html' => '<footer><p>Alamat asal</p></footer>']);
         $announcement = Announcement::create(['title' => 'Berita asal', 'slug' => 'berita-asal', 'category' => 'berita', 'status' => 'published', 'body' => '<p>Maklumat asal</p>']);
@@ -49,10 +51,10 @@ class CmsLocalizationTest extends TestCase
             '/admin' => 'CONTENT MANAGEMENT',
             '/admin/pages' => 'New page',
             '/admin/pages/create' => 'Page hero',
-            '/admin/pages/' . $page->id . '/edit' => 'Existing content',
+            '/admin/pages/'.$page->id.'/edit' => 'Existing content',
             '/admin/announcements' => 'Announcements &amp; news',
             '/admin/announcements/create' => 'Author (optional)',
-            '/admin/announcements/' . $announcement->id . '/edit' => 'Publication date (Malaysia time, MYT)',
+            '/admin/announcements/'.$announcement->id.'/edit' => 'Scheduled publication date and time (MYT)',
             '/admin/menu' => 'Navigation menu',
             '/admin/menu/create' => 'Parent menu',
             '/admin/parts' => 'Header &amp; footer',
@@ -67,7 +69,7 @@ class CmsLocalizationTest extends TestCase
     public function test_editor_controls_receive_english_translations_and_legacy_field_labels(): void
     {
         $page = Page::create(['title' => 'Halaman asal', 'slug' => 'asal', 'path' => 'halaman/asal', 'body' => '<h1>Tajuk asal</h1><p>Perenggan asal</p><a href="/">Kembali</a>']);
-        $response = $this->actingAs($this->admin())->withCookie('cms_locale', 'en')->get('/admin/pages/' . $page->id . '/edit')
+        $response = $this->actingAsVerified($this->admin())->withCookie('cms_locale', 'en')->get('/admin/pages/'.$page->id.'/edit')
             ->assertOk()->assertSee('data-editor-translations', false)->assertSee('Hero style');
         preg_match('/<script type="application\/json" data-editor-translations>(.*?)<\/script>/s', $response->getContent(), $matches);
         $translations = json_decode($matches[1], true, 512, JSON_THROW_ON_ERROR);
@@ -81,10 +83,10 @@ class CmsLocalizationTest extends TestCase
     public function test_english_editor_preserves_authored_content_and_does_not_translate_the_public_website(): void
     {
         $page = Page::create(['title' => 'Nama halaman', 'slug' => 'asal', 'path' => 'halaman/asal', 'status' => 'published', 'body' => '<h1>Nama halaman</h1><p>Teks perenggan</p>']);
-        $this->actingAs($this->admin())->withCookie('cms_locale', 'en');
-        $schema = $this->get('/admin/pages/' . $page->id . '/edit')->viewData('editor');
-        $payload = ['version' => $schema['version'], 'fields' => array_map(fn(array $field): array => ['id' => $field['id'], 'value' => $field['value']], $schema['fields']), 'blocks' => $schema['blocks']];
-        $this->put('/admin/pages/' . $page->id, ['title' => $page->title, 'path' => $page->path, 'status' => 'published', 'content' => json_encode($payload)])
+        $this->actingAsVerified($this->admin())->withCookie('cms_locale', 'en');
+        $schema = $this->get('/admin/pages/'.$page->id.'/edit')->viewData('editor');
+        $payload = ['version' => $schema['version'], 'fields' => array_map(fn (array $field): array => ['id' => $field['id'], 'value' => $field['value']], $schema['fields']), 'blocks' => $schema['blocks']];
+        $this->put('/admin/pages/'.$page->id, ['title' => $page->title, 'path' => $page->path, 'status' => 'published', 'content' => json_encode($payload)])
             ->assertSessionHasNoErrors()->assertSessionHas('status', 'Page updated.');
         $this->assertSame($page->body, $page->fresh()->body);
         $this->assertSame(0, $page->revisions()->count());
@@ -96,7 +98,7 @@ class CmsLocalizationTest extends TestCase
     {
         $this->withCookie('cms_locale', 'en')->post('/admin/login', ['email' => 'missing@example.com', 'password' => 'wrong'])
             ->assertSessionHasErrors(['email' => 'The email address or password is incorrect.']);
-        $this->actingAs($this->admin());
+        $this->actingAsVerified($this->admin());
         $schema = (new ContentEditor(''))->schema();
         $payload = ['version' => $schema['version'], 'fields' => [], 'blocks' => [['type' => 'hero', 'variant' => 'image']]];
         $this->post('/admin/pages', ['title' => 'Hero', 'status' => 'draft', 'content' => json_encode($payload)])
@@ -107,20 +109,23 @@ class CmsLocalizationTest extends TestCase
 
     public function test_cookie_keeps_english_after_sign_in_sign_out_and_idle_expiry(): void
     {
+        config(['mail.default' => 'smtp']);
+        Mail::fake();
         $user = User::factory()->create(['is_admin' => true, 'password' => 'correct-password']);
         $this->withCookie('cms_locale', 'en')->post('/admin/login', ['email' => $user->email, 'password' => 'correct-password'])
             ->assertSessionHasNoErrors();
+        $this->post('/admin/two-factor-challenge', ['code' => Mail::sent(CmsLoginCode::class)->last()->code])->assertSessionHasNoErrors();
         $this->get('/admin')->assertSee('Welcome,');
         $this->withCredentials()->withSession(['admin_last_activity' => time() - 3600])->postJson('/admin/keepalive')
             ->assertUnauthorized()->assertJsonPath('message', 'Your session has expired.');
         $this->get('/admin/login')->assertSee('Welcome back.');
-        $this->actingAs($user)->post('/admin/logout')->assertRedirect();
+        $this->actingAsVerified($user)->post('/admin/logout')->assertRedirect();
         $this->get('/admin/login')->assertSee('Welcome back.');
     }
 
     public function test_malay_can_be_restored_and_unsupported_cookies_fall_back_safely(): void
     {
-        $this->actingAs($this->admin())->withCookie('cms_locale', 'en');
+        $this->actingAsVerified($this->admin())->withCookie('cms_locale', 'en');
         $this->from('/admin/pages/create')->post('/admin/language', ['locale' => 'ms'])
             ->assertStatus(303)->assertCookie('cms_locale', 'ms')->assertSessionHas('cms_locale', 'ms');
         $this->withCookie('cms_locale', 'ms')->get('/admin/pages/create')->assertSee('Hero halaman')->assertSee('lang="ms"', false);
