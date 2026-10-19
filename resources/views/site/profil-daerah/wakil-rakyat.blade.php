@@ -2,7 +2,7 @@
 
 @section('title', 'Wakil Rakyat - Pejabat Daerah Ranau')
 @section('description', 'Wakil rakyat Daerah Ranau: Ahli Parlimen P.179 Ranau dan Ahli Dewan Undangan Negeri Karanaan, Paginatan dan Kundasang.')
-@section('body_class', 'has-banner')
+@section('body_class', '')
 
 @push('styles')
   <link rel="stylesheet" href="{{ asset('assets/css/wakil.css') }}">
@@ -11,11 +11,7 @@
 @section('content')
 @verbatim
 
-      <div class="page-header">
-        <div class="page-header-media">
-          <img src="/assets/img/banner.jpg" alt="" />
-        </div>
-        <div class="page-header-scrim"></div>
+      <div class="page-header page-header--plain">
         <div class="container">
           <ul class="breadcrumb">
             <li><a href="/">Laman Utama</a></li>

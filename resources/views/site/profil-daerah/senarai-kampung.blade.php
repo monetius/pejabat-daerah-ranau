@@ -2,7 +2,7 @@
 
 @section('title', 'Senarai Kampung - Pejabat Daerah Ranau')
 @section('description', 'Senarai kampung di Daerah Ranau mengikut DUN dan mukim.')
-@section('body_class', 'has-banner')
+@section('body_class', '')
 
 @push('styles')
   <link rel="stylesheet" href="{{ asset('assets/css/kampungsiurang.css') }}">
@@ -11,11 +11,7 @@
 @section('content')
 @verbatim
 
-      <div class="page-header">
-        <div class="page-header-media">
-          <img src="/assets/img/banner.jpg" alt="" />
-        </div>
-        <div class="page-header-scrim"></div>
+      <div class="page-header page-header--plain">
         <div class="container">
           <ul class="breadcrumb">
             <li><a href="/">Laman Utama</a></li>

@@ -2,7 +2,7 @@
 
 @section('title', 'Hebahan Integriti - Pejabat Daerah Ranau')
 @section('description', 'Hebahan Integriti daripada Bahagian Integriti dan Governans Negeri Sabah (BIGONS) - dasar antirasuah, tanda nama, tadbir urus baik dan cara melaporkan rasuah.')
-@section('body_class', 'has-banner')
+@section('body_class', '')
 
 @push('styles')
   <link rel="stylesheet" href="{{ asset('assets/css/integ.css') }}">
@@ -11,11 +11,7 @@
 @section('content')
 @verbatim
 
-      <div class="page-header">
-        <div class="page-header-media">
-          <img src="/assets/img/banner.jpg" alt="" />
-        </div>
-        <div class="page-header-scrim"></div>
+      <div class="page-header page-header--plain">
         <div class="container">
           <ul class="breadcrumb">
             <li><a href="/">Laman Utama</a></li>

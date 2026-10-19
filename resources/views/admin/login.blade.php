@@ -3,8 +3,7 @@
 @section('content')
     <div class="card login-card">
         @include('admin.brand')
-        <h1>{{ __('Selamat kembali.') }}</h1><p class="page-intro">{{ __('Log masuk untuk mengurus kandungan laman web.') }}</p>
-        <p class="hint">{{ __('Selepas kata laluan disahkan, klik Hantar kod pada langkah seterusnya untuk menerima kod pengesahan.') }}</p>
+        <h1>{{ __('Log Masuk') }}</h1>
         <form method="POST" action="{{ route('admin.login.submit') }}">
             @csrf
             <label for="email">{{ __('E-mel') }}</label>

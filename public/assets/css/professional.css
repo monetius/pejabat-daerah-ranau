@@ -82,6 +82,31 @@ body.has-banner .navbar:not(.is-condensed) {
   color: #b8c7d8;
 }
 
+.page-header--plain {
+  min-height: 0;
+  padding: calc(var(--nav-height) + var(--nav-gap) + 2rem) 0 2rem;
+  background: var(--paper);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+.page-header--plain h1 {
+  color: var(--ink);
+}
+
+.page-header--plain .breadcrumb,
+.page-header--plain .breadcrumb li:not(:last-child)::after {
+  color: var(--ink-soft);
+}
+
+.page-header--plain .breadcrumb a {
+  color: var(--kinabalu-blue);
+}
+
+.page-header--plain .breadcrumb a:hover {
+  color: var(--ink);
+}
+
 .section-head h2, :is(.hb-section, .hb-page) .hb-head h2 {
   font-size: clamp(1.75rem, 2.8vw, 2.25rem);
   line-height: 1.25;

@@ -24,7 +24,7 @@ class CmsLocalizationTest extends TestCase
     public function test_cms_defaults_to_malay_and_exposes_both_language_options(): void
     {
         $this->get('/admin/login')->assertOk()->assertSee('lang="ms"', false)
-            ->assertSee('Selamat kembali.')->assertSee('aria-label="English"', false)
+            ->assertSee('Kata laluan')->assertSee('aria-label="English"', false)
             ->assertSee('aria-label="Bahasa Melayu"', false);
         $this->actingAsVerified($this->admin())->get('/admin/pages/create')->assertOk()
             ->assertSee('Halaman Baru')->assertSee('Hero halaman');
@@ -35,8 +35,8 @@ class CmsLocalizationTest extends TestCase
         $this->from('/admin/login')->post('/admin/language', ['locale' => 'en'])
             ->assertStatus(303)->assertRedirect('/admin/login')->assertCookie('cms_locale', 'en')
             ->assertSessionHas('cms_locale', 'en');
-        $this->get('/admin/login')->assertOk()->assertSee('lang="en"', false)->assertSee('Welcome back.')
-            ->assertSee('Sign in to manage your website content.');
+        $this->get('/admin/login')->assertOk()->assertSee('lang="en"', false)->assertSee('Password')
+            ->assertSee('Sign in');
         $this->post('/admin/language', ['locale' => '../../private'])->assertSessionHasErrors('locale');
         $this->from('https://example.net/admin')->post('/admin/language', ['locale' => 'en'])->assertRedirect('/admin/login');
     }
@@ -119,9 +119,9 @@ class CmsLocalizationTest extends TestCase
         $this->get('/admin')->assertSee('Welcome,');
         $this->withCredentials()->withSession(['admin_last_activity' => time() - 3600])->postJson('/admin/keepalive')
             ->assertUnauthorized()->assertJsonPath('message', 'Your session has expired.');
-        $this->get('/admin/login')->assertSee('Welcome back.');
+        $this->get('/admin/login')->assertSee('Password');
         $this->actingAsVerified($user)->post('/admin/logout')->assertRedirect();
-        $this->get('/admin/login')->assertSee('Welcome back.');
+        $this->get('/admin/login')->assertSee('Password');
     }
 
     public function test_malay_can_be_restored_and_unsupported_cookies_fall_back_safely(): void
