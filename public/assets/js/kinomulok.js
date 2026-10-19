@@ -979,6 +979,9 @@ function initTheme() {
   btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"></svg>';
   const icon = btn.querySelector('svg');
   const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let transitionLayer = null;
+  let transitionAnimation = null;
 
   const saved = () => { try { return localStorage.getItem(KEY); } catch (_) { return null; } };
   const isDark = () => root.getAttribute('data-theme') === 'dark';
@@ -993,15 +996,51 @@ function initTheme() {
       : '<path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>';
   };
 
-  const setTheme = (theme, persist) => {
-    root.classList.add('theme-anim');
+  const applyTheme = (theme, persist) => {
     root.setAttribute('data-theme', theme);
     if (persist) { try { localStorage.setItem(KEY, theme); } catch (_) { } }
     render();
-    setTimeout(() => root.classList.remove('theme-anim'), 300);
+  };
+
+  const setTheme = async (theme, persist) => {
+    if (transitionLayer) return;
+    if (reducedMotion.matches || typeof root.animate !== 'function') {
+      applyTheme(theme, persist);
+      return;
+    }
+
+    transitionLayer = document.createElement('div');
+    transitionLayer.className = 'site-theme-transition';
+    transitionLayer.setAttribute('data-theme', theme);
+    transitionLayer.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(transitionLayer);
+    root.classList.add('theme-anim');
+
+    try {
+      transitionAnimation = transitionLayer.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 220, easing: 'cubic-bezier(0.4, 0, 1, 1)', fill: 'forwards'
+      });
+      await transitionAnimation.finished;
+      applyTheme(theme, persist);
+      transitionAnimation = transitionLayer.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 380, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'forwards'
+      });
+      await transitionAnimation.finished;
+    } catch (_) {
+      applyTheme(theme, persist);
+    } finally {
+      transitionAnimation?.cancel();
+      transitionAnimation = null;
+      transitionLayer.remove();
+      transitionLayer = null;
+      root.classList.remove('theme-anim');
+    }
   };
 
   btn.addEventListener('click', () => setTheme(isDark() ? 'light' : 'dark', true));
+  reducedMotion.addEventListener('change', () => {
+    if (reducedMotion.matches) transitionAnimation?.cancel();
+  });
   // Follow OS changes only while the visitor hasn't picked a theme themselves
   mq.addEventListener('change', (e) => { if (!saved()) setTheme(e.matches ? 'dark' : 'light', false); });
   render();

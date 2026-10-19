@@ -136,28 +136,40 @@ html[data-theme='dark'] .hero-teh--dark {
   opacity: 1;
 }
 
-/* the blanket theme-anim rule below would cancel the fade, so give the strips their own */
-html.theme-anim .hero-teh {
-  transition: opacity 0.25s ease !important;
-}
-
 /* Footer needs a visible edge against the dark page */
 html[data-theme='dark'] footer,
 html[data-theme='dark'] .footer {
   border-top: 1px solid var(--line);
 }
 
+/* Cover the palette change, then reveal the destination theme. */
+.site-theme-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-theme-transition[data-theme='light'] {
+  background: #fff;
+}
+
 html.theme-anim,
-html.theme-anim body,
-html.theme-anim * {
-  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease !important;
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+  transition: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
 
-  html.theme-anim,
-  html.theme-anim body,
-  html.theme-anim * {
+  .site-theme-transition {
+    display: none;
+  }
+
+  .hero-teh {
     transition: none !important;
   }
 }
