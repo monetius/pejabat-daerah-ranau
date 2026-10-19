@@ -18,7 +18,9 @@ class EventCalendar
     /** @return array<string, Entry> */
     private static function defaults(): array
     {
-        $entries = [];
+        $verifiedDates = array_keys(config('calendar.holidays', []));
+        $entries = array_filter(app(HolidayFeed::class)->entries(),
+            fn (array $entry): bool => ! in_array($entry['start_date'], $verifiedDates, true));
         foreach (config('calendar.holidays', []) as $date => $titles) {
             foreach ($titles as $index => $title) {
                 $id = 'holiday-'.$date.'-'.$index;
@@ -51,9 +53,12 @@ class EventCalendar
         return $document;
     }
 
-    /** @return list<Entry> */
-    public static function entries(bool $includeDrafts = false): array
+    /** @param list<int> $holidayYears
+     * @return list<Entry>
+     */
+    public static function entries(bool $includeDrafts = false, array $holidayYears = []): array
     {
+        app(HolidayFeed::class)->ensureYears($holidayYears);
         $document = self::decode(SitePart::query()->whereKey(self::STORAGE_KEY)->value('html'));
         $entries = array_replace(self::defaults(), $document['entries']);
         $entries = array_filter($entries, fn (array $entry): bool => empty($entry['deleted'])
@@ -61,6 +66,21 @@ class EventCalendar
         usort($entries, fn (array $first, array $second): int => [$first['start_date'], $first['title']] <=> [$second['start_date'], $second['title']]);
 
         return array_values($entries);
+    }
+
+    /** @return list<int> */
+    public static function holidayYears(): array
+    {
+        $years = array_values(array_unique([...array_keys(config('calendar.holiday_sources', [])), ...app(HolidayFeed::class)->years()]));
+        sort($years);
+
+        return $years;
+    }
+
+    public static function holidaySource(int $year): ?string
+    {
+        return config('calendar.holiday_sources.'.$year)
+            ?? (in_array($year, app(HolidayFeed::class)->years(), true) ? app(HolidayFeed::class)->sourceUrl($year) : null);
     }
 
     /** @return Entry */

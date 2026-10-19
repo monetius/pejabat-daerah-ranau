@@ -69,6 +69,8 @@ class AnnouncementController extends Controller
             'author' => ['nullable', 'string', 'max:150'],
             'summary' => ['nullable', 'string', 'max:1000'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:5120'],
+            'image_media' => ['nullable', 'string', 'max:2000'],
+            'remove_image' => ['sometimes', 'boolean'],
             'content' => ['required', 'string', 'max:2000000'],
             'publication_mode' => ['nullable', Rule::in(['draft', 'now', 'scheduled'])],
             'status' => [Rule::requiredIf(! $hasPublicationMode), 'nullable', Rule::in(['draft', 'published'])],
@@ -107,10 +109,12 @@ class AnnouncementController extends Controller
         }
         $data['slug'] = ($data['slug'] ?? $current?->slug) ?: $this->uniqueSlug($data['title'], $current);
 
-        // Cover image: a new upload replaces the old one; the tick box removes it.
-        unset($data['image']);
+        $selectedImage = filled($data['image_media'] ?? null) ? $this->libraryImage($data['image_media']) : null;
+        unset($data['image'], $data['image_media'], $data['remove_image']);
         if ($request->hasFile('image')) {
             $data['image'] = $this->storeImage($request->file('image'));
+        } elseif ($selectedImage !== null) {
+            $data['image'] = $selectedImage;
         } elseif ($request->boolean('remove_image')) {
             $data['image'] = null;
         }
@@ -120,6 +124,30 @@ class AnnouncementController extends Controller
         }
 
         return $data;
+    }
+
+    private function libraryImage(string $url): string
+    {
+        $file = false;
+        if (preg_match('~^/(?:uploads|assets/img)/~', $url)
+            && ! preg_match('~[\x00-\x20\\\\%?#]|(?:^|/)\.{1,2}(?:/|$)~', $url)) {
+            $file = realpath(public_path(ltrim($url, '/')));
+        }
+        $insideLibrary = false;
+        foreach (['uploads', 'assets/img'] as $directory) {
+            $root = realpath(public_path($directory));
+            if ($root && $file && str_starts_with($file, $root.DIRECTORY_SEPARATOR)) {
+                $insideLibrary = true;
+            }
+        }
+        $image = $insideLibrary && is_file($file)
+            && in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'webp', 'gif'], true)
+            ? @getimagesize($file) : false;
+        if (! $image || ! in_array($image['mime'] ?? '', ['image/jpeg', 'image/png', 'image/webp', 'image/gif'], true)) {
+            throw ValidationException::withMessages(['image_media' => __('Pilih gambar yang sah daripada pustaka Media.')]);
+        }
+
+        return '/'.str_replace('\\', '/', substr($file, strlen(realpath(public_path())) + 1));
     }
 
     private function storeImage(UploadedFile $file): string

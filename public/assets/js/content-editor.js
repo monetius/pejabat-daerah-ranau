@@ -306,8 +306,8 @@
             });
             mediaStatus.textContent = files.length ? (files.length === 1 ? t('1 fail. Pilih satu untuk digunakan.') : t(':count fail. Pilih satu untuk digunakan.', { count: files.length })) : t('Tiada fail sepadan. Muat naik fail baharu.');
         };
-        const openPicker = async (input, kind) => {
-            pickerTarget = { input, kind }; searchMedia.value = '';
+        const openPicker = async (input, kind, trigger = null) => {
+            pickerTarget = { input, kind, trigger }; searchMedia.value = '';
             upload.accept = kind === 'image' ? 'image/jpeg,image/png,image/webp,image/gif' : 'image/jpeg,image/png,image/webp,image/gif,application/pdf';
             dialog.showModal(); mediaStatus.textContent = t('Memuatkan Media…');
             if (!mediaLoaded) {
@@ -334,7 +334,11 @@
             } catch (error) { mediaStatus.textContent = error instanceof SyntaxError || error instanceof TypeError ? t('Muat naik gagal. Sila cuba lagi atau log masuk semula.') : (error.message || 'Muat naik gagal.'); }
             finally { upload.disabled = false; upload.value = ''; }
         });
-        dialog.addEventListener('close', () => pickerTarget?.input.focus());
+        form.querySelectorAll('[data-media-select]').forEach(button => {
+            const input = form.querySelector(button.dataset.mediaSelect);
+            if (input) button.addEventListener('click', () => openPicker(input, 'image', button));
+        });
+        dialog.addEventListener('close', () => (pickerTarget?.trigger || pickerTarget?.input)?.focus());
         renderBlocks(); sync();
         form.addEventListener('input', event => { if (!event.target.closest('[data-content-editor]')) dirty = true; });
         form.addEventListener('submit', event => { sync(); submitting = event.submitter?.getAttribute('formtarget') !== '_blank'; });

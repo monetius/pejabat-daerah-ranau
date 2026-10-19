@@ -1,7 +1,7 @@
 @extends('admin.layout')
-@section('title', __('Akaun & keselamatan'))
+@section('title', __('Tetapan'))
 @section('content')
-    <h1>{{ __('Akaun & keselamatan') }}</h1>
+    <h1>{{ __('Tetapan') }}</h1>
     <p class="page-intro">{{ __('Urus kata laluan dan keselamatan akaun CMS anda.') }}</p>
     @if ($errors->any())<div class="errbox" role="alert"><ul>@foreach ($errors->all() as $message)<li>{{ $message }}</li>@endforeach</ul></div>@endif
     <div class="card security-card">

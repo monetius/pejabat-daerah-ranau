@@ -41,7 +41,17 @@
 
 .footer-contact-row {
   display: flex;
-  gap: 2.5rem;
+  flex-wrap: wrap;
+  gap: 1rem 2.5rem;
+}
+
+.footer-contact-email {
+  flex-basis: 100%;
+  min-width: 0;
+}
+
+.footer-contact-email a {
+  overflow-wrap: anywhere;
 }
 
 .footer-label {

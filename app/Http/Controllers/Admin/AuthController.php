@@ -30,8 +30,7 @@ class AuthController extends Controller
         $key = 'cms-login:'.hash('sha256', Str::lower($credentials['email']).'|'.$request->ip());
         $ipKey = 'cms-login-ip:'.hash('sha256', (string) $request->ip());
         if (RateLimiter::tooManyAttempts($key, 5) || RateLimiter::tooManyAttempts($ipKey, 30)) {
-            $seconds = max(RateLimiter::availableIn($key), RateLimiter::availableIn($ipKey));
-            throw ValidationException::withMessages(['email' => __('Terlalu banyak percubaan log masuk. Cuba lagi dalam :seconds saat.', ['seconds' => $seconds])]);
+            throw ValidationException::withMessages(['email' => __('Terlalu banyak percubaan log masuk. Sila cuba lagi sebentar lagi.')]);
         }
 
         if (Auth::validate($credentials + ['is_admin' => true])) {

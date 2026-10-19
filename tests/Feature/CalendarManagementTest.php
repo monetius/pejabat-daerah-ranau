@@ -18,6 +18,7 @@ class CalendarManagementTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        config(['calendar.api.enabled' => false]);
         $this->travelTo(now()->setDate(2026, 10, 16)->setTime(12, 0));
     }
 

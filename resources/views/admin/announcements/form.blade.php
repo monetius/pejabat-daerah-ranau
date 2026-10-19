@@ -44,14 +44,17 @@
             <div class="err">{{ $message }}</div>@enderror
 
             <label for="image">{{ __('Gambar utama') }}</label>
-            @if ($item->image)
-                <p><img src="{{ $item->image }}" alt="" style="max-width:260px;border-radius:8px;display:block"></p>
-                <label style="font-weight:400;margin:4px 0"><input type="checkbox" name="remove_image" value="1"> {{ __('Buang gambar ini') }}</label>
-            @endif
-            <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp">
-            <div class="hint">{{ __('JPG, PNG atau WebP, maksimum 5 MB. Dipaparkan pada kad di laman utama dan senarai hebahan. Tanpa gambar, ikon kategori digunakan.') }}</div>
-            @error('image')
-            <div class="err">{{ $message }}</div>@enderror
+            <div data-announcement-cover data-current-image="{{ $item->image }}">
+                <p><img data-cover-preview @if ($item->image) src="{{ $item->image }}" @else hidden @endif alt="{{ __('Pratonton gambar') }}" style="max-width:260px;max-height:180px;object-fit:contain;border-radius:8px"></p>
+                <input type="hidden" id="image_media" name="image_media" value="{{ old('image_media') }}">
+                <p class="row"><button type="button" class="btn gray" data-media-select="#image_media">{{ __('Pilih daripada Media') }}</button></p>
+                <p class="hint">{{ __('Gunakan semula gambar yang telah dimuat naik, atau muat naik gambar baharu di bawah.') }}</p>
+                <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp">
+                <label style="font-weight:400;margin:10px 0"><input type="checkbox" name="remove_image" value="1" @checked(old('remove_image'))> {{ __('Buang gambar ini') }}</label>
+                <div class="hint">{{ __('JPG, PNG atau WebP, maksimum 5 MB. Dipaparkan pada kad di laman utama dan senarai hebahan. Tanpa gambar, ikon kategori digunakan.') }}</div>
+                @error('image')<div class="err">{{ $message }}</div>@enderror
+                @error('image_media')<div class="err">{{ $message }}</div>@enderror
+            </div>
 
             @include('admin.content-editor')
 
@@ -90,6 +93,43 @@
 @push('foot')
     <script>
         (() => {
+            const cover = document.querySelector('[data-announcement-cover]');
+            const library = cover.querySelector('#image_media');
+            const upload = cover.querySelector('#image');
+            const remove = cover.querySelector('[name="remove_image"]');
+            const preview = cover.querySelector('[data-cover-preview]');
+            let uploadPreview = null;
+            const releasePreview = () => {
+                if (uploadPreview) URL.revokeObjectURL(uploadPreview);
+                uploadPreview = null;
+            };
+            const showPreview = url => {
+                const safe = /^\/(?:uploads|assets\/img)\//.test(url) && !/[\x00-\x20\\%?#]/.test(url);
+                preview.hidden = !safe && url !== uploadPreview;
+                if (!preview.hidden && url) preview.src = url;
+                else preview.removeAttribute('src');
+            };
+            library.addEventListener('input', () => {
+                releasePreview(); upload.value = ''; remove.checked = false;
+                showPreview(library.value);
+            });
+            upload.addEventListener('change', () => {
+                releasePreview(); library.value = '';
+                if (upload.files[0]) {
+                    remove.checked = false;
+                    uploadPreview = URL.createObjectURL(upload.files[0]);
+                    showPreview(uploadPreview);
+                } else showPreview(remove.checked ? '' : cover.dataset.currentImage);
+            });
+            remove.addEventListener('change', () => {
+                if (remove.checked) {
+                    releasePreview(); library.value = ''; upload.value = '';
+                }
+                showPreview(remove.checked ? '' : cover.dataset.currentImage);
+            });
+            preview.addEventListener('error', () => { preview.hidden = true; });
+            showPreview(remove.checked ? '' : (library.value || cover.dataset.currentImage));
+
             const mode = document.getElementById('publication_mode');
             const schedule = document.getElementById('publication-schedule');
             const date = document.getElementById('published_at');

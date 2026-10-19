@@ -114,6 +114,7 @@ class CmsLocalizationTest extends TestCase
         $user = User::factory()->create(['is_admin' => true, 'password' => 'correct-password']);
         $this->withCookie('cms_locale', 'en')->post('/admin/login', ['email' => $user->email, 'password' => 'correct-password'])
             ->assertSessionHasNoErrors();
+        $this->post('/admin/two-factor-send')->assertSessionHasNoErrors();
         $this->post('/admin/two-factor-challenge', ['code' => Mail::sent(CmsLoginCode::class)->last()->code])->assertSessionHasNoErrors();
         $this->get('/admin')->assertSee('Welcome,');
         $this->withCredentials()->withSession(['admin_last_activity' => time() - 3600])->postJson('/admin/keepalive')

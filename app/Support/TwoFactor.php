@@ -25,29 +25,43 @@ class TwoFactor
     {
         $request->session()->forget(['two_factor_pending', 'two_factor_verified']);
         $request->session()->regenerate();
-        $this->sendCode($request, $user, $remember, now()->timestamp);
+        $request->session()->put('two_factor_pending', [
+            'id' => $user->id, 'remember' => $remember, 'started' => now()->timestamp,
+            'fingerprint' => $this->fingerprint($user), 'challenge' => null,
+        ]);
     }
 
-    public function resend(Request $request, User $user): void
+    public function resendWaitSeconds(Request $request, User $user): int
     {
-        $pending = $request->session()->get('two_factor_pending');
-        $this->sendCode($request, $user, (bool) $pending['remember'], (int) $pending['started']);
+        $hourKey = 'cms-email-send-hour:'.$user->id;
+        $ipKey = 'cms-email-send-ip:'.hash('sha256', (string) $request->ip());
+
+        return max(
+            RateLimiter::availableIn('cms-email-send-minute:'.$user->id),
+            RateLimiter::tooManyAttempts($hourKey, 5) ? RateLimiter::availableIn($hourKey) : 0,
+            RateLimiter::tooManyAttempts($ipKey, 20) ? RateLimiter::availableIn($ipKey) : 0,
+        );
     }
 
     public function pendingUser(Request $request): ?User
     {
         $pending = $request->session()->get('two_factor_pending');
-        if (! is_array($pending) || ! isset($pending['id'], $pending['started'], $pending['fingerprint'], $pending['challenge'])
+        if (! is_array($pending) || ! isset($pending['id'], $pending['started'], $pending['fingerprint'])
+            || ! array_key_exists('challenge', $pending)
             || now()->timestamp - $pending['started'] >= 600 || $pending['started'] > now()->timestamp) {
             return null;
         }
         $user = User::find($pending['id']);
-        $challenge = Cache::get('cms-email-code:'.$pending['id']);
+        if (! $user?->is_admin || ! hash_equals($this->fingerprint($user), $pending['fingerprint'])) {
+            return null;
+        }
 
-        return $user?->is_admin && is_array($challenge)
-            && hash_equals($this->fingerprint($user), $pending['fingerprint'])
-            && hash_equals($challenge['id'], $pending['challenge'])
-            && $challenge['expires'] > now()->timestamp ? $user : null;
+        return $pending['challenge'] === null || $this->activeChallenge($request) !== null ? $user : null;
+    }
+
+    public function codeExpiresAt(Request $request): ?int
+    {
+        return $this->activeChallenge($request)['expires'] ?? null;
     }
 
     public function markVerified(Request $request, User $user): void
@@ -68,13 +82,13 @@ class TwoFactor
     public function verify(Request $request, string $code): ?User
     {
         $user = $this->pendingUser($request);
-        if (! $user) {
+        if (! $user || $this->activeChallenge($request) === null) {
             return null;
         }
 
         return $this->locked($user, function () use ($request, $code): ?User {
             $user = $this->pendingUser($request);
-            if (! $user) {
+            if (! $user || $this->activeChallenge($request) === null) {
                 return null;
             }
             $key = 'cms-email-code:'.$user->id;
@@ -101,7 +115,7 @@ class TwoFactor
         $user = $this->pendingUser($request);
         if ($user) {
             $this->locked($user, function () use ($request, $user): void {
-                if ($this->pendingUser($request)) {
+                if ($this->pendingUser($request) && $this->activeChallenge($request) !== null) {
                     Cache::forget('cms-email-code:'.$user->id);
                 }
             });
@@ -110,45 +124,56 @@ class TwoFactor
         $request->session()->regenerate();
     }
 
-    private function sendCode(Request $request, User $user, bool $remember, int $started): void
+    public function sendCode(Request $request, User $user): void
     {
         if (! $this->hasDeliveryTransport((string) config('mail.default'))) {
-            throw ValidationException::withMessages(['email' => __('Penghantaran e-mel belum dikonfigurasi. Hubungi pentadbir untuk menyediakan SMTP sebelum log masuk.')]);
+            throw ValidationException::withMessages(['email' => __('Penghantaran e-mel belum dikonfigurasi. Hubungi pentadbir untuk menyediakan SMTP sebelum menghantar kod.')]);
         }
         $fingerprint = $this->fingerprint($user);
-        $this->locked($user, function () use ($request, $user, $remember, $started, $fingerprint): void {
+        $this->locked($user, function () use ($request, $user, $fingerprint): void {
             $user->refresh();
-            if (! $user->is_admin || ! hash_equals($fingerprint, $this->fingerprint($user))) {
+            if (! $user->is_admin || ! hash_equals($fingerprint, $this->fingerprint($user)) || ! $this->pendingUser($request)) {
                 throw ValidationException::withMessages(['email' => __('Sesi pengesahan telah tamat. Sila log masuk semula.')]);
             }
             $minuteKey = 'cms-email-send-minute:'.$user->id;
             $hourKey = 'cms-email-send-hour:'.$user->id;
             $ipKey = 'cms-email-send-ip:'.hash('sha256', (string) $request->ip());
             if (RateLimiter::tooManyAttempts($minuteKey, 1) || RateLimiter::tooManyAttempts($hourKey, 5) || RateLimiter::tooManyAttempts($ipKey, 20)) {
-                $seconds = max(RateLimiter::availableIn($minuteKey), RateLimiter::tooManyAttempts($hourKey, 5) ? RateLimiter::availableIn($hourKey) : 0,
-                    RateLimiter::tooManyAttempts($ipKey, 20) ? RateLimiter::availableIn($ipKey) : 0);
-                throw ValidationException::withMessages(['email' => __('Sila tunggu :seconds saat sebelum meminta kod baharu.', ['seconds' => $seconds])]);
+                throw ValidationException::withMessages(['email' => __('Sila tunggu :seconds saat sebelum meminta kod baharu.', ['seconds' => $this->resendWaitSeconds($request, $user)])]);
             }
             RateLimiter::hit($minuteKey, 60);
             RateLimiter::hit($hourKey, 3600);
             RateLimiter::hit($ipKey, 3600);
             $id = bin2hex(random_bytes(32));
             $code = str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);
-            $expires = min($started + 600, now()->timestamp + 600);
             try {
                 Mail::to($user->email)->send(new CmsLoginCode($code));
             } catch (Throwable $exception) {
                 Log::warning('CMS login email delivery failed.', ['exception_type' => $exception::class]);
                 throw ValidationException::withMessages(['email' => __('Kod tidak dapat dihantar. Semak tetapan e-mel atau cuba lagi kemudian.')]);
             }
+            $sentAt = now()->timestamp;
+            $expires = $sentAt + 600;
             Cache::put('cms-email-code:'.$user->id, [
                 'id' => $id, 'hash' => $this->codeHash($id, $code), 'expires' => $expires, 'attempts' => 0,
             ], max(1, $expires - now()->timestamp));
-            $request->session()->put('two_factor_pending', [
-                'id' => $user->id, 'remember' => $remember, 'started' => $started,
-                'fingerprint' => $this->fingerprint($user), 'challenge' => $id,
-            ]);
+            $request->session()->put('two_factor_pending', array_replace($request->session()->get('two_factor_pending'), [
+                'started' => $sentAt, 'challenge' => $id,
+            ]));
         });
+    }
+
+    /** @return array{id: string, hash: string, expires: int, attempts: int}|null */
+    private function activeChallenge(Request $request): ?array
+    {
+        $pending = $request->session()->get('two_factor_pending');
+        if (! is_array($pending) || ! is_string($pending['challenge'] ?? null)) {
+            return null;
+        }
+        $challenge = Cache::get('cms-email-code:'.$pending['id']);
+
+        return is_array($challenge) && hash_equals($challenge['id'], $pending['challenge'])
+            && $challenge['expires'] > now()->timestamp ? $challenge : null;
     }
 
     private function codeHash(string $id, string $code): string

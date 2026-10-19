@@ -32,7 +32,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
         Route::get('/two-factor-challenge', [TwoFactorController::class, 'challenge'])->name('two-factor.challenge');
         Route::post('/two-factor-challenge', [TwoFactorController::class, 'verify'])->name('two-factor.verify');
-        Route::post('/two-factor-resend', [TwoFactorController::class, 'resend'])->name('two-factor.resend');
+        Route::post('/two-factor-send', [TwoFactorController::class, 'send'])->name('two-factor.send');
+        Route::post('/two-factor-resend', [TwoFactorController::class, 'send'])->name('two-factor.resend');
         Route::post('/two-factor-cancel', [TwoFactorController::class, 'cancel'])->name('two-factor.cancel');
     });
 
@@ -44,6 +45,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('/account', [AccountController::class, 'update'])->middleware('throttle:5,1')->name('account.update');
 
         Route::resource('announcements', AdminAnnouncementController::class)->except('show');
+        Route::post('/calendar/sync', [AdminCalendarController::class, 'sync'])->middleware('throttle:3,10')->name('calendar.sync');
         Route::resource('calendar', AdminCalendarController::class)->except('show')->parameters(['calendar' => 'event']);
 
         Route::match(['post', 'put'], '/pages/preview', [AdminPageController::class, 'preview'])->name('pages.preview');

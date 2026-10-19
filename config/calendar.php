@@ -1,6 +1,13 @@
 <?php
 
 return [
+    'api' => [
+        'enabled' => env('CALENDAR_HOLIDAY_API_ENABLED', true),
+        'endpoint' => 'https://malaysia-holiday.dydxsoft.my/api/v1/holidays',
+        'ca_bundle' => env('CALENDAR_HOLIDAY_CA_BUNDLE'),
+        'refresh_seconds' => 86400,
+        'retry_seconds' => 3600,
+    ],
     'holiday_sources' => [
         2026 => 'https://sabah.gov.my/public-holidays',
         2027 => 'https://www.kabinet.gov.my/storage/2026/08/HKA_2027.pdf',

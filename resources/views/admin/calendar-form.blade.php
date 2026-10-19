@@ -23,7 +23,7 @@
             <label for="description">{{ __('Maklumat acara (pilihan)') }}</label><textarea id="description" name="description" maxlength="3000">{{ old('description', $entry['description'] ?? '') }}</textarea>
             <label for="url">{{ __('Pautan maklumat (pilihan)') }}</label><input id="url" name="url" type="text" maxlength="2000" value="{{ old('url', $entry['url'] ?? '') }}" placeholder="https://...">
             <div class="hint">{{ __('Gunakan pautan laman web http://, https:// atau pautan halaman bermula dengan /.') }}</div>
-            @if ($entry && $entry['source_url'])<p class="hint">{{ __('Item ini diimport daripada sumber rasmi. Perubahan anda akan disimpan sebagai kemas kini CMS.') }} <a href="{{ $entry['source_url'] }}" target="_blank" rel="noopener noreferrer">{{ __('Rujukan rasmi') }} ↗</a></p>@endif
+            @if ($entry && $entry['source_url'])<p class="hint">{{ str_starts_with($entry['id'], 'api-holiday-') ? __('Item ini diimport daripada suapan API. Perubahan CMS anda dikekalkan semasa penyegerakan.') : __('Item ini diimport daripada sumber rasmi. Perubahan anda akan disimpan sebagai kemas kini CMS.') }} <a href="{{ $entry['source_url'] }}" target="_blank" rel="noopener noreferrer">{{ str_starts_with($entry['id'], 'api-holiday-') ? __('Sumber API') : __('Rujukan rasmi') }} ↗</a></p>@endif
             <p class="row"><button class="btn">{{ __('Simpan acara') }}</button><a class="btn gray" href="{{ route('admin.calendar.index') }}">{{ __('Batal') }}</a></p>
         </form>
     </div>

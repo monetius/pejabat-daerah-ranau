@@ -13,7 +13,15 @@
             <button class="btn gray">{{ __('Tapis') }}</button>
         </form>
         <p class="hint">{{ __('Cuti umum yang diimport menggunakan jadual rasmi Sabah, termasuk cuti Malaysia yang terpakai di Sabah. Anda boleh mengemas kini tarikh, menambah cuti gantian atau memasukkan tahun baharu.') }} <a href="https://sabah.gov.my/public-holidays" target="_blank" rel="noopener noreferrer">{{ __('Rujukan rasmi') }} ↗</a></p>
-        <p class="hint">{{ __('Tahun cuti diimport: :years.', ['years' => implode(', ', array_keys(config('calendar.holiday_sources', [])))]) }}</p>
+        <p class="hint">{{ __('Tahun cuti diimport: :years.', ['years' => implode(', ', \App\Support\EventCalendar::holidayYears())]) }}</p>
+        @if ($holidayFeed->enabled())
+            <p class="hint">{{ __('Cuti Sabah disemak secara automatik melalui suapan API. Jadual rasmi yang disahkan dan perubahan CMS anda diberi keutamaan.') }}</p>
+            <form method="POST" action="{{ route('admin.calendar.sync') }}" class="row">
+                @csrf<input type="hidden" name="year" value="{{ $year }}">
+                <button class="btn gray">{{ __('Segarkan cuti umum') }}</button>
+                <span class="hint">{{ $holidaySnapshot ? __('Kemas kini suapan terakhir: :date MYT', ['date' => date('d/m/Y H:i', $holidaySnapshot['fetched_at'])]) : __('Suapan tahun ini belum tersedia. Jadual rasmi dan acara CMS masih dipaparkan.') }}</span>
+            </form>
+        @endif
     </div>
     <div class="card">
         <table>
@@ -21,7 +29,7 @@
             @forelse ($items as $entry)
                 <tr>
                     <td class="calendar-admin-date">{{ \Carbon\CarbonImmutable::parse($entry['start_date'])->format('d/m/Y') }}@if ($entry['end_date'] !== $entry['start_date'])<br>– {{ \Carbon\CarbonImmutable::parse($entry['end_date'])->format('d/m/Y') }}@endif @if ($entry['start_time'])<div class="hint">{{ $entry['start_time'] }}@if ($entry['end_time']) – {{ $entry['end_time'] }}@endif MYT</div>@endif</td>
-                    <td><strong>{{ $entry['title'] }}</strong>@if ($entry['location'])<div class="hint">{{ $entry['location'] }}</div>@endif @if ($entry['source_url'])<div class="hint"><a href="{{ $entry['source_url'] }}" target="_blank" rel="noopener noreferrer">{{ __('Rujukan rasmi') }} ↗</a></div>@endif</td>
+                    <td><strong>{{ $entry['title'] }}</strong>@if ($entry['location'])<div class="hint">{{ $entry['location'] }}</div>@endif @if ($entry['source_url'])<div class="hint"><a href="{{ $entry['source_url'] }}" target="_blank" rel="noopener noreferrer">{{ str_starts_with($entry['id'], 'api-holiday-') ? __('Sumber API') : __('Rujukan rasmi') }} ↗</a></div>@endif</td>
                     <td>{{ $entry['kind'] === 'holiday' ? __('Cuti umum') : __('Program / Acara') }}</td>
                     <td><span class="badge {{ $entry['status'] }}">{{ $entry['status'] === 'published' ? __('Diterbitkan') : __('Draf') }}</span></td>
                     <td><div class="row"><a href="{{ route('admin.calendar.edit', $entry['id']) }}">{{ __('Edit') }}</a><form method="POST" action="{{ route('admin.calendar.destroy', $entry['id']) }}" onsubmit="return confirm(@js(__('Padam item kalendar ini?')))">@csrf @method('DELETE')<input type="hidden" name="revision" value="{{ \App\Support\EventCalendar::revision($entry) }}"><button class="btn red calendar-delete">{{ __('Padam') }}</button></form></div></td>

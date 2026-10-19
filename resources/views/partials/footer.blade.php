@@ -17,6 +17,10 @@
             <span class="footer-label">Faks</span>
             <a href="tel:0888755011">088-875511</a>
           </div>
+          <div class="footer-contact-email">
+            <span class="footer-label">E-mel</span>
+            <a href="mailto:pd.ranau@sabah.gov.my">pd.ranau@sabah.gov.my</a>
+          </div>
         </div>
       </div>
 

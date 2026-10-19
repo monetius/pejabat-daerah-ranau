@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Tests\TestCase;
 
 class AdminEmailTwoFactorTest extends TestCase
@@ -29,13 +30,51 @@ class AdminEmailTwoFactorTest extends TestCase
         return User::factory()->create(['is_admin' => true, 'password' => 'original-password']);
     }
 
-    private function begin(User $user, bool $remember = false): string
+    private function credentials(User $user, bool $remember = false): void
     {
         $this->post('/admin/login', ['email' => $user->email, 'password' => 'original-password', 'remember' => $remember])
             ->assertSessionHasNoErrors()->assertRedirect('/admin/two-factor-challenge')->assertCookieMissing(Auth::getRecallerName());
         $this->assertGuest();
+    }
+
+    private function begin(User $user, bool $remember = false): string
+    {
+        $this->credentials($user, $remember);
+        $this->post('/admin/two-factor-send')->assertSessionHasNoErrors()->assertRedirect('/admin/two-factor-challenge');
 
         return Mail::sent(CmsLoginCode::class)->last()->code;
+    }
+
+    public function test_credentials_do_not_send_email_start_a_countdown_or_increment_send_limits(): void
+    {
+        $user = $this->admin();
+        $this->credentials($user);
+        Mail::assertNothingSent();
+        $this->assertNull(session('two_factor_pending.challenge'));
+        $this->assertNull(Cache::get('cms-email-code:'.$user->id));
+        $this->assertSame(0, RateLimiter::attempts('cms-email-send-minute:'.$user->id));
+        $this->get('/admin/two-factor-challenge')->assertOk()->assertViewHas('hasSentCode', false)
+            ->assertSee('Hantar kod')->assertDontSee('data-verification-timer', false)->assertDontSee('admin-verification.js')
+            ->assertDontSee('id="code-expiry"', false)->assertDontSee('id="verification-code"', false);
+        $this->travel(120)->seconds();
+        $this->get('/admin/two-factor-challenge')->assertOk()->assertViewHas('hasSentCode', false);
+        Mail::assertNothingSent();
+        $this->post('/admin/two-factor-send')->assertSessionHasNoErrors();
+        Mail::assertSentCount(1);
+        $this->get('/admin/two-factor-challenge')->assertOk()->assertViewHas('hasSentCode', true)
+            ->assertViewHas('expiresAt', now()->timestamp + 600)->assertSee('10:00')->assertSee('01:00');
+        $this->assertGuest();
+    }
+
+    public function test_code_submission_before_send_and_direct_send_without_credentials_cannot_authenticate(): void
+    {
+        $this->post('/admin/two-factor-send')->assertRedirect('/admin/login');
+        $user = $this->admin();
+        $this->credentials($user);
+        $this->post('/admin/two-factor-challenge', ['code' => '123456'])->assertSessionHasErrors('code');
+        Mail::assertNothingSent();
+        $this->assertGuest();
+        $this->get('/admin')->assertRedirect('/login');
     }
 
     public function test_password_only_never_authenticates_and_code_is_sent_only_to_the_account_email(): void
@@ -111,12 +150,11 @@ class AdminEmailTwoFactorTest extends TestCase
         $this->assertGuest();
     }
 
-    public function test_resend_is_limited_rotates_code_and_does_not_extend_password_verification(): void
+    public function test_resend_is_limited_rotates_code_and_starts_a_new_code_countdown(): void
     {
         $user = $this->admin();
         $oldCode = $this->begin($user);
         $oldId = session('two_factor_pending.challenge');
-        $started = session('two_factor_pending.started');
         $this->post('/admin/two-factor-resend')->assertSessionHasErrors('email');
         Mail::assertSentCount(1);
         $this->travel(61)->seconds();
@@ -124,8 +162,8 @@ class AdminEmailTwoFactorTest extends TestCase
         Mail::assertSentCount(2);
         Mail::assertSent(CmsLoginCode::class, fn (CmsLoginCode $mail): bool => $mail->hasTo($user->email));
         $this->assertNotSame($oldId, session('two_factor_pending.challenge'));
-        $this->assertSame($started, session('two_factor_pending.started'));
-        $this->assertSame($started + 600, Cache::get('cms-email-code:'.$user->id)['expires']);
+        $this->assertSame(now()->timestamp, session('two_factor_pending.started'));
+        $this->assertSame(now()->timestamp + 600, Cache::get('cms-email-code:'.$user->id)['expires']);
         $newCode = Mail::sent(CmsLoginCode::class)->last()->code;
         if ($oldCode !== $newCode) {
             $this->post('/admin/two-factor-challenge', ['code' => $oldCode])->assertSessionHasErrors('code');
@@ -218,7 +256,10 @@ class AdminEmailTwoFactorTest extends TestCase
         foreach (['log', 'array', 'failover'] as $mailer) {
             config(['mail.default' => $mailer]);
             $this->post('/admin/login', ['email' => $user->email, 'password' => 'original-password'])
-                ->assertSessionHasErrors('email')->assertSessionMissing('two_factor_pending');
+                ->assertSessionHasNoErrors()->assertRedirect('/admin/two-factor-challenge');
+            $this->post('/admin/two-factor-send')->assertSessionHasErrors('email');
+            $this->assertNull(session('two_factor_pending.challenge'));
+            $this->get('/admin/two-factor-challenge')->assertOk()->assertViewHas('hasSentCode', false);
             $this->assertGuest();
         }
         Mail::assertNothingSent();
@@ -227,10 +268,12 @@ class AdminEmailTwoFactorTest extends TestCase
     public function test_delivery_failure_does_not_create_a_challenge_or_authenticate(): void
     {
         $user = $this->admin();
+        $this->credentials($user);
         Mail::shouldReceive('to')->once()->with($user->email)->andThrow(new \RuntimeException('Mail unavailable'));
-        $this->post('/admin/login', ['email' => $user->email, 'password' => 'original-password'])
-            ->assertSessionHasErrors('email')->assertSessionMissing('two_factor_pending');
+        $this->post('/admin/two-factor-send')->assertSessionHasErrors('email');
+        $this->assertNull(session('two_factor_pending.challenge'));
         $this->assertNull(Cache::get('cms-email-code:'.$user->id));
+        $this->get('/admin/two-factor-challenge')->assertOk()->assertViewHas('hasSentCode', false)->assertDontSee('data-verification-timer', false);
         $this->assertGuest();
     }
 
@@ -254,6 +297,55 @@ class AdminEmailTwoFactorTest extends TestCase
         $this->post('/admin/two-factor-challenge', ['code' => $code])->assertSessionHasNoErrors();
         $this->post('/admin/logout');
         $this->withSession(['two_factor_pending' => $pending])->post('/admin/two-factor-challenge', ['code' => $code])->assertRedirect('/admin/login');
+        $this->assertGuest();
+    }
+
+    public function test_countdowns_are_scoped_to_verification_and_keep_server_deadlines_after_refresh(): void
+    {
+        $this->get('/admin/login')->assertOk()->assertDontSee('data-verification-timer', false)->assertDontSee('admin-verification.js');
+        $user = $this->admin();
+        $this->begin($user);
+        $expiresAt = (int) session('two_factor_pending.started') + 600;
+        $this->get('/admin/two-factor-challenge')->assertOk()
+            ->assertViewHas('expiresAt', $expiresAt)->assertViewHas('resendAvailableAt', now()->timestamp + 60)
+            ->assertSee('data-verification-timer', false)->assertSee('admin-verification.js')->assertSee('10:00')->assertSee('01:00');
+        $this->travel(31)->seconds();
+        $this->get('/admin/two-factor-challenge')->assertOk()->assertViewHas('expiresAt', $expiresAt)
+            ->assertViewHas('resendAvailableAt', now()->timestamp + 29)->assertSee('09:29')->assertSee('00:29');
+    }
+
+    public function test_email_send_cooldown_does_not_block_credentials_or_start_a_timer_until_send(): void
+    {
+        $user = $this->admin();
+        $this->begin($user);
+        $this->from('/admin/login')->post('/admin/login', ['email' => $user->email, 'password' => 'original-password'])
+            ->assertSessionHasNoErrors()->assertRedirect('/admin/two-factor-challenge');
+        $this->get('/admin/two-factor-challenge')->assertOk()->assertViewHas('hasSentCode', false)
+            ->assertDontSee('data-verification-timer', false);
+        $this->post('/admin/two-factor-send')->assertSessionHasErrors('email');
+        Mail::assertSentCount(1);
+        $this->assertGuest();
+    }
+
+    public function test_cancelling_an_unsent_request_does_not_delete_another_sessions_sent_code(): void
+    {
+        $user = $this->admin();
+        $code = $this->begin($user);
+        $sentPending = session('two_factor_pending');
+        $this->credentials($user);
+        $this->post('/admin/two-factor-cancel')->assertRedirect('/admin/login');
+        $this->assertNotNull(Cache::get('cms-email-code:'.$user->id));
+        $this->withSession(['two_factor_pending' => $sentPending])->post('/admin/two-factor-challenge', ['code' => $code])
+            ->assertSessionHasNoErrors()->assertRedirect('/admin');
+    }
+
+    public function test_unsent_password_verification_expires_without_sending_email(): void
+    {
+        $user = $this->admin();
+        $this->credentials($user);
+        $this->travel(600)->seconds();
+        $this->post('/admin/two-factor-send')->assertRedirect('/admin/login');
+        Mail::assertNothingSent();
         $this->assertGuest();
     }
 

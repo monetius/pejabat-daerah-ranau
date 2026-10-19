@@ -37,7 +37,7 @@
                 <a href="{{ route('admin.menu.index') }}" class="{{ request()->routeIs('admin.menu.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'menu'])<span>{{ __('Menu') }}</span></a>
                 <a href="{{ route('admin.parts.index') }}" class="{{ request()->routeIs('admin.parts.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'layout'])<span>{{ __('Navbar & Footer') }}</span></a>
                 <a href="{{ route('admin.media.index') }}" class="{{ request()->routeIs('admin.media.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'media'])<span>{{ __('Media') }}</span></a>
-                <a href="{{ route('admin.account.edit') }}" class="{{ request()->routeIs('admin.account.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'security'])<span>{{ __('Akaun & keselamatan') }}</span></a>
+                <a href="{{ route('admin.account.edit') }}" class="{{ request()->routeIs('admin.account.*') ? 'on' : '' }}">@include('admin.icon', ['name' => 'settings'])<span>{{ __('Tetapan') }}</span></a>
             </nav>
             <div class="foot">
                 <a href="/" target="_blank">{{ __('Lihat laman web') }}</a>

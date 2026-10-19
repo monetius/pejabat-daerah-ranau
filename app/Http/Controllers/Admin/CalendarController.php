@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Support\EventCalendar;
+use App\Support\HolidayFeed;
 use Carbon\CarbonImmutable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -19,7 +20,7 @@ class CalendarController extends Controller
         $filters = $request->validate(['year' => ['nullable', 'integer', 'between:2000,2100'], 'kind' => ['nullable', Rule::in(['program', 'holiday'])]]);
         $year = (int) ($filters['year'] ?? now('Asia/Kuala_Lumpur')->year);
         $kind = $filters['kind'] ?? '';
-        $entries = collect(EventCalendar::entries(true));
+        $entries = collect(EventCalendar::entries(true, [$year]));
         $years = $entries->flatMap(fn (array $entry): array => [(int) substr($entry['start_date'], 0, 4), (int) substr($entry['end_date'], 0, 4)])
             ->push($year)->unique()->sortDesc()->values();
         $filtered = $entries->filter(fn (array $entry): bool => $entry['start_date'] <= $year.'-12-31' && $entry['end_date'] >= $year.'-01-01'
@@ -28,7 +29,20 @@ class CalendarController extends Controller
             'path' => $request->url(), 'query' => $request->query(),
         ]);
 
-        return view('admin.calendar-index', compact('items', 'years', 'year', 'kind'));
+        $holidayFeed = app(HolidayFeed::class);
+        $holidaySnapshot = $holidayFeed->snapshot($year);
+
+        return view('admin.calendar-index', compact('items', 'years', 'year', 'kind', 'holidayFeed', 'holidaySnapshot'));
+    }
+
+    public function sync(Request $request, HolidayFeed $holidayFeed): RedirectResponse
+    {
+        $data = $request->validate(['year' => ['required', 'integer', 'between:2000,2100']]);
+        $success = $holidayFeed->refresh((int) $data['year'], true);
+
+        return redirect()->route('admin.calendar.index', ['year' => $data['year']])->with('status', $success
+            ? __('Cuti umum dikemas kini. Perubahan CMS anda dikekalkan.')
+            : __('Suapan cuti belum tersedia. Data tersimpan dan jadual rasmi dikekalkan.'));
     }
 
     public function create(Request $request): View

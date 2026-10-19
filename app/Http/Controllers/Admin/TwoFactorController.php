@@ -21,10 +21,14 @@ class TwoFactorController extends Controller
             return $this->expired($request);
         }
         [$local, $domain] = explode('@', $user->email, 2);
+        $expiresAt = $this->twoFactor->codeExpiresAt($request);
 
         return response()->view('admin.two-factor-challenge', [
             'maskedEmail' => mb_substr($local, 0, 1).'***@'.$domain,
-            'expiresAt' => (int) $request->session()->get('two_factor_pending.started') + 600,
+            'hasSentCode' => $expiresAt !== null,
+            'expiresAt' => $expiresAt,
+            'serverNow' => now()->timestamp,
+            'resendAvailableAt' => now()->timestamp + $this->twoFactor->resendWaitSeconds($request, $user),
         ])->withHeaders(['Cache-Control' => 'no-store, private', 'Pragma' => 'no-cache', 'Referrer-Policy' => 'no-referrer']);
     }
 
@@ -32,6 +36,9 @@ class TwoFactorController extends Controller
     {
         if (! $this->twoFactor->pendingUser($request)) {
             return $this->expired($request);
+        }
+        if ($this->twoFactor->codeExpiresAt($request) === null) {
+            throw ValidationException::withMessages(['code' => __('Klik Hantar kod terlebih dahulu untuk menerima kod pengesahan.')]);
         }
         $data = $request->validate(['code' => ['required', 'string', 'max:64']]);
         $user = $this->twoFactor->verify($request, $data['code']);
@@ -45,13 +52,13 @@ class TwoFactorController extends Controller
         return redirect()->intended(route('admin.dashboard'));
     }
 
-    public function resend(Request $request): RedirectResponse
+    public function send(Request $request): RedirectResponse
     {
         $user = $this->twoFactor->pendingUser($request);
         if (! $user) {
             return $this->expired($request);
         }
-        $this->twoFactor->resend($request, $user);
+        $this->twoFactor->sendCode($request, $user);
 
         return redirect()->route('admin.two-factor.challenge')->with('status', __('Kod baharu telah dihantar. Gunakan kod terkini sahaja.'));
     }

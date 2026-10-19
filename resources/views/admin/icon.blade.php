@@ -1,5 +1,6 @@
 <svg class="nav-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 @switch($name)
+@case('settings')<polygon points="18.93,9.13 21.78,9.92 21.78,14.08 18.93,14.87 20.39,17.45 17.45,20.39 14.87,18.93 14.08,21.78 9.92,21.78 9.13,18.93 6.55,20.39 3.61,17.45 5.07,14.87 2.22,14.08 2.22,9.92 5.07,9.13 3.61,6.55 6.55,3.61 9.13,5.07 9.92,2.22 14.08,2.22 14.87,5.07 17.45,3.61 20.39,6.55 18.93,9.13"/><circle cx="12" cy="12" r="3.2"/>@break
 @case('security')<path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6zM8 12l3 3 5-6"/>@break
 @case('dashboard')<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>@break
 @case('news')<path d="m3 10 14-5v14L3 14zM7 16l1 5h3l-1-4M21 9v6"/>@break

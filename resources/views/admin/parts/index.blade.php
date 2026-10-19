@@ -3,7 +3,7 @@
 @section('content')
     <h1>{{ __('Navbar & Footer') }}</h1>
     <div class="card">
-        <p class="hint">{{ __('Bahagian yang dipaparkan pada setiap halaman: menu atas (navbar) dan bahagian bawah (footer). Ubah logo, alamat, nombor telefon dan pautan footer di sini. Pautan navigasi diurus melalui halaman Menu.') }}</p>
+        <p class="hint">{{ __('Bahagian yang dipaparkan pada setiap halaman: menu atas (navbar) dan bahagian bawah (footer). Ubah logo, alamat, nombor telefon, e-mel dan pautan footer di sini. Pautan navigasi diurus melalui halaman Menu.') }}</p>
         <table>
             @forelse ($parts as $part)
                 <tr>

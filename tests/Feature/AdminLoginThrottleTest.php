@@ -21,6 +21,7 @@ class AdminLoginThrottleTest extends TestCase
 
     private function verifyEmail(): void
     {
+        $this->post('/admin/two-factor-send')->assertSessionHasNoErrors();
         $this->post('/admin/two-factor-challenge', ['code' => Mail::sent(CmsLoginCode::class)->last()->code])->assertSessionHasNoErrors();
     }
 
@@ -62,6 +63,6 @@ class AdminLoginThrottleTest extends TestCase
             $this->post('/admin/login', ['email' => 'unknown'.$attempt.'@example.com', 'password' => 'wrong-password']);
         }
         $this->post('/admin/login', ['email' => 'another@example.com', 'password' => 'wrong-password'])
-            ->assertSessionHasErrors(['email' => 'Terlalu banyak percubaan log masuk. Cuba lagi dalam 60 saat.']);
+            ->assertSessionHasErrors(['email' => 'Terlalu banyak percubaan log masuk. Sila cuba lagi sebentar lagi.']);
     }
 }
