@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SitePartController;
 use App\Http\Controllers\Admin\TwoFactorController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\SiteLanguageController;
 use App\Http\Middleware\AdminIdleTimeout;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureTwoFactor;
@@ -22,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/hebahan', [SiteController::class, 'announcements'])->name('announcements.index');
 Route::get('/hebahan/{slug}', [SiteController::class, 'announcement'])->name('announcements.show');
 Route::get('/kalendar/data', [CalendarController::class, 'index'])->name('calendar.data');
+Route::post('/language', [SiteLanguageController::class, 'update'])->name('site.locale.update');
 
 // ---------- Admin ----------
 Route::prefix('admin')->name('admin.')->group(function () {

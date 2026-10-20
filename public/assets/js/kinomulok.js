@@ -1,5 +1,9 @@
+const homepageLabels = JSON.parse(document.getElementById('homepage-labels')?.textContent || '{}');
+const homepageLabel = (label) => homepageLabels[label] || label;
+
 function initNavbar() {
   const navbar = document.querySelector('.navbar');
+  const english = navbar?.getAttribute('lang') === 'en';
   const hamburger = document.getElementById('hamburger');
   const navLinks = document.getElementById('navLinks');
   const dropdowns = document.querySelectorAll('.dropdown');
@@ -9,7 +13,7 @@ function initNavbar() {
     const setMenu = (open) => {
       navLinks.classList.toggle('active', open);
       hamburger.setAttribute('aria-expanded', String(open));
-      hamburger.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+      hamburger.setAttribute('aria-label', english ? (open ? 'Close menu' : 'Open menu') : (open ? 'Tutup menu' : 'Buka menu'));
       if (navbar) navbar.classList.toggle('menu-open', open);
       document.body.classList.toggle('menu-open', open);
     };
@@ -117,7 +121,7 @@ function initBackToTop() {
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'back-to-top';
-  btn.setAttribute('aria-label', 'Kembali ke atas');
+  btn.setAttribute('aria-label', homepageLabel('Kembali ke atas'));
   btn.innerHTML =
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" ' +
     'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
@@ -134,6 +138,12 @@ function initBackToTop() {
 }
 
 function initLanguageSwitch() {
+  const machineLanguage = document.cookie.match(/googtrans=\/[^/]+\/([^;]+)/)?.[1];
+  if (machineLanguage && !['ms', 'en'].includes(machineLanguage)) {
+    const navbar = document.querySelector('.navbar');
+    navbar?.classList.remove('notranslate');
+    navbar?.removeAttribute('translate');
+  }
   const toggle = document.getElementById('langToggle');
   const menu = document.getElementById('langMenu');
   if (!toggle || !menu) return;
@@ -193,6 +203,17 @@ function setSiteLanguage(lang) {
 
   clearCookie('');
   clearCookie(` domain=${host};`);
+
+  const nativeForm = document.querySelector('[data-site-language-form]');
+  if (nativeForm && ['ms', 'en'].includes(lang)) {
+    if (lang === 'en') {
+      setCookie('/ms/en', '');
+      setCookie('/ms/en', ` domain=${host};`);
+    }
+    nativeForm.querySelector('[name="translate_page"]').value = '1';
+    nativeForm.querySelector(`button[value="${lang}"]`).click();
+    return;
+  }
 
   if (lang === 'ms') {
     // Back to the original Bahasa Melayu content — just drop the cookie.
@@ -387,7 +408,7 @@ function initAccessibility() {
 
   const langs = [['ms', 'Bahasa Melayu'], ['en', 'English'], ['zh-CN', '中文'], ['ta', 'தமிழ்'], ['ko', '한국어']];
   const m = document.cookie.match(/googtrans=\/[^/]+\/([^;]+)/);
-  const curLang = m ? decodeURIComponent(m[1]) : 'ms';
+  const curLang = m ? decodeURIComponent(m[1]) : document.documentElement.lang;
   const toggles = [['contrast', 'Kontras tinggi', 'fa-circle-half-stroke'], ['links', 'Garis bawah pautan', 'fa-underline'], ['font', 'Fon mudah baca', 'fa-font'], ['motion', 'Hentikan animasi', 'fa-pause']];
 
   const wrap = document.createElement('div');
@@ -404,6 +425,17 @@ function initAccessibility() {
     '<h3><i class="fa-solid fa-eye" aria-hidden="true"></i> Paparan / Display</h3>' +
     '<div class="a11y-opts">' + toggles.map(([k, n, ic]) => '<button type="button" data-opt="' + k + '"><i class="fa-solid ' + ic + '" aria-hidden="true"></i><span>' + n + '</span></button>').join('') + '</div>' +
     '</div>';
+  if (document.documentElement.lang === 'en') {
+    const walker = document.createTreeWalker(wrap, NodeFilter.SHOW_TEXT);
+    while (walker.nextNode()) {
+      const node = walker.currentNode;
+      const label = node.textContent.trim();
+      if (label) node.textContent = node.textContent.replace(label, homepageLabel(label));
+    }
+    wrap.querySelectorAll('[aria-label]').forEach((element) => {
+      element.setAttribute('aria-label', homepageLabel(element.getAttribute('aria-label')));
+    });
+  }
   document.body.appendChild(wrap);
 
   const btn = wrap.querySelector('.a11y-btn');
@@ -717,9 +749,9 @@ function initHomeCalendar() {
   const malaysiaDate = new Intl.DateTimeFormat('en-GB', {
     timeZone: 'Asia/Kuala_Lumpur', year: 'numeric', month: 'numeric', day: 'numeric',
   });
-  const monthFormat = new Intl.DateTimeFormat('ms-MY', { month: 'long', year: 'numeric', timeZone: 'UTC' });
-  const dateFormat = new Intl.DateTimeFormat('ms-MY', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-  const shortDate = new Intl.DateTimeFormat('ms-MY', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+  const monthFormat = new Intl.DateTimeFormat(document.documentElement.lang === 'en' ? 'en-GB' : 'ms-MY', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const dateFormat = new Intl.DateTimeFormat(document.documentElement.lang === 'en' ? 'en-GB' : 'ms-MY', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+  const shortDate = new Intl.DateTimeFormat(document.documentElement.lang === 'en' ? 'en-GB' : 'ms-MY', { day: 'numeric', month: 'short', timeZone: 'UTC' });
   const currentDate = () => {
     const parts = Object.fromEntries(malaysiaDate.formatToParts(new Date()).map((part) => [part.type, part.value]));
     return new Date(Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day)));
@@ -763,7 +795,7 @@ function initHomeCalendar() {
         button.dataset.date = key;
         button.tabIndex = key === selectedDate ? 0 : -1;
         button.setAttribute('aria-pressed', String(daySelected && key === selectedDate));
-        button.setAttribute('aria-label', dateFormat.format(date) + (items.length ? `. ${items.map((item) => `${item.kind === 'holiday' ? 'Cuti umum' : 'Program'}: ${item.title}`).join('. ')}` : ''));
+        button.setAttribute('aria-label', dateFormat.format(date) + (items.length ? `. ${items.map((item) => `${item.kind === 'holiday' ? homepageLabel('Cuti umum') : homepageLabel('Program')}: ${item.title}`).join('. ')}` : ''));
         button.setAttribute('aria-controls', 'home-calendar-agenda');
         if (!isSameMonth(date, displayedMonth)) cell.classList.add('is-outside-month');
         if (key === isoDate(today)) {
@@ -793,16 +825,16 @@ function initHomeCalendar() {
     agenda.replaceChildren();
     agenda.setAttribute('aria-busy', String(loading));
     if (loading || failed) {
-      agenda.append(element('p', 'home-calendar-empty', loading ? 'Memuatkan program & cuti umum…' : 'Maklumat kalendar tidak dapat dimuatkan.'));
+      agenda.append(element('p', 'home-calendar-empty', loading ? homepageLabel('Memuatkan program & cuti umum…') : homepageLabel('Maklumat kalendar tidak dapat dimuatkan.')));
       if (failed) {
-        const retry = element('button', 'home-calendar-retry', 'Cuba lagi');
+        const retry = element('button', 'home-calendar-retry', homepageLabel('Cuba lagi'));
         retry.type = 'button';
         retry.addEventListener('click', loadEntries);
         agenda.append(retry);
       }
       return;
     }
-    const heading = element('h4', 'home-calendar-agenda-title', daySelected ? dateFormat.format(parseDate(selectedDate)) : `Agenda ${monthFormat.format(displayedMonth)}`);
+    const heading = element('h4', 'home-calendar-agenda-title', daySelected ? dateFormat.format(parseDate(selectedDate)) : `${homepageLabel('Agenda')} ${monthFormat.format(displayedMonth)}`);
     agenda.append(heading);
     const monthStart = isoDate(displayedMonth);
     const monthEnd = new Date(displayedMonth);
@@ -810,18 +842,18 @@ function initHomeCalendar() {
     monthEnd.setUTCDate(0);
     const items = daySelected ? entriesOn(selectedDate) : entries.filter((item) => item.start_date <= isoDate(monthEnd) && item.end_date >= monthStart);
     if (!items.length) {
-      agenda.append(element('p', 'home-calendar-empty', daySelected ? 'Tiada program atau cuti umum pada tarikh ini.' : 'Tiada program atau cuti umum pada bulan ini.'));
+      agenda.append(element('p', 'home-calendar-empty', daySelected ? homepageLabel('Tiada program atau cuti umum pada tarikh ini.') : homepageLabel('Tiada program atau cuti umum pada bulan ini.')));
       return;
     }
     const list = element('ul', 'home-calendar-agenda-list');
     items.forEach((item) => {
       const row = element('li', `home-calendar-event ${item.kind === 'holiday' ? 'holiday' : 'program'}`);
       const label = shortDate.format(parseDate(item.start_date)) + (item.end_date !== item.start_date ? ` – ${shortDate.format(parseDate(item.end_date))}` : '');
-      row.append(element('span', 'home-calendar-event-date', `${label} · ${item.kind === 'holiday' ? 'Cuti umum' : 'Program / Acara'}`));
+      row.append(element('span', 'home-calendar-event-date', `${label} · ${item.kind === 'holiday' ? homepageLabel('Cuti umum') : homepageLabel('Program / Acara')}`));
       row.append(element('h5', 'home-calendar-event-title', item.title));
       const details = [];
       if (item.start_time) details.push(item.start_time + (item.end_time ? ` – ${item.end_time}` : '') + ' MYT');
-      else if (item.kind !== 'holiday') details.push('Sepanjang hari');
+      else if (item.kind !== 'holiday') details.push(homepageLabel('Sepanjang hari'));
       if (item.location) details.push(item.location);
       if (details.length) row.append(element('p', 'home-calendar-event-meta', details.join(' · ')));
       if (item.description) row.append(element('p', 'home-calendar-event-description', item.description));
@@ -829,7 +861,7 @@ function initHomeCalendar() {
         let url;
         try { url = new URL(item.url, window.location.href); } catch {}
         if (url && ['http:', 'https:'].includes(url.protocol)) {
-          const link = element('a', 'home-calendar-event-link', 'Lihat maklumat ↗');
+          const link = element('a', 'home-calendar-event-link', homepageLabel('Lihat maklumat ↗'));
           link.href = url.href;
           if (url.origin !== window.location.origin) { link.target = '_blank'; link.rel = 'noopener noreferrer'; }
           row.append(link);
@@ -842,8 +874,8 @@ function initHomeCalendar() {
   const render = () => {
     renderDates();
     renderAgenda();
-    note.textContent = holidaySource ? `Cuti umum Sabah & Malaysia · ${displayedMonth.getUTCFullYear()}`
-      : loading ? '' : `Jadual cuti umum ${displayedMonth.getUTCFullYear()} belum diimport.`;
+    note.textContent = holidaySource ? `${homepageLabel('Cuti umum Sabah & Malaysia')} · ${displayedMonth.getUTCFullYear()}`
+      : loading ? '' : homepageLabel('Jadual cuti umum :year belum diimport.').replace(':year', displayedMonth.getUTCFullYear());
     source.href = holidaySource || 'https://sabah.gov.my/public-holidays';
   };
   async function loadEntries() {
@@ -988,9 +1020,10 @@ function initTheme() {
 
   const render = () => {
     const dark = isDark();
+    const english = document.querySelector('.navbar')?.getAttribute('lang') === 'en';
     btn.setAttribute('aria-pressed', String(dark));
-    btn.setAttribute('aria-label', dark ? 'Tukar ke mod cerah' : 'Tukar ke mod gelap');
-    btn.title = dark ? 'Mod cerah' : 'Mod gelap';
+    btn.setAttribute('aria-label', english ? (dark ? 'Switch to light mode' : 'Switch to dark mode') : (dark ? 'Tukar ke mod cerah' : 'Tukar ke mod gelap'));
+    btn.title = english ? (dark ? 'Light mode' : 'Dark mode') : (dark ? 'Mod cerah' : 'Mod gelap');
     icon.innerHTML = dark
       ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
       : '<path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/>';

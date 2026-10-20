@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ms">
+<html lang="{{ \App\Support\HomepageTranslation::isEnglish() ? 'en' : 'ms' }}">
 
 <head>
     <script>
@@ -13,10 +13,10 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Pejabat Daerah Ranau')</title>
-    <meta name="description" content="@yield('description', 'Laman web rasmi Pejabat Daerah Ranau, Sabah.')">
+    <title>{{ \App\Support\HomepageTranslation::isEnglish() ? 'Ranau District Office' : $__env->yieldContent('title', 'Pejabat Daerah Ranau') }}</title>
+    <meta name="description" content="{{ \App\Support\HomepageTranslation::isEnglish() ? 'Official website of the Ranau District Office, Sabah.' : $__env->yieldContent('description', 'Laman web rasmi Pejabat Daerah Ranau, Sabah.') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/sabahtea.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/navbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/navbar.css') }}?v={{ filemtime(public_path('assets/css/navbar.css')) }}">
     <link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}">
     @stack('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -29,10 +29,13 @@
 <body class="@yield('body_class')">
     @include('partials.dyn', ['key' => 'navbar'])
     <main id="main">
-        @yield('content')
+        {!! \App\Support\HomepageTranslation::render($__env->yieldContent('content')) !!}
     </main>
     @include('partials.dyn', ['key' => 'footer'])
-    <script src="{{ asset('assets/js/kinomulok.js') }}"></script>
+    @if (\App\Support\HomepageTranslation::isEnglish())
+        <script type="application/json" id="homepage-labels">@json(\Illuminate\Support\Facades\Lang::get('homepage', [], 'en'))</script>
+    @endif
+    <script src="{{ asset('assets/js/kinomulok.js') }}?v={{ filemtime(public_path('assets/js/kinomulok.js')) }}"></script>
     @stack('scripts')
 </body>
 

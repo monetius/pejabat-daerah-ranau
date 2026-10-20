@@ -14,7 +14,7 @@
     const group = clean(section.querySelector('h2')?.textContent || 'Lain-lain');
     const rows = section.querySelectorAll(isVillage ? '.sk-card li' : '.ka-list li, .ka-table tbody tr, .ka-route, .ka-bank');
     rows.forEach((row) => {
-      const school = row.matches('tr');d
+      const school = row.matches('tr');
       const name = clean((school ? row.cells[0] : row.querySelector(':scope > span') || row).textContent);
       const area = school ? clean(row.cells[1]?.textContent || '') : '';
       const mukim = row.closest('.sk-card')?.dataset.mukim || '';
@@ -56,9 +56,9 @@
   const panel = document.createElement('div');
   panel.className = 'directory-toolbar';
   panel.innerHTML = `
-    <div class="directory-summary"><span class="directory-eyebrow">DIREKTORI RANAU</span><h2>Cari ${isVillage ? 'kampung anda' : 'kemudahan berdekatan'}</h2><p>Pilih lokasi untuk melihat peta dan mendapatkan arah perjalanan.</p></div>
+    <div class="directory-summary"><span class="directory-eyebrow">DIREKTORI RANAU</span><h2>Cari ${isVillage ? 'kampung anda' : 'kemudahan berdekatan'}</h2><p>Cari lokasi, lihat peta dan dapatkan arah perjalanan.</p></div>
     <div class="directory-stats"><div><strong>${entries.length}</strong><span>${isVillage ? 'Kampung' : 'Entri kemudahan'}</span></div><div><strong>${sections.length}</strong><span>${isVillage ? 'DUN' : 'Kategori'}</span></div>${isVillage ? `<div><strong>${main.querySelectorAll('.sk-card').length}</strong><span>Mukim</span></div>` : ''}</div>
-    <div class="directory-filters"><label class="directory-search"><span>Cari lokasi</span><input id="directory-query" type="search" placeholder="${isVillage ? 'Nama kampung atau mukim…' : 'Nama kemudahan atau lokasi…'}" autocomplete="off"></label><label><span>${isVillage ? 'DUN' : 'Kategori'}</span><select id="directory-group"><option value="">Semua ${isVillage ? 'DUN' : 'kategori'}</option></select></label><button type="button" class="directory-reset">Tetapkan semula</button></div>
+    <div class="directory-filters"><label class="directory-search"><span>Cari lokasi</span><span class="directory-search-control"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input id="directory-query" type="search" placeholder="${isVillage ? 'Nama kampung atau mukim…' : 'Nama kemudahan atau lokasi…'}" autocomplete="off"></span></label><label><span>${isVillage ? 'DUN' : 'Kategori'}</span><select id="directory-group"><option value="">Semua ${isVillage ? 'DUN' : 'kategori'}</option></select></label><button type="button" class="directory-reset"><i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i>Tetapkan semula</button></div>
     <p class="directory-results" role="status" aria-live="polite"></p>`;
   intro.prepend(panel);
   const input = panel.querySelector('input');

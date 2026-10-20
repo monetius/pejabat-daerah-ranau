@@ -115,6 +115,57 @@ body.has-banner .navbar:not(.is-condensed) {
   list-style: none;
 }
 
+.nav-language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  margin-inline-start: 0.5rem;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-language-switch button {
+  min-width: 36px;
+  min-height: 38px;
+  padding: 0.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #e7ebf1;
+  font: 600 0.75rem var(--font-body);
+  cursor: pointer;
+}
+
+.nav-language-switch button:hover,
+.nav-language-switch button[aria-pressed='true'] {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.nav-language-switch button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1280px) {
+  .nav-language-item {
+    margin-top: 0.75rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .nav-language-switch {
+    margin-inline-start: 0;
+  }
+
+  .nav-language-switch button {
+    min-width: 54px;
+    min-height: 44px;
+  }
+}
+
 .nav-links>li>a,
 .dropdown-toggle {
   position: relative;

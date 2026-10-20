@@ -11,7 +11,7 @@
   href="{{ (str_starts_with($css, '/') || str_starts_with($css, 'http')) ? $css : asset('assets/css/' . $css) }}">
 @endforeach
 @if (in_array($page->path, ['profil-daerah/senarai-kampung', 'profil-daerah/kemudahan-awam'], true))
-<link rel="stylesheet" href="{{ asset('assets/css/location-directory.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/location-directory.css') }}?v={{ filemtime(public_path('assets/css/location-directory.css')) }}">
 @endif
 @if ($page->path === 'info-korporat/mengenai-kami')
 <link rel="stylesheet" href="{{ asset('assets/css/terrain-compass.css') }}">
@@ -33,7 +33,7 @@
 @push('scripts')
   {!! $page->scripts !!}
   @if (in_array($page->path, ['profil-daerah/senarai-kampung', 'profil-daerah/kemudahan-awam'], true))
-    <script src="{{ asset('assets/js/location-directory.js') }}" defer></script>
+    <script src="{{ asset('assets/js/location-directory.js') }}?v={{ filemtime(public_path('assets/js/location-directory.js')) }}" defer></script>
   @endif
   @if ($page->path === 'info-korporat/mengenai-kami')
     <script src="{{ asset('assets/js/terrain-compass.js') }}" defer></script>
