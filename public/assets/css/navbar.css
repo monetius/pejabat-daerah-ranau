@@ -116,6 +116,7 @@ body.has-banner .navbar:not(.is-condensed) {
 }
 
 .nav-language-switch {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 2px;
@@ -149,6 +150,40 @@ body.has-banner .navbar:not(.is-condensed) {
   outline-offset: 2px;
 }
 
+.nav-language-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  min-width: 176px;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 14px;
+  background: var(--navy);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+  z-index: 110;
+}
+
+.nav-language-menu[hidden] {
+  display: none;
+}
+
+.nav-language-menu button {
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+#langToggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding-inline: 10px;
+}
+
 @media (max-width: 1280px) {
   .nav-language-item {
     margin-top: 0.75rem;
@@ -157,7 +192,16 @@ body.has-banner .navbar:not(.is-condensed) {
   }
 
   .nav-language-switch {
+    display: block;
     margin-inline-start: 0;
+    border-radius: 16px;
+  }
+
+  .nav-language-menu {
+    position: static;
+    min-width: 0;
+    margin-top: 6px;
+    box-shadow: none;
   }
 
   .nav-language-switch button {

@@ -6,7 +6,6 @@ use App\Models\Page;
 use App\Models\SitePart;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class ImportSite extends Command
 {
@@ -14,7 +13,7 @@ class ImportSite extends Command
 
     protected $description = 'Import the existing Blade pages, navbar and footer into the CMS database';
 
-    private const SKIP = ['cms-page', 'dynamic-page'];
+    private const SKIP = ['cms-page'];
 
     public function handle(): int
     {

@@ -15,7 +15,7 @@ class SiteNavigationLanguageTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        Page::create(['title' => 'Ranau', 'slug' => 'home', 'path' => '', 'status' => 'published', 'body' => '<h1>Kandungan halaman</h1><p>Kandungan asal.</p>']);
+        Page::create(['title' => 'Ranau', 'slug' => 'home', 'path' => '', 'status' => 'published', 'body' => '<h1>Mengenai Kami</h1><p>Kandungan asal.</p>']);
     }
 
     public function test_default_navigation_is_malay_even_when_cms_is_english(): void
@@ -29,7 +29,7 @@ class SiteNavigationLanguageTest extends TestCase
     public function test_native_english_covers_branding_menus_and_accessibility_without_changing_page_content(): void
     {
         $response = $this->withCookie('site_locale', 'en')->get('/')->assertOk()
-            ->assertSee('<h1>Kandungan halaman</h1>', false)->assertSee('Kandungan asal.')
+            ->assertSee('<h1>Mengenai Kami</h1>', false)->assertSee('Kandungan asal.')
             ->assertSee('translate="no"', false)->assertSee('lang="en"', false);
         foreach (['Ranau District Office', 'Sabah State Government', 'Home', 'Corporate Information', 'District Profile', 'Online Services', 'Gallery &amp; Links', 'Contact Us', 'Public Facilities', 'Village Directory', 'About Us', 'Development Plan', 'Photos', 'Videos', 'Skip to main content', 'Switch to dark mode', 'Open menu'] as $label) {
             $response->assertSee($label, false);

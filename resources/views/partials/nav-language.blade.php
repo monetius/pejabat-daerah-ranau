@@ -1,6 +1,16 @@
-<form class="nav-language-switch" data-site-language-form method="POST" action="{{ route('site.locale.update') }}" aria-label="{{ $locale === 'en' ? 'Navigation language' : 'Bahasa navigasi' }}">
+<form class="nav-language-switch notranslate" data-site-language-form method="POST" action="{{ route('site.locale.update') }}" aria-label="{{ $locale === 'en' ? 'Language' : 'Bahasa' }}" translate="no">
     @csrf
     <input type="hidden" name="translate_page" value="0">
-    <button type="submit" name="locale" value="ms" lang="ms" aria-label="Bahasa Melayu" aria-pressed="{{ $locale === 'ms' ? 'true' : 'false' }}">BM</button>
-    <button type="submit" name="locale" value="en" lang="en" aria-label="English" aria-pressed="{{ $locale === 'en' ? 'true' : 'false' }}">EN</button>
+    <button type="button" id="langToggle" aria-label="Bahasa / Language" aria-expanded="false" aria-controls="langMenu">
+        <i class="fa-solid fa-language" aria-hidden="true"></i>
+        <span data-language-label>{{ $locale === 'en' ? 'EN' : 'BM' }}</span>
+        <span aria-hidden="true">▾</span>
+    </button>
+    <div class="nav-language-menu" id="langMenu" hidden>
+        <button type="submit" name="locale" value="ms" data-lang="ms" lang="ms" aria-pressed="{{ $locale === 'ms' ? 'true' : 'false' }}">Bahasa Melayu</button>
+        <button type="submit" name="locale" value="en" data-lang="en" lang="en" aria-pressed="{{ $locale === 'en' ? 'true' : 'false' }}">English</button>
+        <button type="button" data-lang="zh-CN" lang="zh-CN" aria-pressed="false">中文</button>
+        <button type="button" data-lang="ta" lang="ta" aria-pressed="false">தமிழ்</button>
+        <button type="button" data-lang="ko" lang="ko" aria-pressed="false">한국어</button>
+    </div>
 </form>

@@ -46,11 +46,6 @@ class MenuItem extends Model
         return filled($this->url) ? $this->url : '#';
     }
 
-    public function hasLink(): bool
-    {
-        return $this->page_id !== null || filled($this->url);
-    }
-
     /** Should visitors see this link? Hidden items and links to draft pages are left out. */
     public function isShown(): bool
     {

@@ -357,13 +357,14 @@ section {
 
 /* ==========================================================================
    Accessibility widget — fixed bottom-left button + panel (kinomulok.js)
-   Holds the language translator, text size and display options.
+   Holds text size and display options.
    ========================================================================== */
 
 .a11y {
   position: fixed;
-  left: 1.5rem;
-  bottom: 1.5rem;
+  font-size: 16px;
+  left: 24px;
+  bottom: 24px;
   z-index: 95;
 }
 
@@ -377,7 +378,7 @@ section {
   border: 1.5px solid rgba(201, 154, 61, 0.55);
   background: var(--navy);
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 24px;
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(16, 27, 45, 0.3);
   transition: background 0.2s ease, transform 0.2s ease;
@@ -391,12 +392,12 @@ section {
 .a11y-panel {
   position: absolute;
   left: 0;
-  bottom: calc(100% + 0.75rem);
-  width: min(320px, calc(100vw - 2rem));
-  max-height: calc(100vh - 7rem);
-  max-height: calc(100dvh - 7rem);
+  bottom: calc(100% + 12px);
+  width: min(320px, calc(100vw - 32px));
+  max-height: calc(100vh - 112px);
+  max-height: calc(100dvh - 112px);
   overflow-y: auto;
-  padding: 1rem 1.1rem 1.1rem;
+  padding: 16px 17.6px 17.6px;
   background: var(--paper-raised);
   color: var(--ink);
   border: 1px solid var(--line);
@@ -412,12 +413,12 @@ section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.25rem;
+  margin-bottom: 4px;
 }
 
 .a11y-head strong {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 19.2px;
   font-weight: 400;
 }
 
@@ -426,7 +427,7 @@ section {
   border: 0;
   color: var(--kinabalu-blue);
   font: inherit;
-  font-size: 0.85rem;
+  font-size: 13.6px;
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
@@ -435,31 +436,30 @@ section {
 .a11y-panel h3 {
   display: flex;
   align-items: center;
-  gap: 0.45rem;
-  margin: 1rem 0 0.5rem;
+  gap: 7.2px;
+  margin: 16px 0 8px;
   font-family: var(--font-body);
-  font-size: 0.78rem;
+  font-size: 12.48px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--ink-soft);
 }
 
-.a11y-langs,
 .a11y-opts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.4rem;
+  gap: 6.4px;
 }
 
 .a11y-panel button:not(.a11y-reset) {
   font: inherit;
-  font-size: 0.88rem;
+  font-size: 14.08px;
   color: var(--ink);
   background: var(--sky-tint);
   border: 1.5px solid transparent;
   border-radius: 12px;
-  padding: 0.6rem 0.7rem;
+  padding: 9.6px 11.2px;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease;
 }
@@ -481,14 +481,14 @@ section {
 .a11y-opts button {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   text-align: left;
 }
 
 .a11y-size {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
 }
 
 .a11y-size button {
@@ -497,7 +497,7 @@ section {
 }
 
 .a11y-size-val {
-  min-width: 3.2rem;
+  min-width: 51.2px;
   text-align: center;
   font-weight: 600;
 }
@@ -540,7 +540,7 @@ html.a11y-no-motion *::after {
 
 @media (max-width: 640px) {
   .a11y {
-    left: 1rem;
-    bottom: 1rem;
+    left: 16px;
+    bottom: 16px;
   }
 }
