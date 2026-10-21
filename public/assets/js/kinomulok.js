@@ -439,20 +439,32 @@ function initAccessibility() {
     try { localStorage.setItem(KEY, JSON.stringify({ ...prefs, sizePercent: prefs.size })); } catch (_) { }
   };
 
-  const toggles = [['contrast', 'Kontras tinggi', 'fa-circle-half-stroke'], ['links', 'Garis bawah pautan', 'fa-underline'], ['font', 'Fon mudah baca', 'fa-font'], ['motion', 'Hentikan animasi', 'fa-pause'], ['spacing', 'Jarak teks', 'fa-text-width'], ['focus', 'Fokus papan kekunci', 'fa-keyboard']];
+  const translations = {
+    ms: ['Aksesibiliti', 'Tetap semula', 'Tutup aksesibiliti', 'Saiz teks', 'Kecilkan teks', 'Besarkan teks', 'Paparan', 'Kontras tinggi', 'Garis bawah pautan', 'Fon mudah baca', 'Hentikan animasi', 'Jarak teks', 'Fokus papan kekunci'],
+    en: ['Accessibility', 'Reset', 'Close accessibility', 'Text size', 'Decrease text size', 'Increase text size', 'Display', 'High contrast', 'Underline links', 'Readable font', 'Stop animations', 'Text spacing', 'Keyboard focus'],
+    'zh-CN': ['无障碍功能', '重置', '关闭无障碍面板', '文字大小', '缩小文字', '放大文字', '显示', '高对比度', '链接下划线', '易读字体', '停止动画', '文字间距', '键盘焦点'],
+    ta: ['அணுகல்தன்மை', 'மீட்டமை', 'அணுகல்தன்மையை மூடு', 'உரை அளவு', 'உரை அளவைக் குறை', 'உரை அளவை அதிகரி', 'காட்சி', 'அதிக நிற வேறுபாடு', 'இணைப்புகளுக்கு அடிக்கோடு', 'எளிதில் படிக்கும் எழுத்துரு', 'அசைவுகளை நிறுத்து', 'உரை இடைவெளி', 'விசைப்பலகை கவனம்'],
+    ko: ['접근성', '초기화', '접근성 닫기', '글자 크기', '글자 크기 줄이기', '글자 크기 늘리기', '화면 설정', '고대비', '링크 밑줄', '읽기 쉬운 글꼴', '애니메이션 중지', '글자 간격', '키보드 포커스'],
+  };
+  const selectedLanguage = document.cookie.match(/(?:^|;\s*)googtrans=\/[^/]+\/([^;]+)/)?.[1]
+    || document.querySelector('.navbar')?.getAttribute('lang') || 'ms';
+  const language = Object.hasOwn(translations, selectedLanguage) ? selectedLanguage : 'ms';
+  const [heading, reset, close, textSize, decrease, increase, display, contrast, links, font, motion, spacing, focus] = translations[language];
+  const toggles = [['contrast', contrast, 'fa-circle-half-stroke'], ['links', links, 'fa-underline'], ['font', font, 'fa-font'], ['motion', motion, 'fa-pause'], ['spacing', spacing, 'fa-text-width'], ['focus', focus, 'fa-keyboard']];
 
   const wrap = document.createElement('div');
   wrap.className = 'a11y notranslate';
   wrap.setAttribute('translate', 'no');
-  wrap.innerHTML =
-    '<button type="button" class="a11y-btn" aria-label="Aksesibiliti / Accessibility" aria-expanded="false" aria-controls="a11yPanel" aria-haspopup="dialog"><i class="fa-solid fa-universal-access" aria-hidden="true"></i></button>' +
-    '<div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="Aksesibiliti / Accessibility" hidden>' +
-    '<div class="a11y-head"><strong>Aksesibiliti</strong><div class="a11y-actions"><button type="button" class="a11y-reset">Tetap semula</button><button type="button" class="a11y-close" aria-label="Tutup aksesibiliti"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div></div>' +
-    '<h3><i class="fa-solid fa-text-height" aria-hidden="true"></i> Saiz teks / Text size</h3>' +
-    '<div class="a11y-size"><button type="button" data-size="-1" aria-label="Kecilkan teks">A−</button><span class="a11y-size-val" role="status" aria-live="polite" aria-atomic="true"></span><button type="button" data-size="1" aria-label="Besarkan teks">A+</button></div>' +
-    '<h3><i class="fa-solid fa-eye" aria-hidden="true"></i> Paparan / Display</h3>' +
-    '<div class="a11y-opts">' + toggles.map(([k, n, ic]) => '<button type="button" data-opt="' + k + '"><i class="fa-solid ' + ic + '" aria-hidden="true"></i><span>' + n + '</span><span class="a11y-option-state" aria-hidden="true">✓</span></button>').join('') + '</div>' +
-    '</div>';
+  wrap.setAttribute('lang', language);
+  wrap.innerHTML = `
+    <button type="button" class="a11y-btn" aria-label="${heading}" aria-expanded="false" aria-controls="a11yPanel" aria-haspopup="dialog"><i class="fa-solid fa-universal-access" aria-hidden="true"></i></button>
+    <div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="${heading}" hidden>
+      <div class="a11y-head"><strong>${heading}</strong><div class="a11y-actions"><button type="button" class="a11y-reset">${reset}</button><button type="button" class="a11y-close" aria-label="${close}"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div></div>
+      <h3><i class="fa-solid fa-text-height" aria-hidden="true"></i> ${textSize}</h3>
+      <div class="a11y-size"><button type="button" data-size="-1" aria-label="${decrease}">A−</button><span class="a11y-size-val" role="status" aria-live="polite" aria-atomic="true"></span><button type="button" data-size="1" aria-label="${increase}">A+</button></div>
+      <h3><i class="fa-solid fa-eye" aria-hidden="true"></i> ${display}</h3>
+      <div class="a11y-opts">${toggles.map(([key, label, icon]) => `<button type="button" data-opt="${key}"><i class="fa-solid ${icon}" aria-hidden="true"></i><span>${label}</span><span class="a11y-option-state" aria-hidden="true">✓</span></button>`).join('')}</div>
+    </div>`;
   document.body.appendChild(wrap);
 
   const btn = wrap.querySelector('.a11y-btn');

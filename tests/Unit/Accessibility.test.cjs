@@ -7,7 +7,7 @@ const { test } = require('node:test');
 const source = fs.readFileSync(path.resolve(__dirname, '../../public/assets/js/kinomulok.js'), 'utf8')
   .split('function initAccessibility() {')[1].split('\nfunction initDriftMotion(')[0];
 
-function fixture(saved = {}, storageBlocked = false) {
+function fixture(saved = {}, storageBlocked = false, language = {}) {
   const classes = new Set();
   const controls = {};
   const optionNames = ['contrast', 'links', 'font', 'motion', 'spacing', 'focus'];
@@ -29,13 +29,16 @@ function fixture(saved = {}, storageBlocked = false) {
   };
   const handlers = {};
   const wrap = {
-    setAttribute() {}, contains: () => false,
+    attributes: {},
+    setAttribute(key, value) { this.attributes[key] = value; }, contains: () => false,
     querySelector: (selector) => controls[selector],
     querySelectorAll: (selector) => Object.values(controls).filter((control) => selector === '[data-opt]' ? control.dataset.opt : control.dataset.size),
   };
   vm.runInNewContext(`function initAccessibility() {${source}\ninitAccessibility();`, {
     Event,
     document: {
+      cookie: language.cookie || '',
+      querySelector: () => ({ getAttribute: () => language.navbar || 'ms' }),
       documentElement: root, createElement: () => wrap, body: { appendChild() {} },
       addEventListener(event, handler) { handlers[event] = handler; }, dispatchEvent() {},
     },
@@ -45,7 +48,7 @@ function fixture(saved = {}, storageBlocked = false) {
     },
   });
 
-  return { root, classes, controls, handlers, saved: () => persisted, focused: () => focused };
+  return { root, classes, controls, handlers, wrap, saved: () => persisted, focused: () => focused };
 }
 
 test('each display option changes its class, pressed state and saved preference', () => {
@@ -92,4 +95,24 @@ test('controls still work when browser storage is unavailable', () => {
   const { controls, classes } = fixture({}, true);
   controls['[data-opt="contrast"]'].handlers.click();
   assert.equal(classes.has('a11y-contrast'), true);
+});
+
+
+test('accessibility labels follow the native navbar language, including screen-reader controls', () => {
+  const { wrap } = fixture({}, false, { navbar: 'en' });
+  assert.equal(wrap.attributes.lang, 'en');
+  for (const label of ['Accessibility', 'Reset', 'Close accessibility', 'Decrease text size', 'Increase text size', 'High contrast', 'Underline links', 'Text spacing', 'Keyboard focus']) {
+    assert.ok(wrap.innerHTML.includes(label), label);
+  }
+  assert.ok(!wrap.innerHTML.includes('Kontras tinggi'));
+});
+
+test('all translator languages have native panel labels and override the navbar language', () => {
+  for (const [locale, label] of Object.entries({ en: 'High contrast', 'zh-CN': '高对比度', ta: 'அதிக நிற வேறுபாடு', ko: '고대비' })) {
+    const { wrap } = fixture({}, false, { navbar: 'ms', cookie: `googtrans=/ms/${locale}` });
+    assert.equal(wrap.attributes.lang, locale);
+    assert.ok(wrap.innerHTML.includes(label), locale);
+    assert.equal(wrap.attributes.translate, 'no');
+  }
+  assert.equal(fixture({}, false, { cookie: 'googtrans=/ms/unknown' }).wrap.attributes.lang, 'ms');
 });

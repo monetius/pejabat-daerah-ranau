@@ -89,13 +89,20 @@ html.a11y-no-motion *::after {
   line-height: 1.5;
 }
 
+.a11y-head {
+  gap: 8px;
+}
+
 .a11y-head strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-family: inherit;
   font-size: 17px;
   font-weight: 600;
 }
 
 .a11y-actions {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -134,4 +141,22 @@ html.a11y-no-motion *::after {
 html.a11y-contrast .navbar {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
+}
+
+.a11y-opts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.a11y-opts button {
+  min-width: 0;
+}
+
+.a11y-opts button > span:not(.a11y-option-state) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.a11y-opts button > i,
+.a11y-option-state {
+  flex-shrink: 0;
 }
