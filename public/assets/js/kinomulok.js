@@ -440,11 +440,11 @@ function initAccessibility() {
   };
 
   const translations = {
-    ms: ['Aksesibiliti', 'Tetap semula', 'Tutup aksesibiliti', 'Saiz teks', 'Kecilkan teks', 'Besarkan teks', 'Paparan', 'Kontras tinggi', 'Garis bawah pautan', 'Fon mudah baca', 'Hentikan animasi', 'Jarak teks', 'Fokus papan kekunci'],
-    en: ['Accessibility', 'Reset', 'Close accessibility', 'Text size', 'Decrease text size', 'Increase text size', 'Display', 'High contrast', 'Underline links', 'Readable font', 'Stop animations', 'Text spacing', 'Keyboard focus'],
-    'zh-CN': ['无障碍功能', '重置', '关闭无障碍面板', '文字大小', '缩小文字', '放大文字', '显示', '高对比度', '链接下划线', '易读字体', '停止动画', '文字间距', '键盘焦点'],
-    ta: ['அணுகல்தன்மை', 'மீட்டமை', 'அணுகல்தன்மையை மூடு', 'உரை அளவு', 'உரை அளவைக் குறை', 'உரை அளவை அதிகரி', 'காட்சி', 'அதிக நிற வேறுபாடு', 'இணைப்புகளுக்கு அடிக்கோடு', 'எளிதில் படிக்கும் எழுத்துரு', 'அசைவுகளை நிறுத்து', 'உரை இடைவெளி', 'விசைப்பலகை கவனம்'],
-    ko: ['접근성', '초기화', '접근성 닫기', '글자 크기', '글자 크기 줄이기', '글자 크기 늘리기', '화면 설정', '고대비', '링크 밑줄', '읽기 쉬운 글꼴', '애니메이션 중지', '글자 간격', '키보드 포커스'],
+    ms: ['Aksesibiliti', 'Tetap semula', 'Tutup aksesibiliti', 'Saiz teks', 'Kecilkan teks', 'Besarkan teks', 'Paparan', 'Kontras tinggi', 'Garis bawah teks', 'Fon mudah baca', 'Hentikan animasi', 'Jarak teks', 'Fokus papan kekunci'],
+    en: ['Accessibility', 'Reset', 'Close accessibility', 'Text size', 'Decrease text size', 'Increase text size', 'Display', 'High contrast', 'Underline all text', 'Readable font', 'Stop animations', 'Text spacing', 'Keyboard focus'],
+    'zh-CN': ['无障碍功能', '重置', '关闭无障碍面板', '文字大小', '缩小文字', '放大文字', '显示', '高对比度', '所有文字加下划线', '易读字体', '停止动画', '文字间距', '键盘焦点'],
+    ta: ['அணுகல்தன்மை', 'மீட்டமை', 'அணுகல்தன்மையை மூடு', 'உரை அளவு', 'உரை அளவைக் குறை', 'உரை அளவை அதிகரி', 'காட்சி', 'அதிக நிற வேறுபாடு', 'அனைத்து உரைக்கும் அடிக்கோடு', 'எளிதில் படிக்கும் எழுத்துரு', 'அசைவுகளை நிறுத்து', 'உரை இடைவெளி', 'விசைப்பலகை கவனம்'],
+    ko: ['접근성', '초기화', '접근성 닫기', '글자 크기', '글자 크기 줄이기', '글자 크기 늘리기', '화면 설정', '고대비', '모든 텍스트 밑줄', '읽기 쉬운 글꼴', '애니메이션 중지', '글자 간격', '키보드 포커스'],
   };
   const selectedLanguage = document.cookie.match(/(?:^|;\s*)googtrans=\/[^/]+\/([^;]+)/)?.[1]
     || document.querySelector('.navbar')?.getAttribute('lang') || 'ms';

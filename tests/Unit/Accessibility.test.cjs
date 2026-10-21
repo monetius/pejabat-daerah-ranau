@@ -101,7 +101,7 @@ test('controls still work when browser storage is unavailable', () => {
 test('accessibility labels follow the native navbar language, including screen-reader controls', () => {
   const { wrap } = fixture({}, false, { navbar: 'en' });
   assert.equal(wrap.attributes.lang, 'en');
-  for (const label of ['Accessibility', 'Reset', 'Close accessibility', 'Decrease text size', 'Increase text size', 'High contrast', 'Underline links', 'Text spacing', 'Keyboard focus']) {
+  for (const label of ['Accessibility', 'Reset', 'Close accessibility', 'Decrease text size', 'Increase text size', 'High contrast', 'Underline all text', 'Text spacing', 'Keyboard focus']) {
     assert.ok(wrap.innerHTML.includes(label), label);
   }
   assert.ok(!wrap.innerHTML.includes('Kontras tinggi'));

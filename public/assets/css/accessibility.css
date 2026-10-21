@@ -1,6 +1,5 @@
 /* Visitor preferences load after the website's theme and page styles. */
-html.a11y-links body a,
-html.a11y-links body a :where(span, p, h2, h3, h4, h5, h6, small, strong, b, em):not([aria-hidden='true']):not([class*='fa-']) {
+html.a11y-links body :where(a, p, h1, h2, h3, h4, h5, h6, span, small, strong, b, em, label, legend, li, dt, dd, td, th, caption, figcaption, blockquote, address, time, summary, button, input, select, textarea, option, div:not(:has(*))):not([aria-hidden='true']):not([class*='fa-']):not(.a11y-btn, .a11y-close, .theme-toggle, .hamburger, .pd-nav) {
   text-decoration-line: underline !important;
   text-decoration-thickness: 2px !important;
   text-underline-offset: 4px !important;
