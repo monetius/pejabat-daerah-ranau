@@ -83,6 +83,12 @@ function initHeroParallax() {
   let ticking = false;
 
   const updateParallax = () => {
+    if (document.documentElement.classList.contains('a11y-no-motion')) {
+      heroLayers.forEach((layer) => { layer.style.transform = ''; });
+      if (heroMedia) heroMedia.style.transform = '';
+      if (heroContent) applyFadeBlur(heroContent, 0);
+      return;
+    }
     const rect = hero.getBoundingClientRect();
     if (rect.bottom > 0 && rect.top < window.innerHeight) {
       if (heroMedia) {
@@ -111,6 +117,7 @@ function initHeroParallax() {
     }
   }, { passive: true });
 
+  document.addEventListener('site:accessibility-change', updateParallax);
   updateParallax();
 }
 
@@ -126,7 +133,7 @@ function initBackToTop() {
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+    window.scrollTo({ top: 0, behavior: reduceMotion || document.documentElement.classList.contains('a11y-no-motion') ? 'auto' : 'smooth' });
   });
 
   const onScroll = () => btn.classList.toggle('is-visible', window.scrollY > 400);
@@ -385,6 +392,14 @@ function initSmoothScroll() {
     if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); }
   }, { passive: false });
 
+  document.addEventListener('site:accessibility-change', () => {
+    if (root.classList.contains('a11y-no-motion')) {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      current = target = window.scrollY;
+    }
+  });
+
   // keep in sync when the page is scrolled by other means (keys, scrollbar, anchors)
   window.addEventListener('scroll', () => {
     if (!raf || Math.abs(window.scrollY - current) > 3) {
@@ -401,12 +416,15 @@ function initAccessibility() {
   const root = document.documentElement;
   const KEY = 'a11y-prefs';
   const SIZES = [25, 40, 50, 65, 80, 90, 100, 115, 130, 150, 175, 200];
-  const defaults = { size: 100, contrast: false, links: false, font: false, motion: false };
+  const defaults = { size: 100, contrast: false, links: false, font: false, motion: false, spacing: false, focus: false };
   let prefs = Object.assign({}, defaults);
   try {
     const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
     const size = saved.sizePercent ?? [90, 100, 115, 130, 150][saved.size];
-    Object.assign(prefs, saved, { size: SIZES.includes(size) ? size : 100 });
+    prefs.size = SIZES.includes(size) ? size : 100;
+    for (const key of Object.keys(defaults).filter((key) => key !== 'size')) {
+      prefs[key] = typeof saved[key] === 'boolean' ? saved[key] : defaults[key];
+    }
   } catch (_) { }
 
   const apply = () => {
@@ -415,22 +433,25 @@ function initAccessibility() {
     root.classList.toggle('a11y-links', prefs.links);
     root.classList.toggle('a11y-font', prefs.font);
     root.classList.toggle('a11y-no-motion', prefs.motion);
+    root.classList.toggle('a11y-spacing', prefs.spacing);
+    root.classList.toggle('a11y-focus', prefs.focus);
+    document.dispatchEvent(new Event('site:accessibility-change'));
     try { localStorage.setItem(KEY, JSON.stringify({ ...prefs, sizePercent: prefs.size })); } catch (_) { }
   };
 
-  const toggles = [['contrast', 'Kontras tinggi', 'fa-circle-half-stroke'], ['links', 'Garis bawah pautan', 'fa-underline'], ['font', 'Fon mudah baca', 'fa-font'], ['motion', 'Hentikan animasi', 'fa-pause']];
+  const toggles = [['contrast', 'Kontras tinggi', 'fa-circle-half-stroke'], ['links', 'Garis bawah pautan', 'fa-underline'], ['font', 'Fon mudah baca', 'fa-font'], ['motion', 'Hentikan animasi', 'fa-pause'], ['spacing', 'Jarak teks', 'fa-text-width'], ['focus', 'Fokus papan kekunci', 'fa-keyboard']];
 
   const wrap = document.createElement('div');
   wrap.className = 'a11y notranslate';
   wrap.setAttribute('translate', 'no');
   wrap.innerHTML =
-    '<button type="button" class="a11y-btn" aria-label="Aksesibiliti / Accessibility" aria-expanded="false" aria-controls="a11yPanel"><i class="fa-solid fa-universal-access" aria-hidden="true"></i></button>' +
+    '<button type="button" class="a11y-btn" aria-label="Aksesibiliti / Accessibility" aria-expanded="false" aria-controls="a11yPanel" aria-haspopup="dialog"><i class="fa-solid fa-universal-access" aria-hidden="true"></i></button>' +
     '<div class="a11y-panel" id="a11yPanel" role="dialog" aria-label="Aksesibiliti / Accessibility" hidden>' +
-    '<div class="a11y-head"><strong>Aksesibiliti</strong><button type="button" class="a11y-reset">Tetap semula</button></div>' +
+    '<div class="a11y-head"><strong>Aksesibiliti</strong><div class="a11y-actions"><button type="button" class="a11y-reset">Tetap semula</button><button type="button" class="a11y-close" aria-label="Tutup aksesibiliti"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div></div>' +
     '<h3><i class="fa-solid fa-text-height" aria-hidden="true"></i> Saiz teks / Text size</h3>' +
-    '<div class="a11y-size"><button type="button" data-size="-1" aria-label="Kecilkan teks">A−</button><span class="a11y-size-val"></span><button type="button" data-size="1" aria-label="Besarkan teks">A+</button></div>' +
+    '<div class="a11y-size"><button type="button" data-size="-1" aria-label="Kecilkan teks">A−</button><span class="a11y-size-val" role="status" aria-live="polite" aria-atomic="true"></span><button type="button" data-size="1" aria-label="Besarkan teks">A+</button></div>' +
     '<h3><i class="fa-solid fa-eye" aria-hidden="true"></i> Paparan / Display</h3>' +
-    '<div class="a11y-opts">' + toggles.map(([k, n, ic]) => '<button type="button" data-opt="' + k + '"><i class="fa-solid ' + ic + '" aria-hidden="true"></i><span>' + n + '</span></button>').join('') + '</div>' +
+    '<div class="a11y-opts">' + toggles.map(([k, n, ic]) => '<button type="button" data-opt="' + k + '"><i class="fa-solid ' + ic + '" aria-hidden="true"></i><span>' + n + '</span><span class="a11y-option-state" aria-hidden="true">✓</span></button>').join('') + '</div>' +
     '</div>';
   document.body.appendChild(wrap);
 
@@ -449,7 +470,9 @@ function initAccessibility() {
   const setOpen = (open) => {
     panel.hidden = !open;
     btn.setAttribute('aria-expanded', String(open));
+    if (open) wrap.querySelector('.a11y-close').focus();
   };
+  wrap.querySelector('.a11y-close').addEventListener('click', () => { setOpen(false); btn.focus(); });
   btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(panel.hidden); });
   document.addEventListener('click', (e) => { if (!wrap.contains(e.target)) setOpen(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { setOpen(false); btn.focus(); } });
@@ -976,7 +999,8 @@ function initCardBlur() {
     cards.forEach((card) => {
       const rect = card.getBoundingClientRect();
       // bottom edge only: card eases in as it rises into view
-      const progress = Math.min(Math.max((rect.bottom - window.innerHeight) / rect.height, 0), 1);
+      const progress = document.documentElement.classList.contains('a11y-no-motion') ? 0
+        : Math.min(Math.max((rect.bottom - window.innerHeight) / rect.height, 0), 1);
       const rounded = Math.round(progress * 100) / 100;
       if (last.get(card) === rounded) return;
       last.set(card, rounded);
@@ -992,6 +1016,7 @@ function initCardBlur() {
     }
   }, { passive: true });
   window.addEventListener('resize', update);
+  document.addEventListener('site:accessibility-change', update);
 
   update();
 }
@@ -1033,7 +1058,7 @@ function initTheme() {
 
   const setTheme = async (theme, persist) => {
     if (transitionLayer) return;
-    if (reducedMotion.matches || typeof root.animate !== 'function') {
+    if (reducedMotion.matches || root.classList.contains('a11y-no-motion') || typeof root.animate !== 'function') {
       applyTheme(theme, persist);
       return;
     }
@@ -1069,6 +1094,9 @@ function initTheme() {
   btn.addEventListener('click', () => setTheme(isDark() ? 'light' : 'dark', true));
   reducedMotion.addEventListener('change', () => {
     if (reducedMotion.matches) transitionAnimation?.cancel();
+  });
+  document.addEventListener('site:accessibility-change', () => {
+    if (root.classList.contains('a11y-no-motion')) transitionAnimation?.cancel();
   });
   // Follow OS changes only while the visitor hasn't picked a theme themselves
   mq.addEventListener('change', (e) => { if (!saved()) setTheme(e.matches ? 'dark' : 'light', false); });

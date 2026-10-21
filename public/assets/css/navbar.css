@@ -115,6 +115,10 @@ body.has-banner .navbar:not(.is-condensed) {
   list-style: none;
 }
 
+.nav-language-caption {
+  display: none;
+}
+
 .nav-language-switch {
   position: relative;
   display: inline-flex;
@@ -186,27 +190,84 @@ body.has-banner .navbar:not(.is-condensed) {
 
 @media (max-width: 1280px) {
   .nav-language-item {
-    margin-top: 0.75rem;
-    padding-top: 1rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    width: min(100%, 320px);
+    margin: 0.75rem auto 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    text-align: center;
   }
 
   .nav-language-switch {
     display: block;
-    margin-inline-start: 0;
-    border-radius: 16px;
+    margin: 0 auto;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .nav-language-caption {
+    display: block;
+    margin-bottom: 12px;
+    color: #b8c5d8;
+    font: 500 12px var(--font-body);
+    letter-spacing: 0.06em;
+  }
+
+  .nav-language-switch #langToggle {
+    min-width: 120px;
+    min-height: 44px;
+    gap: 10px;
+    margin-inline: auto;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.07);
+    font-size: 14px;
+  }
+
+  #langToggle[aria-expanded='true'] {
+    border-color: var(--gold);
   }
 
   .nav-language-menu {
     position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
     min-width: 0;
-    margin-top: 6px;
+    margin-top: 14px;
+    padding: 0;
+    border: 0;
+    background: transparent;
     box-shadow: none;
   }
 
-  .nav-language-switch button {
-    min-width: 54px;
-    min-height: 44px;
+  .nav-language-menu button {
+    min-width: 0;
+    min-height: 46px;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .nav-language-menu button:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 4px);
+  }
+
+  .nav-language-menu button[aria-pressed='true'] {
+    border-color: var(--gold);
+    background: rgba(201, 154, 61, 0.16);
+    color: #fff;
+  }
+
+  .nav-language-menu button[aria-pressed='true']::after {
+    content: '✓';
+    margin-inline-start: 8px;
+    color: var(--gold);
   }
 }
 
@@ -375,7 +436,7 @@ body.has-banner .navbar:not(.is-condensed) {
 }
 
 /* Google Translate adds its own top banner + shifts body down by default —
-   suppress that chrome since we drive translation through the accessibility panel instead. */
+   suppress that chrome since we drive translation through the navbar language selector instead. */
 .goog-te-banner-frame,
 .skiptranslate>iframe {
   display: none !important;

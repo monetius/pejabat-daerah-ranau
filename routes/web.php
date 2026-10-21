@@ -14,12 +14,16 @@ use App\Http\Controllers\Admin\TwoFactorController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SiteLanguageController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Middleware\AdminIdleTimeout;
 use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\EnsureTwoFactor;
 use Illuminate\Support\Facades\Route;
 
 // ---------- Public: announcements ----------
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/peta-laman', [SitemapController::class, 'show'])->name('sitemap.show');
+Route::get('/robots.txt', [SitemapController::class, 'robots'])->name('robots');
 Route::get('/hebahan', [SiteController::class, 'announcements'])->name('announcements.index');
 Route::get('/hebahan/{slug}', [SiteController::class, 'announcement'])->name('announcements.show');
 Route::get('/kalendar/data', [CalendarController::class, 'index'])->name('calendar.data');

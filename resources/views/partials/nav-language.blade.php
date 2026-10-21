@@ -1,5 +1,6 @@
 <form class="nav-language-switch notranslate" data-site-language-form method="POST" action="{{ route('site.locale.update') }}" aria-label="{{ $locale === 'en' ? 'Language' : 'Bahasa' }}" translate="no">
     @csrf
+    <span class="nav-language-caption">Bahasa / Language</span>
     <input type="hidden" name="translate_page" value="0">
     <button type="button" id="langToggle" aria-label="Bahasa / Language" aria-expanded="false" aria-controls="langMenu">
         <i class="fa-solid fa-language" aria-hidden="true"></i>

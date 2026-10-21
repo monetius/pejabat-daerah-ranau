@@ -18,7 +18,7 @@ use Illuminate\Validation\ValidationException;
 class PageController extends Controller
 {
     /** First URL segments that belong to the app itself. */
-    private const RESERVED = ['admin', 'hebahan', 'assets', 'uploads', 'storage', 'build', 'login', 'up'];
+    private const RESERVED = ['admin', 'hebahan', 'assets', 'uploads', 'storage', 'build', 'login', 'up', 'sitemap.xml', 'robots.txt', 'peta-laman'];
 
     public function index(Request $request): View
     {

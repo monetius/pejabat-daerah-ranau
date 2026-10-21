@@ -259,8 +259,7 @@ body.has-banner .navbar:not(.is-condensed) {
 }
 
 .footer-col a:hover, .footer-legal a:hover, .footer-contact-row a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  text-decoration: none;
 }
 
 .footer-contact-row a {
@@ -385,4 +384,21 @@ html[data-theme='dark'] {
   .cms-hero { min-height:380px; padding:3rem 0; }
   .cms-hero--compact { min-height:280px; padding:2rem 0; }
   #main > .cms-hero:first-of-type { padding-top:calc(var(--nav-height) + var(--nav-gap) + 2rem); }
+}
+
+.information-page main {
+  --font-body: 'Inter', 'Segoe UI', Arial, sans-serif;
+  --font-display: var(--font-body);
+  font-family: var(--font-body);
+}
+
+.information-page main :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.information-page main a,
+.information-page main a:hover {
+  text-decoration: none;
 }

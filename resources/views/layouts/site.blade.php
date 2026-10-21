@@ -17,13 +17,15 @@
     <meta name="description" content="@yield('description', 'Laman web rasmi Pejabat Daerah Ranau, Sabah.')">
     <link rel="stylesheet" href="{{ asset('assets/css/sabahtea.css') }}?v={{ filemtime(public_path('assets/css/sabahtea.css')) }}">
     <link rel="stylesheet" href="{{ asset('assets/css/navbar.css') }}?v={{ filemtime(public_path('assets/css/navbar.css')) }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap">
+    <link rel="stylesheet" href="{{ asset('assets/css/footer.css') }}?v={{ filemtime(public_path('assets/css/footer.css')) }}">
     @stack('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer">
     <link rel="icon" href="{{ asset('assets/img/favicon.png') }}" type="image/png">
     <link rel="stylesheet" href="{{ asset('assets/css/dark.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/professional.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/professional.css') }}?v={{ filemtime(public_path('assets/css/professional.css')) }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/accessibility.css') }}?v={{ filemtime(public_path('assets/css/accessibility.css')) }}">
 </head>
 
 <body class="@yield('body_class')">

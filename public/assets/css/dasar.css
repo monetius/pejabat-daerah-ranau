@@ -37,3 +37,38 @@
   line-height: 1.75;
   margin: 0;
 }
+.sitemap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem 3rem;
+}
+
+.sitemap-grid .sitemap-group {
+  margin: 0;
+  padding: 1.25rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.sitemap-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sitemap-group a {
+  display: inline-block;
+  padding: 0.6rem 0;
+  color: var(--ink);
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+}
+
+.sitemap-group a:hover {
+  color: var(--kinabalu-blue);
+}
+
+@media (max-width: 640px) {
+  .sitemap-grid {
+    grid-template-columns: 1fr;
+  }
+}

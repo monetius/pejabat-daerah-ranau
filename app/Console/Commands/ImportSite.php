@@ -13,7 +13,7 @@ class ImportSite extends Command
 
     protected $description = 'Import the existing Blade pages, navbar and footer into the CMS database';
 
-    private const SKIP = ['cms-page'];
+    private const SKIP = ['cms-page', 'sitemap'];
 
     public function handle(): int
     {

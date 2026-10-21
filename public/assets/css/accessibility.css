@@ -1,0 +1,137 @@
+/* Visitor preferences load after the website's theme and page styles. */
+html.a11y-links body a,
+html.a11y-links body a :where(span, p, h2, h3, h4, h5, h6, small, strong, b, em):not([aria-hidden='true']):not([class*='fa-']) {
+  text-decoration-line: underline !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 4px !important;
+}
+
+html.a11y-font body,
+html.a11y-font body :where(p, h1, h2, h3, h4, h5, h6, a, li, span, button, small, label, td, th, div):not([class*='fa-']):not(.a11y, .a11y *) {
+  font-family: Verdana, Arial, sans-serif !important;
+}
+
+html.a11y-spacing :is(main, footer) :where(p, li, h1, h2, h3, h4, h5, h6, a, td, th, label) {
+  line-height: 1.8 !important;
+  letter-spacing: 0.12em !important;
+  word-spacing: 0.16em !important;
+}
+
+html.a11y-spacing main p {
+  margin-bottom: 1.5em !important;
+}
+
+html.a11y-focus body :focus-visible {
+  outline: 4px solid #ffbf00 !important;
+  outline-offset: 4px !important;
+  box-shadow: 0 0 0 7px #000 !important;
+}
+
+html.a11y-contrast {
+  --navy: #000 !important;
+  --ink: #fff !important;
+  --ink-soft: #fff !important;
+  --paper: #000 !important;
+  --paper-raised: #000 !important;
+  --sky-tint: #000 !important;
+  --line: #fff !important;
+  --line-strong: #fff !important;
+  --gold: #ffeb3b !important;
+  --kinabalu-blue: #ffeb3b !important;
+  color-scheme: dark;
+}
+
+html.a11y-contrast body,
+html.a11y-contrast body :where(main, section, header, footer, nav, aside, article, form, fieldset, figure, details, summary, table, thead, tbody, tr, td, th, button, input, select, textarea, .page-header, .cms-hero, .hb-feature, .hb-card, .quick-access-card, .affiliated-card, .home-calendar, .a11y-panel, .dropdown-menu, .nav-links, .ds-block, .ab-slide, .directory-location, .directory-toolbar, .directory-map-dialog) {
+  background-color: #000 !important;
+  background-image: none !important;
+  border-color: #fff !important;
+  box-shadow: none !important;
+}
+
+html.a11y-contrast body,
+html.a11y-contrast body :where(p, h1, h2, h3, h4, h5, h6, span, strong, small, em, b, label, legend, time, li, td, th, div, button, input, select, textarea, i) {
+  color: #fff !important;
+  text-shadow: none !important;
+  transition: none !important;
+}
+
+html.a11y-contrast body a,
+html.a11y-contrast body a :where(span, p, h2, h3, h4, h5, h6, small, strong, b, em, i) {
+  color: #ffeb3b !important;
+}
+
+html.a11y-contrast .hero-scrim {
+  background: #000 !important;
+  opacity: 0.85 !important;
+}
+
+html.a11y-contrast :where(button, input, select, textarea) {
+  border: 1px solid #fff !important;
+}
+
+html.a11y-contrast .a11y-panel button[aria-pressed='true'],
+html.a11y-contrast .a11y-panel button[aria-pressed='true'] :where(*) {
+  color: #000 !important;
+  background: #ffeb3b !important;
+}
+
+html.a11y-no-motion *,
+html.a11y-no-motion *::before,
+html.a11y-no-motion *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+.a11y-panel {
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  line-height: 1.5;
+}
+
+.a11y-head strong {
+  font-family: inherit;
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.a11y-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.a11y-panel .a11y-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 6px;
+}
+
+.a11y-reset,
+.a11y-size button,
+.a11y-opts button {
+  min-height: 44px;
+}
+
+.a11y-opts button[aria-pressed='true'] {
+  border-color: var(--gold);
+}
+
+.a11y-option-state {
+  display: none;
+  margin-inline-start: auto;
+}
+
+.a11y-opts button[aria-pressed='true'] .a11y-option-state {
+  display: block;
+  margin-inline-start: auto;
+  font-size: 16px;
+}
+
+html.a11y-contrast .navbar {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}

@@ -70,6 +70,8 @@
     </div>
     <div class="footer-bottom">
       <nav class="footer-legal" aria-label="Pautan tambahan">
+        <a href="/info-korporat/soalan-lazim">Soalan Lazim (FAQ)</a>
+        <a href="/peta-laman">Peta Laman</a>
         <a href="/hubungi-kami/alamat">Hubungi Kami</a>
         <a href="/info-korporat/privacypolicy">Dasar Privasi</a>
         <a href="/info-korporat/notice">Notis Penafian</a>

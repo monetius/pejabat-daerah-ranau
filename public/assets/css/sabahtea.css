@@ -502,42 +502,6 @@ section {
   font-weight: 600;
 }
 
-/* Options the widget switches on (classes set on <html>) */
-html.a11y-links a {
-  text-decoration: underline !important;
-  text-underline-offset: 3px;
-}
-
-html.a11y-font body,
-html.a11y-font body :where(p, h1, h2, h3, h4, h5, h6, a, li, span, button, small, label, td, th, div):not([class*="fa-"]) {
-  font-family: Verdana, Arial, sans-serif !important;
-  letter-spacing: 0.02em;
-  word-spacing: 0.08em;
-}
-
-html.a11y-contrast {
-  --ink-soft: #000;
-  --line: rgba(0, 0, 0, 0.55);
-  --line-strong: #000;
-}
-
-html.a11y-contrast body {
-  color: #000;
-}
-
-html.a11y-contrast :focus-visible {
-  outline: 3px solid #ffbf00 !important;
-  outline-offset: 2px;
-}
-
-html.a11y-no-motion *,
-html.a11y-no-motion *::before,
-html.a11y-no-motion *::after {
-  animation: none !important;
-  transition: none !important;
-  scroll-behavior: auto !important;
-}
-
 @media (max-width: 640px) {
   .a11y {
     left: 16px;

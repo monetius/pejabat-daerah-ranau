@@ -2,7 +2,12 @@
 
 @section('title', $page->title ?: 'Pejabat Daerah Ranau')
 @section('description', $page->meta_description ?: 'Laman web rasmi Pejabat Daerah Ranau, Sabah.')
-@section('body_class', $page->body_class ?? '')
+@section('body_class', trim(($page->body_class ?? '') . (in_array($page->path, [
+    'info-korporat/soalan-lazim',
+    'info-korporat/privacypolicy',
+    'info-korporat/notice',
+    'info-korporat/securitypolicy',
+], true) ? ' information-page' : '')))
 
 @push('styles')
 @foreach (preg_split('/\R/', (string) $page->styles, -1, PREG_SPLIT_NO_EMPTY) as $css)
