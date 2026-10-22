@@ -439,5 +439,6 @@
     "Perlukan kod baharu?": "Need a new code?",
     "Hantar semula kod": "Resend code",
     "Hantar semula kod dalam :time": "Resend code in :time",
-    "Kod belum dihantar. Pilih Hantar semula kod untuk mencuba lagi.": "No code has been sent. Select Resend code to try again."
+    "Kod belum dihantar. Pilih Hantar semula kod untuk mencuba lagi.": "No code has been sent. Select Resend code to try again.",
+    "Kembali ke laman utama": "Back to homepage"
 }

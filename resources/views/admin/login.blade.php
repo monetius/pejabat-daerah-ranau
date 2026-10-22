@@ -17,5 +17,6 @@
             <label style="font-weight:400"><input type="checkbox" name="remember" value="1"> {{ __('Ingat saya') }}</label>
             <p><button class="btn">{{ __('Log masuk') }}</button></p>
         </form>
+        <a class="btn gray" href="{{ url('/') }}"><span aria-hidden="true">&larr;</span> {{ __('Kembali ke laman utama') }}</a>
     </div>
 @endsection
