@@ -21,7 +21,6 @@ class AdminLoginThrottleTest extends TestCase
 
     private function verifyEmail(): void
     {
-        $this->post('/admin/two-factor-send')->assertSessionHasNoErrors();
         $this->post('/admin/two-factor-challenge', ['code' => Mail::sent(CmsLoginCode::class)->last()->code])->assertSessionHasNoErrors();
     }
 

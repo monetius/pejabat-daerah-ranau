@@ -33,12 +33,10 @@ class TwoFactor
 
     public function resendWaitSeconds(Request $request, User $user): int
     {
-        $hourKey = 'cms-email-send-hour:'.$user->id;
-        $ipKey = 'cms-email-send-ip:'.hash('sha256', (string) $request->ip());
+        $ipKey = 'cms-email-send-ip-minute:'.hash('sha256', (string) $request->ip());
 
         return max(
             RateLimiter::availableIn('cms-email-send-minute:'.$user->id),
-            RateLimiter::tooManyAttempts($hourKey, 5) ? RateLimiter::availableIn($hourKey) : 0,
             RateLimiter::tooManyAttempts($ipKey, 20) ? RateLimiter::availableIn($ipKey) : 0,
         );
     }
@@ -136,14 +134,12 @@ class TwoFactor
                 throw ValidationException::withMessages(['email' => __('Sesi pengesahan telah tamat. Sila log masuk semula.')]);
             }
             $minuteKey = 'cms-email-send-minute:'.$user->id;
-            $hourKey = 'cms-email-send-hour:'.$user->id;
-            $ipKey = 'cms-email-send-ip:'.hash('sha256', (string) $request->ip());
-            if (RateLimiter::tooManyAttempts($minuteKey, 1) || RateLimiter::tooManyAttempts($hourKey, 5) || RateLimiter::tooManyAttempts($ipKey, 20)) {
+            $ipKey = 'cms-email-send-ip-minute:'.hash('sha256', (string) $request->ip());
+            if (RateLimiter::tooManyAttempts($minuteKey, 1) || RateLimiter::tooManyAttempts($ipKey, 20)) {
                 throw ValidationException::withMessages(['email' => __('Sila tunggu :seconds saat sebelum meminta kod baharu.', ['seconds' => $this->resendWaitSeconds($request, $user)])]);
             }
             RateLimiter::hit($minuteKey, 60);
-            RateLimiter::hit($hourKey, 3600);
-            RateLimiter::hit($ipKey, 3600);
+            RateLimiter::hit($ipKey, 60);
             $id = bin2hex(random_bytes(32));
             $code = str_pad((string) random_int(0, 999999), 6, '0', STR_PAD_LEFT);
             try {
@@ -153,7 +149,7 @@ class TwoFactor
                 throw ValidationException::withMessages(['email' => __('Kod tidak dapat dihantar. Semak tetapan e-mel atau cuba lagi kemudian.')]);
             }
             $sentAt = now()->timestamp;
-            $expires = $sentAt + 600;
+            $expires = $sentAt + 180;
             Cache::put('cms-email-code:'.$user->id, [
                 'id' => $id, 'hash' => $this->codeHash($id, $code), 'expires' => $expires, 'attempts' => 0,
             ], max(1, $expires - now()->timestamp));

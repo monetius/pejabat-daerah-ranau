@@ -984,6 +984,48 @@ html[data-cms-theme="dark"] .calendar-editor input[type=time] { color-scheme: da
 .security-symbol { display:inline-flex; flex-shrink:0; align-items:center; justify-content:center; width:48px; height:48px; border:1px solid var(--field-border); border-radius:14px; background:var(--secondary-hover); color:var(--ink); }
 .security-symbol svg { width:26px; height:26px; }
 .security-card form { max-width:520px; }
-.verification-code { font-family:monospace; font-size:24px; letter-spacing:8px; }
 .verification-actions { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-top:24px; }
 .two-factor-challenge .security-symbol { margin-top:22px; }
+
+.verification-digits {
+    display:grid;
+    grid-template-columns:repeat(6, minmax(0, 1fr));
+    gap:8px;
+    margin:8px 0;
+}
+.two-factor-challenge .verification-digit {
+    min-width:0;
+    width:100%;
+    height:56px;
+    padding:8px 0;
+    text-align:center;
+    font-size:24px;
+    font-weight:600;
+    font-variant-numeric:tabular-nums;
+}
+.verification-send-row {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:4px;
+    margin:12px 0 0;
+    color:var(--muted);
+    font-size:13px;
+}
+.two-factor-challenge .verification-resend {
+    width:auto;
+    min-height:36px;
+    padding:4px;
+    border:0;
+    background:transparent;
+    color:var(--green);
+    font:inherit;
+    font-weight:600;
+    cursor:pointer;
+}
+.verification-resend:hover:not(:disabled) { text-decoration:underline; }
+.verification-resend:focus-visible { outline:2px solid currentColor; outline-offset:3px; }
+.two-factor-challenge .verification-actions { justify-content:center; margin-top:12px; }
+.two-factor-challenge input:disabled,
+.two-factor-challenge button:disabled { opacity:.55; cursor:not-allowed; }

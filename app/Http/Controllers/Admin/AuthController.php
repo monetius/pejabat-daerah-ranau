@@ -38,7 +38,21 @@ class AuthController extends Controller
             $user = Auth::getLastAttempted();
             Auth::getProvider()->rehashPasswordIfRequired($user, $credentials);
             RateLimiter::clear($key);
+            if ($twoFactor->pendingUser($request)?->is($user)
+                && $twoFactor->codeExpiresAt($request) !== null
+                && $twoFactor->resendWaitSeconds($request, $user) > 0) {
+                $request->session()->regenerate();
+                $request->session()->forget('two_factor_verified');
+                $request->session()->put('two_factor_pending.remember', $request->boolean('remember'));
+
+                return redirect()->route('admin.two-factor.challenge');
+            }
             $twoFactor->beginLogin($request, $user, $request->boolean('remember'));
+            try {
+                $twoFactor->sendCode($request, $user);
+            } catch (ValidationException $exception) {
+                return redirect()->route('admin.two-factor.challenge')->withErrors($exception->errors());
+            }
 
             return redirect()->route('admin.two-factor.challenge');
         }
