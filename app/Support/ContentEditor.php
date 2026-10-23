@@ -13,6 +13,8 @@ use JsonException;
 
 class ContentEditor
 {
+    private const LIST_STYLES = ['disc', 'circle', 'square', 'decimal', 'lower-alpha', 'upper-alpha', 'lower-roman', 'upper-roman'];
+
     private HTMLDocument $document;
 
     private Element $root;
@@ -70,9 +72,10 @@ class ContentEditor
             'fields.*.id' => ['required', 'string', 'distinct'],
             'fields.*.value' => ['present', 'nullable', 'string', 'max:50000'],
             'blocks' => ['present', 'array', $this->allowBlocks ? 'max:100' : 'max:0'],
-            'blocks.*' => ['array:type,text,level,url,alt,caption,variant,eyebrow,description,alignment,size,image_fit,button_text,button_url'],
+            'blocks.*' => ['array:type,text,level,url,alt,caption,variant,eyebrow,description,alignment,size,image_fit,button_text,button_url,list_style'],
             'blocks.*.type' => ['required', Rule::in(['hero', 'heading', 'paragraph', 'list', 'image', 'link', 'download'])],
             'blocks.*.text' => ['nullable', 'string', 'max:50000'],
+            'blocks.*.list_style' => ['nullable', Rule::in(self::LIST_STYLES)],
             'blocks.*.level' => ['nullable', Rule::in(['h1', 'h2', 'h3'])],
             'blocks.*.url' => ['nullable', 'string', 'max:2000'],
             'blocks.*.alt' => ['nullable', 'string', 'max:500'],
@@ -242,6 +245,13 @@ class ContentEditor
             $link = $block->querySelector('a');
             $result += ['text' => $link?->textContent ?? '', 'url' => $link?->getAttribute('href') ?? ''];
         } elseif ($type === 'list') {
+            $style = $block->getAttribute('data-list-style');
+            if (! in_array($style, self::LIST_STYLES, true)) {
+                $style = $block->localName === 'ol' ? match ($block->getAttribute('type')) {
+                    'a' => 'lower-alpha', 'A' => 'upper-alpha', 'i' => 'lower-roman', 'I' => 'upper-roman', default => 'decimal',
+                } : 'disc';
+            }
+            $result['list_style'] = $style;
             $result['text'] = implode("\n", array_map(fn (Element $item): string => $item->textContent, iterator_to_array($block->children)));
         } else {
             $result['text'] = $this->plainText($block);
@@ -286,7 +296,8 @@ class ContentEditor
             }
             $result[] = match ($type) {
                 'heading' => ['type' => $type, 'text' => $text, 'level' => in_array($block['level'] ?? '', ['h1', 'h2', 'h3'], true) ? $block['level'] : 'h2'],
-                'paragraph', 'list' => ['type' => $type, 'text' => $text],
+                'paragraph' => ['type' => $type, 'text' => $text],
+                'list' => ['type' => $type, 'list_style' => $block['list_style'] ?? 'disc', 'text' => $text],
                 'image' => ['type' => $type, 'url' => $this->safeUrl((string) ($block['url'] ?? ''), true), 'alt' => trim((string) ($block['alt'] ?? '')), 'caption' => trim((string) ($block['caption'] ?? ''))],
                 default => ['type' => $type, 'text' => $text, 'url' => $this->safeUrl((string) ($block['url'] ?? ''))],
             };
@@ -380,13 +391,28 @@ class ContentEditor
             $html .= match ($block['type']) {
                 'heading' => '<'.$block['level'].' data-cms-type="heading">'.$text.'</'.$block['level'].'>',
                 'paragraph' => '<p data-cms-type="paragraph">'.str_replace("\n", '<br>', $text).'</p>',
-                'list' => '<ul data-cms-type="list">'.implode('', array_map(fn (string $line): string => '<li>'.e(trim($line)).'</li>', array_filter(explode("\n", $block['text']), fn (string $line): bool => trim($line) !== ''))).'</ul>',
+                'list' => $this->renderList($block),
                 'image' => '<figure data-cms-type="image"><img src="'.e($block['url']).'" alt="'.e($block['alt']).'" loading="lazy">'.($block['caption'] !== '' ? '<figcaption>'.e($block['caption']).'</figcaption>' : '').'</figure>',
                 default => '<p data-cms-type="'.$block['type'].'"><a href="'.e($block['url']).'"'.($block['type'] === 'download' ? ' download' : '').'>'.$text.'</a></p>',
             };
         }
 
         return $html;
+    }
+
+    /** @param array<string, string> $block */
+    private function renderList(array $block): string
+    {
+        $style = $block['list_style'];
+        $tag = in_array($style, ['disc', 'circle', 'square'], true) ? 'ul' : 'ol';
+        $type = match ($style) {
+            'decimal' => '1', 'lower-alpha' => 'a', 'upper-alpha' => 'A', 'lower-roman' => 'i', 'upper-roman' => 'I', default => null,
+        };
+        $items = array_filter(explode("\n", $block['text']), fn (string $line): bool => trim($line) !== '');
+
+        return '<'.$tag.' data-cms-type="list" data-list-style="'.$style.'"'.($type !== null ? ' type="'.$type.'"' : '')
+            .' style="list-style-type:'.$style.';padding-inline-start:1.5rem">'
+            .implode('', array_map(fn (string $line): string => '<li>'.e(trim($line)).'</li>', $items)).'</'.$tag.'>';
     }
 
     private function safeUrl(string $value, bool $image = false): string

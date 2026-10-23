@@ -47,7 +47,9 @@
             <div data-announcement-cover data-current-image="{{ $item->image }}">
                 <p><img data-cover-preview @if ($item->image) src="{{ $item->image }}" @else hidden @endif alt="{{ __('Pratonton gambar') }}" style="max-width:260px;max-height:180px;object-fit:contain;border-radius:8px"></p>
                 <input type="hidden" id="image_media" name="image_media" value="{{ old('image_media') }}">
-                <p class="row"><button type="button" class="btn gray" data-media-select="#image_media">{{ __('Pilih daripada Media') }}</button></p>
+                <p class="row"><button type="button" class="btn gray" data-media-select="#image_media">{{ __('Pilih daripada Media') }}</button>
+                    <button type="button" class="btn gray" data-edit-selected-image="#image_media" data-current-image="{{ $item->image }}" @if (!$item->image && !old('image_media')) hidden @endif>{{ __('Potong & ubah saiz') }}</button>
+                </p>
                 <p class="hint">{{ __('Gunakan semula gambar yang telah dimuat naik, atau muat naik gambar baharu di bawah.') }}</p>
                 <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp">
                 <label style="font-weight:400;margin:10px 0"><input type="checkbox" name="remove_image" value="1" @checked(old('remove_image'))> {{ __('Buang gambar ini') }}</label>
@@ -98,6 +100,7 @@
             const upload = cover.querySelector('#image');
             const remove = cover.querySelector('[name="remove_image"]');
             const preview = cover.querySelector('[data-cover-preview]');
+            const cropButton = cover.querySelector('[data-edit-selected-image]');
             let uploadPreview = null;
             const releasePreview = () => {
                 if (uploadPreview) URL.revokeObjectURL(uploadPreview);
@@ -106,6 +109,7 @@
             const showPreview = url => {
                 const safe = /^\/(?:uploads|assets\/img)\//.test(url) && !/[\x00-\x20\\%?#]/.test(url);
                 preview.hidden = !safe && url !== uploadPreview;
+                cropButton.hidden = !safe;
                 if (!preview.hidden && url) preview.src = url;
                 else preview.removeAttribute('src');
             };

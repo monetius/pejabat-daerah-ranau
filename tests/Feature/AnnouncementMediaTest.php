@@ -68,7 +68,10 @@ class AnnouncementMediaTest extends TestCase
         $this->assertSame($this->imageUrl, $item->image);
         $this->assertCount(count($filesBefore), File::allFiles(public_path($this->directory)));
         $this->get('/hebahan/'.$item->slug)->assertOk()->assertSee($this->imageUrl);
-        $this->get('/admin/announcements/'.$item->id.'/edit')->assertOk()->assertSee($this->imageUrl);
+        $this->get('/admin/announcements/'.$item->id.'/edit')->assertOk()->assertSee($this->imageUrl)
+            ->assertSee('data-edit-selected-image="#image_media"', false)
+            ->assertSee('data-current-image="'.$this->imageUrl.'"', false)
+            ->assertSee('image-editor.js');
     }
 
     public function test_library_selection_can_replace_a_cover_and_ordinary_edits_preserve_it(): void

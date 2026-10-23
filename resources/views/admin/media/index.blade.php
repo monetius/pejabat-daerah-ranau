@@ -1,11 +1,13 @@
 @extends('admin.layout')
 @section('title', __('Media'))
+@include('admin.image-editor')
 @section('content')
 <h1>{{ __('Media') }}</h1>
 <div class="card">
-    <form method="POST" action="{{ route('admin.media.store') }}" enctype="multipart/form-data" class="row">
+    <form method="POST" action="{{ route('admin.media.store') }}" enctype="multipart/form-data" class="row" data-media-upload-form>
         @csrf
         <input type="file" name="file" accept=".jpg,.jpeg,.png,.webp,.gif,.pdf" required>
+        <button type="button" class="btn gray" data-edit-upload disabled>{{ __('Potong & ubah saiz') }}</button>
         <button class="btn">{{ __('Muat naik') }}</button>
         <span class="hint">{{ __('JPG, PNG, WEBP, GIF atau PDF, maksimum 10 MB.') }}</span>
     </form>
@@ -33,6 +35,9 @@
                     onclick="this.select();document.execCommand('copy')"></td>
             <td>{{ number_format($f->getSize() / 1024, 0) }} KB</td>
             <td>
+                @if (preg_match('/\.(jpe?g|png|webp|gif)$/i', $rel))
+                    <button type="button" class="btn gray" data-edit-image="/uploads/{{ $rel }}">{{ __('Potong & ubah saiz') }}</button>
+                @endif
                 <form method="POST" action="{{ route('admin.media.destroy') }}"
                     onsubmit="return confirm(@js(__('Padam fail ini? Halaman yang menggunakannya akan rosak.')))">
                     @csrf @method('DELETE')

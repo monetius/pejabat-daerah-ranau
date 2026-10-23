@@ -1,3 +1,4 @@
+@include('admin.image-editor')
 @once
     @push('head')
         <link rel="stylesheet" href="{{ asset('assets/css/content-editor.css') }}?v={{ filemtime(public_path('assets/css/content-editor.css')) }}">

@@ -70,10 +70,12 @@ class CmsLocalizationTest extends TestCase
     {
         $page = Page::create(['title' => 'Halaman asal', 'slug' => 'asal', 'path' => 'halaman/asal', 'body' => '<h1>Tajuk asal</h1><p>Perenggan asal</p><a href="/">Kembali</a>']);
         $response = $this->actingAsVerified($this->admin())->withCookie('cms_locale', 'en')->get('/admin/pages/'.$page->id.'/edit')
-            ->assertOk()->assertSee('data-editor-translations', false)->assertSee('Hero style');
+            ->assertOk()->assertSee('data-editor-translations', false)->assertSee('Hero style')
+            ->assertSee('image-editor.js')->assertSee('image-editor.css')->assertSee('data-image-editor-url', false);
         preg_match('/<script type="application\/json" data-editor-translations>(.*?)<\/script>/s', $response->getContent(), $matches);
         $translations = json_decode($matches[1], true, 512, JSON_THROW_ON_ERROR);
         $this->assertSame('Choose / upload image', $translations['Pilih / muat naik gambar']);
+        $this->assertSame('Crop & resize', $translations['Potong & ubah saiz']);
         $schema = $response->viewData('editor');
         $this->assertSame('Heading', $schema['fields'][0]['label']);
         $this->assertSame('Tajuk asal', $schema['fields'][0]['value']);

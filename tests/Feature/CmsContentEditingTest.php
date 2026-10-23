@@ -70,6 +70,49 @@ class CmsContentEditingTest extends TestCase
         $this->assertSame("Baris pertama\n<script>alert(1)</script>", $schema['blocks'][1]['text']);
     }
 
+    public function test_list_styles_render_correct_markers_and_survive_reopening_and_changing_style(): void
+    {
+        foreach (['disc' => null, 'circle' => null, 'square' => null, 'decimal' => '1', 'lower-alpha' => 'a', 'upper-alpha' => 'A', 'lower-roman' => 'i', 'upper-roman' => 'I'] as $style => $type) {
+            $editor = new ContentEditor('');
+            $payload = $this->payload($editor->schema());
+            $payload['blocks'] = [['type' => 'list', 'list_style' => $style, 'text' => "First\n\n<script>unsafe</script>\nThird"]];
+            $html = $editor->apply(json_encode($payload));
+            $tag = $type === null ? 'ul' : 'ol';
+            $this->assertStringContainsString('<'.$tag.' data-cms-type="list"', $html);
+            $this->assertStringContainsString('list-style-type:'.$style, $html);
+            if ($type !== null) {
+                $this->assertStringContainsString('type="'.$type.'"', $html);
+            }
+            $this->assertSame(3, substr_count($html, '<li>'));
+            $this->assertStringNotContainsString('<script>', $html);
+            $reopened = new ContentEditor($html);
+            $this->assertSame($style, $reopened->schema()['blocks'][0]['list_style']);
+            $this->assertSame($html, $reopened->apply(json_encode($this->payload($reopened->schema()))));
+            $changed = $this->payload($reopened->schema());
+            $changed['blocks'][0]['list_style'] = 'upper-roman';
+            $this->assertStringContainsString('type="I"', $reopened->apply(json_encode($changed)));
+        }
+    }
+
+    public function test_legacy_lists_keep_default_markers_and_ordered_list_types(): void
+    {
+        foreach (['<ul data-cms-type="list"><li>One</li></ul>' => 'disc', '<ol data-cms-type="list" type="i"><li>One</li></ol>' => 'lower-roman'] as $list => $style) {
+            $html = '<section data-cms-blocks>'.$list.'</section>';
+            $editor = new ContentEditor($html);
+            $this->assertSame($style, $editor->schema()['blocks'][0]['list_style']);
+            $this->assertSame($html, $editor->apply(json_encode($this->payload($editor->schema()))));
+        }
+    }
+
+    public function test_unrecognised_list_styles_are_rejected(): void
+    {
+        $payload = $this->payload((new ContentEditor(''))->schema());
+        $payload['blocks'] = [['type' => 'list', 'text' => 'One', 'list_style' => 'disc;position:fixed']];
+        $this->post('/admin/pages', ['title' => 'Invalid list', 'status' => 'published', 'content' => json_encode($payload)])
+            ->assertSessionHasErrors();
+        $this->assertDatabaseMissing('pages', ['title' => 'Invalid list']);
+    }
+
     public function test_saving_unchanged_legacy_content_keeps_every_byte_and_page_settings(): void
     {
         $page = $this->page();

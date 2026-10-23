@@ -59,11 +59,34 @@
             parent.append(image);
             update();
         };
+        const bindImageEdit = (button, input) => {
+            const currentUrl = () => input.value.trim() || button.dataset.currentImage || '';
+            const update = () => {
+                const cover = input.closest('[data-announcement-cover]');
+                button.hidden = !/^\/(uploads|assets\/img)\//.test(currentUrl())
+                    || !!cover?.querySelector('[name="remove_image"]')?.checked
+                    || !!cover?.querySelector('input[type="file"]')?.files.length;
+            };
+            button.addEventListener('click', () => window.CmsImageEditor.open({ url: currentUrl(), onSaved: saved => {
+                mediaLoaded = false;
+                input.value = saved.url;
+                input.dispatchEvent(new Event('input', { bubbles: true }));
+                announce(t('Fail dipilih. Simpan untuk menerbitkan perubahan.'));
+            }}));
+            input.addEventListener('input', update);
+            update();
+        };
         const mediaButton = (parent, input, kind) => {
             const button = element('button', 'btn gray editor-media-button', kind === 'image' ? t('Pilih / muat naik gambar') : t('Pilih / muat naik fail'));
             button.type = 'button';
             button.addEventListener('click', () => openPicker(input, kind));
             parent.append(button);
+            if (kind === 'image') {
+                const edit = element('button', 'btn gray editor-media-button', t('Potong & ubah saiz'));
+                edit.type = 'button';
+                bindImageEdit(edit, input);
+                parent.append(edit);
+            }
         };
         const selectControl = (parent, label, value, choices, onChange) => {
             const wrapper = element('div', 'editor-field');
@@ -236,6 +259,19 @@
                     select.addEventListener('change', () => { block.level = select.value; changed(); });
                     wrap.append(label, select); card.append(wrap);
                 }
+                if (block.type === 'list') {
+                    const wrap = element('div', 'editor-field');
+                    const select = element('select'); select.id = `content-field-${++nextId}`;
+                    const label = element('label', '', t('Gaya senarai')); label.htmlFor = select.id;
+                    [['disc', 'Bulet penuh'], ['circle', 'Bulet bulat'], ['square', 'Bulet segi empat'], ['decimal', 'Nombor (1, 2, 3)'],
+                        ['lower-alpha', 'Huruf kecil (a, b, c)'], ['upper-alpha', 'Huruf besar (A, B, C)'],
+                        ['lower-roman', 'Roman kecil (i, ii, iii)'], ['upper-roman', 'Roman besar (I, II, III)']].forEach(([value, text]) => {
+                        const option = element('option', '', t(text)); option.value = value; select.append(option);
+                    });
+                    select.value = block.list_style || 'disc';
+                    select.addEventListener('change', () => { block.list_style = select.value; changed(); });
+                    wrap.append(label, select); card.append(wrap);
+                }
                 if (block.type === 'hero') heroControls(card, block);
                 if (!['image', 'hero'].includes(block.type)) {
                     control(card, block.type === 'list' ? t('Item senarai') : (block.type === 'heading' ? t('Teks tajuk') : (block.type === 'paragraph' ? t('Teks perenggan') : t('Teks pautan'))), block.text, value => { block.text = value; }, {
@@ -302,7 +338,20 @@
                     pickerTarget.input.dispatchEvent(new Event('input', { bubbles: true }));
                     dialog.close(); announce(t('Fail dipilih. Simpan untuk menerbitkan perubahan.'));
                 });
-                mediaGrid.append(button);
+                const item = element('div', 'editor-media-entry');
+                item.append(button);
+                if (file.image) {
+                    const edit = element('button', 'btn gray', t('Potong & ubah saiz')); edit.type = 'button';
+                    edit.addEventListener('click', () => window.CmsImageEditor.open({ url: file.url, name: file.name, onSaved: saved => {
+                        mediaFiles.unshift(saved);
+                        pickerTarget.input.value = saved.url;
+                        pickerTarget.input.dispatchEvent(new Event('input', { bubbles: true }));
+                        showMedia();
+                        dialog.close(); announce(t('Fail dipilih. Simpan untuk menerbitkan perubahan.'));
+                    }}));
+                    item.append(edit);
+                }
+                mediaGrid.append(item);
             });
             mediaStatus.textContent = files.length ? (files.length === 1 ? t('1 fail. Pilih satu untuk digunakan.') : t(':count fail. Pilih satu untuk digunakan.', { count: files.length })) : t('Tiada fail sepadan. Muat naik fail baharu.');
         };
@@ -337,6 +386,10 @@
         form.querySelectorAll('[data-media-select]').forEach(button => {
             const input = form.querySelector(button.dataset.mediaSelect);
             if (input) button.addEventListener('click', () => openPicker(input, 'image', button));
+        });
+        form.querySelectorAll('[data-edit-selected-image]').forEach(button => {
+            const input = form.querySelector(button.dataset.editSelectedImage);
+            if (input) bindImageEdit(button, input);
         });
         dialog.addEventListener('close', () => (pickerTarget?.trigger || pickerTarget?.input)?.focus());
         renderBlocks(); sync();
