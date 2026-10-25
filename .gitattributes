@@ -9,3 +9,12 @@
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
 public/uploads/2026/10/pelan-pembangunan-strategik-ranau-2024-2040.pdf filter=lfs diff=lfs merge=lfs -text
+
+# Source archives exclude private/development material and runtime uploads.
+/README-PENTING.txt export-ignore
+/README-CMS.txt export-ignore
+/AGENTS.md export-ignore
+/.ai export-ignore
+/tests export-ignore
+/pdr.sql export-ignore
+/public/uploads export-ignore
