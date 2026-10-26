@@ -2,10 +2,10 @@
 
 Laravel website and CMS for Pejabat Daerah Ranau.
 
-## Deployment
+**Code ownership and application maintenance remain with the project author. The hosting provider handles hosting and deployment only.**
 
-**For the hosting provider:** start with [Deployer handoff](README-DEPLOYER.md) for requirements, preparation, the deployment sequence and acceptance checks.
+See [Hosting notes](README-DEPLOYER.md) for the project-specific deployment requirements.
 
-The hosting provider handles server setup and deployment. Code ownership, application maintenance and feature testing remain with the project author. The handoff covers environment settings, supplied database/uploads, persistent storage, email configuration and the scheduler.
+## Legacy build
 
-The `deploy-test` branch is prepared without choosing a hosting provider. Server, managed hosting and Docker requirements are covered; a runnable Docker stack is not included yet.
+The website has been migrated to the Laravel framework. The `legacy/` directory preserves the old build for reference only; it is not used by the current application and is included in the package for reference only. Serve the Laravel application from `public/`, not from `legacy/`.
