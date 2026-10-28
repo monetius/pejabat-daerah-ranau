@@ -26,7 +26,7 @@ class SitemapController extends Controller
         $this->appendUrl($document, $root, route('sitemap.show'), null);
 
         $announcements = Announcement::published()->orderBy('slug')->get(['slug', 'published_at', 'updated_at']);
-        $latest = $announcements->map(fn (Announcement $announcement) => max($announcement->updated_at, $announcement->published_at))->max();
+        $latest = $announcements->map(fn(Announcement $announcement) => max($announcement->updated_at, $announcement->published_at))->max();
         $this->appendUrl($document, $root, route('announcements.index'), $latest);
         foreach ($announcements as $announcement) {
             $this->appendUrl($document, $root, route('announcements.show', $announcement->slug), max($announcement->updated_at, $announcement->published_at));
@@ -40,7 +40,7 @@ class SitemapController extends Controller
 
     public function robots(): Response
     {
-        return response("User-agent: *\nDisallow: /admin\nDisallow: /login\n\nSitemap: ".route('sitemap')."\n", 200, [
+        return response("User-agent: *\nDisallow: /admin\nDisallow: /login\n\nSitemap: " . route('sitemap') . "\n", 200, [
             'Content-Type' => 'text/plain; charset=UTF-8',
         ]);
     }
@@ -48,7 +48,7 @@ class SitemapController extends Controller
     public function show(): View
     {
         return view('site.sitemap', [
-            'pages' => $this->publicPages()->groupBy(fn (Page $page): string => $page->section ?: 'Lain-lain'),
+            'pages' => $this->publicPages()->groupBy(fn(Page $page): string => $page->section ?: 'Lain-lain'),
             'announcements' => Announcement::published()->orderByDesc('published_at')->get(['title', 'slug']),
         ]);
     }

@@ -14,8 +14,8 @@ class LocaleController extends Controller
         $locale = $request->validate(['locale' => ['required', Rule::in(['ms', 'en'])]])['locale'];
         $request->session()->put('cms_locale', $locale);
         $previous = url()->previous();
-        $adminUrl = $request->getSchemeAndHttpHost().'/admin';
-        if ($previous !== $adminUrl && ! str_starts_with($previous, $adminUrl.'/')) {
+        $adminUrl = $request->getSchemeAndHttpHost() . '/admin';
+        if ($previous !== $adminUrl && !str_starts_with($previous, $adminUrl . '/')) {
             $previous = $request->user()?->is_admin ? route('admin.dashboard') : route('admin.login');
         }
 

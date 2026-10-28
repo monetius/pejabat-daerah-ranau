@@ -12,19 +12,21 @@ use Illuminate\Validation\ValidationException;
 
 class TwoFactorController extends Controller
 {
-    public function __construct(public TwoFactor $twoFactor) {}
+    public function __construct(public TwoFactor $twoFactor)
+    {
+    }
 
     public function challenge(Request $request): Response|RedirectResponse
     {
         $user = $this->twoFactor->pendingUser($request);
-        if (! $user) {
+        if (!$user) {
             return $this->expired($request);
         }
         [$local, $domain] = explode('@', $user->email, 2);
         $expiresAt = $this->twoFactor->codeExpiresAt($request);
 
         return response()->view('admin.two-factor-challenge', [
-            'maskedEmail' => mb_substr($local, 0, 1).'***@'.$domain,
+            'maskedEmail' => mb_substr($local, 0, 1) . '***@' . $domain,
             'hasSentCode' => $expiresAt !== null,
             'expiresAt' => $expiresAt,
             'serverNow' => now()->timestamp,
@@ -34,7 +36,7 @@ class TwoFactorController extends Controller
 
     public function verify(Request $request): RedirectResponse
     {
-        if (! $this->twoFactor->pendingUser($request)) {
+        if (!$this->twoFactor->pendingUser($request)) {
             return $this->expired($request);
         }
         if ($this->twoFactor->codeExpiresAt($request) === null) {
@@ -42,7 +44,7 @@ class TwoFactorController extends Controller
         }
         $data = $request->validate(['code' => ['required', 'string', 'max:64']]);
         $user = $this->twoFactor->verify($request, $data['code']);
-        if (! $user) {
+        if (!$user) {
             throw ValidationException::withMessages(['code' => __('Kod tidak sah atau telah tamat tempoh.')]);
         }
         $remember = (bool) $request->session()->get('two_factor_pending.remember', false);
@@ -55,7 +57,7 @@ class TwoFactorController extends Controller
     public function send(Request $request): RedirectResponse
     {
         $user = $this->twoFactor->pendingUser($request);
-        if (! $user) {
+        if (!$user) {
             return $this->expired($request);
         }
         $this->twoFactor->sendCode($request, $user);

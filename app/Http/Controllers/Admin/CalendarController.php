@@ -21,12 +21,13 @@ class CalendarController extends Controller
         $year = (int) ($filters['year'] ?? now('Asia/Kuala_Lumpur')->year);
         $kind = $filters['kind'] ?? '';
         $entries = collect(EventCalendar::entries(true, [$year]));
-        $years = $entries->flatMap(fn (array $entry): array => [(int) substr($entry['start_date'], 0, 4), (int) substr($entry['end_date'], 0, 4)])
+        $years = $entries->flatMap(fn(array $entry): array => [(int) substr($entry['start_date'], 0, 4), (int) substr($entry['end_date'], 0, 4)])
             ->push($year)->unique()->sortDesc()->values();
-        $filtered = $entries->filter(fn (array $entry): bool => $entry['start_date'] <= $year.'-12-31' && $entry['end_date'] >= $year.'-01-01'
+        $filtered = $entries->filter(fn(array $entry): bool => $entry['start_date'] <= $year . '-12-31' && $entry['end_date'] >= $year . '-01-01'
             && ($kind === '' || $entry['kind'] === $kind))->values();
         $items = new LengthAwarePaginator($filtered->forPage(LengthAwarePaginator::resolveCurrentPage(), 20)->values(), $filtered->count(), 20, null, [
-            'path' => $request->url(), 'query' => $request->query(),
+            'path' => $request->url(),
+            'query' => $request->query(),
         ]);
 
         $holidayFeed = app(HolidayFeed::class);
@@ -92,7 +93,11 @@ class CalendarController extends Controller
             'end_time' => ['nullable', 'date_format:H:i'],
             'location' => ['nullable', 'string', 'max:180'],
             'description' => ['nullable', 'string', 'max:3000'],
-            'url' => ['nullable', 'string', 'max:2000', 'regex:~^(?:/(?!/)[^\\\\\s]*|https?://[^\s]+)$~i',
+            'url' => [
+                'nullable',
+                'string',
+                'max:2000',
+                'regex:~^(?:/(?!/)[^\\\\\s]*|https?://[^\s]+)$~i',
                 Rule::when(is_string($request->input('url')) && preg_match('~^https?://~i', $request->input('url')), ['url:http,https']),
             ],
             'status' => ['required', Rule::in(['draft', 'published'])],

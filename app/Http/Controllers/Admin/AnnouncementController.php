@@ -73,7 +73,7 @@ class AnnouncementController extends Controller
             'remove_image' => ['sometimes', 'boolean'],
             'content' => ['required', 'string', 'max:2000000'],
             'publication_mode' => ['nullable', Rule::in(['draft', 'now', 'scheduled'])],
-            'status' => [Rule::requiredIf(! $hasPublicationMode), 'nullable', Rule::in(['draft', 'published'])],
+            'status' => [Rule::requiredIf(!$hasPublicationMode), 'nullable', Rule::in(['draft', 'published'])],
             'published_at' => [
                 Rule::excludeIf($hasPublicationMode && $publicationMode !== 'scheduled'),
                 Rule::requiredIf($publicationMode === 'scheduled'),
@@ -89,7 +89,7 @@ class AnnouncementController extends Controller
         if ($hasPublicationMode) {
             $data['status'] = $publicationMode === 'draft' ? 'draft' : 'published';
             if ($publicationMode === 'now') {
-                $wasPublished = $current?->status === 'published' && ! $current->published_at?->isFuture();
+                $wasPublished = $current?->status === 'published' && !$current->published_at?->isFuture();
                 $data['published_at'] = $wasPublished ? ($current->published_at ?? now()) : now();
             } elseif ($publicationMode === 'draft') {
                 $data['published_at'] = $current?->published_at;
@@ -129,35 +129,37 @@ class AnnouncementController extends Controller
     private function libraryImage(string $url): string
     {
         $file = false;
-        if (preg_match('~^/(?:uploads|assets/img)/~', $url)
-            && ! preg_match('~[\x00-\x20\\\\%?#]|(?:^|/)\.{1,2}(?:/|$)~', $url)) {
+        if (
+            preg_match('~^/(?:uploads|assets/img)/~', $url)
+            && !preg_match('~[\x00-\x20\\\\%?#]|(?:^|/)\.{1,2}(?:/|$)~', $url)
+        ) {
             $file = realpath(public_path(ltrim($url, '/')));
         }
         $insideLibrary = false;
         foreach (['uploads', 'assets/img'] as $directory) {
             $root = realpath(public_path($directory));
-            if ($root && $file && str_starts_with($file, $root.DIRECTORY_SEPARATOR)) {
+            if ($root && $file && str_starts_with($file, $root . DIRECTORY_SEPARATOR)) {
                 $insideLibrary = true;
             }
         }
         $image = $insideLibrary && is_file($file)
             && in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), ['jpg', 'jpeg', 'png', 'webp', 'gif'], true)
             ? @getimagesize($file) : false;
-        if (! $image || ! in_array($image['mime'] ?? '', ['image/jpeg', 'image/png', 'image/webp', 'image/gif'], true)) {
+        if (!$image || !in_array($image['mime'] ?? '', ['image/jpeg', 'image/png', 'image/webp', 'image/gif'], true)) {
             throw ValidationException::withMessages(['image_media' => __('Pilih gambar yang sah daripada pustaka Media.')]);
         }
 
-        return '/'.str_replace('\\', '/', substr($file, strlen(realpath(public_path())) + 1));
+        return '/' . str_replace('\\', '/', substr($file, strlen(realpath(public_path())) + 1));
     }
 
     private function storeImage(UploadedFile $file): string
     {
         $base = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) ?: 'gambar';
-        $name = $base.'-'.Str::lower(Str::random(6)).'.'.$file->extension();
-        $folder = 'uploads/'.date('Y/m');
+        $name = $base . '-' . Str::lower(Str::random(6)) . '.' . $file->extension();
+        $folder = 'uploads/' . date('Y/m');
         $file->move(public_path($folder), $name);
 
-        return '/'.$folder.'/'.$name;
+        return '/' . $folder . '/' . $name;
     }
 
     private function editor(Announcement $announcement): ContentEditor
@@ -170,8 +172,8 @@ class AnnouncementController extends Controller
         $base = Str::slug($title) ?: 'hebahan';
         $slug = $base;
         $i = 2;
-        while (Announcement::where('slug', $slug)->when($current, fn ($q) => $q->whereKeyNot($current->getKey()))->exists()) {
-            $slug = $base.'-'.$i++;
+        while (Announcement::where('slug', $slug)->when($current, fn($q) => $q->whereKeyNot($current->getKey()))->exists()) {
+            $slug = $base . '-' . $i++;
         }
 
         return $slug;

@@ -16,11 +16,15 @@ class CalendarController extends Controller
         $first = CarbonImmutable::createFromFormat('!Y-m', $month, 'Asia/Kuala_Lumpur')->startOfWeek(CarbonImmutable::MONDAY);
         $last = $first->addDays(41)->toDateString();
         $entries = array_values(array_filter(EventCalendar::entries(false, array_values(array_unique([
-            (int) substr($month, 0, 4), $first->year, (int) substr($last, 0, 4),
-        ]))), fn (array $entry): bool => $entry['start_date'] <= $last && $entry['end_date'] >= $first->toDateString()));
+            (int) substr($month, 0, 4),
+            $first->year,
+            (int) substr($last, 0, 4),
+        ]))), fn(array $entry): bool => $entry['start_date'] <= $last && $entry['end_date'] >= $first->toDateString()));
 
         return response()->json([
-            'month' => $month, 'timezone' => 'Asia/Kuala_Lumpur', 'entries' => $entries,
+            'month' => $month,
+            'timezone' => 'Asia/Kuala_Lumpur',
+            'entries' => $entries,
             'holiday_source' => EventCalendar::holidaySource((int) substr($month, 0, 4)),
             'holiday_years' => EventCalendar::holidayYears(),
         ])->header('Cache-Control', 'no-store');

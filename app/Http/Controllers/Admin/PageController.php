@@ -25,19 +25,19 @@ class PageController extends Controller
         $q = trim((string) $request->query('q'));
 
         $pages = Page::query()
-            ->when($q !== '', fn ($query) => $query->where(
-                fn ($w) => $w->where('title', 'like', "%{$q}%")->orWhere('path', 'like', "%{$q}%")
+            ->when($q !== '', fn($query) => $query->where(
+                fn($w) => $w->where('title', 'like', "%{$q}%")->orWhere('path', 'like', "%{$q}%")
             ))
             ->orderBy('path')
             ->get();
 
         [$sectionRank, $pageRank] = $this->navOrder();
-        $norm = fn (string $name) => preg_replace('/[^a-z0-9]/', '', strtolower($name));
+        $norm = fn(string $name) => preg_replace('/[^a-z0-9]/', '', strtolower($name));
 
-        $groups = $pages->groupBy(fn (Page $p) => $p->section ?: 'Lain-lain');
+        $groups = $pages->groupBy(fn(Page $p) => $p->section ?: 'Lain-lain');
 
         // Sections follow the navbar order; unknown sections come after, "Lain-lain" last.
-        $names = $groups->keys()->map(fn ($n) => (string) $n)->all();
+        $names = $groups->keys()->map(fn($n) => (string) $n)->all();
         usort($names, function (string $a, string $b) use ($sectionRank, $norm) {
             $ra = $a === 'Lain-lain' ? PHP_INT_MAX : ($sectionRank[$norm($a)] ?? PHP_INT_MAX - 1);
             $rb = $b === 'Lain-lain' ? PHP_INT_MAX : ($sectionRank[$norm($b)] ?? PHP_INT_MAX - 1);
@@ -49,7 +49,7 @@ class PageController extends Controller
         $ordered = [];
         foreach ($names as $name) {
             $ordered[$name] = $groups[$name]->sort(
-                fn (Page $a, Page $b) => [$pageRank[$a->id] ?? PHP_INT_MAX, $a->path] <=> [$pageRank[$b->id] ?? PHP_INT_MAX, $b->path]
+                fn(Page $a, Page $b) => [$pageRank[$a->id] ?? PHP_INT_MAX, $a->path] <=> [$pageRank[$b->id] ?? PHP_INT_MAX, $b->path]
             )->values();
         }
 
@@ -165,7 +165,7 @@ class PageController extends Controller
             || $page->body !== $new['body']
             || (string) $page->scripts !== (string) ($new['scripts'] ?? '');
 
-        if (! $changed) {
+        if (!$changed) {
             return;
         }
 
@@ -209,13 +209,13 @@ class PageController extends Controller
             $data['slug'] = ($data['slug'] ?? $current?->slug) ?: $this->uniqueSlug($data['title'], $current);
             $path = strtolower(trim((string) ($data['path'] ?? ''), '/ '));
             if ($path === '') {
-                $path = 'halaman/'.$data['slug'];
+                $path = 'halaman/' . $data['slug'];
             }
 
             if (in_array(explode('/', $path)[0], self::RESERVED, true)) {
                 throw ValidationException::withMessages(['path' => __('Laluan ini dikhaskan untuk sistem. Pilih laluan lain.')]);
             }
-            $taken = Page::where('path', $path)->when($current, fn ($q) => $q->whereKeyNot($current->getKey()))->exists();
+            $taken = Page::where('path', $path)->when($current, fn($q) => $q->whereKeyNot($current->getKey()))->exists();
             if ($taken) {
                 throw ValidationException::withMessages(['path' => __('Laluan ini sudah digunakan oleh halaman lain.')]);
             }
@@ -235,8 +235,8 @@ class PageController extends Controller
         $base = Str::slug($title) ?: 'halaman';
         $slug = $base;
         $i = 2;
-        while (Page::where('slug', $slug)->when($current, fn ($q) => $q->whereKeyNot($current->getKey()))->exists()) {
-            $slug = $base.'-'.$i++;
+        while (Page::where('slug', $slug)->when($current, fn($q) => $q->whereKeyNot($current->getKey()))->exists()) {
+            $slug = $base . '-' . $i++;
         }
 
         return $slug;

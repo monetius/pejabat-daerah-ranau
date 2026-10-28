@@ -17,13 +17,13 @@ class SiteLanguageController extends Controller
         $request->session()->put('site_locale', $data['locale']);
         $previous = url()->previous();
         $origin = $request->getSchemeAndHttpHost();
-        if (! str_starts_with($previous, $origin.'/') || preg_match('#^/admin(?:/|$)#', (string) parse_url($previous, PHP_URL_PATH))) {
+        if (!str_starts_with($previous, $origin . '/') || preg_match('#^/admin(?:/|$)#', (string) parse_url($previous, PHP_URL_PATH))) {
             $previous = route('home');
         }
         $response = redirect()->to($previous, 303)->withCookie(
             cookie('site_locale', $data['locale'], 525600, '/', null, $request->isSecure(), true, false, 'lax')
         );
-        if (! $request->boolean('translate_page')) {
+        if (!$request->boolean('translate_page')) {
             $response->withCookie(cookie()->forget('googtrans', '/'));
             $response->withCookie(cookie()->forget('googtrans', '/', $request->getHost()));
         }

@@ -27,8 +27,8 @@ class AuthController extends Controller
             'password' => ['required', 'string'],
         ]);
 
-        $key = 'cms-login:'.hash('sha256', Str::lower($credentials['email']).'|'.$request->ip());
-        $ipKey = 'cms-login-ip:'.hash('sha256', (string) $request->ip());
+        $key = 'cms-login:' . hash('sha256', Str::lower($credentials['email']) . '|' . $request->ip());
+        $ipKey = 'cms-login-ip:' . hash('sha256', (string) $request->ip());
         if (RateLimiter::tooManyAttempts($key, 5) || RateLimiter::tooManyAttempts($ipKey, 30)) {
             throw ValidationException::withMessages(['email' => __('Terlalu banyak percubaan log masuk. Sila cuba lagi sebentar lagi.')]);
         }
@@ -38,9 +38,11 @@ class AuthController extends Controller
             $user = Auth::getLastAttempted();
             Auth::getProvider()->rehashPasswordIfRequired($user, $credentials);
             RateLimiter::clear($key);
-            if ($twoFactor->pendingUser($request)?->is($user)
+            if (
+                $twoFactor->pendingUser($request)?->is($user)
                 && $twoFactor->codeExpiresAt($request) !== null
-                && $twoFactor->resendWaitSeconds($request, $user) > 0) {
+                && $twoFactor->resendWaitSeconds($request, $user) > 0
+            ) {
                 $request->session()->regenerate();
                 $request->session()->forget('two_factor_verified');
                 $request->session()->put('two_factor_pending.remember', $request->boolean('remember'));

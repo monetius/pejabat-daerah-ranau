@@ -26,7 +26,7 @@ class AccountController extends Controller
         ]);
         DB::transaction(function () use ($request, $data, $twoFactor): void {
             $user = $request->user()->newQuery()->lockForUpdate()->findOrFail($request->user()->id);
-            if (! $twoFactor->isVerified($request, $user) || ! Hash::check($data['current_password'], $user->password)) {
+            if (!$twoFactor->isVerified($request, $user) || !Hash::check($data['current_password'], $user->password)) {
                 throw ValidationException::withMessages(['current_password' => __('Kata laluan semasa tidak betul. Sila cuba lagi.')]);
             }
             $user->forceFill(['password' => $data['password'], 'remember_token' => null])->save();

@@ -111,11 +111,11 @@ class MenuController extends Controller
         return [
             'item' => $item,
             'parents' => MenuItem::whereNull('parent_id')
-                ->when($item->exists, fn ($q) => $q->whereKeyNot($item->id))
+                ->when($item->exists, fn($q) => $q->whereKeyNot($item->id))
                 ->orderBy('sort_order')->orderBy('id')->get(),
             'pages' => Page::orderBy('section')->orderBy('path')
                 ->get(['id', 'title', 'path', 'section', 'status'])
-                ->groupBy(fn (Page $p) => $p->section ?: 'Lain-lain'),
+                ->groupBy(fn(Page $p) => $p->section ?: 'Lain-lain'),
             'hasChildren' => $item->exists && $item->children()->exists(),
         ];
     }

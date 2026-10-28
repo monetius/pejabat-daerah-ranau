@@ -17,20 +17,22 @@ class MediaController extends Controller
         $dir = public_path('uploads');
 
         $files = File::isDirectory($dir)
-            ? collect(File::allFiles($dir))->sortByDesc(fn ($f) => $f->getMTime())->values()
+            ? collect(File::allFiles($dir))->sortByDesc(fn($f) => $f->getMTime())->values()
             : collect();
 
         if ($request->expectsJson()) {
             $images = public_path('assets/img');
             $library = $files->concat(File::isDirectory($images) ? File::allFiles($images) : []);
 
-            return response()->json(['files' => $library
-                ->filter(fn ($file): bool => in_array(strtolower($file->getExtension()), ['jpg', 'jpeg', 'png', 'webp', 'gif', 'pdf'], true))
-                ->map(fn ($file): array => [
-                    'name' => $file->getFilename(),
-                    'url' => '/'.str_replace('\\', '/', substr($file->getPathname(), strlen(public_path()) + 1)),
-                    'image' => strtolower($file->getExtension()) !== 'pdf',
-                ])->values()]);
+            return response()->json([
+                'files' => $library
+                    ->filter(fn($file): bool => in_array(strtolower($file->getExtension()), ['jpg', 'jpeg', 'png', 'webp', 'gif', 'pdf'], true))
+                    ->map(fn($file): array => [
+                        'name' => $file->getFilename(),
+                        'url' => '/' . str_replace('\\', '/', substr($file->getPathname(), strlen(public_path()) + 1)),
+                        'image' => strtolower($file->getExtension()) !== 'pdf',
+                    ])->values()
+            ]);
         }
 
         return view('admin.media.index', ['files' => $files]);
@@ -44,16 +46,16 @@ class MediaController extends Controller
 
         $file = $request->file('file');
         $base = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) ?: 'fail';
-        $name = $base.'-'.Str::lower(Str::random(6)).'.'.$file->extension();
-        $folder = 'uploads/'.date('Y/m');
+        $name = $base . '-' . Str::lower(Str::random(6)) . '.' . $file->extension();
+        $folder = 'uploads/' . date('Y/m');
 
         $file->move(public_path($folder), $name);
 
         if ($request->expectsJson()) {
-            return response()->json(['file' => ['name' => $name, 'url' => '/'.$folder.'/'.$name, 'image' => strtolower(pathinfo($name, PATHINFO_EXTENSION)) !== 'pdf']], 201);
+            return response()->json(['file' => ['name' => $name, 'url' => '/' . $folder . '/' . $name, 'image' => strtolower(pathinfo($name, PATHINFO_EXTENSION)) !== 'pdf']], 201);
         }
 
-        return back()->with('status', __('Fail dimuat naik: :path', ['path' => '/'.$folder.'/'.$name]));
+        return back()->with('status', __('Fail dimuat naik: :path', ['path' => '/' . $folder . '/' . $name]));
     }
 
     public function destroy(Request $request): RedirectResponse
@@ -61,10 +63,10 @@ class MediaController extends Controller
         $rel = $request->validate(['path' => ['required', 'string']])['path'];
 
         $root = realpath(public_path('uploads'));
-        $full = realpath(public_path('uploads/'.$rel));
+        $full = realpath(public_path('uploads/' . $rel));
 
         abort_unless(
-            $root && $full && str_starts_with($full, $root.DIRECTORY_SEPARATOR) && is_file($full),
+            $root && $full && str_starts_with($full, $root . DIRECTORY_SEPARATOR) && is_file($full),
             404
         );
 
