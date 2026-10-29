@@ -71,13 +71,16 @@ body.has-banner .navbar:not(.is-condensed) {
 }
 
 .logo-img {
-  height: 42px;
-  width: auto;
-  transition: height 0.25s ease;
+  --logo-height: 42px;
+  height: var(--logo-height);
+  width: calc(var(--logo-height) * 0.6);
+  flex-shrink: 0;
+  object-fit: contain;
+  transition: height 0.25s ease, width 0.25s ease;
 }
 
 .navbar.is-condensed .logo-img {
-  height: 34px;
+  --logo-height: 34px;
 }
 
 .logo-text {

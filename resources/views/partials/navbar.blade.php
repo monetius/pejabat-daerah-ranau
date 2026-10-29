@@ -5,6 +5,8 @@
       src="/assets/img/coat.png"
       alt="Jata Negeri Sabah"
       class="logo-img"
+      width="144"
+      height="240"
     />
     <span class="logo-text"
       >Pejabat Daerah Ranau<small>Kerajaan Negeri Sabah</small></span
