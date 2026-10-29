@@ -473,11 +473,19 @@ body {
 
 @media (max-width: 1280px) {
 
+  .navbar {
+    left: var(--nav-gap);
+    right: var(--nav-gap);
+    width: auto;
+    margin-inline: auto;
+    transform: none;
+    /* Blur must stop immediately so the fixed menu uses the viewport. */
+    transition: height 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  }
+
   /* Full-screen menu. position:fixed needs the navbar to have no transform /
      backdrop-filter while open, otherwise it would size to the navbar. */
   .navbar.menu-open {
-    left: var(--nav-gap);
-    transform: none;
     background: transparent;
     border-color: transparent;
     -webkit-backdrop-filter: none;
