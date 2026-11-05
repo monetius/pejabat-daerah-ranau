@@ -344,6 +344,22 @@ function initOfficeHours() {
   });
 }
 
+// One request per month, shared by every widget that needs calendar entries.
+const calendarMonthCache = new Map();
+function fetchCalendarMonth(month) {
+  if (!calendarMonthCache.has(month)) {
+    calendarMonthCache.set(month, fetch(`/kalendar/data?month=${month}`, { headers: { Accept: 'application/json' } })
+      .then((response) => (response.ok ? response.json() : { entries: [] }))
+      .then((data) => data.entries || [])
+      .catch(() => []));
+  }
+  return calendarMonthCache.get(month);
+}
+
+function malaysiaToday() {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kuala_Lumpur' }).format(new Date());
+}
+
 // Public holidays: the office-hours badge above only knows the weekly timetable,
 // so on a public holiday (from the CMS calendar) it is switched to "closed".
 async function initOfficeHolidayStatus() {
@@ -351,15 +367,8 @@ async function initOfficeHolidayStatus() {
   const txt = document.getElementById('status-text');
   if (!box || !txt) return;
 
-  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kuala_Lumpur' }).format(new Date());
-  let entries;
-  try {
-    const response = await fetch(`/kalendar/data?month=${today.slice(0, 7)}`, { headers: { Accept: 'application/json' } });
-    if (!response.ok) return;
-    entries = (await response.json()).entries || [];
-  } catch (_) {
-    return;
-  }
+  const today = malaysiaToday();
+  const entries = await fetchCalendarMonth(today.slice(0, 7));
 
   const holiday = entries.find((entry) => entry.kind === 'holiday' && entry.start_date <= today && entry.end_date >= today);
   if (!holiday) return;
@@ -369,6 +378,61 @@ async function initOfficeHolidayStatus() {
   note.textContent = `Cuti umum: ${holiday.title}`;
   txt.replaceChildren('Tutup hari ini ', note);
   box.hidden = false;
+}
+
+// Homepage info bar: the next public holiday from the CMS calendar (this month or next).
+async function initNextHoliday() {
+  const box = document.querySelector('[data-next-holiday]');
+  if (!box) return;
+  const title = box.querySelector('[data-next-holiday-title]');
+  const date = box.querySelector('[data-next-holiday-date]');
+  const today = malaysiaToday();
+  const [year, month] = today.split('-').map(Number);
+  const nextMonth = month === 12 ? `${year + 1}-01` : `${year}-${String(month + 1).padStart(2, '0')}`;
+  const entries = (await Promise.all([fetchCalendarMonth(today.slice(0, 7)), fetchCalendarMonth(nextMonth)])).flat();
+  const holiday = entries
+    .filter((entry) => entry.kind === 'holiday' && entry.end_date >= today)
+    .sort((a, b) => a.start_date.localeCompare(b.start_date))[0];
+  if (!holiday || !title || !date) return;
+  const when = new Intl.DateTimeFormat('ms-MY', { weekday: 'long', day: 'numeric', month: 'short', timeZone: 'UTC' })
+    .format(new Date(`${holiday.start_date}T12:00:00Z`));
+  title.textContent = holiday.title;
+  date.textContent = holiday.start_date <= today ? 'Cuti umum hari ini' : `Cuti umum seterusnya · ${when}`;
+}
+
+// Gentle fade-up as homepage blocks scroll into view. Skipped entirely when the visitor
+// prefers less motion, so nothing is ever hidden for them.
+function initReveal() {
+  const root = document.documentElement;
+  // Inner pages come from the CMS without data-reveal attributes: tag their content blocks,
+  // but only ones starting below the first screen, so nothing visible on load ever blinks.
+  if (!document.querySelector('[data-reveal]')) {
+    document.querySelectorAll('#main > section:not(.page-header) > .container > *').forEach((block) => {
+      if (block.getBoundingClientRect().top > window.innerHeight) block.setAttribute('data-reveal', '');
+    });
+  }
+  const items = Array.from(document.querySelectorAll('[data-reveal]'));
+  if (!items.length || !('IntersectionObserver' in window)) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || root.classList.contains('a11y-no-motion')) return;
+
+  root.classList.add('hm-reveal-ready');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-revealed');
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+
+  items.forEach((item) => {
+    const siblings = Array.from(item.parentElement.children).filter((child) => child.hasAttribute('data-reveal'));
+    item.style.transitionDelay = `${Math.min(siblings.indexOf(item), 5) * 70}ms`;
+    observer.observe(item);
+  });
+
+  document.addEventListener('site:accessibility-change', () => {
+    if (root.classList.contains('a11y-no-motion')) items.forEach((item) => item.classList.add('is-revealed'));
+  });
 }
 
 function initSmoothScroll() {
@@ -1168,9 +1232,11 @@ document.addEventListener('DOMContentLoaded', () => {
   loadGoogleTranslate();
   initOfficeHours();
   initOfficeHolidayStatus();
+  initNextHoliday();
   initSmoothScroll();
   initPdCarousel();
   initAffiliatedCarousel();
   initHomeCalendar();
   initCardBlur();
+  initReveal();
 });

@@ -14,7 +14,9 @@ class Shortcodes
 
     public const LAST_UPDATED = '[[kemas-kini]]';
 
-    /** Replaces [[hebahan-berita]] in page HTML with the live announcements section. */
+    public const LATEST = '[[hebahan-terkini]]';
+
+    /** Replaces [[hebahan-berita]], [[kalendar]] and [[hebahan-terkini]] in page HTML with their live sections. */
     public static function render(?string $html): string
     {
         $html = (string) $html;
@@ -25,6 +27,10 @@ class Shortcodes
 
         if (str_contains($html, self::CALENDAR)) {
             $html = str_replace(self::CALENDAR, view('partials.home-calendar')->render(), $html);
+        }
+
+        if (str_contains($html, self::LATEST)) {
+            $html = str_replace(self::LATEST, view('partials.home-latest')->render(), $html);
         }
 
         return $html;

@@ -18,7 +18,7 @@
           <li>Perkhidmatan Online</li>
           <li>Permohonan Latihan Industri</li>
         </ul>
-        <h1>Permohonan Latihan Industri - update ui/requirement</h1>
+        <h1>Permohonan Latihan Industri</h1>
       </div>
     </div>
     <section class="li-lead">

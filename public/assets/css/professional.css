@@ -402,3 +402,128 @@ html[data-theme='dark'] {
 .information-page main a:hover {
   text-decoration: none;
 }
+
+/* ==========================================================================
+   Inner pages v2 — the same look as the new homepage: navy page header with the
+   Kinabalu ridge illustration, gold accents, softer cards.
+   (Loaded after every page stylesheet, so these win without extra specificity.)
+   ========================================================================== */
+:root {
+  --radius: 14px;
+  --surface-radius: 16px;
+}
+
+/* ---- Page header ---- */
+.page-header--plain {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(280px, 34vh, 360px);
+  display: flex;
+  align-items: flex-end;
+  padding: calc(var(--nav-height) + var(--nav-gap) + 2.5rem) 0 4.5rem;
+  border-bottom: 0;
+  color: #fff;
+  background-color: var(--navy);
+  background-image:
+    linear-gradient(180deg, rgba(16, 27, 45, 0) 45%, rgba(16, 27, 45, 0.45) 100%),
+    url("/assets/img/hero/gunung-tengah.webp"),
+    url("/assets/img/hero/gunung-belakang.webp"),
+    radial-gradient(60% 90% at 88% 0%, rgba(226, 188, 107, 0.22) 0%, rgba(226, 188, 107, 0) 70%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%, max(100%, 1672px) auto, max(100%, 1672px) auto, 100% 100%;
+  background-position: center, center bottom -480px, center bottom -490px, center;
+  overflow: hidden;
+}
+
+.page-header--plain h1 {
+  color: #fff;
+  font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+  line-height: 1.08;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+
+.page-header--plain h1::before {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin-bottom: 1rem;
+  border-radius: 2px;
+  background: #e2bc6b;
+}
+
+.page-header--plain p {
+  max-width: 60ch;
+  margin-top: 0.85rem;
+  color: #c9d3df;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.page-header--plain .breadcrumb {
+  margin-bottom: 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.page-header--plain .breadcrumb,
+.page-header--plain .breadcrumb li:not(:last-child)::after {
+  color: #9fb0c3;
+}
+
+.page-header--plain .breadcrumb a {
+  color: #e2bc6b;
+  text-decoration: none;
+}
+
+.page-header--plain .breadcrumb a:hover {
+  color: #fff;
+}
+
+.information-page .page-header--plain h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+html[data-theme='dark'] .page-header--plain {
+  background-color: #0d1626;
+}
+
+/* ---- Section headings: the same gold rule as the homepage ---- */
+.section-head::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin: 0 auto 1rem;
+  border-radius: 2px;
+  background: var(--gold);
+}
+
+/* ---- Fade-up for blocks further down inner pages (kinomulok.js tags them) ---- */
+html.hm-reveal-ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html.hm-reveal-ready [data-reveal].is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 640px) {
+  .page-header--plain {
+    min-height: 0;
+    padding: calc(var(--nav-height-condensed, 64px) + 3rem) 0 3.5rem;
+    background-size: 100% 100%, 900px auto, 900px auto, 100% 100%;
+    background-position: center, center bottom -239px, center bottom -243px, center;
+  }
+
+  .page-header--plain .breadcrumb {
+    font-size: 0.72rem;
+  }
+}

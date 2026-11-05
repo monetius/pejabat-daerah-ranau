@@ -18,7 +18,7 @@
           <li>Perkhidmatan Online</li>
           <li>Permohonan Lesen Berniaga</li>
         </ul>
-        <h1>Permohonan Lesen Berniaga - update ui</h1>
+        <h1>Permohonan Lesen Berniaga</h1>
       </div>
     </div>
     <section class="lb-intro">

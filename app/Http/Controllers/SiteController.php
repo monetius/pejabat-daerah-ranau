@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Announcement;
 use App\Models\Page;
+use App\Support\HomePage;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -17,6 +18,10 @@ class SiteController extends Controller
         // Drafts are only visible to logged-in admins (so they can check them).
         if ($page->status !== 'published' && !$request->user()?->is_admin) {
             abort(404);
+        }
+
+        if ($path === '') {
+            HomePage::upgrade($page); // swaps in a new homepage design once, keeping the old one as a revision
         }
 
         return view('site.cms-page', ['page' => $page]);
