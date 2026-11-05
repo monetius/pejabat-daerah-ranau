@@ -5,13 +5,17 @@
 @section('description', 'Senarai halaman dan berita yang diterbitkan di portal Pejabat Daerah Ranau.')
 
 @push('styles')
-  <link rel="stylesheet" href="{{ asset('assets/css/dasar.css') }}?v={{ filemtime(public_path('assets/css/dasar.css')) }}">
+  <link rel="stylesheet"
+    href="{{ asset('assets/css/dasar.css') }}?v={{ filemtime(public_path('assets/css/dasar.css')) }}">
 @endpush
 
 @section('content')
   <div class="page-header page-header--plain">
     <div class="container">
-      <ul class="breadcrumb"><li><a href="/">Laman Utama</a></li><li>Peta Laman</li></ul>
+      <ul class="breadcrumb">
+        <li><a href="/">Laman Utama</a></li>
+        <li>Peta Laman</li>
+      </ul>
       <h1>Peta Laman</h1>
       <p>Cari maklumat dan perkhidmatan mengikut bahagian portal.</p>
     </div>

@@ -24,7 +24,8 @@
     <div class="container">
       <div class="hb-toolbar">
         <div class="hb-filters">
-          <a href="{{ route('announcements.index', array_filter(['q' => $q])) }}" class="{{ $category === '' ? 'on' : '' }}">Semua</a>
+          <a href="{{ route('announcements.index', array_filter(['q' => $q])) }}"
+            class="{{ $category === '' ? 'on' : '' }}">Semua</a>
           @foreach (\App\Models\Announcement::CATEGORIES as $key => $label)
             <a href="{{ route('announcements.index', array_filter(['kategori' => $key, 'q' => $q])) }}"
               class="{{ $category === $key ? 'on' : '' }}">{{ $label }}</a>
@@ -51,7 +52,8 @@
                   @include('partials.news-author', ['item' => $item])
                 </div>
                 <h3>{{ $item->title }}</h3>
-                @if ($item->summary)<p>{{ $item->summary }}</p>@endif
+                @if ($item->summary)
+                <p>{{ $item->summary }}</p>@endif
               </div>
             </a>
           @endforeach
@@ -59,9 +61,11 @@
 
         @if ($items->hasPages())
           <nav class="hb-pager" aria-label="Halaman">
-            @if ($items->onFirstPage())<span class="dis">← Sebelum</span>@else<a href="{{ $items->previousPageUrl() }}">← Sebelum</a>@endif
+            @if ($items->onFirstPage())<span class="dis">← Sebelum</span>@else<a href="{{ $items->previousPageUrl() }}">←
+            Sebelum</a>@endif
             <span>Halaman {{ $items->currentPage() }} / {{ $items->lastPage() }}</span>
-            @if ($items->hasMorePages())<a href="{{ $items->nextPageUrl() }}">Seterusnya →</a>@else<span class="dis">Seterusnya →</span>@endif
+            @if ($items->hasMorePages())<a href="{{ $items->nextPageUrl() }}">Seterusnya →</a>@else<span
+            class="dis">Seterusnya →</span>@endif
           </nav>
         @endif
       @endif

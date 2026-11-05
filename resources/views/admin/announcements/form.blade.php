@@ -17,8 +17,8 @@
 
             <label for="author">{{ __('Penulis / Author (pilihan)') }}</label>
             <input type="text" id="author" name="author" maxlength="150" value="{{ old('author', $item->author) }}"
-                placeholder="{{ __('Nama penulis atau jabatan') }}" @disabled(!$authorEnabled)>
-            <div class="hint">{{ $authorEnabled ? __('Dipaparkan bersama berita di laman web. Kosongkan jika tidak digunakan.') : __('Fungsi penulis belum diaktifkan.') }}</div>
+                placeholder="{{ __('Nama penulis atau jabatan') }}">
+            <div class="hint">{{ __('Dipaparkan bersama berita di laman web. Kosongkan jika tidak digunakan.') }}</div>
             @error('author')
             <div class="err">{{ $message }}</div>@enderror
 

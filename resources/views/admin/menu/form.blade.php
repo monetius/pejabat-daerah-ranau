@@ -9,18 +9,22 @@
 
             <label for="label">{{ __('Nama menu') }}</label>
             <input type="text" id="label" name="label" value="{{ old('label', $item->label) }}" required>
-            @error('label')<div class="err">{{ $message }}</div>@enderror
+            @error('label')
+            <div class="err">{{ $message }}</div>@enderror
 
             <label for="parent_id">{{ __('Letak di bawah') }}</label>
             <select id="parent_id" name="parent_id">
                 <option value="">{{ __('- Menu utama (paras atas) -') }}</option>
                 @foreach ($parents as $p)
                     <option value="{{ $p->id }}" @selected((string) old('parent_id', $item->parent_id) === (string) $p->id)>
-                        {{ $p->label }}</option>
+                        {{ $p->label }}
+                    </option>
                 @endforeach
             </select>
-            <div class="hint">{{ __('Pilih menu utama untuk menjadikan ini sub-menu dalam dropdown. Hanya dua paras dibenarkan.') }}</div>
-            @error('parent_id')<div class="err">{{ $message }}</div>@enderror
+            <div class="hint">
+                {{ __('Pilih menu utama untuk menjadikan ini sub-menu dalam dropdown. Hanya dua paras dibenarkan.') }}</div>
+            @error('parent_id')
+            <div class="err">{{ $message }}</div>@enderror
 
             <label for="page_id">{{ __('Pautan ke halaman CMS') }}</label>
             <select id="page_id" name="page_id">
@@ -29,22 +33,28 @@
                     <optgroup label="{{ $section }}">
                         @foreach ($list as $pg)
                             <option value="{{ $pg->id }}" @selected((string) old('page_id', $item->page_id) === (string) $pg->id)>
-                                {{ $pg->title }} (/{{ $pg->path }}){{ $pg->status !== 'published' ? __(' - draf') : '' }}</option>
+                                {{ $pg->title }} (/{{ $pg->path }}){{ $pg->status !== 'published' ? __(' - draf') : '' }}
+                            </option>
                         @endforeach
                     </optgroup>
                 @endforeach
             </select>
-            @error('page_id')<div class="err">{{ $message }}</div>@enderror
+            @error('page_id')
+            <div class="err">{{ $message }}</div>@enderror
 
             <label for="url">{{ __('atau URL tersuai') }}</label>
             <input type="text" id="url" name="url" value="{{ old('url', $item->url) }}"
                 placeholder="{{ __('https://contoh.gov.my atau /laluan-lain') }}">
             <div class="hint">{{ __('Jika halaman dipilih, URL diabaikan.') }}
-                @if ($hasChildren) {{ __('Menu ini ada sub-menu, jadi ia hanya menjadi butang dropdown dan pautannya tidak digunakan.') }}@endif
-                {{ __('Menu utama tanpa pautan dan tanpa sub-menu tidak dipaparkan.') }}</div>
-            @error('url')<div class="err">{{ $message }}</div>@enderror
+                @if ($hasChildren)
+                {{ __('Menu ini ada sub-menu, jadi ia hanya menjadi butang dropdown dan pautannya tidak digunakan.') }}@endif
+                {{ __('Menu utama tanpa pautan dan tanpa sub-menu tidak dipaparkan.') }}
+            </div>
+            @error('url')
+            <div class="err">{{ $message }}</div>@enderror
 
-            <label><input type="checkbox" name="new_tab" value="1" @checked(old('new_tab', $item->new_tab))> {{ __('Buka dalam tab baharu') }}</label>
+            <label><input type="checkbox" name="new_tab" value="1" @checked(old('new_tab', $item->new_tab))>
+                {{ __('Buka dalam tab baharu') }}</label>
             <label><input type="checkbox" name="is_visible" value="1" @checked(old('is_visible', $item->is_visible ?? true))>
                 {{ __('Paparkan di navbar') }}</label>
 

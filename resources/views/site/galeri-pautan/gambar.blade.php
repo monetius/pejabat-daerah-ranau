@@ -9,132 +9,672 @@
 @endpush
 
 @section('content')
-@verbatim
+  @verbatim
 
-      <div class="page-header page-header--plain">
-        <div class="container">
-          <ul class="breadcrumb">
-            <li><a href="/">Laman Utama</a></li>
-            <li>Galeri</li>
-            <li>Gambar</li>
-          </ul>
-          <h1>Gambar</h1>
+    <div class="page-header page-header--plain">
+      <div class="container">
+        <ul class="breadcrumb">
+          <li><a href="/">Laman Utama</a></li>
+          <li>Galeri</li>
+          <li>Gambar</li>
+        </ul>
+        <h1>Gambar</h1>
+      </div>
+    </div>
+    <section>
+      <div class="container">
+        <p class="gl-intro">
+          Koleksi aktiviti dan program Pejabat Daerah Ranau (38 album, 279 gambar).
+          Klik gambar untuk melihat koleksi penuh setiap album.
+        </p>
+        <div class="gl-filter" role="group" aria-label="Tapis mengikut tahun"><button class="gl-btn is-on"
+            data-f="all">Semua</button><button class="gl-btn" data-f="2024">2024 <span>2</span></button><button
+            class="gl-btn" data-f="2023">2023 <span>25</span></button><button class="gl-btn" data-f="2022">2022
+            <span>11</span></button></div>
+        <div class="gl-grid">
+          <article class="gl-card has-photos" data-year="2024"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2024-02-08-town-hall-pelan-2040/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;]"
+              data-n="8"
+              data-title="Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan Strategik Daerah Ranau 2040"
+              aria-label="Buka 8 gambar: Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan Strategik Daerah Ranau 2040"><img
+                src="/assets/img/galeri/2024-02-08-town-hall-pelan-2040/01.jpg"
+                alt="Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan Strategik Daerah Ranau 2040"
+                loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 8
+                foto</span></button><time datetime="2024-02-08"><b>8</b>Feb 2024</time>
+            <h3>Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan Strategik Daerah Ranau 2040
+            </h3>
+            <p class="gl-desc is-clamped">Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan
+              Strategik Daerah Ranau 2040 anjuran bersama Pejabat Daerah Ranau dan Institute for Development Studies (IDS).
+              Sesi tersebut dihadiri oleh Datuk Dr. Ramzah Dambul Ketua Pegawai Eksekutif IDS, Tuan Tinus Bin Manggam
+              Pegawai Daerah Ranau, Ketua Polis Daerah, panel daripada Majlis Daerah, Jabatan Kerja Raya, Jabatan Air, Sabah
+              Electricity Sdn Bhd (SESB) ketua-ketua jabatan Daerah Ranau, pemimpin-pemimpin masyarakat serta pelbagai
+              agensi yang terlibat.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2024"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2024-01-30-kilang-cendawan-mesilau/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;]"
+              data-n="11"
+              data-title="Majlis Perasmian Kilang Cendawan Mesilau, Stesen Minyak dan Pusat Pengumpulan hasil tani di Kundasang Ranau"
+              aria-label="Buka 11 gambar: Majlis Perasmian Kilang Cendawan Mesilau, Stesen Minyak dan Pusat Pengumpulan hasil tani di Kundasang Ranau"><img
+                src="/assets/img/galeri/2024-01-30-kilang-cendawan-mesilau/01.jpg"
+                alt="Majlis Perasmian Kilang Cendawan Mesilau, Stesen Minyak dan Pusat Pengumpulan hasil tani di Kundasang Ranau"
+                loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 11
+                foto</span></button><time datetime="2024-01-30"><b>30</b>Jan 2024</time>
+            <h3>Majlis Perasmian Kilang Cendawan Mesilau, Stesen Minyak dan Pusat Pengumpulan hasil tani di Kundasang Ranau
+            </h3>
+            <p class="gl-desc">Dirasmikan oleh YB Datuk Seri Panglima Dr. Jeffery Gapari Kitingan, Menteri Pertanian,
+              Perikanan dan Industri Makanan Sabah.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-08-05-str-ranau/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;]"
+              data-n="6" data-title="Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau"
+              aria-label="Buka 6 gambar: Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau"><img
+                src="/assets/img/galeri/2023-08-05-str-ranau/01.jpg"
+                alt="Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 6 foto</span></button><time
+              datetime="2023-08-05"><b>5</b>Ogos 2023</time>
+            <h3>Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau Tahun 2023 bagi Kawasan
+              Pedalaman Sabah di Dewan SK Pinawantai Ranau. Antara jabatan/agensi yang terlibat menjayakan majlis tersebut
+              ialah Perbendaharaan Malaysia Sabah (PMS), Bank Simpanan Nasional (BSN), Lembaga Hasil Dalam Negeri (LHDN),
+              Pejabat Daerah Ranau, PDRM dan Rela. Dalam penyerahan tersebut, seramai 35 orang penerima atau RM22,000 jumlah
+              bantuan telah disalurkan.</p><button class="gl-more" type="button" aria-expanded="false">Baca
+              selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-08-01-maal-hijrah/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;]"
+              data-n="6" data-title="Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau"
+              aria-label="Buka 6 gambar: Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau"><img
+                src="/assets/img/galeri/2023-08-01-maal-hijrah/01.jpg"
+                alt="Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 6 foto</span></button><time
+              datetime="2023-08-01"><b>1</b>Ogos 2023</time>
+            <h3>Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau</h3>
+            <p class="gl-desc">Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau Bil.2 yang dipengerusikan
+              oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani bersama ketua-ketua jabatan serta agensi yang terlibat.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-07-27-mesyuarat-pilihanraya/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;]"
+              data-n="5" data-title="Mesyuarat pilihanraya" aria-label="Buka 5 gambar: Mesyuarat pilihanraya"><img
+                src="/assets/img/galeri/2023-07-27-mesyuarat-pilihanraya/01.jpg" alt="Mesyuarat pilihanraya" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 5 foto</span></button><time
+              datetime="2023-07-27"><b>27</b>Jul 2023</time>
+            <h3>Mesyuarat pilihanraya</h3>
+            <p class="gl-desc">Mesyuarat pilihanraya bersama Ketua Tempat Mengundi (KTM) Dun N.36 Kundasang.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-07-17-cari-gali-mineral/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;]"
+              data-n="5" data-title="Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau"
+              aria-label="Buka 5 gambar: Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau"><img
+                src="/assets/img/galeri/2023-07-17-cari-gali-mineral/01.jpg"
+                alt="Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 5 foto</span></button><time
+              datetime="2023-07-17"><b>17</b>Jul 2023</time>
+            <h3>Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau yang
+              dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani bersama ketua-ketua jabatan, pemimpin kampung
+              serta pihak syarikat yang terlibat.</p><button class="gl-more" type="button" aria-expanded="false">Baca
+              selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-07-15-lawatan-pegawai-pegawai-daerah-negeri-sabah-jkm-ke-kundasang-aqua/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]"
+              data-n="7" data-title="Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Kundasang Aquafarm"
+              aria-label="Buka 7 gambar: Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Kundasang Aquafarm"><img
+                src="/assets/img/galeri/2023-07-15-lawatan-pegawai-pegawai-daerah-negeri-sabah-jkm-ke-kundasang-aqua/01.jpg"
+                alt="Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Kundasang Aquafarm" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 7 foto</span></button><time
+              datetime="2023-07-15"><b>15</b>Jul 2023</time>
+            <h3>Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Kundasang Aquafarm</h3>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-07-15-lawatan-pegawai-pegawai-daerah-negeri-sabah-jkm-ke-desa-dairy-far/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]"
+              data-n="7" data-title="Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Desa Dairy Farm"
+              aria-label="Buka 7 gambar: Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Desa Dairy Farm"><img
+                src="/assets/img/galeri/2023-07-15-lawatan-pegawai-pegawai-daerah-negeri-sabah-jkm-ke-desa-dairy-far/01.jpg"
+                alt="Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Desa Dairy Farm" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 7 foto</span></button><time
+              datetime="2023-07-15"><b>15</b>Jul 2023</time>
+            <h3>Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Desa Dairy Farm</h3>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-07-13-sacha-inci/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;]"
+              data-n="8" data-title="Kursus Penanaman Sacha Inci"
+              aria-label="Buka 8 gambar: Kursus Penanaman Sacha Inci"><img
+                src="/assets/img/galeri/2023-07-13-sacha-inci/01.jpg" alt="Kursus Penanaman Sacha Inci" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 8 foto</span></button><time
+              datetime="2023-07-13"><b>13</b>Jul 2023</time>
+            <h3>Kursus Penanaman Sacha Inci</h3>
+            <p class="gl-desc is-clamped">Kursus Penanaman Sacha Inci anjuran bersama Kementerian Pembangunan Luar Bandar
+              Sabah dan Pejabat Daerah Ranau yang diadakan pada 11-13 Julai 2023 bertempat di Pusat Kemahiran Masyarakat
+              Ranau. Program tersebut telah dirasmikan oleh Cik Farihah Mohd Jamian Penolong Pegawai Daerah (Pembangunan)
+              mewakili Pegawai Daerah Ranau Tuan Jumain Abdul Ghani. Seramai 27 orang peserta telah menyertai kursus
+              tersebut.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-07-13-bola-sepak/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;, &quot;15.jpg&quot;, &quot;16.jpg&quot;, &quot;17.jpg&quot;, &quot;18.jpg&quot;, &quot;19.jpg&quot;, &quot;20.jpg&quot;]"
+              data-n="20" data-title="Perlawanan bola sepak persahabatan"
+              aria-label="Buka 20 gambar: Perlawanan bola sepak persahabatan"><img
+                src="/assets/img/galeri/2023-07-13-bola-sepak/01.jpg" alt="Perlawanan bola sepak persahabatan"
+                loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 20
+                foto</span></button><time datetime="2023-07-13"><b>13</b>Jul 2023</time>
+            <h3>Perlawanan bola sepak persahabatan</h3>
+            <p class="gl-desc is-clamped">Perlawanan bola sepak persahabatan diantara Jabatan Ketua Menteri (hitam) dan
+              Pegawai-Pegawai Daerah Negeri Sabah (biru) di Padang B Kompleks Sukan Ranau yang berkesudahan seri 5-5. Sesi
+              pertukaran cenderahati diantara Tuan Jumain Abdul Ghani Pegawai Daerah Ranau mewakili Pegawai-Pegawai Daerah
+              Negeri Sabah dan Tn. Hj. Mohd. Fauzi bin Norbeh Ketua Penolong Setiausaha mewakili Jabatan Ketua Menteri.</p>
+            <button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-07-10-tadahan-air-mesilou/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;]"
+              data-n="6" data-title="Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou"
+              aria-label="Buka 6 gambar: Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou"><img
+                src="/assets/img/galeri/2023-07-10-tadahan-air-mesilou/01.jpg"
+                alt="Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 6 foto</span></button><time
+              datetime="2023-07-10"><b>10</b>Jul 2023</time>
+            <h3>Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou</h3>
+            <p class="gl-desc is-clamped">Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou yang dipengerusikan Tuan Jumain
+              Abdul Ghani Pegawai Daerah Ranau bersama ketua-ketua jabatan Daerah Ranau yang terlibat serta pemimpin Kg.
+              Mesilou. Mesyuarat memutuskan tanah Jabatan Air di kawasan tersebut akan diserahkan kepada kerajaan bagi
+              tujuan pewartaan serta penguatkuasaan undang-undang. Lawatan dilakukan ke kawasan terlibat bagi pengesahan
+              lokasi serta penguatkuasaan.</p><button class="gl-more" type="button" aria-expanded="false">Baca
+              selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-06-23-jtpd/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;, &quot;15.jpg&quot;, &quot;16.jpg&quot;, &quot;17.jpg&quot;, &quot;18.jpg&quot;, &quot;19.jpg&quot;, &quot;20.jpg&quot;, &quot;21.jpg&quot;]"
+              data-n="21" data-title="Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau"
+              aria-label="Buka 21 gambar: Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau"><img
+                src="/assets/img/galeri/2023-06-23-jtpd/01.jpg"
+                alt="Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 21 foto</span></button><time
+              datetime="2023-06-23"><b>23</b>Jun 2023</time>
+            <h3>Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau (JTPD) yang
+              dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani. Mesyuarat turut dihadiri oleh YB Datuk
+              Abidin Madingkir Pembantu Menteri Kepada Ketua Menteri merangkap ADUN N.38 Paginatan, YB Datuk Jonathan Yassin
+              Ahli Parlimen P.179 Ranau serta Ketua-Ketua Jabatan Persekutuan dan Negeri Daerah Ranau.</p><button
+              class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-06-23-focus-group/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;]" data-n="4"
+              data-title="Mesyuarat Focus Group Daerah Ranau"
+              aria-label="Buka 4 gambar: Mesyuarat Focus Group Daerah Ranau"><img
+                src="/assets/img/galeri/2023-06-23-focus-group/01.jpg" alt="Mesyuarat Focus Group Daerah Ranau"
+                loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 4
+                foto</span></button><time datetime="2023-06-23"><b>23</b>Jun 2023</time>
+            <h3>Mesyuarat Focus Group Daerah Ranau</h3>
+            <p class="gl-desc">Mesyuarat Focus Group Daerah Ranau yang dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain
+              Abdul Ghani bersama Ketua-Ketua Jabatan Persekutuan dan Negeri Daerah Ranau.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-06-21-saga/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3"
+              data-title="Mesyuarat Persediaan Sukan Sabah (SAGA)"
+              aria-label="Buka 3 gambar: Mesyuarat Persediaan Sukan Sabah (SAGA)"><img
+                src="/assets/img/galeri/2023-06-21-saga/01.jpg" alt="Mesyuarat Persediaan Sukan Sabah (SAGA)" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 3 foto</span></button><time
+              datetime="2023-06-21"><b>21</b>Jun 2023</time>
+            <h3>Mesyuarat Persediaan Sukan Sabah (SAGA)</h3>
+            <p class="gl-desc">Mesyuarat Persediaan Sukan Sabah (SAGA) yang dipengerusikan oleh Pegawai Daerah Ranau Tuan
+              Jumain Abdul Ghani bersama Pegawai KBSS dan penaung pasukan kontinjen Daerah Ranau sempena persediaan Sukan
+              Sabah 2023.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-06-19-angkat-sumpah-majlis-daerah/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;, &quot;15.jpg&quot;, &quot;16.jpg&quot;, &quot;17.jpg&quot;, &quot;18.jpg&quot;, &quot;19.jpg&quot;, &quot;20.jpg&quot;]"
+              data-n="20" data-title="Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025"
+              aria-label="Buka 20 gambar: Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025"><img
+                src="/assets/img/galeri/2023-06-19-angkat-sumpah-majlis-daerah/01.jpg"
+                alt="Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 20 foto</span></button><time
+              datetime="2023-06-19"><b>19</b>Jun 2023</time>
+            <h3>Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025</h3>
+            <p class="gl-desc is-clamped">Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025 yang dirasmikan
+              oleh YB Datuk Seri Panglima Dr. Joachim Gunsalam Timbalan Ketua Menteri / Menteri Kerajaan Tempatan Dan
+              Perumahan Sabah (KKTP) merangkap ADUN N.36 Kundasang. Turut hadir YBhg. Tuan Jupirin Hj. Ruhimin mewakili YB
+              Datuk Seri Panglima Hj. Masidi Bin Manjun Menteri Kewangan Sabah merangkap ADUN N.37 Karanaan, YB Datuk Isnin
+              Hj. Aliasnih @ Liasnih Pembantu Menteri I KKTP, YB Datuk Haji Mohd Hamsan Bin Awang Supain, Pembantu Menteri
+              II KKTP, YB Datuk Jonathan Yasin Ahli Parlimen P.179 Ranau, YB Datuk Abidin Madingkir Pembantu Menteri Kepada
+              Ketua Menteri merangkap ADUN N.38 Paginatan, YBhg. Datuk Jamili Nais SUT KKTP, YBhg. Tuan Jumain Abdul Ghani
+              Pegawai Daerah Ranau merangkap Pengerusi Majlis Daerah Ranau, YBrs. Tuan Stanley Chong TSUT I KKTP, YBrs. Puan
+              Faridah Giau TSUT II KKTP, YBrs. Tuan Elmer Endra M. Sator Pegawai Eksekutif Majlis Daerah Ranau serta
+              ketua-ketua Jabatan yang terlibat. Dalam majlis tersebut seramai 17 orang Ahli Majlis Daerah Ranau Sesi
+              2023-2025 telah menerima watikah pelantikan dan mengangkat sumpah seterusnya menandatangani akuan sumpah di
+              hadapan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani.</p><button class="gl-more" type="button"
+              aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-06-07-laporan-awal-pelan-strategik/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]"
+              data-n="7"
+              data-title="Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah Ranau 2023"
+              aria-label="Buka 7 gambar: Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah Ranau 2023"><img
+                src="/assets/img/galeri/2023-06-07-laporan-awal-pelan-strategik/01.jpg"
+                alt="Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah Ranau 2023"
+                loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 7
+                foto</span></button><time datetime="2023-06-07"><b>7</b>Jun 2023</time>
+            <h3>Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah Ranau 2023</h3>
+            <p class="gl-desc is-clamped">Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah
+              Ranau 2023 yang dipengerusikan oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau. Turut hadir YB Datuk Abidin
+              Madingkir Pembantu Menteri Kepada Ketua Menteri merangkap ADUN N.38 Paginatan, Datuk Amisah Yasin Adun
+              Dilantik, Mantan-mantan SUT, CEO IDS, Ketua-Ketua Jabatan serta PPM.</p><button class="gl-more" type="button"
+              aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-05-19-tamu-krt-kundasang/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3"
+              data-title="Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang"
+              aria-label="Buka 3 gambar: Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang"><img
+                src="/assets/img/galeri/2023-05-19-tamu-krt-kundasang/01.jpg"
+                alt="Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 3 foto</span></button><time
+              datetime="2023-05-19"><b>19</b>Mei 2023</time>
+            <h3>Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang</h3>
+            <p class="gl-desc is-clamped">Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang yang dipengerusikan oleh
+              Tuan Jumain Abdul Ghani Pegawai Daerah Ranau bersama-sama dengan Jabatan Pendidikan Negeri Sabah, Kementerian
+              Perpaduan Negara, Pengarah Tanah Persekutuan Sabah, Jabatan Tanah Daerah, Majlis Daerah, IPD Ranau, Kawasan
+              Rukun Tetangga (KRT) dan Jawatankuasa Kemasyarakatan Dalam Bandar (JKDB) bertempat di Kem Wawasan Negara
+              Kundasang.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-05-18-hentian-budaya/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;]"
+              data-n="2" data-title="Mesyuarat yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau"
+              aria-label="Buka 2 gambar: Mesyuarat yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau"><img
+                src="/assets/img/galeri/2023-05-18-hentian-budaya/01.jpg"
+                alt="Mesyuarat yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 2 foto</span></button><time
+              datetime="2023-05-18"><b>18</b>Mei 2023</time>
+            <h3>Mesyuarat yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Mesyuarat yang dipengerusikan oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau
+              bersama dengan Tuan Mackey Apison Pengurus Besar Lembaga Kebudayaan Negeri Sabah dan rombongan, En. Marcelus
+              Joannes Penolong Pegawai Daerah (Pembangunan), En. Mohd Fadzri Penolong Pegawai Tadbir serta wakil daripada
+              Majlis Daerah Ranau. Perkara utama yang dibincangkan adalah pewujudan &quot;Hentian Budaya&quot; di Daerah
+              Ranau.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-05-17-dialog-ids-appgm/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;]"
+              data-n="6" data-title="Sesi Dialog yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau"
+              aria-label="Buka 6 gambar: Sesi Dialog yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau"><img
+                src="/assets/img/galeri/2023-05-17-dialog-ids-appgm/01.jpg"
+                alt="Sesi Dialog yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 6 foto</span></button><time
+              datetime="2023-05-17"><b>17</b>Mei 2023</time>
+            <h3>Sesi Dialog yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Sesi Dialog yang dipengerusikan oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau
+              bersama-sama dengan Institute for Development Sabah (IDS), All-Party Parliamentary Group Malaysia (APPGM-SDG)
+              dan pelbagai jabatan kerajaan yang membincangkan pelbagai isu di dalam Daerah Ranau.</p><button
+              class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-04-05-lembaga-sukan-sabah/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]"
+              data-n="7" data-title="Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah"
+              aria-label="Buka 7 gambar: Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah"><img
+                src="/assets/img/galeri/2023-04-05-lembaga-sukan-sabah/01.jpg"
+                alt="Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 7 foto</span></button><time
+              datetime="2023-04-05"><b>5</b>Apr 2023</time>
+            <h3>Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah</h3>
+            <p class="gl-desc is-clamped">Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah
+              serta agensi terlibat ke Kompleks Sukan Ranau bagi melihat venue pertandingan bagi acara Sukan Memanah sebagai
+              persediaan penganjuran Sukan Sabah (SAGA) Kali Ke-10.</p><button class="gl-more" type="button"
+              aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-04-05-taman-taman-sabah/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3"
+              data-title="Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah"
+              aria-label="Buka 3 gambar: Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah"><img
+                src="/assets/img/galeri/2023-04-05-taman-taman-sabah/01.jpg"
+                alt="Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 3 foto</span></button><time
+              datetime="2023-04-05"><b>5</b>Apr 2023</time>
+            <h3>Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah</h3>
+            <p class="gl-desc is-clamped">Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah Tuan Ludi Apin dan rombongan
+              kepada Pegawai Daerah Ranau Tuan Jumain Abdul Ghani. Antara agenda yang dibincangkan adalah mengenai
+              Jawatankuasa Infrastruktur &amp; Pemerkasaan Komuniti Kinabalu Unesco Global Geopark (JKIPK) yang berperanan
+              membincangkan hal ehwal dan isu-isu berkaitan infrastruktur dan pemerkasaan komuniti di dalam Kinabalu
+              Geopark.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-04-03-km141-sagindai/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;]"
+              data-n="13" data-title="Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani"
+              aria-label="Buka 13 gambar: Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani"><img
+                src="/assets/img/galeri/2023-04-03-km141-sagindai/01.jpg"
+                alt="Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani" loading="lazy" width="720" /><span class="gl-count"><i
+                  class="fa-regular fa-images"></i> 13 foto</span></button><time datetime="2023-04-03"><b>3</b>Apr
+              2023</time>
+            <h3>Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani</h3>
+            <p class="gl-desc is-clamped">Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama dengan Pegawai Jabatan
+              Kerja Raya, Pejabat Tanah dan Majlis Daerah di KM141.01 Jalan Kota Kinabalu - Sandakan (Tamalau Point Kg.
+              Sagindai) untuk melihat keadaan jalan raya yang rosak akibat daripada kegiatan ekonomi di kawasan tersebut.
+            </p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-03-21-program-tabah/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;, &quot;15.jpg&quot;, &quot;16.jpg&quot;, &quot;17.jpg&quot;, &quot;18.jpg&quot;, &quot;19.jpg&quot;, &quot;20.jpg&quot;]"
+              data-n="20" data-title="Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau"
+              aria-label="Buka 20 gambar: Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau"><img
+                src="/assets/img/galeri/2023-03-21-program-tabah/01.jpg"
+                alt="Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 20 foto</span></button><time
+              datetime="2023-03-21"><b>21</b>Mac 2023</time>
+            <h3>Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau anjuran Kementerian
+              Pembangunan Masyarakat &amp; Kesejahteraan Rakyat, Biro Hal Ehwal Wanita Pemadam, Pejabat Daerah Ranau yang
+              dirasmikan oleh Yang Berhormat Datuk James Ratib Menteri Pembangunan Masyarakat dan Kesejahteraan Rakyat
+              merangkap Pengerusi PEMADAM Negeri Sabah. Turut serta Puan Maria David Edick Timbalan Setiausaha Tetap
+              Kementerian Pembangunan Masyarakat dan Kesejahteraan Rakyat, Encik Hasinin Kinsim Penolong Pegawai Daerah
+              Kanan (Pentadbiran) merangkap Setiausaha PEMADAM Daerah Ranau, Puan Hajah Haslina Binti Ismail Pengarah
+              Jabatan Hal Ehwal Wanita Negeri Sabah merangkap Pengerusi Biro Hal Ehwal Wanita PEMADAM Negeri Sabah,
+              Ketua-Ketua Jabatan dan Pemimpin Masyarakat Daerah Ranau. Program TABAH (Tegas Amanah Berani Adil Harmoni)
+              adalah bertujuan untuk mendidik dan memotivasikan masyarakat khususnya ibu bapa supaya membimbing anak-anak
+              mereka menjadi cemerlang dalam pendidikan dan meningkatkan kesedaran masyarakat betapa pentingnya pendidikan
+              dalam keluarga agar dapat mencegah anak-anak daripada terlibat dengan gejala sosial seperti ketagihan dadah.
+            </p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-02-22-kesesakan-jalan-raya/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;]"
+              data-n="5" data-title="Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau"
+              aria-label="Buka 5 gambar: Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau"><img
+                src="/assets/img/galeri/2023-02-22-kesesakan-jalan-raya/01.jpg"
+                alt="Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 5 foto</span></button><time
+              datetime="2023-02-22"><b>22</b>Feb 2023</time>
+            <h3>Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau yang dipengerusikan
+              oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau. Turut serta En. Hasinin Kinsim Penolong Pegawai Daerah
+              Kanan (Pentadbiran) serta Agensi/Jabatan Daerah Ranau yang terlibat.</p><button class="gl-more" type="button"
+              aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-02-06-tanah-runtuh-lembah-permai/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;]"
+              data-n="14" data-title="Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani"
+              aria-label="Buka 14 gambar: Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani"><img
+                src="/assets/img/galeri/2023-02-06-tanah-runtuh-lembah-permai/01.jpg"
+                alt="Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 14 foto</span></button><time
+              datetime="2023-02-06"><b>6</b>Feb 2023</time>
+            <h3>Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani</h3>
+            <p class="gl-desc is-clamped">Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani, Penolong Pegawai Daerah
+              Kanan (Pentadbiran) Encik Hasinin Kinsim, Penolong Jurutera Encik Balzet serta Jabatan/Agensi terlibat ke
+              kawasan yang mengalami tanah runtuh/mendapan tanah di Kg. Lembah Permai, Kundasang Ranau.</p><button
+              class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-02-03-lawatan-ketua-pengarah-perkhidmatan-awam-negeri-sabah-ke-tapak-mr/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;]" data-n="4"
+              data-title="Lawatan Ketua Pengarah Perkhidmatan Awam Negeri Sabah Ke Tapak MRSM Ranau"
+              aria-label="Buka 4 gambar: Lawatan Ketua Pengarah Perkhidmatan Awam Negeri Sabah Ke Tapak MRSM Ranau"><img
+                src="/assets/img/galeri/2023-02-03-lawatan-ketua-pengarah-perkhidmatan-awam-negeri-sabah-ke-tapak-mr/01.jpg"
+                alt="Lawatan Ketua Pengarah Perkhidmatan Awam Negeri Sabah Ke Tapak MRSM Ranau" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 4 foto</span></button><time
+              datetime="2023-02-03"><b>3</b>Feb 2023</time>
+            <h3>Lawatan Ketua Pengarah Perkhidmatan Awam Negeri Sabah Ke Tapak MRSM Ranau</h3>
+            <p class="gl-desc is-clamped">Lawatan Ybhg Datuk Datu Rosmadi Sulai, Ketua Pengarah Jabatan Perkhidmatan Awam
+              Negeri Sabah bersama Pegawai Daerah Ranau, Tuan Jumain Abdul Ghani dan agensi terlibat serta delegasi Petronas
+              untuk melawat tapak bangunan Maktab Rendah Sains Mara (MRSM) Ranau. Tapak bangunan berkeluasan 30 ekar
+              bersebelahan Kompleks Sukan Ranau. Bangunan ini sudah mencapai 95% penyiapan secara keseluruhan dan dijangka
+              akan diserahkan kepada pihak kerajaan sekitar bulan September ini.</p><button class="gl-more" type="button"
+              aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2023-02-01-lawatan-datuk-hajah-diyanah-abdullah-timbalan-setiausaha-kerajaan/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;]"
+              data-n="5"
+              data-title="Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri (Pentadbiran) dan rombongannya ke Daerah Ranau"
+              aria-label="Buka 5 gambar: Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri (Pentadbiran) dan rombongannya ke Daerah Ranau"><img
+                src="/assets/img/galeri/2023-02-01-lawatan-datuk-hajah-diyanah-abdullah-timbalan-setiausaha-kerajaan/01.jpg"
+                alt="Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri (Pentadbiran) dan rombongannya ke Daerah Ranau"
+                loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 5
+                foto</span></button><time datetime="2023-02-01"><b>1</b>Feb 2023</time>
+            <h3>Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri (Pentadbiran) dan rombongannya ke
+              Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri
+              (Pentadbiran) dan rombongannya ke Daerah Ranau. Lawatan tersebut disambut oleh Pegawai Daerah Ranau Tuan
+              Jumain Abdul Ghani, Encik Hasinin Kinsim Penolong Pegawai Daerah Kanan (Pentadbiran), Puan Farihah Mohd Jamian
+              Penolong Pegawai Daerah (Pembangunan), Encik Jupirin Ruhimin Pegawai Eksekutif Majlis Daerah serta kakitangan
+              Pejabat Daerah Ranau. Antara perkara yang dibincangkan adalah mengenai lawatan Duli Yang Maha Mulia Seri
+              Paduka Baginda Yang di-Pertuan Agong ke Daerah Ranau pada September nanti.</p><button class="gl-more"
+              type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-12-09-penyerahan-tugas-kepada-encik-marcelus-joannes/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3"
+              data-title="Penyerahan tugas kepada Encik Marcelus Joannes"
+              aria-label="Buka 3 gambar: Penyerahan tugas kepada Encik Marcelus Joannes"><img
+                src="/assets/img/galeri/2022-12-09-penyerahan-tugas-kepada-encik-marcelus-joannes/01.jpg"
+                alt="Penyerahan tugas kepada Encik Marcelus Joannes" loading="lazy" width="720" /><span class="gl-count"><i
+                  class="fa-regular fa-images"></i> 3 foto</span></button><time datetime="2022-12-09"><b>9</b>Dis
+              2022</time>
+            <h3>Penyerahan tugas kepada Encik Marcelus Joannes</h3>
+            <p class="gl-desc is-clamped">Penyerahan tugas kepada Encik Marcelus Joannes, Penolong Pegawai Daerah
+              (Pembangunan) yang baharu menggantikan Encik Hasinin Kinsim yang dinaikkan pangkat sebagai Penolong Pegawai
+              Daerah (Pentadbiran) Pejabat Daerah Ranau. Acara tersebut disaksikan oleh Pegawai Daerah Ranau, Tuan Jumain
+              Abdul Ghani.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-08-07-taklimat-pilihan-raya-umum-ke-15/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]"
+              data-n="7" data-title="Taklimat Pilihan Raya Umum Ke-15"
+              aria-label="Buka 7 gambar: Taklimat Pilihan Raya Umum Ke-15"><img
+                src="/assets/img/galeri/2022-08-07-taklimat-pilihan-raya-umum-ke-15/01.jpg"
+                alt="Taklimat Pilihan Raya Umum Ke-15" loading="lazy" width="720" /><span class="gl-count"><i
+                  class="fa-regular fa-images"></i> 7 foto</span></button><time datetime="2022-08-07"><b>7</b>Ogos
+              2022</time>
+            <h3>Taklimat Pilihan Raya Umum Ke-15</h3>
+            <p class="gl-desc is-clamped">Taklimat Pilihan Raya Umum Ke-15 yang disampaikan oleh Pegawai SPR Tuan Zamri bin
+              Mohd Jalil bagi petugas Ketua Tempat Mengundi (KTM) dan Kerani Pengundian 1 (KP1) Dun N.36 Kundasang, N.37
+              Karanaan dan N.38 Paginatan. Turut hadir Pegawai Daerah Ranau Tuan Jumain Abdul Ghani selaku Pegawai Pengurus
+              (RO) dalam taklimat tersebut.</p><button class="gl-more" type="button" aria-expanded="false">Baca
+              selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-08-04-mesyuarat-jawatankuasa-sambutan-maal-hijrah/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;]" data-n="4"
+              data-title="Mesyuarat Jawatankuasa Sambutan Maal Hijrah"
+              aria-label="Buka 4 gambar: Mesyuarat Jawatankuasa Sambutan Maal Hijrah"><img
+                src="/assets/img/galeri/2022-08-04-mesyuarat-jawatankuasa-sambutan-maal-hijrah/01.jpg"
+                alt="Mesyuarat Jawatankuasa Sambutan Maal Hijrah" loading="lazy" width="720" /><span class="gl-count"><i
+                  class="fa-regular fa-images"></i> 4 foto</span></button><time datetime="2022-08-04"><b>4</b>Ogos
+              2022</time>
+            <h3>Mesyuarat Jawatankuasa Sambutan Maal Hijrah</h3>
+            <p class="gl-desc">Mesyuarat Jawatankuasa Sambutan Maal Hijrah Peringkat Daerah Ranau Bil.1/2022.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-08-04-mesyuarat-pelancaran-kempen-pengibaran-jalur-gemilang/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3"
+              data-title="Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang"
+              aria-label="Buka 3 gambar: Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang"><img
+                src="/assets/img/galeri/2022-08-04-mesyuarat-pelancaran-kempen-pengibaran-jalur-gemilang/01.jpg"
+                alt="Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 3 foto</span></button><time
+              datetime="2022-08-04"><b>4</b>Ogos 2022</time>
+            <h3>Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang</h3>
+            <p class="gl-desc is-clamped">Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang serentak seluruh Daerah
+              Ranau dan Kempen Kebersihan/Anti Kutu Sampah yang akan diadakan pada 7hb Ogos 2022 bertempat di Pentas terbuka
+              Kundasang. Pelancaran tersebut akan disempurnakan oleh YB Datuk Seri Panglima Haji Masidi Manjun, Menteri
+              Kerajaan Tempatan dan Perumahan Sabah, Menteri Kewangan II merangkap ADUN N.37 Karanaan. Orang ramai dijemput
+              hadir pada pelancaran tersebut.</p><button class="gl-more" type="button" aria-expanded="false">Baca
+              selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-08-03-mesyuarat-jawatankuasa-sambutan-bulan-kemerdekaan/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;]" data-n="4"
+              data-title="Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan"
+              aria-label="Buka 4 gambar: Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan"><img
+                src="/assets/img/galeri/2022-08-03-mesyuarat-jawatankuasa-sambutan-bulan-kemerdekaan/01.jpg"
+                alt="Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 4 foto</span></button><time
+              datetime="2022-08-03"><b>3</b>Ogos 2022</time>
+            <h3>Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan</h3>
+            <p class="gl-desc">Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan Peringkat Daerah Ranau Bil.1/2022 yang
+              dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-08-02-mesyuarat-kakitangan/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;]"
+              data-n="8" data-title="Mesyuarat Kakitangan" aria-label="Buka 8 gambar: Mesyuarat Kakitangan"><img
+                src="/assets/img/galeri/2022-08-02-mesyuarat-kakitangan/01.jpg" alt="Mesyuarat Kakitangan" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 8 foto</span></button><time
+              datetime="2022-08-02"><b>2</b>Ogos 2022</time>
+            <h3>Mesyuarat Kakitangan</h3>
+            <p class="gl-desc">Mesyuarat Kakitangan Pejabat Daerah Ranau Bil.2/2022.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-07-29-simbolik-mengibarkan-jalur-gemilang/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;]"
+              data-n="10" data-title="Simbolik mengibarkan Jalur Gemilang"
+              aria-label="Buka 10 gambar: Simbolik mengibarkan Jalur Gemilang"><img
+                src="/assets/img/galeri/2022-07-29-simbolik-mengibarkan-jalur-gemilang/01.jpg"
+                alt="Simbolik mengibarkan Jalur Gemilang" loading="lazy" width="720" /><span class="gl-count"><i
+                  class="fa-regular fa-images"></i> 10 foto</span></button><time datetime="2022-07-29"><b>29</b>Jul
+              2022</time>
+            <h3>Simbolik mengibarkan Jalur Gemilang</h3>
+            <p class="gl-desc">Simbolik mengibarkan Jalur Gemilang sempena Hari Kebangsaan Tahun 2022 yang diketuai oleh
+              Pegawai Daerah Ranau bersama Kakitangan Urus setia dan Pejabat Daerah.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-07-22-smart-meeting-room-pejabat-daerah-ranau/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;]"
+              data-n="10" data-title="Smart Meeting Room Pejabat Daerah Ranau"
+              aria-label="Buka 10 gambar: Smart Meeting Room Pejabat Daerah Ranau"><img
+                src="/assets/img/galeri/2022-07-22-smart-meeting-room-pejabat-daerah-ranau/01.jpg"
+                alt="Smart Meeting Room Pejabat Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i
+                  class="fa-regular fa-images"></i> 10 foto</span></button><time datetime="2022-07-22"><b>22</b>Jul
+              2022</time>
+            <h3>Smart Meeting Room Pejabat Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Smart Meeting Room Pejabat Daerah Ranau. Lawatan rasmi Shire of Murray - Western
+              Australia bersama JPAN dan KPLB ke Pejabat Daerah Ranau, Kampung Kilimu, Sabah Tea, Kg. Luanti, Ranau dan
+              Taman Negara, Taman Sabah Kundasang diketuai oleh Penolong Pegawai Daerah (Pentadbiran), Puan Florencia
+              Padasian.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-07-18-mesyuarat-focus-group/"
+              data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;]" data-n="2" data-title="Mesyuarat Focus Group"
+              aria-label="Buka 2 gambar: Mesyuarat Focus Group"><img
+                src="/assets/img/galeri/2022-07-18-mesyuarat-focus-group/01.jpg" alt="Mesyuarat Focus Group" loading="lazy"
+                width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 2 foto</span></button><time
+              datetime="2022-07-18"><b>18</b>Jul 2022</time>
+            <h3>Mesyuarat Focus Group</h3>
+            <p class="gl-desc">Mesyuarat Focus Group bertempat di Bilik Mesyuarat Majlis Daerah Ranau.</p>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-07-13-mesyuarat-penyelarasan-pilihanraya-peringkat-daerah-ranau/"
+              data-files="[&quot;01.jpg&quot;]" data-n="1"
+              data-title="Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau"
+              aria-label="Buka 1 gambar: Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau"><img
+                src="/assets/img/galeri/2022-07-13-mesyuarat-penyelarasan-pilihanraya-peringkat-daerah-ranau/01.jpg"
+                alt="Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau" loading="lazy" width="720" /><span
+                class="gl-count"><i class="fa-regular fa-images"></i> 1 foto</span></button><time
+              datetime="2022-07-13"><b>13</b>Jul 2022</time>
+            <h3>Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau</h3>
+            <p class="gl-desc is-clamped">Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau yang dipengerusikan oleh
+              Pegawai Daerah Ranau Tuan Jumain Abdul Ghani. Mesyuarat dihadiri oleh semua ARO dan Pembantu Pilihanraya
+              kawasan DUN N.36 Kundasang, N.37 Karanaan dan N.38 Paginatan.</p><button class="gl-more" type="button"
+              aria-expanded="false">Baca selanjutnya</button>
+          </article>
+          <article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button"
+              data-dir="/assets/img/galeri/2022-07-13-mesyuarat-bersama-wakil-wakil-bank-maybank-cimb-bank-agro-bank-al/"
+              data-files="[&quot;01.jpg&quot;]" data-n="1"
+              data-title="Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank dan BSN) di daerah Ranau"
+              aria-label="Buka 1 gambar: Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank dan BSN) di daerah Ranau"><img
+                src="/assets/img/galeri/2022-07-13-mesyuarat-bersama-wakil-wakil-bank-maybank-cimb-bank-agro-bank-al/01.jpg"
+                alt="Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank dan BSN) di daerah Ranau"
+                loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 1
+                foto</span></button><time datetime="2022-07-13"><b>13</b>Jul 2022</time>
+            <h3>Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank dan BSN) di daerah Ranau
+            </h3>
+            <p class="gl-desc is-clamped">Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank
+              dan BSN) di daerah Ranau bagi membincangkan sistem E-Lesen yang telah dilancarkan pada 22 Jun 2022 yang
+              merupakan perintis kepada sistem E-Lesen di negeri Sabah. Dengan sistem E-Lesen ini maka salinan ketiga lesen
+              berniaga tidak diperlukan lagi bagi pembukaan akaun bank syarikat.</p><button class="gl-more" type="button"
+              aria-expanded="false">Baca selanjutnya</button>
+          </article>
         </div>
       </div>
-      <section>
-        <div class="container">
-          <p class="gl-intro">
-            Koleksi aktiviti dan program Pejabat Daerah Ranau (38 album, 279 gambar).
-            Klik gambar untuk melihat koleksi penuh setiap album.
-          </p>
-          <div class="gl-filter" role="group" aria-label="Tapis mengikut tahun"><button class="gl-btn is-on" data-f="all">Semua</button><button class="gl-btn" data-f="2024">2024 <span>2</span></button><button class="gl-btn" data-f="2023">2023 <span>25</span></button><button class="gl-btn" data-f="2022">2022 <span>11</span></button></div>
-          <div class="gl-grid">
-            <article class="gl-card has-photos" data-year="2024"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2024-02-08-town-hall-pelan-2040/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;]" data-n="8" data-title="Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan Strategik Daerah Ranau 2040" aria-label="Buka 8 gambar: Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan Strategik Daerah Ranau 2040"><img src="/assets/img/galeri/2024-02-08-town-hall-pelan-2040/01.jpg" alt="Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan Strategik Daerah Ranau 2040" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 8 foto</span></button><time datetime="2024-02-08"><b>8</b>Feb 2024</time><h3>Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan Strategik Daerah Ranau 2040</h3><p class="gl-desc is-clamped">Sesi Pembentangan dan Town Hall mengenai draf Laporan Akhir Pelan Pembangunan Strategik Daerah Ranau 2040 anjuran bersama Pejabat Daerah Ranau dan Institute for Development Studies (IDS). Sesi tersebut dihadiri oleh Datuk Dr. Ramzah Dambul Ketua Pegawai Eksekutif IDS, Tuan Tinus Bin Manggam Pegawai Daerah Ranau, Ketua Polis Daerah, panel daripada Majlis Daerah, Jabatan Kerja Raya, Jabatan Air, Sabah Electricity Sdn Bhd (SESB) ketua-ketua jabatan Daerah Ranau, pemimpin-pemimpin masyarakat serta pelbagai agensi yang terlibat.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2024"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2024-01-30-kilang-cendawan-mesilau/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;]" data-n="11" data-title="Majlis Perasmian Kilang Cendawan Mesilau, Stesen Minyak dan Pusat Pengumpulan hasil tani di Kundasang Ranau" aria-label="Buka 11 gambar: Majlis Perasmian Kilang Cendawan Mesilau, Stesen Minyak dan Pusat Pengumpulan hasil tani di Kundasang Ranau"><img src="/assets/img/galeri/2024-01-30-kilang-cendawan-mesilau/01.jpg" alt="Majlis Perasmian Kilang Cendawan Mesilau, Stesen Minyak dan Pusat Pengumpulan hasil tani di Kundasang Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 11 foto</span></button><time datetime="2024-01-30"><b>30</b>Jan 2024</time><h3>Majlis Perasmian Kilang Cendawan Mesilau, Stesen Minyak dan Pusat Pengumpulan hasil tani di Kundasang Ranau</h3><p class="gl-desc">Dirasmikan oleh YB Datuk Seri Panglima Dr. Jeffery Gapari Kitingan, Menteri Pertanian, Perikanan dan Industri Makanan Sabah.</p></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-08-05-str-ranau/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;]" data-n="6" data-title="Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau" aria-label="Buka 6 gambar: Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau"><img src="/assets/img/galeri/2023-08-05-str-ranau/01.jpg" alt="Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 6 foto</span></button><time datetime="2023-08-05"><b>5</b>Ogos 2023</time><h3>Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau</h3><p class="gl-desc is-clamped">Pembayaran tunai Sumbangan Tunai Rahmah (STR) Daerah Ranau Tahun 2023 bagi Kawasan Pedalaman Sabah di Dewan SK Pinawantai Ranau. Antara jabatan/agensi yang terlibat menjayakan majlis tersebut ialah Perbendaharaan Malaysia Sabah (PMS), Bank Simpanan Nasional (BSN), Lembaga Hasil Dalam Negeri (LHDN), Pejabat Daerah Ranau, PDRM dan Rela. Dalam penyerahan tersebut, seramai 35 orang penerima atau RM22,000 jumlah bantuan telah disalurkan.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-08-01-maal-hijrah/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;]" data-n="6" data-title="Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau" aria-label="Buka 6 gambar: Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau"><img src="/assets/img/galeri/2023-08-01-maal-hijrah/01.jpg" alt="Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 6 foto</span></button><time datetime="2023-08-01"><b>1</b>Ogos 2023</time><h3>Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau</h3><p class="gl-desc">Mesyuarat Persediaan Sambutan Maal Hijrah Peringkat Daerah Ranau Bil.2 yang dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani bersama ketua-ketua jabatan serta agensi yang terlibat.</p></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-07-27-mesyuarat-pilihanraya/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;]" data-n="5" data-title="Mesyuarat pilihanraya" aria-label="Buka 5 gambar: Mesyuarat pilihanraya"><img src="/assets/img/galeri/2023-07-27-mesyuarat-pilihanraya/01.jpg" alt="Mesyuarat pilihanraya" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 5 foto</span></button><time datetime="2023-07-27"><b>27</b>Jul 2023</time><h3>Mesyuarat pilihanraya</h3><p class="gl-desc">Mesyuarat pilihanraya bersama Ketua Tempat Mengundi (KTM) Dun N.36 Kundasang.</p></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-07-17-cari-gali-mineral/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;]" data-n="5" data-title="Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau" aria-label="Buka 5 gambar: Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau"><img src="/assets/img/galeri/2023-07-17-cari-gali-mineral/01.jpg" alt="Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 5 foto</span></button><time datetime="2023-07-17"><b>17</b>Jul 2023</time><h3>Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau</h3><p class="gl-desc is-clamped">Mesyuarat Perbincangan Berkaitan Isu Cari Gali Mineral di Daerah Ranau yang dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani bersama ketua-ketua jabatan, pemimpin kampung serta pihak syarikat yang terlibat.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-07-15-lawatan-pegawai-pegawai-daerah-negeri-sabah-jkm-ke-kundasang-aqua/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]" data-n="7" data-title="Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Kundasang Aquafarm" aria-label="Buka 7 gambar: Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Kundasang Aquafarm"><img src="/assets/img/galeri/2023-07-15-lawatan-pegawai-pegawai-daerah-negeri-sabah-jkm-ke-kundasang-aqua/01.jpg" alt="Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Kundasang Aquafarm" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 7 foto</span></button><time datetime="2023-07-15"><b>15</b>Jul 2023</time><h3>Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Kundasang Aquafarm</h3></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-07-15-lawatan-pegawai-pegawai-daerah-negeri-sabah-jkm-ke-desa-dairy-far/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]" data-n="7" data-title="Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Desa Dairy Farm" aria-label="Buka 7 gambar: Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Desa Dairy Farm"><img src="/assets/img/galeri/2023-07-15-lawatan-pegawai-pegawai-daerah-negeri-sabah-jkm-ke-desa-dairy-far/01.jpg" alt="Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Desa Dairy Farm" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 7 foto</span></button><time datetime="2023-07-15"><b>15</b>Jul 2023</time><h3>Lawatan Pegawai-Pegawai Daerah Negeri Sabah &amp; JKM Ke Desa Dairy Farm</h3></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-07-13-sacha-inci/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;]" data-n="8" data-title="Kursus Penanaman Sacha Inci" aria-label="Buka 8 gambar: Kursus Penanaman Sacha Inci"><img src="/assets/img/galeri/2023-07-13-sacha-inci/01.jpg" alt="Kursus Penanaman Sacha Inci" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 8 foto</span></button><time datetime="2023-07-13"><b>13</b>Jul 2023</time><h3>Kursus Penanaman Sacha Inci</h3><p class="gl-desc is-clamped">Kursus Penanaman Sacha Inci anjuran bersama Kementerian Pembangunan Luar Bandar Sabah dan Pejabat Daerah Ranau yang diadakan pada 11-13 Julai 2023 bertempat di Pusat Kemahiran Masyarakat Ranau. Program tersebut telah dirasmikan oleh Cik Farihah Mohd Jamian Penolong Pegawai Daerah (Pembangunan) mewakili Pegawai Daerah Ranau Tuan Jumain Abdul Ghani. Seramai 27 orang peserta telah menyertai kursus tersebut.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-07-13-bola-sepak/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;, &quot;15.jpg&quot;, &quot;16.jpg&quot;, &quot;17.jpg&quot;, &quot;18.jpg&quot;, &quot;19.jpg&quot;, &quot;20.jpg&quot;]" data-n="20" data-title="Perlawanan bola sepak persahabatan" aria-label="Buka 20 gambar: Perlawanan bola sepak persahabatan"><img src="/assets/img/galeri/2023-07-13-bola-sepak/01.jpg" alt="Perlawanan bola sepak persahabatan" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 20 foto</span></button><time datetime="2023-07-13"><b>13</b>Jul 2023</time><h3>Perlawanan bola sepak persahabatan</h3><p class="gl-desc is-clamped">Perlawanan bola sepak persahabatan diantara Jabatan Ketua Menteri (hitam) dan Pegawai-Pegawai Daerah Negeri Sabah (biru) di Padang B Kompleks Sukan Ranau yang berkesudahan seri 5-5. Sesi pertukaran cenderahati diantara Tuan Jumain Abdul Ghani Pegawai Daerah Ranau mewakili Pegawai-Pegawai Daerah Negeri Sabah dan Tn. Hj. Mohd. Fauzi bin Norbeh Ketua Penolong Setiausaha mewakili Jabatan Ketua Menteri.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-07-10-tadahan-air-mesilou/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;]" data-n="6" data-title="Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou" aria-label="Buka 6 gambar: Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou"><img src="/assets/img/galeri/2023-07-10-tadahan-air-mesilou/01.jpg" alt="Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 6 foto</span></button><time datetime="2023-07-10"><b>10</b>Jul 2023</time><h3>Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou</h3><p class="gl-desc is-clamped">Mesyuarat Isu Pencerobohan Tadahan Air Kg Mesilou yang dipengerusikan Tuan Jumain Abdul Ghani Pegawai Daerah Ranau bersama ketua-ketua jabatan Daerah Ranau yang terlibat serta pemimpin Kg. Mesilou. Mesyuarat memutuskan tanah Jabatan Air di kawasan tersebut akan diserahkan kepada kerajaan bagi tujuan pewartaan serta penguatkuasaan undang-undang. Lawatan dilakukan ke kawasan terlibat bagi pengesahan lokasi serta penguatkuasaan.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-06-23-jtpd/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;, &quot;15.jpg&quot;, &quot;16.jpg&quot;, &quot;17.jpg&quot;, &quot;18.jpg&quot;, &quot;19.jpg&quot;, &quot;20.jpg&quot;, &quot;21.jpg&quot;]" data-n="21" data-title="Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau" aria-label="Buka 21 gambar: Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau"><img src="/assets/img/galeri/2023-06-23-jtpd/01.jpg" alt="Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 21 foto</span></button><time datetime="2023-06-23"><b>23</b>Jun 2023</time><h3>Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau</h3><p class="gl-desc is-clamped">Mesyuarat Jawatankuasa Tindakan Pembangunan Daerah Ranau (JTPD) yang dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani. Mesyuarat turut dihadiri oleh YB Datuk Abidin Madingkir Pembantu Menteri Kepada Ketua Menteri merangkap ADUN N.38 Paginatan, YB Datuk Jonathan Yassin Ahli Parlimen P.179 Ranau serta Ketua-Ketua Jabatan Persekutuan dan Negeri Daerah Ranau.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-06-23-focus-group/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;]" data-n="4" data-title="Mesyuarat Focus Group Daerah Ranau" aria-label="Buka 4 gambar: Mesyuarat Focus Group Daerah Ranau"><img src="/assets/img/galeri/2023-06-23-focus-group/01.jpg" alt="Mesyuarat Focus Group Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 4 foto</span></button><time datetime="2023-06-23"><b>23</b>Jun 2023</time><h3>Mesyuarat Focus Group Daerah Ranau</h3><p class="gl-desc">Mesyuarat Focus Group Daerah Ranau yang dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani bersama Ketua-Ketua Jabatan Persekutuan dan Negeri Daerah Ranau.</p></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-06-21-saga/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3" data-title="Mesyuarat Persediaan Sukan Sabah (SAGA)" aria-label="Buka 3 gambar: Mesyuarat Persediaan Sukan Sabah (SAGA)"><img src="/assets/img/galeri/2023-06-21-saga/01.jpg" alt="Mesyuarat Persediaan Sukan Sabah (SAGA)" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 3 foto</span></button><time datetime="2023-06-21"><b>21</b>Jun 2023</time><h3>Mesyuarat Persediaan Sukan Sabah (SAGA)</h3><p class="gl-desc">Mesyuarat Persediaan Sukan Sabah (SAGA) yang dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani bersama Pegawai KBSS dan penaung pasukan kontinjen Daerah Ranau sempena persediaan Sukan Sabah 2023.</p></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-06-19-angkat-sumpah-majlis-daerah/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;, &quot;15.jpg&quot;, &quot;16.jpg&quot;, &quot;17.jpg&quot;, &quot;18.jpg&quot;, &quot;19.jpg&quot;, &quot;20.jpg&quot;]" data-n="20" data-title="Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025" aria-label="Buka 20 gambar: Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025"><img src="/assets/img/galeri/2023-06-19-angkat-sumpah-majlis-daerah/01.jpg" alt="Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 20 foto</span></button><time datetime="2023-06-19"><b>19</b>Jun 2023</time><h3>Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025</h3><p class="gl-desc is-clamped">Majlis Angkat Sumpah Ahli Ahli Majlis Daerah Ranau Sesi 2023-2025 yang dirasmikan oleh YB Datuk Seri Panglima Dr. Joachim Gunsalam Timbalan Ketua Menteri / Menteri Kerajaan Tempatan Dan Perumahan Sabah (KKTP) merangkap ADUN N.36 Kundasang. Turut hadir YBhg. Tuan Jupirin Hj. Ruhimin mewakili YB Datuk Seri Panglima Hj. Masidi Bin Manjun Menteri Kewangan Sabah merangkap ADUN N.37 Karanaan, YB Datuk Isnin Hj. Aliasnih @ Liasnih Pembantu Menteri I KKTP, YB Datuk Haji Mohd Hamsan Bin Awang Supain, Pembantu Menteri II KKTP, YB Datuk Jonathan Yasin Ahli Parlimen P.179 Ranau, YB Datuk Abidin Madingkir Pembantu Menteri Kepada Ketua Menteri merangkap ADUN N.38 Paginatan, YBhg. Datuk Jamili Nais SUT KKTP, YBhg. Tuan Jumain Abdul Ghani Pegawai Daerah Ranau merangkap Pengerusi Majlis Daerah Ranau, YBrs. Tuan Stanley Chong TSUT I KKTP, YBrs. Puan Faridah Giau TSUT II KKTP, YBrs. Tuan Elmer Endra M. Sator Pegawai Eksekutif Majlis Daerah Ranau serta ketua-ketua Jabatan yang terlibat. Dalam majlis tersebut seramai 17 orang Ahli Majlis Daerah Ranau Sesi 2023-2025 telah menerima watikah pelantikan dan mengangkat sumpah seterusnya menandatangani akuan sumpah di hadapan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-06-07-laporan-awal-pelan-strategik/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]" data-n="7" data-title="Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah Ranau 2023" aria-label="Buka 7 gambar: Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah Ranau 2023"><img src="/assets/img/galeri/2023-06-07-laporan-awal-pelan-strategik/01.jpg" alt="Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah Ranau 2023" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 7 foto</span></button><time datetime="2023-06-07"><b>7</b>Jun 2023</time><h3>Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah Ranau 2023</h3><p class="gl-desc is-clamped">Mesyuarat Pembentangan Laporan Awal Kajian Pelan Pembangunan Strategik Daerah Ranau 2023 yang dipengerusikan oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau. Turut hadir YB Datuk Abidin Madingkir Pembantu Menteri Kepada Ketua Menteri merangkap ADUN N.38 Paginatan, Datuk Amisah Yasin Adun Dilantik, Mantan-mantan SUT, CEO IDS, Ketua-Ketua Jabatan serta PPM.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-05-19-tamu-krt-kundasang/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3" data-title="Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang" aria-label="Buka 3 gambar: Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang"><img src="/assets/img/galeri/2023-05-19-tamu-krt-kundasang/01.jpg" alt="Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 3 foto</span></button><time datetime="2023-05-19"><b>19</b>Mei 2023</time><h3>Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang</h3><p class="gl-desc is-clamped">Mesyuarat mengenai Status Tapak Tanah Tamu KRT Kundasang yang dipengerusikan oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau bersama-sama dengan Jabatan Pendidikan Negeri Sabah, Kementerian Perpaduan Negara, Pengarah Tanah Persekutuan Sabah, Jabatan Tanah Daerah, Majlis Daerah, IPD Ranau, Kawasan Rukun Tetangga (KRT) dan Jawatankuasa Kemasyarakatan Dalam Bandar (JKDB) bertempat di Kem Wawasan Negara Kundasang.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-05-18-hentian-budaya/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;]" data-n="2" data-title="Mesyuarat yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau" aria-label="Buka 2 gambar: Mesyuarat yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau"><img src="/assets/img/galeri/2023-05-18-hentian-budaya/01.jpg" alt="Mesyuarat yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 2 foto</span></button><time datetime="2023-05-18"><b>18</b>Mei 2023</time><h3>Mesyuarat yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau</h3><p class="gl-desc is-clamped">Mesyuarat yang dipengerusikan oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau bersama dengan Tuan Mackey Apison Pengurus Besar Lembaga Kebudayaan Negeri Sabah dan rombongan, En. Marcelus Joannes Penolong Pegawai Daerah (Pembangunan), En. Mohd Fadzri Penolong Pegawai Tadbir serta wakil daripada Majlis Daerah Ranau. Perkara utama yang dibincangkan adalah pewujudan &quot;Hentian Budaya&quot; di Daerah Ranau.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-05-17-dialog-ids-appgm/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;]" data-n="6" data-title="Sesi Dialog yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau" aria-label="Buka 6 gambar: Sesi Dialog yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau"><img src="/assets/img/galeri/2023-05-17-dialog-ids-appgm/01.jpg" alt="Sesi Dialog yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 6 foto</span></button><time datetime="2023-05-17"><b>17</b>Mei 2023</time><h3>Sesi Dialog yang dipengerusikan Oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau</h3><p class="gl-desc is-clamped">Sesi Dialog yang dipengerusikan oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau bersama-sama dengan Institute for Development Sabah (IDS), All-Party Parliamentary Group Malaysia (APPGM-SDG) dan pelbagai jabatan kerajaan yang membincangkan pelbagai isu di dalam Daerah Ranau.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-04-05-lembaga-sukan-sabah/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]" data-n="7" data-title="Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah" aria-label="Buka 7 gambar: Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah"><img src="/assets/img/galeri/2023-04-05-lembaga-sukan-sabah/01.jpg" alt="Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 7 foto</span></button><time datetime="2023-04-05"><b>5</b>Apr 2023</time><h3>Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah</h3><p class="gl-desc is-clamped">Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama Lembaga Sukan Sabah serta agensi terlibat ke Kompleks Sukan Ranau bagi melihat venue pertandingan bagi acara Sukan Memanah sebagai persediaan penganjuran Sukan Sabah (SAGA) Kali Ke-10.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-04-05-taman-taman-sabah/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3" data-title="Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah" aria-label="Buka 3 gambar: Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah"><img src="/assets/img/galeri/2023-04-05-taman-taman-sabah/01.jpg" alt="Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 3 foto</span></button><time datetime="2023-04-05"><b>5</b>Apr 2023</time><h3>Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah</h3><p class="gl-desc is-clamped">Kunjungan hormat Timbalan Pengarah Taman-Taman Sabah Tuan Ludi Apin dan rombongan kepada Pegawai Daerah Ranau Tuan Jumain Abdul Ghani. Antara agenda yang dibincangkan adalah mengenai Jawatankuasa Infrastruktur &amp; Pemerkasaan Komuniti Kinabalu Unesco Global Geopark (JKIPK) yang berperanan membincangkan hal ehwal dan isu-isu berkaitan infrastruktur dan pemerkasaan komuniti di dalam Kinabalu Geopark.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-04-03-km141-sagindai/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;]" data-n="13" data-title="Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani" aria-label="Buka 13 gambar: Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani"><img src="/assets/img/galeri/2023-04-03-km141-sagindai/01.jpg" alt="Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 13 foto</span></button><time datetime="2023-04-03"><b>3</b>Apr 2023</time><h3>Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani</h3><p class="gl-desc is-clamped">Lawatan Pegawai Daerah Tuan Jumain Abdul Ghani bersama-sama dengan Pegawai Jabatan Kerja Raya, Pejabat Tanah dan Majlis Daerah di KM141.01 Jalan Kota Kinabalu - Sandakan (Tamalau Point Kg. Sagindai) untuk melihat keadaan jalan raya yang rosak akibat daripada kegiatan ekonomi di kawasan tersebut.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-03-21-program-tabah/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;, &quot;15.jpg&quot;, &quot;16.jpg&quot;, &quot;17.jpg&quot;, &quot;18.jpg&quot;, &quot;19.jpg&quot;, &quot;20.jpg&quot;]" data-n="20" data-title="Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau" aria-label="Buka 20 gambar: Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau"><img src="/assets/img/galeri/2023-03-21-program-tabah/01.jpg" alt="Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 20 foto</span></button><time datetime="2023-03-21"><b>21</b>Mac 2023</time><h3>Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau</h3><p class="gl-desc is-clamped">Program TABAH dan Kempen Sayangi Keluarga Daerah Ranau anjuran Kementerian Pembangunan Masyarakat &amp; Kesejahteraan Rakyat, Biro Hal Ehwal Wanita Pemadam, Pejabat Daerah Ranau yang dirasmikan oleh Yang Berhormat Datuk James Ratib Menteri Pembangunan Masyarakat dan Kesejahteraan Rakyat merangkap Pengerusi PEMADAM Negeri Sabah. Turut serta Puan Maria David Edick Timbalan Setiausaha Tetap Kementerian Pembangunan Masyarakat dan Kesejahteraan Rakyat, Encik Hasinin Kinsim Penolong Pegawai Daerah Kanan (Pentadbiran) merangkap Setiausaha PEMADAM Daerah Ranau, Puan Hajah Haslina Binti Ismail Pengarah Jabatan Hal Ehwal Wanita Negeri Sabah merangkap Pengerusi Biro Hal Ehwal Wanita PEMADAM Negeri Sabah, Ketua-Ketua Jabatan dan Pemimpin Masyarakat Daerah Ranau. Program TABAH (Tegas Amanah Berani Adil Harmoni) adalah bertujuan untuk mendidik dan memotivasikan masyarakat khususnya ibu bapa supaya membimbing anak-anak mereka menjadi cemerlang dalam pendidikan dan meningkatkan kesedaran masyarakat betapa pentingnya pendidikan dalam keluarga agar dapat mencegah anak-anak daripada terlibat dengan gejala sosial seperti ketagihan dadah.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-02-22-kesesakan-jalan-raya/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;]" data-n="5" data-title="Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau" aria-label="Buka 5 gambar: Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau"><img src="/assets/img/galeri/2023-02-22-kesesakan-jalan-raya/01.jpg" alt="Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 5 foto</span></button><time datetime="2023-02-22"><b>22</b>Feb 2023</time><h3>Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau</h3><p class="gl-desc is-clamped">Mesyuarat Jawatankuasa Isu Kesesakan Jalan Raya Daerah Ranau yang dipengerusikan oleh Tuan Jumain Abdul Ghani Pegawai Daerah Ranau. Turut serta En. Hasinin Kinsim Penolong Pegawai Daerah Kanan (Pentadbiran) serta Agensi/Jabatan Daerah Ranau yang terlibat.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-02-06-tanah-runtuh-lembah-permai/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;, &quot;11.jpg&quot;, &quot;12.jpg&quot;, &quot;13.jpg&quot;, &quot;14.jpg&quot;]" data-n="14" data-title="Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani" aria-label="Buka 14 gambar: Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani"><img src="/assets/img/galeri/2023-02-06-tanah-runtuh-lembah-permai/01.jpg" alt="Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 14 foto</span></button><time datetime="2023-02-06"><b>6</b>Feb 2023</time><h3>Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani</h3><p class="gl-desc is-clamped">Tinjauan Pegawai Daerah Ranau Tuan Jumain Abdul Ghani, Penolong Pegawai Daerah Kanan (Pentadbiran) Encik Hasinin Kinsim, Penolong Jurutera Encik Balzet serta Jabatan/Agensi terlibat ke kawasan yang mengalami tanah runtuh/mendapan tanah di Kg. Lembah Permai, Kundasang Ranau.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-02-03-lawatan-ketua-pengarah-perkhidmatan-awam-negeri-sabah-ke-tapak-mr/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;]" data-n="4" data-title="Lawatan Ketua Pengarah Perkhidmatan Awam Negeri Sabah Ke Tapak MRSM Ranau" aria-label="Buka 4 gambar: Lawatan Ketua Pengarah Perkhidmatan Awam Negeri Sabah Ke Tapak MRSM Ranau"><img src="/assets/img/galeri/2023-02-03-lawatan-ketua-pengarah-perkhidmatan-awam-negeri-sabah-ke-tapak-mr/01.jpg" alt="Lawatan Ketua Pengarah Perkhidmatan Awam Negeri Sabah Ke Tapak MRSM Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 4 foto</span></button><time datetime="2023-02-03"><b>3</b>Feb 2023</time><h3>Lawatan Ketua Pengarah Perkhidmatan Awam Negeri Sabah Ke Tapak MRSM Ranau</h3><p class="gl-desc is-clamped">Lawatan Ybhg Datuk Datu Rosmadi Sulai, Ketua Pengarah Jabatan Perkhidmatan Awam Negeri Sabah bersama Pegawai Daerah Ranau, Tuan Jumain Abdul Ghani dan agensi terlibat serta delegasi Petronas untuk melawat tapak bangunan Maktab Rendah Sains Mara (MRSM) Ranau. Tapak bangunan berkeluasan 30 ekar bersebelahan Kompleks Sukan Ranau. Bangunan ini sudah mencapai 95% penyiapan secara keseluruhan dan dijangka akan diserahkan kepada pihak kerajaan sekitar bulan September ini.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2023"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2023-02-01-lawatan-datuk-hajah-diyanah-abdullah-timbalan-setiausaha-kerajaan/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;]" data-n="5" data-title="Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri (Pentadbiran) dan rombongannya ke Daerah Ranau" aria-label="Buka 5 gambar: Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri (Pentadbiran) dan rombongannya ke Daerah Ranau"><img src="/assets/img/galeri/2023-02-01-lawatan-datuk-hajah-diyanah-abdullah-timbalan-setiausaha-kerajaan/01.jpg" alt="Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri (Pentadbiran) dan rombongannya ke Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 5 foto</span></button><time datetime="2023-02-01"><b>1</b>Feb 2023</time><h3>Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri (Pentadbiran) dan rombongannya ke Daerah Ranau</h3><p class="gl-desc is-clamped">Lawatan Datuk Hajah Diyanah Abdullah, Timbalan Setiausaha Kerajaan Negeri (Pentadbiran) dan rombongannya ke Daerah Ranau. Lawatan tersebut disambut oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani, Encik Hasinin Kinsim Penolong Pegawai Daerah Kanan (Pentadbiran), Puan Farihah Mohd Jamian Penolong Pegawai Daerah (Pembangunan), Encik Jupirin Ruhimin Pegawai Eksekutif Majlis Daerah serta kakitangan Pejabat Daerah Ranau. Antara perkara yang dibincangkan adalah mengenai lawatan Duli Yang Maha Mulia Seri Paduka Baginda Yang di-Pertuan Agong ke Daerah Ranau pada September nanti.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-12-09-penyerahan-tugas-kepada-encik-marcelus-joannes/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3" data-title="Penyerahan tugas kepada Encik Marcelus Joannes" aria-label="Buka 3 gambar: Penyerahan tugas kepada Encik Marcelus Joannes"><img src="/assets/img/galeri/2022-12-09-penyerahan-tugas-kepada-encik-marcelus-joannes/01.jpg" alt="Penyerahan tugas kepada Encik Marcelus Joannes" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 3 foto</span></button><time datetime="2022-12-09"><b>9</b>Dis 2022</time><h3>Penyerahan tugas kepada Encik Marcelus Joannes</h3><p class="gl-desc is-clamped">Penyerahan tugas kepada Encik Marcelus Joannes, Penolong Pegawai Daerah (Pembangunan) yang baharu menggantikan Encik Hasinin Kinsim yang dinaikkan pangkat sebagai Penolong Pegawai Daerah (Pentadbiran) Pejabat Daerah Ranau. Acara tersebut disaksikan oleh Pegawai Daerah Ranau, Tuan Jumain Abdul Ghani.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-08-07-taklimat-pilihan-raya-umum-ke-15/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;]" data-n="7" data-title="Taklimat Pilihan Raya Umum Ke-15" aria-label="Buka 7 gambar: Taklimat Pilihan Raya Umum Ke-15"><img src="/assets/img/galeri/2022-08-07-taklimat-pilihan-raya-umum-ke-15/01.jpg" alt="Taklimat Pilihan Raya Umum Ke-15" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 7 foto</span></button><time datetime="2022-08-07"><b>7</b>Ogos 2022</time><h3>Taklimat Pilihan Raya Umum Ke-15</h3><p class="gl-desc is-clamped">Taklimat Pilihan Raya Umum Ke-15 yang disampaikan oleh Pegawai SPR Tuan Zamri bin Mohd Jalil bagi petugas Ketua Tempat Mengundi (KTM) dan Kerani Pengundian 1 (KP1) Dun N.36 Kundasang, N.37 Karanaan dan N.38 Paginatan. Turut hadir Pegawai Daerah Ranau Tuan Jumain Abdul Ghani selaku Pegawai Pengurus (RO) dalam taklimat tersebut.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-08-04-mesyuarat-jawatankuasa-sambutan-maal-hijrah/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;]" data-n="4" data-title="Mesyuarat Jawatankuasa Sambutan Maal Hijrah" aria-label="Buka 4 gambar: Mesyuarat Jawatankuasa Sambutan Maal Hijrah"><img src="/assets/img/galeri/2022-08-04-mesyuarat-jawatankuasa-sambutan-maal-hijrah/01.jpg" alt="Mesyuarat Jawatankuasa Sambutan Maal Hijrah" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 4 foto</span></button><time datetime="2022-08-04"><b>4</b>Ogos 2022</time><h3>Mesyuarat Jawatankuasa Sambutan Maal Hijrah</h3><p class="gl-desc">Mesyuarat Jawatankuasa Sambutan Maal Hijrah Peringkat Daerah Ranau Bil.1/2022.</p></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-08-04-mesyuarat-pelancaran-kempen-pengibaran-jalur-gemilang/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;]" data-n="3" data-title="Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang" aria-label="Buka 3 gambar: Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang"><img src="/assets/img/galeri/2022-08-04-mesyuarat-pelancaran-kempen-pengibaran-jalur-gemilang/01.jpg" alt="Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 3 foto</span></button><time datetime="2022-08-04"><b>4</b>Ogos 2022</time><h3>Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang</h3><p class="gl-desc is-clamped">Mesyuarat Pelancaran Kempen Pengibaran Jalur Gemilang serentak seluruh Daerah Ranau dan Kempen Kebersihan/Anti Kutu Sampah yang akan diadakan pada 7hb Ogos 2022 bertempat di Pentas terbuka Kundasang. Pelancaran tersebut akan disempurnakan oleh YB Datuk Seri Panglima Haji Masidi Manjun, Menteri Kerajaan Tempatan dan Perumahan Sabah, Menteri Kewangan II merangkap ADUN N.37 Karanaan. Orang ramai dijemput hadir pada pelancaran tersebut.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-08-03-mesyuarat-jawatankuasa-sambutan-bulan-kemerdekaan/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;]" data-n="4" data-title="Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan" aria-label="Buka 4 gambar: Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan"><img src="/assets/img/galeri/2022-08-03-mesyuarat-jawatankuasa-sambutan-bulan-kemerdekaan/01.jpg" alt="Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 4 foto</span></button><time datetime="2022-08-03"><b>3</b>Ogos 2022</time><h3>Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan</h3><p class="gl-desc">Mesyuarat Jawatankuasa Sambutan Bulan Kemerdekaan Peringkat Daerah Ranau Bil.1/2022 yang dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani.</p></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-08-02-mesyuarat-kakitangan/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;]" data-n="8" data-title="Mesyuarat Kakitangan" aria-label="Buka 8 gambar: Mesyuarat Kakitangan"><img src="/assets/img/galeri/2022-08-02-mesyuarat-kakitangan/01.jpg" alt="Mesyuarat Kakitangan" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 8 foto</span></button><time datetime="2022-08-02"><b>2</b>Ogos 2022</time><h3>Mesyuarat Kakitangan</h3><p class="gl-desc">Mesyuarat Kakitangan Pejabat Daerah Ranau Bil.2/2022.</p></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-07-29-simbolik-mengibarkan-jalur-gemilang/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;]" data-n="10" data-title="Simbolik mengibarkan Jalur Gemilang" aria-label="Buka 10 gambar: Simbolik mengibarkan Jalur Gemilang"><img src="/assets/img/galeri/2022-07-29-simbolik-mengibarkan-jalur-gemilang/01.jpg" alt="Simbolik mengibarkan Jalur Gemilang" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 10 foto</span></button><time datetime="2022-07-29"><b>29</b>Jul 2022</time><h3>Simbolik mengibarkan Jalur Gemilang</h3><p class="gl-desc">Simbolik mengibarkan Jalur Gemilang sempena Hari Kebangsaan Tahun 2022 yang diketuai oleh Pegawai Daerah Ranau bersama Kakitangan Urus setia dan Pejabat Daerah.</p></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-07-22-smart-meeting-room-pejabat-daerah-ranau/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;, &quot;03.jpg&quot;, &quot;04.jpg&quot;, &quot;05.jpg&quot;, &quot;06.jpg&quot;, &quot;07.jpg&quot;, &quot;08.jpg&quot;, &quot;09.jpg&quot;, &quot;10.jpg&quot;]" data-n="10" data-title="Smart Meeting Room Pejabat Daerah Ranau" aria-label="Buka 10 gambar: Smart Meeting Room Pejabat Daerah Ranau"><img src="/assets/img/galeri/2022-07-22-smart-meeting-room-pejabat-daerah-ranau/01.jpg" alt="Smart Meeting Room Pejabat Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 10 foto</span></button><time datetime="2022-07-22"><b>22</b>Jul 2022</time><h3>Smart Meeting Room Pejabat Daerah Ranau</h3><p class="gl-desc is-clamped">Smart Meeting Room Pejabat Daerah Ranau. Lawatan rasmi Shire of Murray - Western Australia bersama JPAN dan KPLB ke Pejabat Daerah Ranau, Kampung Kilimu, Sabah Tea, Kg. Luanti, Ranau dan Taman Negara, Taman Sabah Kundasang diketuai oleh Penolong Pegawai Daerah (Pentadbiran), Puan Florencia Padasian.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-07-18-mesyuarat-focus-group/" data-files="[&quot;01.jpg&quot;, &quot;02.jpg&quot;]" data-n="2" data-title="Mesyuarat Focus Group" aria-label="Buka 2 gambar: Mesyuarat Focus Group"><img src="/assets/img/galeri/2022-07-18-mesyuarat-focus-group/01.jpg" alt="Mesyuarat Focus Group" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 2 foto</span></button><time datetime="2022-07-18"><b>18</b>Jul 2022</time><h3>Mesyuarat Focus Group</h3><p class="gl-desc">Mesyuarat Focus Group bertempat di Bilik Mesyuarat Majlis Daerah Ranau.</p></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-07-13-mesyuarat-penyelarasan-pilihanraya-peringkat-daerah-ranau/" data-files="[&quot;01.jpg&quot;]" data-n="1" data-title="Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau" aria-label="Buka 1 gambar: Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau"><img src="/assets/img/galeri/2022-07-13-mesyuarat-penyelarasan-pilihanraya-peringkat-daerah-ranau/01.jpg" alt="Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 1 foto</span></button><time datetime="2022-07-13"><b>13</b>Jul 2022</time><h3>Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau</h3><p class="gl-desc is-clamped">Mesyuarat Penyelarasan Pilihanraya Peringkat Daerah Ranau yang dipengerusikan oleh Pegawai Daerah Ranau Tuan Jumain Abdul Ghani. Mesyuarat dihadiri oleh semua ARO dan Pembantu Pilihanraya kawasan DUN N.36 Kundasang, N.37 Karanaan dan N.38 Paginatan.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-<article class="gl-card has-photos" data-year="2022"><button class="gl-cover" type="button" data-dir="/assets/img/galeri/2022-07-13-mesyuarat-bersama-wakil-wakil-bank-maybank-cimb-bank-agro-bank-al/" data-files="[&quot;01.jpg&quot;]" data-n="1" data-title="Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank dan BSN) di daerah Ranau" aria-label="Buka 1 gambar: Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank dan BSN) di daerah Ranau"><img src="/assets/img/galeri/2022-07-13-mesyuarat-bersama-wakil-wakil-bank-maybank-cimb-bank-agro-bank-al/01.jpg" alt="Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank dan BSN) di daerah Ranau" loading="lazy" width="720" /><span class="gl-count"><i class="fa-regular fa-images"></i> 1 foto</span></button><time datetime="2022-07-13"><b>13</b>Jul 2022</time><h3>Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank dan BSN) di daerah Ranau</h3><p class="gl-desc is-clamped">Mesyuarat bersama wakil-wakil bank (Maybank, CIMB Bank, Agro Bank, Alliance Bank dan BSN) di daerah Ranau bagi membincangkan sistem E-Lesen yang telah dilancarkan pada 22 Jun 2022 yang merupakan perintis kepada sistem E-Lesen di negeri Sabah. Dengan sistem E-Lesen ini maka salinan ketiga lesen berniaga tidak diperlukan lagi bagi pembukaan akaun bank syarikat.</p><button class="gl-more" type="button" aria-expanded="false">Baca selanjutnya</button></article>
-          </div>
-        </div>
-      </section>
-      <dialog class="gl-lb" id="glLb" aria-label="Paparan gambar">
-        <button class="gl-lb-x" type="button" aria-label="Tutup">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-        <button class="gl-lb-nav is-prev" type="button" aria-label="Sebelum">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <figure>
-          <img id="glLbImg" alt="" />
-          <figcaption><strong id="glLbTitle"></strong><span id="glLbCap"></span></figcaption>
-        </figure>
-        <button class="gl-lb-nav is-next" type="button" aria-label="Seterusnya">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </dialog>
-      <script>
-        (function () {
-          var dlg = document.getElementById("glLb"), img = document.getElementById("glLbImg"),
-            cap = document.getElementById("glLbCap"), ttl = document.getElementById("glLbTitle"), dir, n, i, name, files;
-          function src(k) { return dir + files[((k % n) + n) % n]; }
-          function show(k) {
-            i = (k + n) % n; img.src = src(i);
-            img.alt = name + " \u2014 gambar " + (i + 1) + " daripada " + n;
-            cap.textContent = i + 1 + " / " + n; ttl.textContent = name;
-            new Image().src = src(i + 1); new Image().src = src(i - 1);
-          }
-          document.querySelectorAll(".gl-cover").forEach(function (b) {
-            b.addEventListener("click", function () {
-              dir = b.dataset.dir; files = JSON.parse(b.dataset.files); n = files.length; name = b.dataset.title; show(0); dlg.showModal();
-            });
-          });
-          dlg.querySelector(".is-prev").onclick = function () { show(i - 1); };
-          dlg.querySelector(".is-next").onclick = function () { show(i + 1); };
-          dlg.querySelector(".gl-lb-x").onclick = function () { dlg.close(); };
-          dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
-          dlg.addEventListener("keydown", function (e) {
-            if (e.key === "ArrowLeft") show(i - 1);
-            if (e.key === "ArrowRight") show(i + 1);
-          });
-          var x0;
-          dlg.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-          dlg.addEventListener("touchend", function (e) {
-            var dx = e.changedTouches[0].clientX - x0;
-            if (Math.abs(dx) > 50) show(i + (dx < 0 ? 1 : -1));
-          });
-        })();
-      </script>
-      <script>
-        document.querySelectorAll(".gl-btn").forEach(function (b) {
+    </section>
+    <dialog class="gl-lb" id="glLb" aria-label="Paparan gambar">
+      <button class="gl-lb-x" type="button" aria-label="Tutup">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <button class="gl-lb-nav is-prev" type="button" aria-label="Sebelum">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <figure>
+        <img id="glLbImg" alt="" />
+        <figcaption><strong id="glLbTitle"></strong><span id="glLbCap"></span></figcaption>
+      </figure>
+      <button class="gl-lb-nav is-next" type="button" aria-label="Seterusnya">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </dialog>
+    <script>
+      (function () {
+        var dlg = document.getElementById("glLb"), img = document.getElementById("glLbImg"),
+          cap = document.getElementById("glLbCap"), ttl = document.getElementById("glLbTitle"), dir, n, i, name, files;
+        function src(k) { return dir + files[((k % n) + n) % n]; }
+        function show(k) {
+          i = (k + n) % n; img.src = src(i);
+          img.alt = name + " \u2014 gambar " + (i + 1) + " daripada " + n;
+          cap.textContent = i + 1 + " / " + n; ttl.textContent = name;
+          new Image().src = src(i + 1); new Image().src = src(i - 1);
+        }
+        document.querySelectorAll(".gl-cover").forEach(function (b) {
           b.addEventListener("click", function () {
-            document.querySelectorAll(".gl-btn").forEach(function (x) { x.classList.remove("is-on"); });
-            b.classList.add("is-on");
-            document.querySelectorAll(".gl-card").forEach(function (c) {
-              c.hidden = b.dataset.f !== "all" && c.dataset.year !== b.dataset.f;
-            });
+            dir = b.dataset.dir; files = JSON.parse(b.dataset.files); n = files.length; name = b.dataset.title; show(0); dlg.showModal();
           });
         });
-        document.querySelectorAll(".gl-more").forEach(function (b) {
-          b.addEventListener("click", function () {
-            var p = b.previousElementSibling, open = p.classList.toggle("is-clamped");
-            b.setAttribute("aria-expanded", String(!open));
-            b.textContent = open ? "Baca selanjutnya" : "Tutup";
+        dlg.querySelector(".is-prev").onclick = function () { show(i - 1); };
+        dlg.querySelector(".is-next").onclick = function () { show(i + 1); };
+        dlg.querySelector(".gl-lb-x").onclick = function () { dlg.close(); };
+        dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+        dlg.addEventListener("keydown", function (e) {
+          if (e.key === "ArrowLeft") show(i - 1);
+          if (e.key === "ArrowRight") show(i + 1);
+        });
+        var x0;
+        dlg.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+        dlg.addEventListener("touchend", function (e) {
+          var dx = e.changedTouches[0].clientX - x0;
+          if (Math.abs(dx) > 50) show(i + (dx < 0 ? 1 : -1));
+        });
+      })();
+    </script>
+    <script>
+      document.querySelectorAll(".gl-btn").forEach(function (b) {
+        b.addEventListener("click", function () {
+          document.querySelectorAll(".gl-btn").forEach(function (x) { x.classList.remove("is-on"); });
+          b.classList.add("is-on");
+          document.querySelectorAll(".gl-card").forEach(function (c) {
+            c.hidden = b.dataset.f !== "all" && c.dataset.year !== b.dataset.f;
           });
         });
-      </script>
-    
-@endverbatim
+      });
+      document.querySelectorAll(".gl-more").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var p = b.previousElementSibling, open = p.classList.toggle("is-clamped");
+          b.setAttribute("aria-expanded", String(!open));
+          b.textContent = open ? "Baca selanjutnya" : "Tutup";
+        });
+      });
+    </script>
+
+  @endverbatim
 @endsection

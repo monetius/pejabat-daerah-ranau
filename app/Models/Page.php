@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Page extends Model
 {
+    /** First URL segments owned by the app itself (routes, asset folders), so no CMS page may use them. */
+    public const RESERVED_PREFIXES = [
+        'admin', 'login', 'hebahan', 'kalendar', 'language', 'peta-laman', 'sitemap.xml', 'robots.txt',
+        'assets', 'uploads', 'storage', 'build', 'up',
+    ];
+
     protected $fillable = [
         'title',
         'slug',

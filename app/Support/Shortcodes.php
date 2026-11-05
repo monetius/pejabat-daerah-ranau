@@ -2,11 +2,17 @@
 
 namespace App\Support;
 
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Throwable;
+
 class Shortcodes
 {
     public const NEWS = '[[hebahan-berita]]';
 
     public const CALENDAR = '[[kalendar]]';
+
+    public const LAST_UPDATED = '[[kemas-kini]]';
 
     /** Replaces [[hebahan-berita]] in page HTML with the live announcements section. */
     public static function render(?string $html): string
@@ -22,6 +28,42 @@ class Shortcodes
         }
 
         return $html;
+    }
+
+    /**
+     * Fills in the footer's "Kemas Kini Terakhir" date: replaces [[kemas-kini]], or fills the label
+     * when it was saved with nothing after it (older footers stored in the CMS).
+     */
+    public static function renderFooter(string $html): string
+    {
+        $hasShortcode = str_contains($html, self::LAST_UPDATED);
+        $hasEmptyLabel = preg_match('/Kemas\s+Kini\s+Terakhir:\s*<\/p>/i', $html) === 1;
+        if (! $hasShortcode && ! $hasEmptyLabel) {
+            return $html;
+        }
+
+        $date = e(self::lastUpdated()?->timezone('Asia/Kuala_Lumpur')->format('d/m/Y') ?? '');
+        $html = str_replace(self::LAST_UPDATED, $date, $html);
+
+        return $hasEmptyLabel
+            ? preg_replace('/(Kemas\s+Kini\s+Terakhir:)\s*(<\/p>)/i', '$1 '.$date.'$2', $html, 1)
+            : $html;
+    }
+
+    /** Most recent change to anything visitors can see: published pages, announcements, navbar/footer. */
+    public static function lastUpdated(): ?Carbon
+    {
+        try {
+            $latest = array_filter([
+                DB::table('pages')->where('status', 'published')->max('updated_at'),
+                DB::table('announcements')->where('status', 'published')->where(fn ($q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()))->max('updated_at'),
+                DB::table('site_parts')->whereIn('key', ['navbar', 'footer'])->max('updated_at'),
+            ]);
+        } catch (Throwable) {
+            return null;
+        }
+
+        return $latest === [] ? null : Carbon::parse(max($latest));
     }
 
     /**

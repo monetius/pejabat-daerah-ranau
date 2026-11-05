@@ -9,39 +9,39 @@
 @endpush
 
 @section('content')
-@verbatim
+  @verbatim
 
-      <div class="page-header page-header--plain">
-        <div class="container">
-          <ul class="breadcrumb">
-            <li><a href="/">Laman Utama</a></li>
-            <li>Info Korporat</li>
-            <li>Dasar Keselamatan</li>
-          </ul>
-          <h1>Dasar Keselamatan</h1>
+    <div class="page-header page-header--plain">
+      <div class="container">
+        <ul class="breadcrumb">
+          <li><a href="/">Laman Utama</a></li>
+          <li>Info Korporat</li>
+          <li>Dasar Keselamatan</li>
+        </ul>
+        <h1>Dasar Keselamatan</h1>
+      </div>
+    </div>
+    <section class="ds-section">
+      <div class="container">
+        <div class="ds-block">
+          <h2>Perlindungan Data</h2>
+          <p>
+            Teknologi terkini termasuk penyulitan data adalah digunakan untuk
+            melindungi data yang dikemukakan dan pematuhan kepada standard
+            keselamatan yang ketat adalah terpakai untuk menghalang capaian
+            yang tidak dibenarkan.
+          </p>
+        </div>
+        <div class="ds-block">
+          <h2>Keselamatan Storan</h2>
+          <p>
+            Semua storan elektronik dan penghantaran data peribadi akan
+            dilindungi dan disimpan dengan menggunakan teknologi keselamatan
+            yang sesuai.
+          </p>
         </div>
       </div>
-      <section class="ds-section">
-        <div class="container">
-          <div class="ds-block">
-            <h2>Perlindungan Data</h2>
-            <p>
-              Teknologi terkini termasuk penyulitan data adalah digunakan untuk
-              melindungi data yang dikemukakan dan pematuhan kepada standard
-              keselamatan yang ketat adalah terpakai untuk menghalang capaian
-              yang tidak dibenarkan.
-            </p>
-          </div>
-          <div class="ds-block">
-            <h2>Keselamatan Storan</h2>
-            <p>
-              Semua storan elektronik dan penghantaran data peribadi akan
-              dilindungi dan disimpan dengan menggunakan teknologi keselamatan
-              yang sesuai.
-            </p>
-          </div>
-        </div>
-      </section>
-    
-@endverbatim
+    </section>
+
+  @endverbatim
 @endsection

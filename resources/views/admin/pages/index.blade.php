@@ -7,7 +7,8 @@
     </div>
 
     <form method="GET" class="row" style="margin-bottom:16px">
-        <input type="text" name="q" value="{{ $q }}" placeholder="{{ __('Cari tajuk atau URL...') }}" style="max-width:320px">
+        <input type="text" name="q" value="{{ $q }}" placeholder="{{ __('Cari tajuk atau URL...') }}"
+            style="max-width:320px">
         <button class="btn gray">{{ __('Cari') }}</button>
         @if ($q !== '')<a href="{{ route('admin.pages.index') }}">{{ __('Padam carian') }}</a>@endif
     </form>
@@ -20,7 +21,9 @@
                     <tr>
                         <td><a href="{{ route('admin.pages.edit', $item) }}">{{ $item->title }}</a></td>
                         <td><code>/{{ $item->path }}</code></td>
-                        <td><span class="badge {{ $item->status }}">{{ __($item->status === 'published' ? 'Diterbitkan' : 'Draf') }}</span></td>
+                        <td><span
+                                class="badge {{ $item->status }}">{{ __($item->status === 'published' ? 'Diterbitkan' : 'Draf') }}</span>
+                        </td>
                         <td class="row">
                             <a href="{{ $item->url() }}" target="_blank">{{ __('Lihat') }}</a>
                             <a href="{{ route('admin.pages.edit', $item) }}">{{ __('Edit') }}</a>

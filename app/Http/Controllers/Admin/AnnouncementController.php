@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\MakesUniqueSlugs;
 use App\Http\Controllers\Controller;
 use App\Models\Announcement;
 use App\Support\ContentEditor;
+use App\Support\PublicUpload;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class AnnouncementController extends Controller
 {
+    use MakesUniqueSlugs;
+
     public function index(): View
     {
         return view('admin.announcements.index', [
@@ -26,7 +27,7 @@ class AnnouncementController extends Controller
 
     public function create(): View
     {
-        return view('admin.announcements.form', ['item' => new Announcement(['status' => 'draft', 'category' => 'hebahan']), 'editor' => (new ContentEditor(''))->schema(), 'authorEnabled' => Schema::hasColumn('announcements', 'author')]);
+        return view('admin.announcements.form', ['item' => new Announcement(['status' => 'draft', 'category' => 'hebahan']), 'editor' => (new ContentEditor(''))->schema()]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -38,7 +39,7 @@ class AnnouncementController extends Controller
 
     public function edit(Announcement $announcement): View
     {
-        return view('admin.announcements.form', ['item' => $announcement, 'editor' => $this->editor($announcement)->schema(), 'authorEnabled' => Schema::hasColumn('announcements', 'author')]);
+        return view('admin.announcements.form', ['item' => $announcement, 'editor' => $this->editor($announcement)->schema()]);
     }
 
     public function update(Request $request, Announcement $announcement): RedirectResponse
@@ -99,20 +100,13 @@ class AnnouncementController extends Controller
 
         $data['body'] = ($current ? $this->editor($current) : new ContentEditor(''))->apply($data['content']);
         unset($data['content']);
-        if (Schema::hasColumn('announcements', 'author')) {
-            $data['author'] = array_key_exists('author', $data) ? (trim((string) $data['author']) ?: null) : $current?->author;
-        } else {
-            if (filled($data['author'] ?? null)) {
-                throw ValidationException::withMessages(['author' => __('Fungsi penulis belum diaktifkan. Sila hubungi pentadbir.')]);
-            }
-            unset($data['author']);
-        }
-        $data['slug'] = ($data['slug'] ?? $current?->slug) ?: $this->uniqueSlug($data['title'], $current);
+        $data['author'] = array_key_exists('author', $data) ? (trim((string) $data['author']) ?: null) : $current?->author;
+        $data['slug'] = ($data['slug'] ?? $current?->slug) ?: $this->uniqueSlug(Announcement::class, $data['title'], $current, 'hebahan');
 
         $selectedImage = filled($data['image_media'] ?? null) ? $this->libraryImage($data['image_media']) : null;
         unset($data['image'], $data['image_media'], $data['remove_image']);
         if ($request->hasFile('image')) {
-            $data['image'] = $this->storeImage($request->file('image'));
+            $data['image'] = PublicUpload::store($request->file('image'), 'gambar');
         } elseif ($selectedImage !== null) {
             $data['image'] = $selectedImage;
         } elseif ($request->boolean('remove_image')) {
@@ -152,30 +146,8 @@ class AnnouncementController extends Controller
         return '/' . str_replace('\\', '/', substr($file, strlen(realpath(public_path())) + 1));
     }
 
-    private function storeImage(UploadedFile $file): string
-    {
-        $base = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) ?: 'gambar';
-        $name = $base . '-' . Str::lower(Str::random(6)) . '.' . $file->extension();
-        $folder = 'uploads/' . date('Y/m');
-        $file->move(public_path($folder), $name);
-
-        return '/' . $folder . '/' . $name;
-    }
-
     private function editor(Announcement $announcement): ContentEditor
     {
         return new ContentEditor((string) $announcement->body, true, hash('sha256', serialize($announcement->getRawOriginal())));
-    }
-
-    private function uniqueSlug(string $title, ?Announcement $current): string
-    {
-        $base = Str::slug($title) ?: 'hebahan';
-        $slug = $base;
-        $i = 2;
-        while (Announcement::where('slug', $slug)->when($current, fn($q) => $q->whereKeyNot($current->getKey()))->exists()) {
-            $slug = $base . '-' . $i++;
-        }
-
-        return $slug;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\MakesUniqueSlugs;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\PageRevision;
@@ -10,23 +11,21 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
 class PageController extends Controller
 {
-    /** First URL segments that belong to the app itself. */
-    private const RESERVED = ['admin', 'hebahan', 'assets', 'uploads', 'storage', 'build', 'login', 'up', 'sitemap.xml', 'robots.txt', 'peta-laman'];
+    use MakesUniqueSlugs;
 
     public function index(Request $request): View
     {
         $q = trim((string) $request->query('q'));
+        $like = '%' . addcslashes($q, '%_\\') . '%';
 
         $pages = Page::query()
             ->when($q !== '', fn($query) => $query->where(
-                fn($w) => $w->where('title', 'like', "%{$q}%")->orWhere('path', 'like', "%{$q}%")
+                fn($w) => $w->where('title', 'like', $like)->orWhere('path', 'like', $like)
             ))
             ->orderBy('path')
             ->get();
@@ -67,19 +66,17 @@ class PageController extends Controller
         $sections = ['utama' => -1];
         $pageRank = [];
 
-        if (Schema::hasTable('menu_items')) {
-            foreach (DB::table('menu_items')->whereNull('parent_id')->orderBy('sort_order')->orderBy('id')->pluck('label') as $i => $label) {
-                $sections[preg_replace('/[^a-z0-9]/', '', strtolower($label))] ??= $i;
-            }
+        foreach (DB::table('menu_items')->whereNull('parent_id')->orderBy('sort_order')->orderBy('id')->pluck('label') as $i => $label) {
+            $sections[preg_replace('/[^a-z0-9]/', '', strtolower($label))] ??= $i;
+        }
 
-            $ids = DB::table('menu_items as c')
-                ->join('menu_items as p', 'c.parent_id', '=', 'p.id')
-                ->whereNotNull('c.page_id')
-                ->orderBy('p.sort_order')->orderBy('p.id')->orderBy('c.sort_order')->orderBy('c.id')
-                ->pluck('c.page_id');
-            foreach ($ids as $i => $id) {
-                $pageRank[$id] ??= $i;
-            }
+        $ids = DB::table('menu_items as c')
+            ->join('menu_items as p', 'c.parent_id', '=', 'p.id')
+            ->whereNotNull('c.page_id')
+            ->orderBy('p.sort_order')->orderBy('p.id')->orderBy('c.sort_order')->orderBy('c.id')
+            ->pluck('c.page_id');
+        foreach ($ids as $i => $id) {
+            $pageRank[$id] ??= $i;
         }
 
         foreach (['infokorporat', 'profildaerah', 'perkhidmatanonline', 'galeripautan', 'hubungikami'] as $i => $key) {
@@ -206,13 +203,13 @@ class PageController extends Controller
             $data['path'] = '';
             $data['slug'] = $current->slug;
         } else {
-            $data['slug'] = ($data['slug'] ?? $current?->slug) ?: $this->uniqueSlug($data['title'], $current);
+            $data['slug'] = ($data['slug'] ?? $current?->slug) ?: $this->uniqueSlug(Page::class, $data['title'], $current, 'halaman');
             $path = strtolower(trim((string) ($data['path'] ?? ''), '/ '));
             if ($path === '') {
                 $path = 'halaman/' . $data['slug'];
             }
 
-            if (in_array(explode('/', $path)[0], self::RESERVED, true)) {
+            if (in_array(explode('/', $path)[0], Page::RESERVED_PREFIXES, true)) {
                 throw ValidationException::withMessages(['path' => __('Laluan ini dikhaskan untuk sistem. Pilih laluan lain.')]);
             }
             $taken = Page::where('path', $path)->when($current, fn($q) => $q->whereKeyNot($current->getKey()))->exists();
@@ -228,17 +225,5 @@ class PageController extends Controller
     private function editor(Page $page): ContentEditor
     {
         return new ContentEditor((string) $page->body, true, hash('sha256', serialize($page->getRawOriginal())));
-    }
-
-    private function uniqueSlug(string $title, ?Page $current): string
-    {
-        $base = Str::slug($title) ?: 'halaman';
-        $slug = $base;
-        $i = 2;
-        while (Page::where('slug', $slug)->when($current, fn($q) => $q->whereKeyNot($current->getKey()))->exists()) {
-            $slug = $base . '-' . $i++;
-        }
-
-        return $slug;
     }
 }

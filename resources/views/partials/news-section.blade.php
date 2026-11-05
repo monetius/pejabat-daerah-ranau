@@ -3,7 +3,7 @@
     $__feature = $__news->first();
     $__side = $__news->slice(1);
 @endphp
-<link rel="stylesheet" href="{{ asset('assets/css/hebahan.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/hebahan.css') }}?v={{ filemtime(public_path('assets/css/hebahan.css')) }}">
 <section class="hb-section" id="hebahan-berita">
     <div class="container">
         <div class="hb-head">

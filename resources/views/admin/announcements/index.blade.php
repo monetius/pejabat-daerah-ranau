@@ -2,7 +2,11 @@
 @section('title', __('Hebahan'))
 @section('content')
     <div class="row" style="justify-content:space-between;margin-bottom:12px">
-        <div><p class="eyebrow">{{ __('KANDUNGAN LAMAN') }}</p><h1 style="margin:0">{{ __('Hebahan & Berita') }}</h1><p class="page-intro">{{ __('Urus berita, notis dan maklumat untuk orang awam.') }}</p></div>
+        <div>
+            <p class="eyebrow">{{ __('KANDUNGAN LAMAN') }}</p>
+            <h1 style="margin:0">{{ __('Hebahan & Berita') }}</h1>
+            <p class="page-intro">{{ __('Urus berita, notis dan maklumat untuk orang awam.') }}</p>
+        </div>
         <a class="btn" href="{{ route('admin.announcements.create') }}">{{ __('+ Hebahan baru') }}</a>
     </div>
     <div class="card">
@@ -16,7 +20,9 @@
             </tr>
             @forelse ($items as $item)
                 <tr>
-                    <td>{{ $item->title }}@if ($item->author)<div class="hint">{{ __('Oleh :name', ['name' => $item->author]) }}</div>@endif</td>
+                    <td>{{ $item->title }}@if ($item->author)
+                    <div class="hint">{{ __('Oleh :name', ['name' => $item->author]) }}</div>@endif
+                    </td>
                     <td>{{ __($item->categoryLabel()) }}</td>
                     <td><span class="badge {{ $item->publicationState() }}">{{ __($item->publicationLabel()) }}</span></td>
                     <td>{{ $item->published_at?->format('d/m/Y H:i') ?? '-' }}</td>

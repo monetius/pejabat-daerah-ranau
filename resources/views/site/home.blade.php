@@ -115,57 +115,45 @@
                 </div>
                 <div class="home-gallery-layout" id="home-gallery">
                     <div class="quick-access-grid quick-access-grid--four">
-                        <a class="quick-access-card" href="/galeri-pautan/gambar">
-                            <div class="quick-access-media">
-                                <div class="showcase-media ph-3" aria-hidden="true">
-                                    <i class="fa-solid fa-images"></i>
-                                </div>
-                            </div>
-                            <div class="quick-access-body">
-                                <span class="quick-access-tag">Galeri &amp; Pautan</span>
-                                <h3>Gambar</h3>
-                                <span class="quick-access-link">Lihat Butiran<span class="arrow"
-                                        aria-hidden="true">→</span></span>
-                            </div>
+                        <a class="quick-access-card" href="/galeri-pautan/gambar" aria-describedby="quick-access-gambar-description">
+                            <span class="quick-access-title">
+                                <span class="quick-access-icon" aria-hidden="true"><i class="fa-solid fa-images"></i></span>
+                                <span class="quick-access-heading"><span class="quick-access-tag">Galeri &amp; Pautan</span><span class="quick-access-name">Gambar</span></span>
+                            </span>
+                            <span class="quick-access-detail">
+                                <span class="quick-access-description" id="quick-access-gambar-description">Lihat koleksi foto program, aktiviti rasmi dan suasana Daerah Ranau.</span>
+                                <span class="quick-access-link" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+                            </span>
                         </a>
-                        <a class="quick-access-card" href="/galeri-pautan/video">
-                            <div class="quick-access-media">
-                                <div class="showcase-media ph-1" aria-hidden="true">
-                                    <img src="/assets/img/banner" alt="doge">
-                                </div>
-                            </div>
-                            <div class="quick-access-body">
-                                <span class="quick-access-tag">Galeri &amp; Pautan</span>
-                                <h3>Video</h3>
-                                <span class="quick-access-link">Lihat Butiran<span class="arrow"
-                                        aria-hidden="true">→</span></span>
-                            </div>
+                        <a class="quick-access-card" href="/galeri-pautan/video" aria-describedby="quick-access-video-description">
+                            <span class="quick-access-title">
+                                <span class="quick-access-icon" aria-hidden="true"><i class="fa-solid fa-video"></i></span>
+                                <span class="quick-access-heading"><span class="quick-access-tag">Galeri &amp; Pautan</span><span class="quick-access-name">Video</span></span>
+                            </span>
+                            <span class="quick-access-detail">
+                                <span class="quick-access-description" id="quick-access-video-description">Tonton rakaman aktiviti, liputan program dan video rasmi Pejabat Daerah.</span>
+                                <span class="quick-access-link" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+                            </span>
                         </a>
-                        <a class="quick-access-card" href="/galeri-pautan/intranet">
-                            <div class="quick-access-media">
-                                <div class="showcase-media ph-2" aria-hidden="true">
-                                    <i class="fa-solid fa-network-wired"></i>
-                                </div>
-                            </div>
-                            <div class="quick-access-body">
-                                <span class="quick-access-tag">Galeri &amp; Pautan</span>
-                                <h3>Intranet</h3>
-                                <span class="quick-access-link">Lihat Butiran<span class="arrow"
-                                        aria-hidden="true">→</span></span>
-                            </div>
+                        <a class="quick-access-card" href="/galeri-pautan/intranet" aria-describedby="quick-access-intranet-description">
+                            <span class="quick-access-title">
+                                <span class="quick-access-icon" aria-hidden="true"><i class="fa-solid fa-network-wired"></i></span>
+                                <span class="quick-access-heading"><span class="quick-access-tag">Galeri &amp; Pautan</span><span class="quick-access-name">Intranet</span></span>
+                            </span>
+                            <span class="quick-access-detail">
+                                <span class="quick-access-description" id="quick-access-intranet-description">Akses sistem dan perkhidmatan dalam talian untuk warga pejabat.</span>
+                                <span class="quick-access-link" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+                            </span>
                         </a>
-                        <a class="quick-access-card" href="/galeri-pautan/agensi">
-                            <div class="quick-access-media">
-                                <div class="showcase-media ph-3" aria-hidden="true">
-                                    <i class="fa-solid fa-link"></i>
-                                </div>
-                            </div>
-                            <div class="quick-access-body">
-                                <span class="quick-access-tag">Galeri &amp; Pautan</span>
-                                <h3>Pautan Agensi</h3>
-                                <span class="quick-access-link">Lihat Butiran<span class="arrow"
-                                        aria-hidden="true">→</span></span>
-                            </div>
+                        <a class="quick-access-card" href="/galeri-pautan/agensi" aria-describedby="quick-access-agensi-description">
+                            <span class="quick-access-title">
+                                <span class="quick-access-icon" aria-hidden="true"><i class="fa-solid fa-link"></i></span>
+                                <span class="quick-access-heading"><span class="quick-access-tag">Galeri &amp; Pautan</span><span class="quick-access-name">Pautan Agensi</span></span>
+                            </span>
+                            <span class="quick-access-detail">
+                                <span class="quick-access-description" id="quick-access-agensi-description">Layari portal rasmi jabatan dan agensi kerajaan berkaitan.</span>
+                                <span class="quick-access-link" aria-hidden="true"><i class="fa-solid fa-arrow-right"></i></span>
+                            </span>
                         </a>
                     </div>
                     @include('partials.home-calendar')

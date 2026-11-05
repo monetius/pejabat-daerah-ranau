@@ -59,7 +59,7 @@ class SitemapController extends Controller
         return Page::published()->orderBy('path')->get(['title', 'path', 'section', 'updated_at'])->reject(function (Page $page): bool {
             $prefix = explode('/', trim((string) $page->path, '/'))[0];
 
-            return in_array($prefix, ['admin', 'login', 'assets', 'uploads', 'storage', 'build', 'up', 'hebahan', 'language', 'kalendar', 'sitemap.xml', 'robots.txt', 'peta-laman'], true);
+            return in_array($prefix, Page::RESERVED_PREFIXES, true);
         });
     }
 

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Support\PublicUpload;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 class MediaController extends Controller
 {
@@ -44,18 +44,14 @@ class MediaController extends Controller
             'file' => ['required', 'file', 'max:10240', 'mimes:jpg,jpeg,png,webp,gif,pdf'],
         ]);
 
-        $file = $request->file('file');
-        $base = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) ?: 'fail';
-        $name = $base . '-' . Str::lower(Str::random(6)) . '.' . $file->extension();
-        $folder = 'uploads/' . date('Y/m');
-
-        $file->move(public_path($folder), $name);
+        $url = PublicUpload::store($request->file('file'));
+        $name = basename($url);
 
         if ($request->expectsJson()) {
-            return response()->json(['file' => ['name' => $name, 'url' => '/' . $folder . '/' . $name, 'image' => strtolower(pathinfo($name, PATHINFO_EXTENSION)) !== 'pdf']], 201);
+            return response()->json(['file' => ['name' => $name, 'url' => $url, 'image' => strtolower(pathinfo($name, PATHINFO_EXTENSION)) !== 'pdf']], 201);
         }
 
-        return back()->with('status', __('Fail dimuat naik: :path', ['path' => '/' . $folder . '/' . $name]));
+        return back()->with('status', __('Fail dimuat naik: :path', ['path' => $url]));
     }
 
     public function destroy(Request $request): RedirectResponse

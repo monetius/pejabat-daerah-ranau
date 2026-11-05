@@ -11,11 +11,11 @@
         <div class="footer-contact-row">
           <div>
             <span class="footer-label">No. Telefon</span>
-            <a href="tel:0888755000">088-875500</a>
+            <a href="tel:+6088875500">088-875500</a>
           </div>
           <div>
             <span class="footer-label">Faks</span>
-            <a href="tel:0888755011">088-875511</a>
+            <span>088-875511</span>
           </div>
           <div class="footer-contact-email">
             <span class="footer-label">E-mel</span>
@@ -78,18 +78,18 @@
         <a href="/info-korporat/securitypolicy"
           >Dasar Keselamatan</a
         >
-        <a href="https://www.facebook.com/PDRanau"
-          ><i class="fa-brands fa-facebook"></i
+        <a href="https://www.facebook.com/PDRanau" aria-label="Facebook Pejabat Daerah Ranau"
+          ><i class="fa-brands fa-facebook" aria-hidden="true"></i
         ></a>
-        <a href="https://www.youtube.com/@pejabatdaerahranau">
-          <i class="fa-brands fa-youtube"></i
+        <a href="https://www.youtube.com/@pejabatdaerahranau" aria-label="YouTube Pejabat Daerah Ranau">
+          <i class="fa-brands fa-youtube" aria-hidden="true"></i
         ></a>
       </nav>
       <p>
         &copy; 2026 Hak Cipta Pejabat Daerah Ranau (JPKN). Hak cipta
         terpelihara.
       </p>
-      <p>Kemas Kini Terakhir:</p>
+      <p>Kemas Kini Terakhir: [[kemas-kini]]</p>
     </div>
   </div>
 </footer>

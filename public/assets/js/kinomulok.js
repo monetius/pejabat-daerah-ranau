@@ -344,6 +344,33 @@ function initOfficeHours() {
   });
 }
 
+// Public holidays: the office-hours badge above only knows the weekly timetable,
+// so on a public holiday (from the CMS calendar) it is switched to "closed".
+async function initOfficeHolidayStatus() {
+  const box = document.getElementById('status');
+  const txt = document.getElementById('status-text');
+  if (!box || !txt) return;
+
+  const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kuala_Lumpur' }).format(new Date());
+  let entries;
+  try {
+    const response = await fetch(`/kalendar/data?month=${today.slice(0, 7)}`, { headers: { Accept: 'application/json' } });
+    if (!response.ok) return;
+    entries = (await response.json()).entries || [];
+  } catch (_) {
+    return;
+  }
+
+  const holiday = entries.find((entry) => entry.kind === 'holiday' && entry.start_date <= today && entry.end_date >= today);
+  if (!holiday) return;
+
+  box.classList.remove('is-open', 'is-rest');
+  const note = document.createElement('small');
+  note.textContent = `Cuti umum: ${holiday.title}`;
+  txt.replaceChildren('Tutup hari ini ', note);
+  box.hidden = false;
+}
+
 function initSmoothScroll() {
   // Eased mouse-wheel scrolling: the page glides toward the wheel target
   // instead of jumping in steps. Touch screens, trackpad-free keyboard use,
@@ -1125,6 +1152,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccessibility();
   loadGoogleTranslate();
   initOfficeHours();
+  initOfficeHolidayStatus();
   initSmoothScroll();
   initPdCarousel();
   initAffiliatedCarousel();

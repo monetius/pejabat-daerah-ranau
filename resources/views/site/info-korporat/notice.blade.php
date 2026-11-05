@@ -9,29 +9,29 @@
 @endpush
 
 @section('content')
-@verbatim
+  @verbatim
 
-      <div class="page-header page-header--plain">
-        <div class="container">
-          <ul class="breadcrumb">
-            <li><a href="/">Laman Utama</a></li>
-            <li>Info Korporat</li>
-            <li>Notis Penafian</li>
-          </ul>
-          <h1>Notis Penafian</h1>
+    <div class="page-header page-header--plain">
+      <div class="container">
+        <ul class="breadcrumb">
+          <li><a href="/">Laman Utama</a></li>
+          <li>Info Korporat</li>
+          <li>Notis Penafian</li>
+        </ul>
+        <h1>Notis Penafian</h1>
+      </div>
+    </div>
+    <section class="ds-section">
+      <div class="container">
+        <div class="ds-block">
+          <p>
+            Pejabat Daerah Ranau tidak akan bertanggungjawab terhadap sebarang
+            kerugian atau kerosakan yang dialami disebabkan penggunaan
+            sebarang maklumat yang terdapat di dalam laman web ini.
+          </p>
         </div>
       </div>
-      <section class="ds-section">
-        <div class="container">
-          <div class="ds-block">
-            <p>
-              Pejabat Daerah Ranau tidak akan bertanggungjawab terhadap sebarang
-              kerugian atau kerosakan yang dialami disebabkan penggunaan
-              sebarang maklumat yang terdapat di dalam laman web ini.
-            </p>
-          </div>
-        </div>
-      </section>
-    
-@endverbatim
+    </section>
+
+  @endverbatim
 @endsection

@@ -2,4 +2,8 @@
 @if ($__html === null)
 @php($__html = view('partials.' . $key)->render())
 @endif
-{!! $key === 'navbar' ? \App\Support\SiteNavigation::render(\App\Models\MenuItem::inject($__html)) : $__html !!}
+{!! match ($key) {
+    'navbar' => \App\Support\SiteNavigation::render(\App\Models\MenuItem::inject($__html)),
+    'footer' => \App\Support\Shortcodes::renderFooter($__html),
+    default => $__html,
+} !!}

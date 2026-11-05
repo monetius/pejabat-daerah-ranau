@@ -48,11 +48,13 @@
                 </div>
                 <div>
                     <label for="section">{{ __('Kumpulan') }}</label>
-                    <input type="text" id="section" name="section" value="{{ old('section', $item->section) }}" placeholder="{{ __('Contoh: Profil Daerah') }}">
+                    <input type="text" id="section" name="section" value="{{ old('section', $item->section) }}"
+                        placeholder="{{ __('Contoh: Profil Daerah') }}">
                 </div>
             </div>
             <label for="meta_description">{{ __('Penerangan ringkas untuk carian') }}</label>
-            <input type="text" id="meta_description" name="meta_description" value="{{ old('meta_description', $item->meta_description) }}">
+            <input type="text" id="meta_description" name="meta_description"
+                value="{{ old('meta_description', $item->meta_description) }}">
             <label for="slug">{{ __('Nama ringkas URL (pilihan)') }}</label>
             <input type="text" id="slug" name="slug" value="{{ old('slug', $item->slug) }}" @disabled($isHome)>
         </details>
@@ -71,7 +73,8 @@
 </form>
 
 @if ($item->exists && !$item->is_system)
-    <form method="POST" action="{{ route('admin.pages.destroy', $item) }}" onsubmit="return confirm(@js(__('Padam halaman ini?')))">
+    <form method="POST" action="{{ route('admin.pages.destroy', $item) }}"
+        onsubmit="return confirm(@js(__('Padam halaman ini?')))">
         @csrf @method('DELETE')
         <button class="btn red">{{ __('Padam halaman ini') }}</button>
     </form>
@@ -80,7 +83,9 @@
 @if (!empty($revisions) && $revisions->count())
     <div class="card" style="margin-top:20px">
         <h2 class="sec" style="margin-top:0">{{ __('Versi lama (30 terkini)') }}</h2>
-        <div class="hint" style="margin-bottom:6px">{{ __('Setiap kali anda menyimpan perubahan, versi sebelumnya disimpan di sini. Pulihkan jika tersilap.') }}</div>
+        <div class="hint" style="margin-bottom:6px">
+            {{ __('Setiap kali anda menyimpan perubahan, versi sebelumnya disimpan di sini. Pulihkan jika tersilap.') }}
+        </div>
         <table>
             @foreach ($revisions as $rev)
                 <tr>
@@ -99,4 +104,3 @@
     </div>
 @endif
 @endsection
-

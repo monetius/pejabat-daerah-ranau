@@ -1,10 +1,24 @@
 @extends('admin.layout')
 @section('title', __('Dashboard'))
 @section('content')
-    <div class="page-heading"><div><p class="eyebrow">{{ __('RUANG PENGURUSAN') }}</p><h1>{{ __('Dashboard') }}</h1><p class="page-intro">{{ __('Selamat datang, :name. Apa yang ingin dikemas kini hari ini?', ['name' => auth()->user()->name]) }}</p></div><a class="btn" href="{{ route('admin.announcements.create') }}">{{ __('+ Cipta hebahan') }}</a></div>
+    <div class="page-heading">
+        <div>
+            <p class="eyebrow">{{ __('RUANG PENGURUSAN') }}</p>
+            <h1>{{ __('Dashboard') }}</h1>
+            <p class="page-intro">
+                {{ __('Selamat datang, :name. Apa yang ingin dikemas kini hari ini?', ['name' => auth()->user()->name]) }}
+            </p>
+        </div><a class="btn" href="{{ route('admin.announcements.create') }}">{{ __('+ Cipta hebahan') }}</a>
+    </div>
     <div class="stats">
-        <div class="card stat-card"><span class="stat-label">{{ __('Jumlah halaman') }}</span><b>{{ $pageCount }}</b><a href="{{ route('admin.pages.index') }}">{{ __('Urus halaman →') }}</a></div>
-        <div class="card stat-card"><span class="stat-label">{{ __('Hebahan & berita') }}</span><b>{{ $announcementCount }}</b><a href="{{ route('admin.announcements.index') }}">{{ __('Urus hebahan →') }}</a></div><div class="card stat-card accent"><span class="stat-label">{{ __('Hebahan diterbitkan') }}</span><b>{{ $publishedCount }}</b><span>{{ __('Dipaparkan kepada orang awam') }}</span></div>
+        <div class="card stat-card"><span class="stat-label">{{ __('Jumlah halaman') }}</span><b>{{ $pageCount }}</b><a
+                href="{{ route('admin.pages.index') }}">{{ __('Urus halaman →') }}</a></div>
+        <div class="card stat-card"><span
+                class="stat-label">{{ __('Hebahan & berita') }}</span><b>{{ $announcementCount }}</b><a
+                href="{{ route('admin.announcements.index') }}">{{ __('Urus hebahan →') }}</a></div>
+        <div class="card stat-card accent"><span
+                class="stat-label">{{ __('Hebahan diterbitkan') }}</span><b>{{ $publishedCount }}</b><span>{{ __('Dipaparkan kepada orang awam') }}</span>
+        </div>
     </div>
     <div class="card" style="margin-top:20px">
         <div class="row" style="justify-content:space-between">

@@ -50,7 +50,8 @@
             <p class="ek-stat-pct">KIR eKasih setakat 30 September 2026</p>
           </div>
         </div>
-        <div class="ek-bar-wrap" role="img" aria-label="Pecahan KIR eKasih setakat 30 September 2026: Miskin 2,928 (51.7%); Terkeluar 2,739 (48.3%).">
+        <div class="ek-bar-wrap" role="img"
+          aria-label="Pecahan KIR eKasih setakat 30 September 2026: Miskin 2,928 (51.7%); Terkeluar 2,739 (48.3%).">
           <div class="ek-bar">
             <span class="ek-seg ek-miskin" style="width: 51.7%" title="Miskin: 2,928 (51.7%)"></span>
             <span class="ek-seg ek-keluar" style="width: 48.3%" title="Terkeluar: 2,739 (48.3%)"></span>
@@ -67,7 +68,8 @@
       <div class="container">
         <div class="section-head">
           <h2>Rujukan rasmi ICU JPM: 15 Januari 2026</h2>
-          <p>Statistik status kemiskinan nasional dan negeri Sabah setakat 15 Januari 2026 (dinamik), berdasarkan laporan ICU JPM.</p>
+          <p>Statistik status kemiskinan nasional dan negeri Sabah setakat 15 Januari 2026 (dinamik), berdasarkan laporan
+            ICU JPM.</p>
         </div>
         <div class="ek-table-wrap">
           <table class="ek-table ek-dun ek-icu-reference">
@@ -97,8 +99,10 @@
           </table>
         </div>
         <p class="ek-source">
-          Jumlah dalam laporan ini ialah gabungan KIR miskin dan miskin tegar. Angka ini mempunyai skop dan tarikh berbeza daripada statistik Daerah Ranau di atas.
-          <a href="https://www.icu.gov.my/pdf/stat_ekasih/MAP_Laporan_Statistik_Kemiskinan_Nasional_15012026..pdf">Lihat laporan rasmi ICU JPM Januari 2026 (PDF)</a>.
+          Jumlah dalam laporan ini ialah gabungan KIR miskin dan miskin tegar. Angka ini mempunyai skop dan tarikh berbeza
+          daripada statistik Daerah Ranau di atas.
+          <a href="https://www.icu.gov.my/pdf/stat_ekasih/MAP_Laporan_Statistik_Kemiskinan_Nasional_15012026..pdf">Lihat
+            laporan rasmi ICU JPM Januari 2026 (PDF)</a>.
         </p>
       </div>
     </section>
@@ -108,7 +112,8 @@
         <div class="section-head">
           <h2>Rekod eKasih mengikut DUN: Jun 2023</h2>
           <p>
-            Taburan KIR mengikut Dewan Undangan Negeri (DUN) bagi rekod Jun 2023. Jadual sejarah ini berasingan daripada ringkasan daerah setakat 30 September 2026.
+            Taburan KIR mengikut Dewan Undangan Negeri (DUN) bagi rekod Jun 2023. Jadual sejarah ini berasingan daripada
+            ringkasan daerah setakat 30 September 2026.
           </p>
         </div>
         <div class="ek-table-wrap">
@@ -164,7 +169,8 @@
             PGK ialah paras pendapatan yang digunakan untuk menentukan status
             kemiskinan sesebuah isi rumah. Isi rumah dengan pendapatan di
             bawah PGK keseluruhan dikategorikan sebagai miskin, manakala di
-            bawah PGK makanan dikategorikan sebagai miskin tegar. Laporan ICU JPM setakat 15 Januari 2026 memaparkan rujukan PGK Malaysia di bawah. Nilai PGK isi rumah adalah dalam RM sebulan.
+            bawah PGK makanan dikategorikan sebagai miskin tegar. Laporan ICU JPM setakat 15 Januari 2026 memaparkan rujukan
+            PGK Malaysia di bawah. Nilai PGK isi rumah adalah dalam RM sebulan.
           </p>
         </div>
 
@@ -191,14 +197,17 @@
           </table>
         </div>
         <p class="ek-source">
-          Rujukan nasional: <a href="https://www.icu.gov.my/pdf/stat_ekasih/MAP_Laporan_Statistik_Kemiskinan_Nasional_15012026..pdf">Laporan ICU JPM Januari 2026 (PDF)</a>.
+          Rujukan nasional: <a
+            href="https://www.icu.gov.my/pdf/stat_ekasih/MAP_Laporan_Statistik_Kemiskinan_Nasional_15012026..pdf">Laporan
+            ICU JPM Januari 2026 (PDF)</a>.
           Jadual terperinci mengikut negeri dan strata di bawah ialah rujukan tahun 2022 daripada dokumen KKDW.
         </p>
 
         <h3 class="ek-subhead">PGK isi rumah mengikut negeri dan strata, 2022</h3>
         <div class="ek-table-wrap">
           <table class="ek-table ek-pgk">
-            <caption class="sr-only">Pendapatan Garis Kemiskinan (PGK) isi rumah mengikut negeri dan strata, 2022 (RM sebulan bagi isi rumah)</caption>
+            <caption class="sr-only">Pendapatan Garis Kemiskinan (PGK) isi rumah mengikut negeri dan strata, 2022 (RM
+              sebulan bagi isi rumah)</caption>
             <thead>
               <tr>
                 <th rowspan="2" scope="col">Negeri</th>
@@ -381,7 +390,8 @@
         </h3>
         <div class="ek-table-wrap">
           <table class="ek-table ek-pgk">
-            <caption class="sr-only">Pendapatan Garis Kemiskinan (PGK) per kapita mengikut negeri dan strata, 2022 (RM seorang sebulan)</caption>
+            <caption class="sr-only">Pendapatan Garis Kemiskinan (PGK) per kapita mengikut negeri dan strata, 2022 (RM
+              seorang sebulan)</caption>
             <thead>
               <tr>
                 <th rowspan="2" scope="col">Negeri</th>
@@ -560,9 +570,11 @@
         </div>
 
         <p class="ek-source">
-          Sumber jadual terperinci PGK 2022: Portal Pembasmian Kemiskinan (eKasih), seperti diterbitkan oleh Kementerian Kemajuan Desa dan Wilayah (KKDW).
+          Sumber jadual terperinci PGK 2022: Portal Pembasmian Kemiskinan (eKasih), seperti diterbitkan oleh Kementerian
+          Kemajuan Desa dan Wilayah (KKDW).
           <a href="https://www.rurallink.gov.my/wp-content/uploads/2025/06/PGK.pdf">Lihat dokumen PGK 2022 (PDF)</a>.
-          Statistik Daerah Ranau merujuk 30 September 2026; statistik nasional dan Sabah daripada ICU JPM merujuk 15 Januari 2026; rekod DUN merujuk Jun 2023.
+          Statistik Daerah Ranau merujuk 30 September 2026; statistik nasional dan Sabah daripada ICU JPM merujuk 15 Januari
+          2026; rekod DUN merujuk Jun 2023.
         </p>
       </div>
     </section>

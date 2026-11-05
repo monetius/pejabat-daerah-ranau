@@ -9,29 +9,26 @@
 @endpush
 
 @section('content')
-@verbatim
+  @verbatim
 
-      <div class="page-header page-header--plain">
-        <div class="container">
-          <ul class="breadcrumb">
-            <li><a href="/">Laman Utama</a></li>
-            <li>Info Korporat</li>
-            <li>Carta Organisasi</li>
-          </ul>
-          <h1>Carta Organisasi</h1>
-        </div>
+    <div class="page-header page-header--plain">
+      <div class="container">
+        <ul class="breadcrumb">
+          <li><a href="/">Laman Utama</a></li>
+          <li>Info Korporat</li>
+          <li>Carta Organisasi</li>
+        </ul>
+        <h1>Carta Organisasi</h1>
       </div>
-      <section class="carta-section">
-        <div class="container">
-          <figure class="carta-figure">
-            <!-- ganti gambar kalau ada yg baru -->
-            <img
-              src="/assets/img/carta-organisasi.png"
-              alt="gambar organization chart"
-            />
-          </figure>
-        </div>
-      </section>
-    
-@endverbatim
+    </div>
+    <section class="carta-section">
+      <div class="container">
+        <figure class="carta-figure">
+          <!-- ganti gambar kalau ada yg baru -->
+          <img src="/assets/img/carta-organisasi.png" alt="gambar organization chart" />
+        </figure>
+      </div>
+    </section>
+
+  @endverbatim
 @endsection

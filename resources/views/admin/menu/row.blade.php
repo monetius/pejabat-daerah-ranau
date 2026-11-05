@@ -10,7 +10,8 @@
             <span class="hint">{{ __('Butang dropdown') }}</span>
         @elseif ($item->page)
             {{ $item->page->title }} <span class="hint">/{{ $item->page->path }}</span>
-            @if ($item->page->status !== 'published')<span class="badge">{{ __('Halaman draf - tidak dipaparkan') }}</span>@endif
+            @if ($item->page->status !== 'published')<span
+            class="badge">{{ __('Halaman draf - tidak dipaparkan') }}</span>@endif
         @elseif ($item->url)
             {{ $item->url }}
         @else
