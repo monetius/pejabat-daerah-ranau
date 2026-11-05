@@ -823,6 +823,21 @@ function initHomeCalendar() {
     if (text !== undefined) node.textContent = text;
     return node;
   };
+  // Weekday headings: written in the visitor's language here instead of being run through
+  // Google Translate, which turns the Malay abbreviations into nonsense ("Sel" -> "Cell").
+  const pageLanguage = document.cookie.match(/(?:^|;\s*)googtrans=\/[^/]+\/([^;]+)/)?.[1]
+    || document.querySelector('.navbar')?.getAttribute('lang') || 'ms';
+  if (pageLanguage !== 'ms') {
+    try {
+      const shortDay = new Intl.DateTimeFormat(pageLanguage, { weekday: 'short', timeZone: 'UTC' });
+      const longDay = new Intl.DateTimeFormat(pageLanguage, { weekday: 'long', timeZone: 'UTC' });
+      root.querySelectorAll('[data-calendar-weekdays] abbr').forEach((abbr, index) => {
+        const monday = new Date(Date.UTC(2024, 0, 1 + index)); // 1 Jan 2024 was a Monday
+        abbr.textContent = shortDay.format(monday);
+        abbr.title = longDay.format(monday);
+      });
+    } catch (_) { }
+  }
   let today = currentDate();
   let displayedMonth = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), 1));
   let selectedDate = isoDate(today);

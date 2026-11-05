@@ -37,7 +37,7 @@
 
 .gl-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px), 1fr));
     gap: 18px;
     padding-bottom: 3rem
 }
@@ -49,7 +49,28 @@
     padding: 1.2rem 1.3rem;
     display: flex;
     flex-direction: column;
-    gap: .5rem
+    gap: .5rem;
+    transition: border-color .15s ease, box-shadow .15s ease
+}
+
+.gl-card:hover {
+    border-color: var(--gold)
+}
+
+/* Wide card: photo on the left, details on the right */
+.gl-card.has-photos {
+    display: grid;
+    grid-template-columns: minmax(0, 44%) minmax(0, 1fr);
+    grid-template-rows: auto auto auto 1fr;
+    column-gap: 1.3rem;
+    row-gap: .45rem;
+    align-content: start;
+    padding: 1.2rem 1.3rem 1.2rem 0;
+    overflow: hidden
+}
+
+.gl-card.has-photos>* {
+    grid-column: 2
 }
 
 .gl-card[hidden] {
@@ -96,25 +117,56 @@
     text-decoration: underline
 }
 
-@media(max-width:600px) {
-    .gl-grid {
-        grid-template-columns: 1fr
-    }
-}
-
 /* Photo cover + lightbox */
 .gl-cover {
     position: relative;
     display: block;
     padding: 0;
     border: 0;
-    margin: -1.2rem -1.3rem .4rem;
-    width: calc(100% + 2.6rem);
-    aspect-ratio: 16/10;
+    margin: -1.2rem 0 -1.2rem;
+    width: 100%;
+    min-height: 220px;
     overflow: hidden;
     cursor: pointer;
     background: var(--sky-tint);
-    border-radius: var(--radius) var(--radius) 0 0
+    border-right: 1px solid var(--line)
+}
+
+.gl-card.has-photos>.gl-cover {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    align-self: stretch;
+    height: calc(100% + 2.4rem)
+}
+
+.gl-cover img {
+    position: absolute;
+    inset: 0
+}
+
+@media(max-width:640px) {
+    .gl-grid {
+        grid-template-columns: 1fr
+    }
+
+    /* Phones: back to photo on top */
+    .gl-card.has-photos {
+        display: flex;
+        padding: 1.2rem 1.3rem
+    }
+
+    .gl-cover {
+        margin: -1.2rem -1.3rem .4rem;
+        width: calc(100% + 2.6rem);
+        min-height: 0;
+        aspect-ratio: 16/10;
+        border-right: 0;
+        border-bottom: 1px solid var(--line)
+    }
+
+    .gl-card.has-photos>.gl-cover {
+        height: auto
+    }
 }
 
 .gl-cover img {
@@ -235,6 +287,7 @@
 
 .gl-more {
     align-self: flex-start;
+    justify-self: start;
     background: none;
     border: 0;
     padding: 0;

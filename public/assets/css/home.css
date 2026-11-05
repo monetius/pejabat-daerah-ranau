@@ -1531,7 +1531,7 @@ html[data-theme="dark"] .pd-nav:focus-visible {
 .home-gallery-layout .quick-access-card:hover,
 .home-gallery-layout .quick-access-card:focus-visible {
     z-index: 1;
-    width: min(460px, 100%);
+    width: min(600px, 100%);
     border-color: var(--gold);
     color: var(--ink);
     box-shadow: 0 12px 30px rgba(16, 27, 45, 0.14);

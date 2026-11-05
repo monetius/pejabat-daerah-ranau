@@ -14,11 +14,13 @@
 .pl-link {
     display: flex;
     align-items: center;
-    gap: 1.1rem;
+    gap: 1.25rem;
     background: var(--paper-raised);
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    padding: 1.25rem 1.5rem;
+    padding: 0 1.5rem 0 0;
+    min-height: 96px;
+    overflow: hidden;
     text-decoration: none;
     color: var(--ink);
     transition: border-color 0.15s ease, transform 0.15s ease;
@@ -29,22 +31,30 @@
     transform: translateY(-1px);
 }
 
+/* Left panel holding the icon, split from the text by a divider line */
 .pl-link>i:first-child {
     flex-shrink: 0;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
+    align-self: stretch;
+    width: 96px;
     background: var(--sky-tint);
+    border-right: 1px solid var(--line);
     color: var(--kinabalu-blue);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 1.6rem;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.pl-link:hover>i:first-child {
+    background: var(--gold);
+    color: var(--ink);
 }
 
 .pl-link div {
     flex: 1;
     min-width: 0;
+    padding: 1.15rem 0;
 }
 
 .pl-link h3 {
@@ -71,9 +81,13 @@
 
 @media (max-width: 560px) {
     .pl-link {
-        align-items: flex-start;
         gap: 0.9rem;
-        padding: 1.1rem;
+        padding: 0 1.1rem 0 0;
+    }
+
+    .pl-link>i:first-child {
+        width: 68px;
+        font-size: 1.3rem;
     }
 
     .pl-ext {

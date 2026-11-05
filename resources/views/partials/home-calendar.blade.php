@@ -9,7 +9,7 @@
         <button type="button" data-calendar-next aria-label="Bulan seterusnya" aria-controls="home-calendar-dates"><i class="fa-solid fa-chevron-right" aria-hidden="true"></i></button>
     </div>
     <table class="home-calendar-table" aria-labelledby="home-calendar-month">
-        <thead><tr><th scope="col"><abbr title="Isnin">Isn</abbr></th><th scope="col"><abbr title="Selasa">Sel</abbr></th><th scope="col"><abbr title="Rabu">Rab</abbr></th><th scope="col"><abbr title="Khamis">Kha</abbr></th><th scope="col"><abbr title="Jumaat">Jum</abbr></th><th scope="col"><abbr title="Sabtu">Sab</abbr></th><th scope="col"><abbr title="Ahad">Aha</abbr></th></tr></thead>
+        <thead class="notranslate" translate="no" data-calendar-weekdays><tr><th scope="col"><abbr title="Isnin">Isn</abbr></th><th scope="col"><abbr title="Selasa">Sel</abbr></th><th scope="col"><abbr title="Rabu">Rab</abbr></th><th scope="col"><abbr title="Khamis">Kha</abbr></th><th scope="col"><abbr title="Jumaat">Jum</abbr></th><th scope="col"><abbr title="Sabtu">Sab</abbr></th><th scope="col"><abbr title="Ahad">Aha</abbr></th></tr></thead>
         <tbody id="home-calendar-dates" data-calendar-dates></tbody>
     </table>
     <div class="home-calendar-legend"><span><i class="calendar-dot program" aria-hidden="true"></i> Program</span><span><i class="calendar-dot holiday" aria-hidden="true"></i> Cuti umum</span><span class="home-calendar-timezone">MYT</span></div>

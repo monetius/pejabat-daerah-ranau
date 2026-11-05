@@ -8,25 +8,38 @@
 
 .vd-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px), 1fr));
     gap: 18px;
     padding-bottom: 3rem
 }
 
+/* Wide card: thumbnail on the left, title on the right */
 .vd-card {
     background: var(--paper-raised);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
     display: flex;
-    flex-direction: column
+    flex-direction: row;
+    transition: border-color .15s ease
+}
+
+.vd-card:hover {
+    border-color: var(--gold)
+}
+
+/* While a video is playing, give it the full row so the player is a usable size */
+.vd-card:has(iframe) {
+    grid-column: 1 / -1
 }
 
 .vd-media {
     position: relative;
     display: block;
-    width: 100%;
+    flex: 0 0 46%;
+    align-self: center;
     aspect-ratio: 16/9;
+    border-right: 1px solid var(--line);
     padding: 0;
     border: 0;
     background: var(--navy) center/cover no-repeat;
@@ -81,7 +94,8 @@
 }
 
 .vd-body {
-    padding: 1rem 1.2rem 1.2rem;
+    padding: 1.2rem 1.3rem;
+    justify-content: center;
     display: flex;
     flex-direction: column;
     gap: .5rem;
@@ -120,8 +134,19 @@
     text-decoration: underline
 }
 
-@media(max-width:600px) {
+@media(max-width:640px) {
     .vd-grid {
         grid-template-columns: 1fr
+    }
+
+    /* Phones: back to thumbnail on top */
+    .vd-card {
+        flex-direction: column
+    }
+
+    .vd-media {
+        flex-basis: auto;
+        width: 100%;
+        border-right: 0
     }
 }
